@@ -1,1 +1,3 @@
-# hard-drive-tracker-system
+# Hard Drive Tracker System
+
+## Eddie Garcia says Hello!
