@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from hard_drive.views import drive_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('hard_drive/', drive_view),
 ]
