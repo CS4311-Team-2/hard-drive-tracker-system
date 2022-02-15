@@ -1,11 +1,13 @@
 # Hard Drive Tracker System
 
-## Eddie Garcia says Hello!
+## Configurations
 
-## Alex Avila says Hello!
+If you added a new library while writing code please run the following commnd. Make sure you're in same directory as the <b>requriments</b> file. 
+```
+pip freeze > requirements
+```
 
-## Madison Schlosser says Hello!:)
-
-## Marissa Atilano says Hello!
-
-## Roberto Lopez says Hello!
+After merge, run the following command incase anyone added new librarys. 
+```
+pip install requrements
+```
