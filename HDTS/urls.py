@@ -14,10 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from hard_drive.views import drive_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hard_drive/', drive_view),
+    path('hard_drive/', include('hard_drive.urls')),
 ]
