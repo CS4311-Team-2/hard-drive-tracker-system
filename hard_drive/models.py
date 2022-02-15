@@ -20,4 +20,8 @@ class HardDrive(models.Model):
     image_verion_id = models.TextField(blank=True, default='')
     boot_test_expiration = UnixTimeStampField(default=timezone.now)
     boot_test_status = models.TextField(blank=True, default='')
+    justification_for_hard_drive_status_change = models.TextField(blank=True, default='')
+    connection_port = models.TextField(blank=True, default='')
+    issue_date = UnixTimeStampField(default=timezone.now)
+    
     #TODO Need to add foreign key to request. 
