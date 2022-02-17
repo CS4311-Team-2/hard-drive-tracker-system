@@ -1,0 +1,97 @@
+
+{%block content%}
+
+<html>
+    <head>
+        <title>Requestor Home</title>
+        <style>
+            * {
+              box-sizing: border-box; 
+            }
+            body {
+              display: flex;
+              min-height: 100vh;
+              flex-direction: row;
+              margin: 0;
+            }
+            .col-1 {
+              background: lightblue;
+              flex: 1;
+              flex-direction: column;
+            }
+            .col-2 {
+              display: flex;
+              flex-direction: column;
+              flex: 5;
+            }
+            .content {
+                display: flex;
+                flex-direction: column;
+                flex: 4;
+                margin-left:1%;
+              }
+            header, footer {
+              background: skyblue;
+              height: 10vh;
+            }
+            header, footer, , nav {
+              padding: 1em;
+            }
+            .navbar{
+                margin-left:10%;
+                margin-top:10%;
+            }
+            .navoption{
+                margin-bottom:10%;
+            }
+            .row-1{
+                display: flex;
+                flex-direction: row;
+            }
+            .button {
+                color: black;
+                padding: 5px 10px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                background-color: lightgrey;
+                border-radius: 5px;
+                margin-bottom:1%;
+              }
+          </style>
+    </head>
+    <body>
+        <div class="col-2">
+  	        <header><h1 style="margin-left:1%;">Hard Drive Tracker System</h1></header>
+            <main class="content">  
+                <h2>Welcome</h2>
+                <main class="row-1">
+                    <h3>My Requests</h3>
+                    <button class="button" style="margin-left:80%">Make Request</button>
+                </main>
+                <hr size="1" width="100%" color="grey">  
+                <p> This is where the My Requests table would go<br><br><br><br><br><br><br><br><br><br><br></p>
+                <h3>Active Hard Drives</h3>
+                <hr size="1" width="100%" color="grey">  
+                <p> This is where the Active Hard Drives table would go</p>
+            </main>
+  	        <footer>Footer</footer>
+        </div>
+        <nav class="col-1">
+            <h2 style="margin-left:5%";>Navigation</h2>
+            <main class = "navbar">
+                <h3>
+                <main class="navoption"><a href="{% url 'main:index' %}">Home</a></main>
+                <main class="navoption"><a href="{% url 'main:index' %}">My Requests</a></main>
+                <main class="navoption"><a href="{% url 'main:index' %}">My Events</a></main>
+                <main class="navoption"><a href="{% url 'main:index' %}">My Hard Drives</a></main>
+                </h3>
+            </main>
+        </nav>
+    </body>
+</html>
+
+{%endblock content%}
