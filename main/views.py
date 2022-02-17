@@ -30,3 +30,16 @@ def detail(request, detail_id):
     context = {'detail': detail}
     return render(request, 'main/detail.html', context)
 
+def edit_listing(request, edit_id):
+    listing = Listings.objects.get(id=edit_id)
+  
+    if request.method != 'POST':
+        form = ListingForm(instance=listing)
+    else:
+        form = ListingForm(request.POST, request.FILES, instance=listing)
+        if form.is_valid():
+            form.save()
+            return redirect('main:all_listings')
+
+    context = {'listing': listing, 'form': form}
+    return render(request, 'main/edit_listing.html', context)
