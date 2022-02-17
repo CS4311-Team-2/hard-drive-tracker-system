@@ -4,8 +4,8 @@ from django.utils import timezone
 from unixtimestampfield.fields import UnixTimeStampField
 
 
-# Create your models here.
-
+#TODO: Need to create options for status, connection port, classification, 
+# and boot_test_status 
 class HardDrive(models.Model):
     id = models.TextField(primary_key=True)
     # TODO: Make sure this field when the object is created. 
@@ -23,5 +23,5 @@ class HardDrive(models.Model):
     justification_for_hard_drive_status_change = models.TextField(blank=True, default='')
     connection_port = models.TextField(blank=True, default='')
     issue_date = UnixTimeStampField(default=timezone.now)
-    
-    #TODO Need to add foreign key to request. 
+
+     #TODO Need to add foreign key to request. 

@@ -1,0 +1,9 @@
+<h1>New Hard Drive</h1>
+
+<form action="{% url 'main:new_listing' %}" method='post' enctype="multipart/form-data">
+    <div class="form-group">
+        {% csrf_token %}
+        {{ form.as_p }}
+    </div>
+    <button type="submit" class="btn">Create Listing</button>
+</form>
