@@ -4,8 +4,8 @@ from django.utils import timezone
 from unixtimestampfield.fields import UnixTimeStampField
 
 
- # Create your models here.
-
+#TODO: Need to create options for status, connection port, classification, 
+# and boot_test_status 
 class HardDrive(models.Model):
     id = models.TextField(primary_key=True)
     # TODO: Make sure this field when the object is created. 

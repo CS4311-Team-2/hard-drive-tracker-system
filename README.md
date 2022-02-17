@@ -27,6 +27,3 @@ git reset --hard head
 ```
  pip freeze > requirements
  ```
-
-After merge, run the following command incase anyone added new librarys. All python libraries needed to install the code. 
-pip install requrements
