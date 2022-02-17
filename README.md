@@ -7,7 +7,7 @@ Never push to the main. Always create pull requests.
 
 ### Before Working
 
-* Make sure your repo is synced.\n
+* Make sure your repo is synced.
 * Make sure you create a new branch.
 * Run the commands:
 ```
