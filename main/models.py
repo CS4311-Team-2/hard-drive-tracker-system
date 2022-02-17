@@ -1,8 +1,9 @@
 from django.db import models
 from django.utils.timezone import now
 from datetime import datetime
+from main.submodels.hard_drive import *
 
-
+#TODO Remove, Template code. 
 class Listings(models.Model):
 
     class SaleType(models.TextChoices):
