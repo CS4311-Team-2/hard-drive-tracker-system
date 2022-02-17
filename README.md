@@ -1,13 +1,32 @@
 # Hard Drive Tracker System
+LETS EAT
 
-## Configurations
+## Contributions
 
-If you added a new library while writing code please run the following commnd. Make sure you're in same directory as the <b>requriments</b> file. 
+Never push to the main. Always create pull requests. 
+
+### Before Working
+
+* Make sure your repo is synced.\n
+* Make sure you create a new branch.
+* Run the commands:
 ```
-pip freeze > requirements
+pip install requirements
 ```
 
-After merge, run the following command incase anyone added new librarys. 
+### During Work tips 
+* Commit often. If you mess something up you can revert to the previous commit using the command. <B>This can also work if you accidently work on the main rather than a seperate branch</b>.
 ```
+git reset --hard head
+```  
+
+### After Work
+
+* Once all your commits are in place, its best practice to go to the <B>main branch</b> and pull an new changes. Then merge these changes with your <b>working branch</b>. 
+* Once all merge conflicts are resolved, and you're completely synced with <b>main repo</b> you can run the command(make sure you are in the top level directory):
+```
+ pip freeze > requirements
+ ```
+
+After merge, run the following command incase anyone added new librarys. All python libraries needed to install the code. 
 pip install requrements
-```
