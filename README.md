@@ -22,7 +22,7 @@ git reset --hard head
 
 ### After Work
 
-* Once all your commits are in place, its best practice to go to the <B>main branch</b> and pull an new changes. Then merge these changes with your <b>working branch</b>. 
+* Once all your commits are in place, its best practice to go to the <B>main branch</b> and pull any new changes. Then merge these changes with your <b>working branch</b>. 
 * Once all merge conflicts are resolved, and you're completely synced with <b>main repo</b> you can run the command(make sure you are in the top level directory):
 ```
  pip freeze > requirements
