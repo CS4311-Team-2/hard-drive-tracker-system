@@ -1,4 +1,3 @@
-from unicodedata import name
 from django.urls import path
 from .import views
 
@@ -10,4 +9,5 @@ urlpatterns = [
     path('new_listing/', views.new_listing, name='new_listing'),
     path('all_listings/<detail_id>/', views.detail, name='detail'),
     path('edit_listings/<edit_id>/', views.edit_listing, name='edit_listing')
+
 ]
