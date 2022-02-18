@@ -11,7 +11,7 @@ Never push to the main. Always create pull requests.
 * Make sure you create a new branch.
 * Run the commands:
 ```
-pip install requirements
+pip install -r requirements
 ```
 
 ### During Work tips 
