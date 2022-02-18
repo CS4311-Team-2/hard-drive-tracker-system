@@ -49,6 +49,51 @@
 
                         <div class="row">                               
                             <div class="col">
+
+                                <div class="row">                               
+                                    <div class="col-1">
+                                        <br>
+                                        <h4>Request Information</h4>
+                                    </div>
+                                    <div class="col">   
+                                        <br> 
+                                        <div class="container-fluid" style="border:1px solid #cecece;">
+                                            <div class="row">    
+                                                <div class="col">
+                                                    <br>
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label for="eventName">Request Status</label>
+                                                            <input type="text" class="form-control" id="eventName" value="Confirmed" readonly>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="eventDescription">Need Drive By</label>
+                                                            <input type="date" class="form-control" id="startDate" value="2022-03-01" readonly>
+                                                        </div>
+                                                    </form>
+                                                    <br>
+                                                </div>     
+
+                                                <div class="col">
+                                                    <br>
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label for="startDate">Creation Date</label>
+                                                            <input type="date" class="form-control" id="startDate" value="2022-02-18" readonly>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="endDate">Last Modified Date</label>
+                                                            <input type="date" class="form-control" id="endDate" value="2022-02-18" readonly>
+                                                        </div>
+                                                    </form>
+                                                    <br>
+                                                </div>       
+                                            </div> 
+                                        </div>
+
+                                    </div>
+                                </div>
+
                                 <div class="row">                               
                                     <div class="col-1">
                                         <br>
@@ -148,13 +193,31 @@
                                 <div class="row">                               
                                     <div class="col-1">
                                         <br>
-                                        <h4>Comments</h4>
+                                        <h4>Requestor Comments</h4>
                                     </div>
                                     <div class="col">   
                                         <br> 
                                             <form>
                                                 <div class="form-group">
                                                     <textarea class="form-control" id="eventDescription" rows="3" readonly value="Description"></textarea>
+                                                </div>
+                                            </form>
+                                        <br>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="row">                               
+                                    <div class="col-1">
+                                        <br>
+                                        <h4>Maintainer Comments</h4>
+                                    </div>
+                                    <div class="col">   
+                                        <br> 
+                                            <form>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" id="eventDescription" rows="3" placeholder="Comments for the requestor can be typed here..."></textarea>
                                                 </div>
                                             </form>
                                         <br>
