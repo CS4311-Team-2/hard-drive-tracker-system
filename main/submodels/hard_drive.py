@@ -7,7 +7,7 @@ from unixtimestampfield.fields import UnixTimeStampField
 #TODO: Need to create options for status, connection port, classification, 
 # and boot_test_status 
 class HardDrive(models.Model):
-
+    
     class Classification(models.TextChoices):
         CLASSIFIED = "classified"
         UNCLASSIFIED = "unclassified"

@@ -11,7 +11,7 @@ Never push to the main. Always create pull requests.
 * Make sure you create a new branch.
 * Run the commands:
 ```
-pip install requirements
+pip install -r requirements
 ```
 
 ### During Work tips 
@@ -25,5 +25,5 @@ git reset --hard head
 * Once all your commits are in place, its best practice to go to the <B>main branch</b> and pull any new changes. Then merge these changes with your <b>working branch</b>. 
 * Once all merge conflicts are resolved, and you're completely synced with <b>main repo</b> you can run the command(make sure you are in the top level directory):
 ```
- pip freeze > requirements
- ```
+pip freeze > requirements
+```
