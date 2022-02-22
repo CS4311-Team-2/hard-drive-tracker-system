@@ -91,9 +91,9 @@
                             <tbody>
                               {% for request in pending_requests %}
                                 <tr>
-                                  <th scope="row">{{ request.title }}</th>
-                                  <td>{{ request.title }}</td>
-                                  <td>{{ request.title }}</td>
+                                  <th scope="row">{{ drive.serial_number }}</th>
+                                  <td>{{ drive.return_date }}</td>
+                                  <td>{{ drive.request }}</td>
                                 </tr>
                               {% empty %}
                               <h3>No listings found. Try again.</h3>

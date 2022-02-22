@@ -2,9 +2,16 @@
 from django.shortcuts import redirect, render
 from .models import Listings
 from .forms import ListingForm
+from .models import HardDrive
 
 def index(request):
     return render(request, 'main/index.html')
+
+def maintainer_home(request):
+    drives = HardDrive.objects.filter(statue= 'delinquent')
+    context = {"drives" : drives}
+    return render(request, 'main/maintainer_home.html', context)
+
 
     
 def all_listings(request):
