@@ -1,6 +1,6 @@
 from django import forms
 from .models import Listings
-from main.submodels.hard_drive import HardDrive
+from main.models.hard_drive import HardDrive
 
 # Template class
 class ListingForm(forms.ModelForm):
