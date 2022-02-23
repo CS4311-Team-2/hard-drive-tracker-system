@@ -23,7 +23,7 @@ class Request(models.Model):
         OVERDUE = "overdue"
     #Forecasted, confirmed shall be constrained by event status.?
     
-    request_reference_no = models.CharField(Request_Reference_No())
+    #request_reference_no = models.CharField(Request_Reference_No())
     request_status = models.CharField(max_length = 50, choice= Request_status)
     request_creation_date = models.DateTimeField(auto_now_add=True)
     request_last_modifed_date = models.DateTimeField(auto_now=True, blank=True)
