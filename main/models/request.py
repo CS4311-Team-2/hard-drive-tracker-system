@@ -4,7 +4,7 @@ from unixtimestampfield.fields import UnixTimeStampField
 
 class Request(models.Model):
 
-    class Request_status(models.TextChoices):
+    class Request_Status(models.TextChoices):
         CREATED = "created"
         FORECASTED = "forecasted"
         CONFIRMED = "confirmed"
@@ -21,7 +21,7 @@ class Request(models.Model):
     
     request_reference_no = models.IntegerField()
     request_reference_no_year = UnixTimeStampField(auto_now_add=True)
-    request_status = models.CharField(max_length = 50, choice= Request_status)
+    request_status = models.CharField(max_length = 50, choices= Request_Status)
     request_creation_date = models. UnixTimeStampField(auto_now_add=True)
     request_last_modifed_date = models. UnixTimeStampField(auto_now=True, blank=True)
     need_drive_by_date = models.CharField(max_length = 50)
