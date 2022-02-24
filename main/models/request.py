@@ -1,8 +1,13 @@
 from datetime import datetime
 from django.db import models
 from unixtimestampfield.fields import UnixTimeStampField
+from django import forms
 
 class Request(models.Model):
+    
+    class UploadFileForm(forms.Form):
+        title = forms.CharField(max_length=50)
+        file = forms.FileField()
 
     class Request_status(models.TextChoices):
         CREATED = "created"
@@ -25,7 +30,8 @@ class Request(models.Model):
     request_creation_date = models. UnixTimeStampField(auto_now_add=True)
     request_last_modifed_date = models. UnixTimeStampField(auto_now=True, blank=True)
     need_drive_by_date = models.CharField(max_length = 50)
-    comment = models.TextField(blank = True)  
+    comment = models.TextField(blank = True) 
+    file_attachment = 
    
     class Meta:
-        verbose_name_plural = "Request"
+        db_table = "Request"
