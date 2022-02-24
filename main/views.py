@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render
 from .models import Listings
 from .forms import ListingForm
 from .models import HardDrive
+from .models import Request
 from .forms import ListingForm, CreateUserForm
 
 from django.contrib.auth.forms import UserCreationForm
@@ -17,10 +18,11 @@ def index(request):
     return render(request, 'main/index.html')
 
 
-@login_required(login_url='main:login')
+#@login_required(login_url='main:login')
 def maintainer_home(request):
-    drives = HardDrive.objects.filter(statue= 'delinquent')
-    context = {"drives" : drives}
+    drives = HardDrive.objects.filter(status= 'delinquent')
+    requests = Request.objects.filter(request_status = 'pending')
+    context = {"drives" : drives, "request" : requests}
     return render(request, 'main/maintainer_home.html', context)
 
 
