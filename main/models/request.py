@@ -29,4 +29,4 @@ class Request(models.Model):
     file_attachment = models.FileField()
    
     class Meta:
-        db_table = "Request"
+        verbose_name_plural = "Request"
