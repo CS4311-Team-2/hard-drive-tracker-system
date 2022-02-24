@@ -31,7 +31,7 @@ class Request(models.Model):
     request_last_modifed_date = models. UnixTimeStampField(auto_now=True, blank=True)
     need_drive_by_date = models.CharField(max_length = 50)
     comment = models.TextField(blank = True) 
-    file_attachment = 
+    file_attachment = models.FileField()
    
     class Meta:
         db_table = "Request"
