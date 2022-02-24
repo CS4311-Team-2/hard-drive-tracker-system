@@ -1,13 +1,8 @@
 from datetime import datetime
 from django.db import models
 from unixtimestampfield.fields import UnixTimeStampField
-from django import forms
 
 class Request(models.Model):
-    
-    class UploadFileForm(forms.Form):
-        title = forms.CharField(max_length=50)
-        file = forms.FileField()
 
     class Request_status(models.TextChoices):
         CREATED = "created"
