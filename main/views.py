@@ -42,4 +42,8 @@ def edit_listing(request, edit_id):
             return redirect('main:all_listings')
 
     context = {'listing': listing, 'form': form}
+<<<<<<< HEAD
     return render(request, 'main/edit_listing.html', context)
+=======
+    return render(request, 'main/edit_listing.html', context)
+>>>>>>> ec1e4124f3ef65649691a3d8d3d91e1a8997c6f5
