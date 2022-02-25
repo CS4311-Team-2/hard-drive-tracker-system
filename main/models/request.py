@@ -40,7 +40,6 @@ class HardDriveRequest(models.Model):
         UNCLASSIFIED = "unclassified"
 
     # key to the hard drive. 
-    id = models.CharField(primary_key=True, max_length=50)
     classification = models.CharField(max_length=50, choices=Classification.choices, 
                                         default=Classification.UNCLASSIFIED)
     amount_required = models.IntegerField(default=1) 
@@ -48,6 +47,8 @@ class HardDriveRequest(models.Model):
     hard_drive_size = models.CharField(max_length=50)
     hard_drive_type = models.CharField(max_length=50)
     comment = models.TextField(blank=True)
+    request = models.ForeignKey(Request, 
+                on_delete=models.CASCADE, blank=True)
 
     class Meta:
         verbose_name_plural = "Hard Drive Request"

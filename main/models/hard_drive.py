@@ -1,11 +1,10 @@
 from email.policy import default
+from tkinter import CASCADE
 from django.db import models
 from django.utils import timezone
 from unixtimestampfield.fields import UnixTimeStampField
+from .request import Request
 
-
-#TODO: Need to create options for status, connection port, classification, 
-# and boot_test_status 
 class HardDrive(models.Model):
     
     class Classification(models.TextChoices):
@@ -16,7 +15,6 @@ class HardDrive(models.Model):
         PASS = "pass"
         FAILED = "failed"
 
-    hard_drive_id = models.TextField(primary_key=True)
     # TODO: Make sure this field when the object is created. 
     create_date = UnixTimeStampField(auto_now_add=True) 
     serial_number = models.CharField(max_length=100)
@@ -44,6 +42,8 @@ class HardDrive(models.Model):
     justification_for_hard_drive_return_date_status_change = models.TextField(blank=True)
     actual_return_date = UnixTimeStampField(blank=True)
     modified_date = UnixTimeStampField(auto_now=True, auto_now_add=True)
+    request = models.ForeignKey(Request, 
+                    on_delete=models.CASCADE, blank=True, related_name="hard_drive_requests")
 
     class Meta:
         verbose_name_plural = "Hard Drive"
