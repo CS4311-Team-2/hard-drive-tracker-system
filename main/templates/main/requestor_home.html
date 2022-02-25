@@ -59,7 +59,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          {% for request in pending_requests %}
+                          {% for request in requests %}
                             <tr>
                               <th scope="row">{{ request.title }}</th>
                               <td>{{ request.title }}</td>
@@ -86,11 +86,11 @@
                               </tr>
                             </thead>
                             <tbody>
-                              {% for request in pending_requests %}
+                              {% for hard_drive in hard_drives %}
                                 <tr>
-                                  <th scope="row">{{ request.title }}</th>
-                                  <td>{{ request.title }}</td>
-                                  <td>{{ request.title }}</td>
+                                  <th scope="row">{{ hard_drive.title }}</th>
+                                  <td>{{ hard_drive.title }}</td>
+                                  <td>{{ hard_drive.title }}</td>
                                 </tr>
                               {% empty %}
                               <h3>No listings found. Try again.</h3>
@@ -106,18 +106,24 @@
                 <nav class="navbar bg-light">
                     <!-- Links -->
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">My Requests</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">My Events</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">My Hard Drives</a>
-                        </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="#">Request</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="#">Inventory</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="#">Profile</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="#">Report</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="#">Sign Out</a>
+                      </li>
                     </ul>
   
                 </nav>
