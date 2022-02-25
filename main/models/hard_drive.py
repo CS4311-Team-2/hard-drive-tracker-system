@@ -16,7 +16,7 @@ class HardDrive(models.Model):
         PASS = "pass"
         FAILED = "failed"
 
-    id = models.TextField(primary_key=True)
+    hard_drive_id = models.TextField(primary_key=True)
     # TODO: Make sure this field when the object is created. 
     create_date = UnixTimeStampField(auto_now_add=True) 
     serial_number = models.CharField(max_length=100)
