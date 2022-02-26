@@ -16,7 +16,7 @@ class HardDrive(models.Model):
         FAILED = "failed"
 
     # TODO: Make sure this field when the object is created. 
-    create_date = UnixTimeStampField(auto_now_add=True) 
+    create_date = UnixTimeStampField(use_numeric=True, auto_now_add=True) 
     serial_number = models.CharField(max_length=100)
     manufacturer = models.CharField(blank=True, max_length=100)
     model_number = models.CharField(blank=True, max_length=100)
@@ -27,23 +27,23 @@ class HardDrive(models.Model):
                                         default=Classification.UNCLASSIFIED)
     # This field needs to be changed when the classification is changed. 
     # TODO: This needs to give the option of a file or straight text. 
-    justification_for_classification_change = models.TextField()
+    justification_for_classification_change = models.TextField(blank=True)
     # TODO: Need to limit this number at 4. 
     image_version_id = models.CharField(max_length=100)
     boot_test_status = models.CharField(max_length=50, choices=BootTestStatus.choices, 
                                             default=BootTestStatus.PASS)
-    boot_test_expiration = UnixTimeStampField(blank=True)
+    boot_test_expiration = UnixTimeStampField(use_numeric=True, default=0.0)
 
     # The options to this field can be configured. 
     status = models.CharField(max_length=100)
     justification_for_hard_drive_status_change = models.TextField(blank=True)
-    issue_date = UnixTimeStampField(blank=True)
-    expected_hard_drive_return_date = UnixTimeStampField(blank=True)
+    issue_date = UnixTimeStampField(use_numeric=True,default=0.0)
+    expected_hard_drive_return_date = UnixTimeStampField(use_numeric=True,default=0.0)
     justification_for_hard_drive_return_date_status_change = models.TextField(blank=True)
-    actual_return_date = UnixTimeStampField(blank=True)
-    modified_date = UnixTimeStampField(auto_now=True, auto_now_add=True)
+    actual_return_date = UnixTimeStampField(use_numeric=True,default=0.0)
+    modified_date = UnixTimeStampField(use_numeric=True, auto_now=True, auto_now_add=True)
     request = models.ForeignKey(Request, 
-                    on_delete=models.CASCADE, blank=True, related_name="hard_drive_requests")
+                    on_delete=models.CASCADE, null=True, blank=True, related_name="hard_drive_requests")
 
     class Meta:
         verbose_name_plural = "Hard Drive"

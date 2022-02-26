@@ -21,13 +21,13 @@ class Request(models.Model):
     #Forecasted, confirmed shall be constrained by event status.?
     
     request_reference_no = models.CharField(primary_key=True, max_length=50)
-    request_reference_no_year = UnixTimeStampField(auto_now_add=True)
+    request_reference_no_year = UnixTimeStampField(use_numeric=True, auto_now_add=True,default=0.0)
     request_status = models.CharField(max_length = 50, choices= Request_Status.choices)
-    request_creation_date = UnixTimeStampField(auto_now_add=True)
-    request_last_modifed_date = UnixTimeStampField(auto_now=True, blank=True)
+    request_creation_date = UnixTimeStampField(use_numeric=True, auto_now_add=True,default=0.0)
+    request_last_modifed_date = UnixTimeStampField(use_numeric=True, auto_now=True,default=0.0)
     need_drive_by_date = models.CharField(max_length = 50)
     comment = models.TextField(blank = True) 
-    file_attachment = models.FileField()
+    #file_attachment = models.FileField()
    
     class Meta:
         verbose_name_plural = "Request"
@@ -44,11 +44,11 @@ class HardDriveRequest(models.Model):
                                         default=Classification.UNCLASSIFIED)
     amount_required = models.IntegerField(default=1) 
     connection_port = models.CharField(max_length=50, default='SATA')
-    hard_drive_size = models.CharField(max_length=50)
-    hard_drive_type = models.CharField(max_length=50)
+    hard_drive_size = models.CharField(max_length=50,blank=True)
+    hard_drive_type = models.CharField(max_length=50,blank=True)
     comment = models.TextField(blank=True)
     request = models.ForeignKey(Request, 
-                on_delete=models.CASCADE, blank=True)
+                on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Hard Drive Request"
