@@ -25,6 +25,24 @@ def maintainer_home(request):
     context = {"drives" : drives, "request" : requests}
     return render(request, 'main/maintainer_home.html', context)
 
+#@login_required(login_url='main:login')
+def requestor_makes_request(request){
+    if request.method == 'POST':
+        if request.POST.get('event_name') and request.POST.get('event_description') and request.POST.get('event_type') and request.POST.get('event_status') and request.POST.get('startDate') and request.POST.get('endDate') and request.POST.get('location') and request.POST.get('location') and request.POST.get('lengthOfCycle') and request.POST.get('quantity') and request.POST.get('storagesize') and request.POST.get('classification') and request.POST.get('connection_port') and request.POST.get('hard_drive_type') and request.POST.get('comments'): 
+            event = Event()
+            request = Request()
+            hard_drive_request = HardDriveRequest()
+            request.title= request.POST.get('title')
+            request.content= request.POST.get('content')
+            request.save()
+                
+            return render(request, 'posts/create.html')  
+
+    else:
+            return render(request,'posts/create.html')
+}
+
+
 
     
 def all_listings(request):
