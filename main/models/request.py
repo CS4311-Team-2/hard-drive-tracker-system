@@ -48,7 +48,7 @@ class HardDriveRequest(models.Model):
     hard_drive_type = models.CharField(max_length=50,blank=True)
     comment = models.TextField(blank=True)
     request = models.ForeignKey(Request, 
-                on_delete=models.CASCADE, blank=True, null=True)
+                on_delete=models.CASCADE, blank=True, null=True, related_name="hard_drive_requests")
 
     class Meta:
         verbose_name_plural = "Hard Drive Request"

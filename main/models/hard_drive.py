@@ -43,7 +43,7 @@ class HardDrive(models.Model):
     actual_return_date = UnixTimeStampField(use_numeric=True,default=0.0)
     modified_date = UnixTimeStampField(use_numeric=True, auto_now=True, auto_now_add=True)
     request = models.ForeignKey(Request, 
-                    on_delete=models.CASCADE, null=True, blank=True, related_name="hard_drive_requests")
+                    on_delete=models.CASCADE, null=True, blank=True, related_name="hard_drives")
 
     class Meta:
         verbose_name_plural = "Hard Drive"
