@@ -1,3 +1,4 @@
+from http.client import CREATED
 from django.db import models
 from unixtimestampfield.fields import UnixTimeStampField
 from email.policy import default
@@ -22,7 +23,7 @@ class Request(models.Model):
     
     request_reference_no = models.CharField(primary_key=True, max_length=50)
     request_reference_no_year = UnixTimeStampField(use_numeric=True, auto_now_add=True,default=0.0)
-    request_status = models.CharField(max_length = 50, choices= Request_Status.choices)
+    request_status = models.CharField(max_length = 50, choices= Request_Status.choices, default=CREATED)
     request_creation_date = UnixTimeStampField(use_numeric=True, auto_now_add=True,default=0.0)
     request_last_modifed_date = UnixTimeStampField(use_numeric=True, auto_now=True,default=0.0)
     need_drive_by_date = models.CharField(max_length = 50)
