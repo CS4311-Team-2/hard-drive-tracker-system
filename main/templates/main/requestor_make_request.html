@@ -163,33 +163,34 @@
                                     </div>
                                     <div class="col">   
                                         <br> 
+                                        <form method="POST" action=" ">
+                                        {% csrf_token %}
                                         <div class="container-fluid" style="border:1px solid #cecece;">
                                             <div class="row">    
                                                 <div class="col">
                                                     <br>
-                                                    <form>
+                                                    
                                                         <div class="form-group">
                                                             <label for="quantity">Quantity<span>*</span></label>
                                                             <input type="text" class ="form-control" id="quantity" placeholder="#" name="quantity"/>
                                                         </div>
 
-                                                    </form>
                                                     <br>
                                                 </div>    
                                                 <div class="col">
                                                     <br>
-                                                    <form>
+                                                 
                                                         <div class="form-group">
                                                             <label for="storagesize">Storage Size</label>
                                                             <input type="text" class ="form-control" id="storagesize" placeholder="#" name="storagesize"/>
                                                         </div>
 
-                                                    </form>
+                                                 
                                                     <br>
                                                 </div>
                                                 <div class="col">   
                                                     <br>
-                                                    <form>
+                                                 
                                                     <div class="form-group">
                                                         <label for="classification">Classification<span>*</span></label>
                                                         <select name="classification" id="classification">
@@ -198,12 +199,12 @@
                                                         <option value="2" >Unclassified</option>
                                                         </select>
                                                         </div>
-                                                    </form>
+                                               
                                                     <br>
                                                 </div>    
                                                 <div class="col">   
                                                     <br> 
-                                                    <form>
+                                            
                                                     <div class="form-group">
                                                         <label for="connection">Connection Port</label>
                                                         <select name="connection_port" id="connection_port ">
@@ -212,13 +213,13 @@
                                                         <option value="2" >M.2</option>
                                                         </select>
                                                         </div>
-                                                    </form>
+                                              
                                                     <br>
                                                 </div>
                                             
                                                 <div class="col">   
                                                     <br> 
-                                                    <form>
+                                               
                                                     <div class="form-group">
                                                         <label for="typeharddrive">Hard Drive Type</label>
                                                         <select id="hard_drive_type" name="hard_drive_type">
@@ -227,17 +228,18 @@
                                                         <option value="2" >SSD</option>
                                                         </select>
                                                         </div>
-                                                    </form>
+                                                 
                                                     <br>
                                                 </div>
                                                 <div class="col">
                                                     <br>
-                                                    <form>
+                                                  
                                                     <div class="btn-block">
-                                                        <button type="add" href="/">Add</button>
+                                                        <button type="submit" href="/">Add</button>
                                                         </div>
-                                                    </form>
+                                                  
                                                     <br>
+                                                    </form>
                                                 </div>
                                                <div class="container-fluid" >
                                             <div class="row">    
