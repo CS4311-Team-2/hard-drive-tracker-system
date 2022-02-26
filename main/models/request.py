@@ -1,11 +1,12 @@
 from datetime import datetime
+from pickle import NONE
 from django.db import models
 from unixtimestampfield.fields import UnixTimeStampField
 
 class Request(models.Model):
 
     class Request_Status(models.TextChoices):
-        CREATED = "created"
+        CREATED = "pending"
         FORECASTED = "forecasted"
         CONFIRMED = "confirmed"
         APPROVED = "approved"
@@ -21,7 +22,7 @@ class Request(models.Model):
     
     request_reference_no = models.IntegerField()
     request_reference_no_year = UnixTimeStampField(auto_now_add=True)
-    request_status = models.CharField(max_length = 50, choices= Request_Status.choices)
+    request_status = models.CharField(max_length = 50, choices= Request_Status.choices, default=Request_Status.CREATED)
     request_creation_date = UnixTimeStampField(auto_now_add=True)
     request_last_modifed_date = UnixTimeStampField(auto_now=True, blank=True)
     need_drive_by_date = models.CharField(max_length = 50)

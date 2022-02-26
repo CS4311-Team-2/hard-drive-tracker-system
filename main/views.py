@@ -1,5 +1,6 @@
 # Create your views here.
 from email import message
+from http.client import CREATED
 import re
 from django.shortcuts import redirect, render
 from .models import Listings
@@ -22,7 +23,7 @@ def index(request):
 def maintainer_home(request):
     drives = HardDrive.objects.filter(status= 'delinquent')
     requests = Request.objects.filter(request_status = 'pending')
-    context = {"drives" : drives, "request" : requests}
+    context = {"drives" : drives, "requests" : requests}
     return render(request, 'main/maintainer_home.html', context)
 
 
