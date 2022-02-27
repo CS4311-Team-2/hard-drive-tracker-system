@@ -1,5 +1,6 @@
 # Create your views here.
 from email import message
+from multiprocessing import context
 import re
 from django.shortcuts import redirect, render
 from .models import Listings
@@ -20,10 +21,13 @@ def index(request):
 
 #@login_required(login_url='main:login')
 def maintainer_home(request):
-    drives = HardDrive.objects.filter(status= 'delinquent')
-    requests = Request.objects.filter(request_status = 'pending')
-    context = {"drives" : drives, "request" : requests}
+    deliquentdrives = HardDrive.objects.filter(status= 'delinquent')
+    requests = Request.objects.filter(request_status = 'created')
+    context = {"deliquentdrives" : deliquentdrives, "requests" : requests}
     return render(request, 'main/maintainer_home.html', context)
+
+def maintainer_view_request(request):
+    return render(request, 'main/maintainer_view_request.html')
 
 
     
