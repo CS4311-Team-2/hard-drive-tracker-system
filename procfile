@@ -1,1 +1,1 @@
-web: gunicorn hard-drive-tracker-system.wsgi
+web: gunicorn HDTS.wsgi
