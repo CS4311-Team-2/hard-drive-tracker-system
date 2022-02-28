@@ -1,2 +1,2 @@
-web: gunicorn HDTS.wsgi --log-file -
 heroku ps:scale web=1
+web: gunicorn HDTS.wsgi --log-file -
