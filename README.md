@@ -27,3 +27,30 @@ git reset --hard head
 ```
 pip freeze > requirements
 ```
+
+## Database
+
+### Prepare Database
+
+* This command will make a new migration file to update the database if the models in the model table had been modified. 
+```
+python manage.py makemigrations
+```
+
+* This command will make a update your local SQLite database with the migration files
+```
+python manage.py migrate
+```
+
+### Populate Database
+
+* Run the following to command to load the data into the database so far only 2 hard drives are added from the hard_drive.csv file but adding more rows will add more hard drives to the system
+```
+python manage.py updatemodels
+```
+
+### Create users
+* Run this command to create an admin user in your database and have access to all the model data at once in your computer.
+```
+python manage.py createsuperuser
+```
