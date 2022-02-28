@@ -1,3 +1,4 @@
 id,create_date,serial_number,manufacturer,model_number,hard_drive_type,connection_port,hard_drive_size,classification,justification_for_classification_change,imange_version_id,boot_test_status,boot_test_expiration,status,justification_for_hard_drive_status_change,issue_date,expected_hard_drive_return_date,justification_for_hard_drive_return_date_status_change,actual_return_date,modified_date
-1,1645912697,123456,Dell,123456,SSD,SATA,8,classified,yes,1,pass,1645912697,1645912697,1645912697,1645912697,1645912697,1645912697,1645912697,1645912697
-2,1645912697,456789,HP,456789,HDD,SAN,8,classified,yes,1,pass,1645912697,1645912697,1645912697,1645912697,1645912697,1645912697,1645912697,1645912697
+1,1645912697,123456,Dell,123456,SSD,SATA,8,classified,yes,1,pass,1645912697,delinquent,1645912697,1645912697,1645912697,1645912697,1645912697,1645912697
+2,1645912697,456789,HP,456789,HDD,SAN,8,classified,yes,1,pass,1645912697,delinquent,1645912697,1645912697,1645912697,1645912697,1645912697,1645912697
+3,1645912697,789456,HP,789456,HDD,SAN,8,classified,yes,1,pass,1645912697,delinquent,1645912697,1645912697,1645912697,1645912697,1645912697,1645912697
