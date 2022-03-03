@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Maintainer View All Requests</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
+  <script src="http://momentjs.com/downloads/moment.min.js"></script>
+  <link href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
+  
+  <script>
+      $(function() {
+        $('input[name="datetimepicker"]').datetimepicker({
+            defaultDate: new Date()
+        }).on('dp.change',function(event){
+            $('#newDateSpan').html("New Date: " + event.date.format('lll'));
+            $('#oldDateSpan').html("Old Date: " + event.oldDate.format('lll'));
+        });
+        
+        });
+  </script>
+
+  <style>  
+    .jumbotron {
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+    .btn {
+        margin-left:40%;
+        margin-top:1%;
+        width: 160px;
+        font-size: 15px;
+    }
+    .content {
+        display: flex;
+        flex-direction: column;
+        flex: 4;
+        margin-left:3%;
+        margin-right:3%;
+    }
+    .navbar{
+        padding-bottom: 1000px;
+    }
+    thead {
+        background: lightgrey;
+        position: sticky;
+        top: 0;
+    }
+    .scroller {
+        height: 500px !important;
+        overflow: scroll;
+    }
+    .btn_order {
+        display: inline;
+    }
+    /* Sidebar CSS */
+    /* .request-attribute {
+        outline: 1px solid black;
+    }
+    .hard-drive-attribute {
+        outline: 1px solid black;
+    }
+    .event-attribute {
+        outline: 1px solid black;
+    }
+    .date-attribute {
+        outline: 1px solid black;
+    }
+    .keyword-attribute {
+        outline: 1px solid black;
+    } */
+    body {
+        background-color: #fbfbfb;
+    }
+    @media (min-width: 991.98px) {
+        main {
+            padding-left: 240px;
+        }
+    }
+    .sidebar {
+        position: fixed;
+        top: 80px;
+        bottom: 0;
+        left: 0;
+        padding: 0px 0 0; /* Height of navbar */
+        box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+        width: 240px;
+        z-index: 600;
+        /* height: 500px !important; */
+        overflow: scroll;
+    }
+    @media (max-width: 991.98px) {
+        .sidebar {
+            width: 100%;
+        }
+    }
+    .sidebar .active {
+        border-radius: 5px;
+        box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    }
+    .sidebar-sticky {
+        position: relative;
+        top: 0;
+        height: calc(100vh - 48px);
+        padding-top: 0.5rem;
+        /* Scrollable contents if viewport is shorter than content. */
+        /* overflow-x: hidden; */
+        overflow-y: scroll; 
+    }
+  </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <header>
+            <!-- Start of Sidebar -->
+            <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+            <div class="position-sticky">
+                <div class="list-group list-group-flush mx-3 mt-4">
+                    <h3>Search Content Area</h3>
+
+                    <div class="request-attribute">
+                        <h4><strong>Request Attribute</strong></h4>
+                        <h5>Request Reference Number:</h5>
+                        <input type="text" class="form-control">
+                        <div class="dropdown show">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left:10%;">
+                              Request Status
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                              <a class="dropdown-item" href="#">Created</a>
+                              <a class="dropdown-item" href="#">Forecasted</a>
+                              <a class="dropdown-item" href="#">Confirmed</a>
+                              <a class="dropdown-item" href="#">Approved</a>
+                              <a class="dropdown-item" href="#">Declined</a>
+                              <a class="dropdown-item" href="#">Delivered</a>
+                              <a class="dropdown-item" href="#">Fulfilled</a>
+                              <a class="dropdown-item" href="#">Partial-Returned</a>
+                              <a class="dropdown-item" href="#">Closed</a>
+                              <a class="dropdown-item" href="#">Canceled</a>
+                              <a class="dropdown-item" href="#">Archived</a>
+                              <a class="dropdown-item" href="#">Overdue</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hard-drive-attribute">
+                        <h4><strong>Hard Drive Attribute</strong></h4>
+                        <h5>Total No. of Drives:</h5>
+                        <input type="text" class="form-control">
+                        <!-- Radio -->
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label" for="inlineCheckbox1">Less than</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                            <label class="form-check-label" for="inlineCheckbox2">Equal</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                            <label class="form-check-label" for="inlineCheckbox3">Greater than</label>
+                          </div>
+
+                    </div>
+            
+                    <div class="event-attribute">
+                        <h4><strong>Event Attribute</strong></h4>
+                        <h5>Username:</h5>
+                        <input type="text" class="form-control">
+
+                        <div class="dropdown show">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left:10%;">
+                              Request Status
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                              <a class="dropdown-item" href="#">Required</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="date-attribute">
+                        <h4><strong>Date Attribute</strong></h4>
+                        <div class="form-group">
+                            <label for="'startDate">Event Start Date<span>*</span></label>
+                            <input type="date" class="startDate" name="startDate"/>
+                            <i class="fas fa-calander-alt"></i>
+                        </div>
+                        <div class="form-group">
+                            <label for="'startDate">Event End Date<span>*</span></label>
+                            <input type="date" class="endDate" name="endDate"/>
+                            <i class="fas fa-calander-alt"></i>
+                        </div>
+                        <div class="form-group">
+                            <label for="'startDate">Request Date<span>*</span></label>
+                            <input type="date" class="endDate" name="endDate"/>
+                            <i class="fas fa-calander-alt"></i>
+                        </div>
+                        <div class="form-group">
+                            <label for="'startDate">Need Drive Due by Date<span>*</span></label>
+                            <input type="date" class="endDate" name="endDate"/>
+                            <i class="fas fa-calander-alt"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="keyword-attribute">
+                        <h4><strong>Keyword</strong></h4>
+                        <h5>Expression:</h5>
+                        <input type="text" class="form-control">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="margin-left:10%;">Search</button>
+                </div>
+                </div>
+            </div>
+            </nav>
+        </header>
+        <!-- End of Sidebar -->
+
+        <div class="row no-gutters">
+            <div class="col">
+                <div class="jumbotron">
+                    <h2>View All Requests</h2>      
+                </div>
+                <main class="content">
+                    <h3>Summary View of Requests</h3> 
+                        <div class="row">                               
+                            <div class="col">
+                                <div class="row">                               
+                                    <div class="col">   
+                                            <!-- Table -->
+                                            <div class="scroller">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                      <tr>
+                                                        <th scope="col">Reference No.</th>
+                                                        <th scope="col">Date</th>
+                                                        <th scope="col">Event Start Date</th>
+                                                        <th scope="col">Event End Date</th>
+                                                        <th scope="col">Need Drive Due by Date</th>
+                                                        <th scope="col">Event Name</th>
+                                                        <th scope="col">Event Description</th>
+                                                        <th scope="col">Event Type</th>
+                                                        <th scope="col">Event Lead Username</th>
+                                                        <th scope="col">Total No. of Drives</th>
+                                                        <th scope="col">Request Status</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for hard_drive in hard_drives %}
+                                                      <tr>
+                                                        <td>{{s}}</td>
+                                                        <td>{{s}}</td>
+                                                        <td>{{s}}</td>
+                                                        <td>{{s}}</td>
+                                                        <td>{{s}}</td>
+                                                        <td>{{s}}</td>
+                                                        <td>{{s}}</td>
+                                                        <td>{{s}}</td>
+                                                        <td>{{s}}</td>
+                                                        <td>{{s}}</td>
+                                                        <td>{{s}}</td>  
+                                                      </tr>
+                                                    {% empty %}
+                                                    <h3>No requests found.</h3>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="row">                               
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col">   
+                                        <br> 
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        
+                        <!-- Start footer buttons -->
+                        <div class="col" style="margin-left:60%;">
+                            <button type="submit" class="btn btn-primary">Clone Request</button>
+                        </div>        
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary" style="margin-left:20%;">Add Request</button>
+                        </div>
+                        <!-- End of footer buttons -->
+                    </div> 
+                </main>
+            </div>
+            
+            <!-- Start of right navigation bar -->
+            <div class="col-2">
+                <!-- A vertical navbar -->
+                <nav class="navbar bg-light">
+                    <!-- Links -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Requests</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Events</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Hard Drives</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Reports</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">System Configurations</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Logs</a>
+                        </li>
+                    </ul>
+                </nav>
+                <br>
+            </div>
+            <!-- End of right navigation bar -->
+        </div>
+    </div>
+</body>
+</html>
