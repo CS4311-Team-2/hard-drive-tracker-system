@@ -1,8 +1,9 @@
 from django.db import models
+from main.models.request import Request
 from unixtimestampfield.fields import UnixTimeStampField
 from email.policy import default
 from django.db import models
-from request import Request
+
 
 class HardDriveRequest(models.Model):
 
