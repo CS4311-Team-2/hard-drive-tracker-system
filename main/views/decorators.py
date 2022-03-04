@@ -1,5 +1,8 @@
 from django.contrib.auth.decorators import user_passes_test
 
+#This are helper funtions that add functionality to view function such as
+#authenticating the user and check if they are in a specific group
+
 def group_required(*group_names):
     def in_group(user):
         if user.is_authenticated:
