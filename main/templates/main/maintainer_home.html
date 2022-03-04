@@ -58,11 +58,11 @@
                           </tr>
                         </thead>
                         <tbody>
-                          {% for request in pending_requests %}
+                          {% for request in requests %}
                             <tr>
-                              <th scope="row">{{ request.title }}</th>
-                              <td>{{ request.title }}</td>
-                              <td>{{ request.title }}</td>
+                              <th scope="row">{{ request.request_reference_no }}</th>
+                              <td>{{ request.request_status }}</td>
+                              <td>{{ request.request_creation_date }}</td>
                               <td>{{ request.title }}</td>
                               <td>{{ request.title }}</td>
                             </tr>
@@ -85,10 +85,10 @@
                               </tr>
                             </thead>
                             <tbody>
-                              {% for hard_drive in delinquent_hard_drives %}
+                              {% for request in deliquentdrives %}
                                 <tr>
-                                  <th scope="row">{{ hard_drive.title }}</th>
-                                  <td>{{ hard_drive.title }}</td>
+                                  <th scope="row">{{ request.serial_number }}</th>
+                                  <td>{{ deliquentdrive.expected_hard_drive_return_date }}</td>
                                   <td>{{ hard_drive.title }}</td>
                                 </tr>
                               {% empty %}
@@ -106,10 +106,10 @@
                     <!-- Links -->
                     <ul class="navbar-nav">
                       <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="{% url 'main:index' %}">Home</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link" href="#">Request</a>
+                          <a class="nav-link" href="{% url 'main:maintainer_view_request' %}">Request</a>
                       </li>
                       <li class="nav-item">
                           <a class="nav-link" href="#">Configuration</a>
@@ -127,7 +127,7 @@
                           <a class="nav-link" href="#">Log</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link" href="#">Sign Out</a>
+                          <a class="nav-link" href="{% url 'main:logout' %}">Sign Out</a>
                       </li>
                     </ul>
   
