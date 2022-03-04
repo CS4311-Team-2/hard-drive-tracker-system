@@ -13,5 +13,5 @@ urlpatterns = [
     path('all_listings/', views.all_listings, name='all_listings'),
     path('new_listing/', views.new_listing, name='new_listing'),
     path('maintainer/', views.maintainer_home, name='maintainer_home'),
-    path('maintainer/request', views.maintainer_view_request, name='maintainer_view_request')
+    path('maintainer/request', views.maintainer_view_all_requests, name='maintainer_view_all_requests')
 ]

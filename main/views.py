@@ -29,6 +29,11 @@ def maintainer_home(request):
 def maintainer_view_request(request):
     return render(request, 'main/maintainer_view_request.html')
 
+def maintainer_view_all_requests(request):
+    requests = Request.objects.filter(request_status = 'created')
+    context = {"requests" : requests}
+    return render(request, 'main/maintainer_view_all_requests.html', context)
+
 
     
 def all_listings(request):
