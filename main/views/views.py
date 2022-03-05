@@ -82,11 +82,11 @@ def maintainer_adds_hard_drive():
     if (add_hard_drive.method == 'POST'):
         hardDrive.create_date = add_hard_drive.POST.get('creation_date')
         hardDrive.serial_number = add_hard_drive.POST.get('serial_No')
-        hardDrive.manufacturer = add_hard_drive.POST.get('manufacturer')
+        hardDrive.manufacturer = add_hard_drive.POST.get('manufacturer') #its suppose to be a dropdown: refer SRS page 42
         hardDrive.model_number = add_hard_drive.POST.get('model_NO')
-        hardDrive.hard_drive_type = add_hard_drive.POST.get('hard_drive_type')
-        hardDrive.connection_port = add_hard_drive.POST.get('connection_port')
-        hardDrive.hard_drive_size = add_hard_drive.POST.get('hard_drive_size')
+        hardDrive.hard_drive_type = add_hard_drive.POST.get('hard_drive_type') #it suppose to be a dropdown: refer to SRS page 42
+        hardDrive.connection_port = add_hard_drive.POST.get('connection_port') #it suppose to be a dropdown: refer to SRS page 42
+        hardDrive.hard_drive_size = add_hard_drive.POST.get('hard_drive_size') #its supposed to be a dropdown: Refer to SRS page 42
          
         hardDrive.classification = add_hard_drive.POST.get('classification')
         if (hardDrive.POST.get('classification') == 1):

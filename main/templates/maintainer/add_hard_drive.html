@@ -57,11 +57,9 @@
                             <div class="col">
                                 <br>
                                 <form>
-                                    <!--<div class="form-group">
+                                    <div class="form-group">
                                             <h3>Hard Drive Specification</h3>
-                                        <label for="eventName">Specification</label>
-                                        <input type="text" class="form-control" id="specification">
-                                    </div> -->
+                                    </div>
                                     <div class="form-group">
                                         <label>Creation Date</label>
                                         <input type="text" class="form-control" id="creation_date">
@@ -73,6 +71,7 @@
                                     <div class="form-group">
                                         <label>Manufacturer</label>
                                         <input type="text" class="form-control" id="manufacturer" >
+                                        <!--its suppose to be a dropdown: refer SRS page 42-->
                                     </div>
                                     <div class="form-group">
                                         <label>Model No.</label>
@@ -81,14 +80,17 @@
                                     <div class="form-group">
                                             <label>Hard Drive Type</label>
                                             <input type="text" class="form-control" id="hard_drive_type">
+                                            <!--it suppose to be a dropdown: refer to SRS page 43-->
                                     </div>
                                     <div class="form-group">
                                             <label>hard Drive Connection Port</label>
                                             <input type="text" class="form-control" id="connection_port">
+                                            <!--it suppose to be a dropdown: refer to SRS page 42-->
                                     </div>
                                     <div class="form-group">
                                         <label>hard Drive Size</label>
                                         <input type="text" class="form-control" id="hard_drive_size">
+                                        <!--its supposed to be a dropdown: Refer to SRS page 42. Cannot find the sizes-->
                                 </div>
                                     <div class="form-group">
                                             <h3>Hard Drive Modifier</h3>
@@ -126,7 +128,7 @@
                                         <h3>Hard Drive Image Content Area</h3>
                                         <div class="form-group">
                                             <label>Hard Drive Image</label>
-                                            <input type="text" class="form-control" id="hardDrive_image" >
+                                            <!--<input type="text" class="form-control" id="hardDrive_image" > -->
                                         </div>
                                         <div class="form-group">
                                             <label>Image Version ID</label>
@@ -135,10 +137,12 @@
                                         <div class="form-group">
                                             <label>Boot Test Status</label>
                                             <input type="text" class="form-control" id="boot_test_status" >
+                                            <!--supposed to be a drop down: refer to SRS page 42-->
                                         </div>
                                         <div class="form-group">
                                             <label>Boot Test Expiration Date</label>
                                             <input type="text" class="form-control" id="boot_test_expiration_date" >
+                                            <!--It suppose to be a date picker: refer to SRS page 42-->
                                         </div>
                                         <h3>Hard Drive Condition</h3>
                                         <div class="dropdown">
@@ -170,10 +174,7 @@
                                         <div class="form-group">
                                             <label>Expected Hard Drive Return Date</label>
                                             <input type="text" class="form-control" id="expected_hard_drive_return_date" >
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Justification for Hard Drive Return Date</label>
-                                            <input type="text" class="form-control" id="justification_for_hard_drive_return_date" >
+                                            <!--it supposed to be a date picker-->
                                         </div>
                                         <div class="form-group">
                                             <label>Request Reference</label>
@@ -192,21 +193,7 @@
             </div> 
             
 
-        </div>
-
-                                
-
-                     
-                    <div class="row">
-                        <div class="col" style="margin-left:70%;">
-                            <button type="submit" class="btn btn-primary">Deny</button>
-                        </div>
-                        <div class="col">
-                            <button type="submit" class="btn btn-primary" style="margin-left:40%;">Approve</button>
-                        </div>
-                    </div>
-                    
-                    
+        </div>      
 
                 </main>
             
