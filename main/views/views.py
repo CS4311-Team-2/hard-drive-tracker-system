@@ -79,7 +79,7 @@ def logoutUser(request):
 def maintainer_adds_hard_drive():
     hardDrive = HardDrive()
     
-    if add_hard_drive.method == 'POST':
+    if (add_hard_drive.method == 'POST'):
         hardDrive.create_date = add_hard_drive.POST.get('creation_date')
         hardDrive.serial_number = add_hard_drive.POST.get('serial_No')
         hardDrive.manufacturer = add_hard_drive.POST.get('manufacturer')
@@ -88,7 +88,7 @@ def maintainer_adds_hard_drive():
         hardDrive.connection_port = add_hard_drive.POST.get('connection_por')
         hardDrive.hard_drive_size = add_hard_drive.POST.get('hard_drive_size')
          
-        hardDrive.Classification = add_hard_drive.POST.get('')
+        hardDrive.classification = add_hard_drive.POST.get('classification')
         if (hardDrive.POST.get('classification') == 1):
             hardDrive.classification = 'classfied'
         if (hardDrive.POST.get('classification') == 2):
