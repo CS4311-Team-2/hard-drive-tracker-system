@@ -65,6 +65,8 @@
                     <h2>Requests</h2>      
                 </div>
                 <main class="content"> 
+                    <form action="/requestor/make_requestor" method="post">
+                        {% csrf_token %}    
                     <h3>Request Form</h3>
                     <div class="container-fluid" style="border:1px solid #cecece;">
 
@@ -82,7 +84,7 @@
                                             <div class="row">    
                                                 <div class="col">
                                                     <br>
-                                                    <form>
+                                                        
                                                         <div class="form-group">
                                                             <label for="eventName">Event Name<span>*</span></label>
                                                             <input type="text" class ="form-control" id="name" placeholder="Name of Event" name = "event_name"/>
@@ -120,13 +122,13 @@
                                                             <option value="Canceled" >Canceled</option>
                                                             </select>
                                                         </div>
-                                                    </form>
+                                                    
                                                     <br>
                                                 </div>     
 
                                                 <div class="col">
                                                     <br>
-                                                    <form>
+                                                    
                                                         <div class="form-group">
                                                             <label for="startDate">Start Date<span>*</span></label>
                                                             <input type="date" class="form-control" id="startDate" name ="startDate"/>
@@ -146,7 +148,7 @@
                                                             <label for="eventName">Length of Reporting Cycle<span>*</span></label>
                                                             <input type="text" class ="form-control" id="lengthOfCycle" name="lengthOfCycle" placeholder="Days" />
                                                         </div>
-                                                    </form>
+                                                    
                                                     <br>
                                                 </div>       
                                             </div> 
@@ -163,9 +165,11 @@
                                     </div>
                                     <div class="col">   
                                         <br> 
-                                        <form method="POST" action=" ">
-                                        {% csrf_token %}
+                                        
+                                    
                                         <div class="container-fluid" style="border:1px solid #cecece;">
+                                            <form action="/requestor/make_requestor" method="post">
+                                                {% csrf_token %}   
                                             <div class="row">    
                                                 <div class="col">
                                                     <br>
@@ -235,17 +239,18 @@
                                                     <br>
                                                   
                                                     <div class="btn-block">
-                                                        <button type="submit" href="/">Add</button>
+                                                        <button type="submit" href="/requestor/make_requestor">Add</button>
                                                         </div>
                                                   
                                                     <br>
-                                                    </form>
+                                                    
                                                 </div>
+                                            </form>
                                                <div class="container-fluid" >
                                             <div class="row">    
                                                 <div class="col">
                                                     <br>
-                                                    <form> 
+                                                    
                                                        
                                                     <table class="table table-bordered">
                                                             <thead>
@@ -257,30 +262,32 @@
                                                                 <th scope="col">Hard Drive Type</th>
                                                             </tr>
                                                             </thead>
+                                                            {% for hd_request in hard_drive_requests %}
                                                             <tbody>
                                                                 <tr>
-                                                                <th scope="row">4</th>
-                                                                <td>Unclassified</td>
-                                                                <td>SATA</td>
-                                                                <td></td>
-                                                                <td>1000GB</td>
+                                                                <th scope="row">{{ hd_request.amount_required }}</th>
+                                                                <td>{{ hd_request.hard_drive_size }}</td>
+                                                                <td>{{ hd_request.classification }}</td>
+                                                                <td>{{ hd_request.connection_port }}</td>
+                                                                <td>{{ hd_request.hard_drive_type }}</td>
                                                                 </tr>
                                                             </tbody>
+                                                            {% endfor %}
                                                     </table>
                                                     <br>
-                                                    <form>
+                                                    
                                             </div>
                                     </div>
                                      <div class="row">                               
                         
                                     <div class="col">   
                                         <br> 
-                                        <form>
+                                        
                                         <div class="form-group">
                                                 <label for="comments">Comments</label>
                                                 <textarea id="comments" class="form-control" rows="4" placeholder="Additonal comments" name="comments"></textarea>
                                             </div>
-                                            </form>
+                                            
                                         <br>
 
 
@@ -297,12 +304,9 @@
                 <div class="btn-block">
                     <div class="row">
                         <div class="col">
-                            <button type="request" href="/">Request</button>
+                            <button type="submit" href="/requestor/make_requestor">Request</button>
                 <br>
                         </div>
                     </div>
                 </div>
-    
-                
-
-                
+            </form>

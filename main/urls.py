@@ -12,5 +12,6 @@ urlpatterns = [
     path('', views.index, name='index'),  
     path('all_listings/', views.all_listings, name='all_listings'),
     path('new_listing/', views.new_listing, name='new_listing'),
-    path('maintainer/', views.maintainer_home, name='maintainer_home')
+    path('maintainer/', views.maintainer_home, name='maintainer_home'),
+    path('requestor/make_requestor', views.requestor_makes_request, name='requestor_makes_request'),
 ]
