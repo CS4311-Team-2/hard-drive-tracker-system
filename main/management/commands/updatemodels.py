@@ -1,8 +1,12 @@
 from lib2to3.pytree import Base
 from django.core.management.base import BaseCommand
 import pandas as pd
+from main.models.event import Event
+from main.models.request import Request
 from main.models.hard_drive import HardDrive
 from django.contrib.auth.models import User, Group
+
+
 
 MAINTAINER_USERNAME = 'Maintainer'
 REQUESTOR_USERNAME = 'Requestor'
@@ -15,6 +19,28 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
+        df = pd.read_csv('request.csv')
+        for (id, request_reference_no, request_reference_no_year, request_status, request_creation_date,
+             request_last_modified_date, need_drive_by_date, comment) \
+        in zip(df.id, df.request_reference_no, df.request_reference_no_year, df.request_status, df.request_creation_date,
+             df.request_last_modified_date, df.need_drive_by_date, df.comment):
+
+            models = Request(id, request_reference_no, request_reference_no_year, request_status, request_creation_date,
+             request_last_modified_date, need_drive_by_date, comment)
+
+            models.save()
+    
+        df = pd.read_csv('event.csv')
+        for (id, event_name, event_description, event_location, event_type, length_of_reporting_cycles,
+         event_status, event_start_date, event_end_date) \
+        in zip(df.id, df.event_name, df.event_description, df.event_location, df.event_type, df.length_of_reporting_cycles,
+         df.event_status, df.event_start_date, df.event_end_date):
+
+            models = Event(id, event_name, event_description, event_location, event_type, length_of_reporting_cycles,
+         event_status, event_start_date, event_end_date)
+
+            models.save()
+
         df = pd.read_csv('hard_drives.csv')
         for (id, create_date, serial_number, manufacturer,
             model_number, hard_drive_type, connection_port,
