@@ -86,7 +86,7 @@ def maintainer_adds_hard_drive():
         hardDrive.model_number = add_hard_drive.POST.get('model_NO')
         hardDrive.hard_drive_type = add_hard_drive.POST.get('hard_drive_type')
         hardDrive.connection_port = add_hard_drive.POST.get('connection_por')
-        #hardDrive.hard_drive_size = add_hard_drive.POST.get('') not available yet in the interface
+        hardDrive.hard_drive_size = add_hard_drive.POST.get('hard_drive_size') 
         #hardDrive.Classification = add_hard_drive.POST.get('') How do you get the value for a dropdown?
         hardDrive.justification_for_classification_change = add_hard_drive.POST.get('justification_for_classification_change')
         hardDrive.image = add_hard_drive.POST.get('hardDrive_image')
