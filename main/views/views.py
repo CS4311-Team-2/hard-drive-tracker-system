@@ -100,4 +100,9 @@ def maintainer_adds_hard_drive():
         hardDrive.expected_hard_drive_return_date = add_hard_drive.POST.get('expected_hard_drive_return_date')
         hardDrove.justification_for_hard_drive_return_date = add_hard_drive.POST.get('justification_for_hard_drive_return_date')
         hardDrive.request = add_hard_drive.POST.get('request_reference')
+        hardDrive.save()
+        #if hardDrive.POST.get(''):
+        
+     
+        
         
