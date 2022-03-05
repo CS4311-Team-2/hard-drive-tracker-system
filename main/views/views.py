@@ -93,13 +93,36 @@ def maintainer_adds_hard_drive():
             hardDrive.classification = 'classfied'
         if (hardDrive.POST.get('classification') == 2):
             hardDrive.classification = 'unclassfied'
+            
         hardDrive.justification_for_classification_change = add_hard_drive.POST.get('justification_for_classification_change')
         hardDrive.image = add_hard_drive.POST.get('hardDrive_image')
         hardDrive.image_version_id = add_hard_drive.POST.get('image_version_id')
         hardDrive.boot_test_status = add_hard_drive.POST.get('boot_test_status')
         hardDrive.boot_test_expiration = add_hard_drive.POST.get('boot_test_expiration_date')
        
-        #hardDrive.status = add_hard_drive.POST.get('status') How do you get the value for a dropdown?
+        if (add_hard_drive.POST.get('status') == 1):
+            add_hard_drive.status = 'assigned'
+        if (add_hard_drive.POST.get('status') == 2):
+            add_hard_drive.status = 'available'
+        if (add_hard_drive.POST.get('status') == 3):
+            add_hard_drive.status = 'end of life'
+        if (add_hard_drive.POST.get('status') == 4):
+            add_hard_drive.status = 'master clone'
+        if (add_hard_drive.POST.get('status') == 5):
+            add_hard_drive.status = 'pending wipe'
+        if (add_hard_drive.POST.get('status') == 6):
+            add_hard_drive.status = 'destroyed'
+        if (add_hard_drive.POST.get('status') == 7):
+            add_hard_drive.status = 'lost'
+        if (add_hard_drive.POST.get('status') == 8):
+            add_hard_drive.status = 'overdue'
+        if (add_hard_drive.POST.get('status') == 9):
+            add_hard_drive.status = 'picked up'
+        if (add_hard_drive.POST.get('status') == 10):
+            add_hard_drive.status = 'returned'
+        if (add_hard_drive.POST.get('status') == 11):
+            add_hard_drive.status = 'pending classification change approval'
+            
         hardDrive.justification_for_hard_drive_status_change = add_hard_drive.POST.get('justification_for_hard_drive_status_change')
         hardDrive.issue_date = add_hard_drive.POST.get('issue_date')
         hardDrive.expected_hard_drive_return_date = add_hard_drive.POST.get('expected_hard_drive_return_date')
