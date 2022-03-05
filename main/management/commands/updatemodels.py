@@ -5,12 +5,13 @@ from main.models.event import Event
 from main.models.request import Request
 from main.models.hard_drive import HardDrive
 from django.contrib.auth.models import User, Group
+from django.contrib.auth import authenticate
 
 
 
 MAINTAINER_USERNAME = 'Maintainer'
 REQUESTOR_USERNAME = 'Requestor'
-PASSWORD = 'Pass123!'
+PASSWORD = 'pass'
 
 class Command(BaseCommand):
     help = 'import booms'
@@ -70,18 +71,18 @@ class Command(BaseCommand):
         requester_gp.save()
 
         if not User.objects.filter(username__iexact=MAINTAINER_USERNAME).exists():
-            user, _ = User.objects.update_or_create(username=MAINTAINER_USERNAME,
-                                 email='maintainer@gmail.com',
-                                 password=PASSWORD)
-
+            user = User.objects.create(username=MAINTAINER_USERNAME,
+                                 email='maintainer@gmail.com')
+            user.set_password(PASSWORD)
+       
             maintainer_gp.user_set.add(user)
             user.save()
 
         if not User.objects.filter(username__iexact=REQUESTOR_USERNAME).exists():
-            user, _ = User.objects.update_or_create(username=REQUESTOR_USERNAME,
-                                 email='requestor@gmail.com',
-                                 password=PASSWORD)
-            
+            user = User.objects.create(username=REQUESTOR_USERNAME,
+                                 email='requestor@gmail.com')
+            user.set_password(PASSWORD)
+
             requester_gp.user_set.add(user)
             user.save()
 
