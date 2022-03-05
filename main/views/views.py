@@ -12,6 +12,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+
+def add_drive(request):
+    return render(request, 'maintainer/add_hard_drive.html')
+    
 @login_required(login_url='main:login')
 def index(request):
     if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
