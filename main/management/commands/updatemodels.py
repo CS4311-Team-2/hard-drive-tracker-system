@@ -21,12 +21,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         df = pd.read_csv('request.csv')
-        for (id, request_reference_no, request_reference_no_year, request_status, request_creation_date,
+        for (request_reference_no, request_reference_no_year, request_status, request_creation_date,
              request_last_modified_date, need_drive_by_date, comment) \
-        in zip(df.id, df.request_reference_no, df.request_reference_no_year, df.request_status, df.request_creation_date,
+        in zip(df.request_reference_no, df.request_reference_no_year, df.request_status, df.request_creation_date,
              df.request_last_modified_date, df.need_drive_by_date, df.comment):
 
-            models = Request(id, request_reference_no, request_reference_no_year, request_status, request_creation_date,
+            models = Request(request_reference_no, request_reference_no_year, request_status, request_creation_date,
              request_last_modified_date, need_drive_by_date, comment)
 
             models.save()
