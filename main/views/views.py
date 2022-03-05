@@ -85,14 +85,14 @@ def maintainer_adds_hard_drive():
         hardDrive.manufacturer = add_hard_drive.POST.get('manufacturer')
         hardDrive.model_number = add_hard_drive.POST.get('model_NO')
         hardDrive.hard_drive_type = add_hard_drive.POST.get('hard_drive_type')
-        hardDrive.connection_port = add_hard_drive.POST.get('connection_por')
+        hardDrive.connection_port = add_hard_drive.POST.get('connection_port')
         hardDrive.hard_drive_size = add_hard_drive.POST.get('hard_drive_size')
          
         hardDrive.classification = add_hard_drive.POST.get('classification')
         if (hardDrive.POST.get('classification') == 1):
-            hardDrive.classification = 'classfied'
+            hardDrive.classification = 'classified'
         if (hardDrive.POST.get('classification') == 2):
-            hardDrive.classification = 'unclassfied'
+            hardDrive.classification = 'unclassified'
             
         hardDrive.justification_for_classification_change = add_hard_drive.POST.get('justification_for_classification_change')
         hardDrive.image = add_hard_drive.POST.get('hardDrive_image')
@@ -129,6 +129,5 @@ def maintainer_adds_hard_drive():
         hardDrove.justification_for_hard_drive_return_date = add_hard_drive.POST.get('justification_for_hard_drive_return_date')
         hardDrive.request = add_hard_drive.POST.get('request_reference')
         hardDrive.save()
-     
-        
+
         
