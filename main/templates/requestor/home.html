@@ -42,7 +42,7 @@
                     <h1>Hard Drive Tracker System</h1>      
                 </div>
                 <main class="content"> 
-                    <h2 style="color:grey;">Welcome</h2> <br>
+                    <h2 style="color:grey;">Welcome, {{ username }}</h2> <br>
                     <a class="btn btn-primary" href="#" role="button">Make Request</a>
                     <h3>My Requests</h3>
                     <hr size="1" width="100%" color="grey">  
@@ -68,7 +68,7 @@
                               <td>{{ request.title }}</td>
                             </tr>
                           {% empty %}
-                          <h3>No listings found. Try again.</h3>
+                          <h3>You do not have any requests at the moment</h3>
                           {% endfor %} 
                         </tbody>
                       </table>
@@ -93,7 +93,7 @@
                                   <td>{{ hard_drive.title }}</td>
                                 </tr>
                               {% empty %}
-                              <h3>No listings found. Try again.</h3>
+                              <h3>No hard drives listed at the moment</h3>
                               {% endfor %} 
                             </tbody>
                     </table>

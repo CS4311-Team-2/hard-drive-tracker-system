@@ -11,7 +11,11 @@ from main.models.request import Request
 def home(request):
     deliquentdrives = HardDrive.objects.filter(status= 'delinquent')
     requests = Request.objects.filter(request_status = 'created')
-    context = {"deliquentdrives" : deliquentdrives, "requests" : requests}
+    context = {
+        "deliquentdrives"   : deliquentdrives,
+        "requests"          : requests,
+        "username"          : request.user.username
+        }
     return render(request, 'requestor/home.html', context)
 
 @login_required(login_url='main:login')
