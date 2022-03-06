@@ -20,6 +20,13 @@ pip install -r requirements.txt
 git reset --hard head
 ```  
 
+
+* Keep your branch updated, if you are working in your branch and notice that the main is getting ahead to add the main additions to your branch
+```
+git fetch
+git merge origin/master
+```  
+
 ### After Work
 
 * Once all your commits are in place, its best practice to go to the <B>main branch</b> and pull any new changes. Then merge these changes with your <b>working branch</b>. 
