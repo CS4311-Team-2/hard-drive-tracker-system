@@ -21,7 +21,7 @@ class HardDriveForm(forms.ModelForm):
         model = HardDrive
         fields = ['serial_number','manufacturer', 'model_number','hard_drive_type', 
                     'connection_port','hard_drive_size','classification',
-                    'justification_for_classification_change', 'image_version_id','boot_test_status',
+                    'justification_for_classification_change', 'hard_drive_image', 'image_version_id','boot_test_status',
                     'boot_test_expiration','status', 'justification_for_hard_drive_status_change',
                     'issue_date', 'issue_date', 'expected_hard_drive_return_date', 
-                    'justification_for_hard_drive_return_date_status_change', 'actual_return_date']
+                    'justification_for_hard_drive_return_date', 'actual_return_date']
