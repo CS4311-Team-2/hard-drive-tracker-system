@@ -1,3 +1,3 @@
 id,event_name,event_description,event_location,event_type,length_of_reporting_cycles,event_status,event_start_date,event_end_date
-1,Pied Piper,Prepare the software for demo 1,El Paso-Texas-UnitedStates,Type A,2 weeks,Confirmed,1646428222,1647375022
-2,Software Boys,Prepare the software for demo 1,El Paso-Texas-UnitedStates,Type B,2 weeks,Forcasted,1646428222,1647375022
+1,Pied Piper,Prepare the software for demo 1,El Paso-Texas-UnitedStates,Type A,604800,Confirmed,1646428222,1647375022
+2,Software Boys,Prepare the software for demo 1,El Paso-Texas-UnitedStates,Type B,604800,Forcasted,1646428222,1647375022
