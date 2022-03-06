@@ -1,3 +1,5 @@
+from itertools import chain
+
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
@@ -9,12 +11,16 @@ from main.models.request import Request
 @login_required(login_url='main:login')
 @group_required('Requestor')
 def home(request):
-    deliquentdrives = HardDrive.objects.filter(status= 'delinquent')
-    requests = Request.objects.filter(request_status = 'created')
+    requests        = Request.objects.filter(user = request.user)
+    hard_drives     = HardDrive.objects.none()
+    for req in requests:
+        hard_drives_req = HardDrive.objects.filter(request = req)
+        hard_drives = list(chain(hard_drives, hard_drives_req))
+
     context = {
-        "deliquentdrives"   : deliquentdrives,
-        "requests"          : requests,
-        "username"          : request.user.username
+        "hard_drives"   : hard_drives,
+        "requests"      : requests,
+        "username"      : request.user.username
         }
     return render(request, 'requestor/home.html', context)
 

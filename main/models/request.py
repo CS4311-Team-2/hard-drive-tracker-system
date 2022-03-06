@@ -1,8 +1,7 @@
-from http.client import CREATED
 from django.db import models
+from django.conf import settings
+
 from unixtimestampfield.fields import UnixTimeStampField
-from email.policy import default
-from django.db import models
 
 class Request(models.Model):
 
@@ -28,6 +27,7 @@ class Request(models.Model):
     request_last_modifed_date = UnixTimeStampField(use_numeric=True, auto_now=True,default=0.0)
     need_drive_by_date = models.CharField(max_length = 50)
     comment = models.TextField(blank = True) 
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
     #file_attachment = models.FileField()
    
     class Meta:
