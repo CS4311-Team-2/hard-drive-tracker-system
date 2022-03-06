@@ -12,6 +12,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+import logging
+
 @login_required(login_url='main:login')
 def index(request):
     if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
@@ -37,7 +39,6 @@ def make_request(request):
 
 def registerPage(request):
     form = CreateUserForm()
-
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
@@ -61,6 +62,10 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
+            v = bool(user.groups.filter(name__in = "Maintainer"))
+            if v:
+                logging.info("Made it here")
+                return redirect('main:login')
             return redirect('main:index')
         else:
             messages.info(request, 'Username or password is incorrect')
