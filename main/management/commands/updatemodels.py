@@ -1,4 +1,5 @@
 from lib2to3.pytree import Base
+import re
 from django.core.management.base import BaseCommand
 import pandas as pd
 from main.models.event import Event
@@ -8,7 +9,7 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate
 
 
-
+ADMIN_USERNAME = 'Admin'
 MAINTAINER_USERNAME = 'Maintainer'
 REQUESTOR_USERNAME = 'Requestor'
 PASSWORD = 'pass'
@@ -20,6 +21,35 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
+        
+        if not User.objects.filter(username__iexact=ADMIN_USERNAME).exists():
+            user = User.objects.create_superuser(username=ADMIN_USERNAME,
+                                 email='admin@gmail.com')
+            user.set_password(PASSWORD)
+            user.save()
+
+        maintainer_gp, _ = Group.objects.update_or_create(name='Maintainer')
+        maintainer_gp.save()
+
+        requester_gp, _ = Group.objects.update_or_create(name='Requestor')
+        requester_gp.save()
+
+        if not User.objects.filter(username__iexact=MAINTAINER_USERNAME).exists():
+            user = User.objects.create(username=MAINTAINER_USERNAME,
+                                 email='maintainer@gmail.com')
+            user.set_password(PASSWORD)
+       
+            maintainer_gp.user_set.add(user)
+            user.save()
+
+        if not User.objects.filter(username__iexact=REQUESTOR_USERNAME).exists():
+            user = User.objects.create(username=REQUESTOR_USERNAME,
+                                 email='requestor@gmail.com')
+            user.set_password(PASSWORD)
+
+            requester_gp.user_set.add(user)
+            user.save()
+        
         df = pd.read_csv('request.csv')
         for (request_reference_no, request_reference_no_year, request_status, request_creation_date,
              request_last_modified_date, need_drive_by_date, comment) \
@@ -33,12 +63,12 @@ class Command(BaseCommand):
     
         df = pd.read_csv('event.csv')
         for (id, event_name, event_description, event_location, event_type, length_of_reporting_cycles,
-         event_status, event_start_date, event_end_date) \
+            event_status, event_start_date, event_end_date) \
         in zip(df.id, df.event_name, df.event_description, df.event_location, df.event_type, df.length_of_reporting_cycles,
-         df.event_status, df.event_start_date, df.event_end_date):
+            df.event_status, df.event_start_date, df.event_end_date):
 
             models = Event(id, event_name, event_description, event_location, event_type, length_of_reporting_cycles,
-         event_status, event_start_date, event_end_date)
+            event_status, event_start_date, event_end_date)
 
             models.save()
 
@@ -64,26 +94,18 @@ class Command(BaseCommand):
 
             models.save()
 
-        maintainer_gp, _ = Group.objects.update_or_create(name='Maintainer')
-        maintainer_gp.save()
+        requestor = User.objects.get(username__iexact = REQUESTOR_USERNAME)
 
-        requester_gp, _ = Group.objects.update_or_create(name='Requestor')
-        requester_gp.save()
+        requests = Request.objects.all()
+        for request in requests:
+            request.user = requestor
+            request.save()
 
-        if not User.objects.filter(username__iexact=MAINTAINER_USERNAME).exists():
-            user = User.objects.create(username=MAINTAINER_USERNAME,
-                                 email='maintainer@gmail.com')
-            user.set_password(PASSWORD)
-       
-            maintainer_gp.user_set.add(user)
-            user.save()
+        hard_drives = HardDrive.objects.all()[:3]
+        for hard_drive in hard_drives:
+            hard_drive.request = requests[0]
+            hard_drive.save()
 
-        if not User.objects.filter(username__iexact=REQUESTOR_USERNAME).exists():
-            user = User.objects.create(username=REQUESTOR_USERNAME,
-                                 email='requestor@gmail.com')
-            user.set_password(PASSWORD)
 
-            requester_gp.user_set.add(user)
-            user.save()
-
+        print('Succesfully added dummy data')
         

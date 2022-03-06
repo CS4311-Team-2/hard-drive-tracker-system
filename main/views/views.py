@@ -5,7 +5,7 @@ from main.views.decorators import group_required
 from main.views import maintainer, requestor
 from ..models import HardDrive
 from ..models import Request
-from ..forms import ListingForm, CreateUserForm
+from ..forms import CreateUserForm
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
