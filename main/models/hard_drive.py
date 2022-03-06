@@ -29,6 +29,7 @@ class HardDrive(models.Model):
     # TODO: This needs to give the option of a file or straight text. 
     justification_for_classification_change = models.TextField(blank=True)
     # TODO: Need to limit this number at 4. 
+    hard_drive_image = models.CharField(blank=True, max_length=100)
     image_version_id = models.CharField(max_length=100)
     boot_test_status = models.CharField(max_length=50, choices=BootTestStatus.choices, 
                                             default=BootTestStatus.PASS)
@@ -39,7 +40,7 @@ class HardDrive(models.Model):
     justification_for_hard_drive_status_change = models.TextField(blank=True)
     issue_date = UnixTimeStampField(use_numeric=True,default=0.0)
     expected_hard_drive_return_date = UnixTimeStampField(use_numeric=True,default=0.0)
-    justification_for_hard_drive_return_date_status_change = models.TextField(blank=True)
+    justification_for_hard_drive_return_date = models.TextField(blank=True)
     actual_return_date = UnixTimeStampField(use_numeric=True,default=0.0)
     modified_date = UnixTimeStampField(use_numeric=True, auto_now=True, auto_now_add=True)
     request = models.ForeignKey(Request, 
