@@ -16,7 +16,7 @@ class HardDrive(models.Model):
         FAILED = "failed"
 
     # TODO: Make sure this field when the object is created. 
-    create_date = UnixTimeStampField(use_numeric=True, auto_now_add=True) 
+    create_date = UnixTimeStampField(auto_now_add=True) 
     serial_number = models.CharField(max_length=100)
     manufacturer = models.CharField(blank=True, max_length=100)
     model_number = models.CharField(blank=True, max_length=100)
