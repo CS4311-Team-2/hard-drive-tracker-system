@@ -5,6 +5,8 @@ from datetime import datetime
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
+from main.models.event import Event
+from main.models.hard_drive_request import HardDriveRequest
 
 
 @login_required(login_url='main:login')
@@ -20,6 +22,7 @@ def home(request):
 def view_request(request):
     return render(request, 'maintainer/view_request.html')
 
+<<<<<<< Updated upstream
 @login_required(login_url='main:login')
 @group_required('Maintainer')
 def add_hard_drive(request):
@@ -82,3 +85,5 @@ def add_hard_drive(request):
     
     else:
         return render(request, 'maintainer/add_hard_drive.html')
+=======
+>>>>>>> Stashed changes
