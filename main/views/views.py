@@ -11,8 +11,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User, Group
 
-import logging
+MAINTAINER = "Maintainer"
+user_name = ""
 
 def add_drive(request):
     return render(request, 'maintainer/add_hard_drive.html')
@@ -54,26 +56,38 @@ def registerPage(request):
     return render(request, 'accounts/register.html', context)
     
 def loginPage(request):
+    context = {
+        "show_menu" : False
+        }
     if request.user.is_authenticated:
-        return redirect('main:index')
-
+        print("User authorized!")
+        user = User.objects.get(username=request.user.username)
+        if user.groups.filter(name=Group(name=MAINTAINER)):
+            messages.info(request, 'Welcome Maintainer!')
+            context = {
+                "show_menu" : True
+            }
+        else:
+            return redirect('main:index')
 
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
+        auth = authenticate(request, username=username, password=password)
 
-        if user is not None:
-            login(request, user)
-            v = bool(user.groups.filter(name__in = "Maintainer"))
-            if v:
-                logging.info("Made it here")
+        if auth is not None:
+            print("User credentials is correct")
+            login(request, auth)
+            user = User.objects.get(username=username)
+            print(user)
+            if user.groups.filter(name=Group(name=MAINTAINER)):
+                print("User is made it here")
                 return redirect('main:login')
-            return redirect('main:index')
+            else:
+                return redirect('main:index')
         else:
             messages.info(request, 'Username or password is incorrect')
 
-    context = {}
     return render(request, 'accounts/login.html', context)
 
 def logoutUser(request):
