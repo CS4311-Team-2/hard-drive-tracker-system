@@ -90,6 +90,7 @@ def make_request(http_request):
     if http_request.method == 'GET':
         event   = Event()
         request = Request()
+        request.user = request.user
         event.request = request
 
         request.save()

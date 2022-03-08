@@ -242,32 +242,28 @@
                                                     <thead>
                                                       <tr>
                                                         <th scope="col">Reference No.</th>
-                                                        <th scope="col">Date</th>
+                                                        <th scope="col">Request Creation Date</th>
                                                         <th scope="col">Event Start Date</th>
                                                         <th scope="col">Event End Date</th>
                                                         <th scope="col">Need Drive Due by Date</th>
                                                         <th scope="col">Event Name</th>
                                                         <th scope="col">Event Description</th>
                                                         <th scope="col">Event Type</th>
-                                                        <th scope="col">Event Lead Username</th>
-                                                        <th scope="col">Total No. of Drives</th>
                                                         <th scope="col">Request Status</th>
                                                       </tr>
                                                     </thead>
                                                     <tbody>
-                                                    {% for hard_drive in hard_drives %}
+                                                    {% for key, value in data.items %}
                                                       <tr>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>  
+                                                        <td>{{key.request_reference_no}}</td>
+                                                        <td>{{key.request_creation_date}}</td>
+                                                        <td>{{value.event_start_date}}</td>
+                                                        <td>{{value.event_end_date}}</td>
+                                                        <td>{{key.need_drive_by_date}}</td>
+                                                        <td>{{value.event_name}}</td>
+                                                        <td>{{value.event_description}}</td>
+                                                        <td>{{value.event_type}}</td>
+                                                        <td>{{key.request_status}}</td>  
                                                       </tr>
                                                     {% empty %}
                                                     <h3>No requests found.</h3>
@@ -306,7 +302,7 @@
                     <!-- Links -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
+                            <a class="nav-link" href="{% url 'main:index' %}">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Requests</a>

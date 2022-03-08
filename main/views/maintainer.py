@@ -1,3 +1,5 @@
+from asyncio import events
+from multiprocessing import Event
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
@@ -6,14 +8,17 @@ from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
 from main.models.event import Event
+<<<<<<< HEAD
 from main.models.hard_drive_request import HardDriveRequest
+=======
+>>>>>>> origin/main
 
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
 def home(request):
     deliquentdrives = HardDrive.objects.filter(status= 'delinquent')
-    requests = Request.objects.filter(request_status = 'created')
+    requests = Request.objects.all()
     context = {"deliquentdrives" : deliquentdrives, "requests" : requests}
     return render(request, 'maintainer/home.html', context)
 
@@ -21,6 +26,25 @@ def home(request):
 @group_required('Maintainer')
 def view_request(request):
     return render(request, 'maintainer/view_request.html')
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def view_all_requests(http_request):
+    data = {}
+    requests = Request.objects.all()
+    for r in requests:
+        events = Event.objects.filter(request = r)
+        if not events:
+            continue
+        else:
+            event = events[0]
+        print('here1')
+        data[r] = event
+        print("here2")
+    print(data)
+
+    context = {'data': data, 'requests' : requests}
+    return render(http_request, 'maintainer/view_all_requests.html', context)
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')

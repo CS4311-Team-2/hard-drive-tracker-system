@@ -63,8 +63,8 @@
                               <th scope="row">{{ request.request_reference_no }}</th>
                               <td>{{ request.request_status }}</td>
                               <td>{{ request.request_creation_date }}</td>
-                              <td>{{ request.title }}</td>
-                              <td>{{ request.title }}</td>
+                              <td>{{ request.request_last_modifed_date }}</td>
+                              <td>{{ request.need_drive_by_date }}</td>
                             </tr>
                           {% empty %}
                           <h3>You have no requests at the moment</h3>
@@ -88,7 +88,7 @@
                               {% for request in deliquentdrives %}
                                 <tr>
                                   <th scope="row">{{ request.serial_number }}</th>
-                                  <td>{{ deliquentdrive.expected_hard_drive_return_date }}</td>
+                                  <td>{{ request.expected_hard_drive_return_date }}</td>
                                   <td>{{ hard_drive.title }}</td>
                                 </tr>
                               {% empty %}
@@ -109,7 +109,7 @@
                         <a class="nav-link" href="{% url 'main:index' %}">Home</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link" href="{% url 'main:view_request' %}">Request</a>
+                          <a class="nav-link" href="{% url 'main:view_all_requests' %}">Request</a>
                       </li>
                       <li class="nav-item">
                           <a class="nav-link" href="#">Configuration</a>
