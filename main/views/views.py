@@ -87,4 +87,11 @@ def add_hard_drive(request):
 
     if request.user.groups.filter(name='Requestor').exists():
         raise Http404('Unauthorize access')
+
+@login_required(login_url='main:login')
+def view_all_harddrives(request):
+    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+        return maintainer.view_all_harddrives(request)
+    
+    return redirect('main:index')
         
