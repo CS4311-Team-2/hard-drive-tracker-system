@@ -104,3 +104,11 @@ def add_hard_drive(request):
     
     else:
         return render(request, 'maintainer/add_hard_drive.html')
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def view_all_harddrives(request):
+    hardDrives = HardDrive.objects.all()
+
+    context = {"hardDrives" : hardDrives}
+    return render(request, 'maintainer/view_all_hard_drives.html', context)
