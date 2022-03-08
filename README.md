@@ -20,6 +20,13 @@ pip install -r requirements.txt
 git reset --hard head
 ```  
 
+
+* Keep your branch updated, if you are working in your branch and notice that the main is getting ahead to add the main additions to your branch
+```
+git fetch
+git merge origin/master
+```  
+
 ### After Work
 
 * Once all your commits are in place, its best practice to go to the <B>main branch</b> and pull any new changes. Then merge these changes with your <b>working branch</b>. 
@@ -44,10 +51,12 @@ python manage.py migrate
 
 ### Populate Database
 
-* Run the following to command to load the data into the database so far only 2 hard drives are added from the hard_drive.csv file but adding more rows will add more hard drives to the system
+* Run the following to command to load the data into the database so far only 3 hard drives are added from the hard_drive.csv file but adding more rows will add more hard drives to the system and to users
 ```
 python manage.py updatemodels
 ```
+
+* Once this command runs successfully two users would be created Maintainer and Requestor with their usernames and roles being the same. Use these to sign in with the password 'pass' and you should be able to see their respected pages
 
 ### Create users
 * Run this command to create an admin user in your database and have access to all the model data at once in your computer.

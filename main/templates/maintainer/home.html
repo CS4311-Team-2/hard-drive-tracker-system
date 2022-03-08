@@ -48,7 +48,7 @@
                               <td>{{ request.title }}</td>
                             </tr>
                           {% empty %}
-                          <h3>No listings found. Try again.</h3>
+                          <h3>You have no requests at the moment</h3>
                           {% endfor %} 
                         </tbody>
                       </table>
@@ -73,7 +73,7 @@
                                   <td>{{ hard_drive.title }}</td>
                                 </tr>
                               {% empty %}
-                              <h3>No listings found. Try again.</h3>
+                              <h3>No delinquent hard drives at the moment</h3>
                               {% endfor %} 
                             </tbody>
                     </table>
@@ -90,13 +90,16 @@
                         <a class="nav-link" href="{% url 'main:index' %}">Home</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link" href="{% url 'main:maintainer_view_request' %}">Request</a>
+                          <a class="nav-link" href="{% url 'main:view_request' %}">Request</a>
                       </li>
                       <li class="nav-item">
                           <a class="nav-link" href="#">Configuration</a>
                       </li>
                       <li class="nav-item">
                           <a class="nav-link" href="#">Inventory</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main:add_hard_drive' %}">Add Hard Drive</a>
                       </li>
                       <li class="nav-item">
                           <a class="nav-link" href="#">Profile</a>

@@ -1,6 +1,7 @@
 
 from django.urls import path
-from . import views
+from main.views import maintainer, requestor, views
+
 
 app_name = 'main'
 
@@ -9,9 +10,11 @@ urlpatterns = [
     path('login/', views.loginPage, name='login'),
     path('logout/', views.logoutUser, name='logout'),
 
-    path('', views.index, name='index'),  
-    path('all_listings/', views.all_listings, name='all_listings'),
-    path('new_listing/', views.new_listing, name='new_listing'),
-    path('maintainer/', views.maintainer_home, name='maintainer_home'),
-    path('maintainer/request', views.maintainer_view_request, name='maintainer_view_request')
+    path('', views.index, name='index'), 
+    path('view_request/', views.view_request, name='view_request'),
+    path('make_request/', views.make_request, name='make_request'),
+    path('add_hard_drive/', views.add_hard_drive, name = 'add_hard_drive'),
+
+    path('request/<int:id>', requestor.view_single_request, name = 'update_request'),
+    path('hard_drive_request/create', requestor.add_hard_drive_request, name = 'create_hd_request'),
 ]
