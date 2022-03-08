@@ -5,6 +5,8 @@ from datetime import datetime
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
+from main.models.event import Event
+from main.models.hard_drive_request import HardDriveRequest
 
 
 @login_required(login_url='main:login')
@@ -26,7 +28,6 @@ def add_hard_drive(request):
     hardDrive = HardDrive()
     
     if (request.method == 'POST'):
-        print(f'creation_date: {datetime.strptime(request.POST.get("creation_date"), "%Y-%m-%d")}')
         hardDrive.create_date = datetime.strptime(request.POST.get("creation_date"), "%Y-%m-%d")
         hardDrive.serial_number = request.POST.get('serial_No')
         hardDrive.manufacturer = request.POST.get('manufacturer') 

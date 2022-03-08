@@ -1,6 +1,7 @@
 
 from django.urls import path
-from .views import views
+from main.views import maintainer, requestor, views
+
 
 app_name = 'main'
 
@@ -13,4 +14,7 @@ urlpatterns = [
     path('view_request/', views.view_request, name='view_request'),
     path('make_request/', views.make_request, name='make_request'),
     path('add_hard_drive/', views.add_hard_drive, name = 'add_hard_drive'),
+
+    path('request/<int:id>', requestor.view_single_request, name = 'update_request'),
+    path('hard_drive_request/create', requestor.add_hard_drive_request, name = 'create_hd_request'),
 ]
