@@ -25,7 +25,7 @@ class Request(models.Model):
     request_status = models.CharField(max_length = 50, choices= Request_Status.choices, default=Request_Status.CREATED)
     request_creation_date = UnixTimeStampField(auto_now_add=True,default=0.0)
     request_last_modifed_date = UnixTimeStampField(auto_now=True,default=0.0)
-    need_drive_by_date = models.CharField(max_length = 50)
+    need_drive_by_date = UnixTimeStampField(max_length = 50)
     comment = models.TextField(blank = True) 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
     #file_attachment = models.FileField()
