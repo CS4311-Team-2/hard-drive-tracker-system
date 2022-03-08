@@ -14,7 +14,8 @@
   <script src="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
   <script src="http://momentjs.com/downloads/moment.min.js"></script>
   <link href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
-  
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/view_tables.css' %}">
   <script>
       $(function() {
         $('input[name="datetimepicker"]').datetimepicker({
@@ -26,95 +27,6 @@
         
         });
   </script>
-
-  <style>  
-    .jumbotron {
-        padding-top: 8px;
-        padding-bottom: 8px;
-      }
-    .btn {
-        margin-left:40%;
-        margin-top:1%;
-        width: 160px;
-        font-size: 15px;
-    }
-    .content {
-        display: flex;
-        flex-direction: column;
-        flex: 4;
-        margin-left:3%;
-        margin-right:3%;
-    }
-    .navbar{
-        padding-bottom: 1000px;
-    }
-    thead {
-        background: lightgrey;
-        position: sticky;
-        top: 0;
-    }
-    .scroller {
-        height: 500px !important;
-        overflow: scroll;
-    }
-    .btn_order {
-        display: inline;
-    }
-    /* Sidebar CSS */
-    /* .request-attribute {
-        outline: 1px solid black;
-    }
-    .hard-drive-attribute {
-        outline: 1px solid black;
-    }
-    .event-attribute {
-        outline: 1px solid black;
-    }
-    .date-attribute {
-        outline: 1px solid black;
-    }
-    .keyword-attribute {
-        outline: 1px solid black;
-    } */
-    body {
-        background-color: #fbfbfb;
-    }
-    @media (min-width: 991.98px) {
-        main {
-            padding-left: 240px;
-        }
-    }
-    .sidebar {
-        position: fixed;
-        top: 80px;
-        bottom: 0;
-        left: 0;
-        padding: 0px 0 0; /* Height of navbar */
-        box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-        width: 240px;
-        z-index: 600;
-        /* height: 500px !important; */
-        overflow: scroll;
-    }
-    @media (max-width: 991.98px) {
-        .sidebar {
-            width: 100%;
-        }
-    }
-    .sidebar .active {
-        border-radius: 5px;
-        box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
-    }
-    .sidebar-sticky {
-        position: relative;
-        top: 0;
-        height: calc(100vh - 48px);
-        padding-top: 0.5rem;
-        /* Scrollable contents if viewport is shorter than content. */
-        /* overflow-x: hidden; */
-        overflow-y: scroll; 
-    }
-  </style>
 </head>
 
 <body>

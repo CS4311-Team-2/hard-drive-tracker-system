@@ -11,44 +11,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <style>
-    .page{
-        min-width:1500px;
-    }
-    .jumbotron {
-        padding-top: 8px;
-        padding-bottom: 8px;
-      }
-    .btn {
-        width: fit-content;
-    }
-    .content {
-        display: flex;
-        flex-direction: column;
-        flex: 4;
-        margin-left:3%;
-        margin-right:3%;
-        overflow-x: scroll; 
-    }
-    .navbar{
-        height: 100%;
-        align-content: start;
-    }
-    .assignment-table { 
-        overflow-x: scroll; 
-        max-width:1150px;
-    }
-    .submission {
-        display: grid;
-        grid-template-columns: 60% 20% 20%;
-        grid-template-rows: 100%;
-        }
-        
-    .right {
-        justify-self: end;
-    }
-    
-  </style>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/hdts.css' %}">
 </head>
 <body>
 

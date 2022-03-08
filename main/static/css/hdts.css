@@ -1,0 +1,62 @@
+.page{
+    min-width:1000px;
+}
+.jumbotron {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+.btn {
+    width: fit-content;
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    flex: 4;
+    margin-left:3%;
+    margin-right:3%;
+    overflow-x: scroll; 
+}
+.navbar{
+    height: 100%;
+    align-content: start;
+}
+.assignment-table { 
+    overflow-x: scroll; 
+    max-width:1150px;
+}
+.submission {
+    display: grid;
+    grid-template-columns: 60% 20% 20%;
+    grid-template-rows: 100%;
+    }
+.right {
+    justify-self: end;
+}
+.form-group span {
+  color: red;
+}
+.btn-block {
+    margin-top: 10px;
+    text-align: right;
+    margin-bottom: 10px;
+}
+button {
+    width: fit-content;
+    padding-top: 10px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    border: none;
+    border-radius: 5px; 
+    background:  #4678B2;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+    }
+button:hover {
+  background:  #4678B2;
+}
+textarea {
+    width: calc(100% - 12px);
+    padding: 5px;
+}
