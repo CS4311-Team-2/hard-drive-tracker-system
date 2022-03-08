@@ -12,6 +12,7 @@ urlpatterns = [
 
     path('', views.index, name='index'), 
     path('view_request/', views.view_request, name='view_request'),
+    path('view_all_requests/', views.view_all_requests, name='view_all_requests'),
     path('make_request/', views.make_request, name='make_request'),
     path('add_hard_drive/', views.add_hard_drive, name = 'add_hard_drive'),
 
