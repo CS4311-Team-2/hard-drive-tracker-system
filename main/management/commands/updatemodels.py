@@ -3,6 +3,7 @@ import re
 from django.core.management.base import BaseCommand
 import pandas as pd
 from main.models.event import Event
+from main.models.hard_drive_request import HardDriveRequest
 from main.models.request import Request
 from main.models.hard_drive import HardDrive
 from django.contrib.auth.models import User, Group
@@ -54,10 +55,10 @@ class Command(BaseCommand):
         for (request_reference_no, request_reference_no_year, request_status, request_creation_date,
              request_last_modified_date, need_drive_by_date, comment) \
         in zip(df.request_reference_no, df.request_reference_no_year, df.request_status, df.request_creation_date,
-             df.request_last_modified_date, df.need_drive_by_date, df.comment):
+            df.request_last_modified_date, df.need_drive_by_date, df.comment):
 
             models = Request(request_reference_no, request_reference_no_year, request_status, request_creation_date,
-             request_last_modified_date, need_drive_by_date, comment)
+                request_last_modified_date, need_drive_by_date, comment)
 
             models.save()
     
@@ -68,8 +69,10 @@ class Command(BaseCommand):
             df.event_status, df.event_start_date, df.event_end_date):
 
             models = Event(id, event_name, event_description, event_location, event_type, length_of_reporting_cycles,
-            event_status, event_start_date, event_end_date)
+                event_status, event_start_date, event_end_date)
 
+            request = Request.objects.get(pk = 321)            
+            models.request = request
             models.save()
 
         df = pd.read_csv('hard_drives.csv')
@@ -95,27 +98,16 @@ class Command(BaseCommand):
             models.save()
 
         df = pd.read_csv('hard_drive_requests.csv')
-        for (id, create_date, serial_number, manufacturer,
-            model_number, hard_drive_type, connection_port,
-            hard_drive_size, classification, justification_for_classification_change,
-            hard_drive_image, imange_version_id, boot_test_status, boot_test_expiration, status, 
-            justification_for_hard_drive_status_change, issue_date, expected_hard_drive_return_date,
-            justification_for_hard_drive_return_date, actual_return_date, modified_date) \
-        in zip(df.id, df.create_date, df.serial_number, df.manufacturer, df.model_number, 
-            df.hard_drive_type, df.connection_port, df.hard_drive_size, df.classification, 
-            df.justification_for_classification_change, df.hard_drive_image, df.imange_version_id, df.boot_test_status, 
-            df.boot_test_expiration, df.status, df.justification_for_hard_drive_status_change, 
-            df.issue_date, df.expected_hard_drive_return_date, df.justification_for_hard_drive_return_date, 
-            df.actual_return_date, df.modified_date):
-
-            models = HardDrive(id, create_date, serial_number, manufacturer, 
-            model_number, hard_drive_type, connection_port, hard_drive_size, classification, 
-            justification_for_classification_change, hard_drive_image, imange_version_id, boot_test_status, boot_test_expiration, 
-            status, justification_for_hard_drive_status_change, issue_date, expected_hard_drive_return_date, 
-            justification_for_hard_drive_return_date, actual_return_date, modified_date)
-
+        for (id,classification,amount_required,connection_port,hard_drive_size,hard_drive_type,comment) \
+        in zip(df.id,df.classification,df.amount_required,df.connection_port,df.hard_drive_size,df.hard_drive_type,df.comment):
+            models = HardDriveRequest(id,classification,amount_required,connection_port,hard_drive_size,hard_drive_type,comment)
+            request = Request.objects.get(pk = 321)
+            
+            models.request = request
             models.save()
             
+        
+        
 
         requestor = User.objects.get(username__iexact = REQUESTOR_USERNAME)
 
@@ -128,6 +120,7 @@ class Command(BaseCommand):
         for hard_drive in hard_drives:
             hard_drive.request = requests[0]
             hard_drive.save()
+
 
 
         print('Succesfully added dummy data')

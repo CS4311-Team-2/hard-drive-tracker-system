@@ -22,14 +22,12 @@ def home(request):
 def view_request(request):
     return render(request, 'maintainer/view_request.html')
 
-<<<<<<< Updated upstream
 @login_required(login_url='main:login')
 @group_required('Maintainer')
 def add_hard_drive(request):
     hardDrive = HardDrive()
     
     if (request.method == 'POST'):
-        print(f'creation_date: {datetime.strptime(request.POST.get("creation_date"), "%Y-%m-%d")}')
         hardDrive.create_date = datetime.strptime(request.POST.get("creation_date"), "%Y-%m-%d")
         hardDrive.serial_number = request.POST.get('serial_No')
         hardDrive.manufacturer = request.POST.get('manufacturer') 
@@ -85,5 +83,3 @@ def add_hard_drive(request):
     
     else:
         return render(request, 'maintainer/add_hard_drive.html')
-=======
->>>>>>> Stashed changes

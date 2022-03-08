@@ -15,5 +15,6 @@ urlpatterns = [
     path('make_request/', views.make_request, name='make_request'),
     path('add_hard_drive/', views.add_hard_drive, name = 'add_hard_drive'),
 
-    path('request/put/<int:id>', requestor.update_request, name = 'update_request'),
+    path('request/<int:id>', requestor.view_single_request, name = 'update_request'),
+    path('hard_drive_request/create', requestor.add_hard_drive_request, name = 'create_hd_request'),
 ]
