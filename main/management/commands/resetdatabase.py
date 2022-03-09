@@ -27,6 +27,7 @@ class Command(BaseCommand):
 
         call_command('makemigrations')
         call_command('migrate')
+        print('')
         call_command('updatemodels')
 
         
