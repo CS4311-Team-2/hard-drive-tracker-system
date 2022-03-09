@@ -5,7 +5,7 @@ import os
 
 BaseCommand
 
-MIGRATIONS = 'main\migrations'
+MIGRATIONS = os.path.relpath(os.path.join(os.getcwd(), 'main', 'migrations'))
 
 class Command(BaseCommand):
     help = 'import booms'
@@ -14,6 +14,7 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
+        
         if os.path.exists("db.sqlite3"):
             os.remove("db.sqlite3")
         else:
@@ -22,7 +23,7 @@ class Command(BaseCommand):
         for filename in os.listdir(MIGRATIONS):
             f = os.path.join(MIGRATIONS, filename)
 
-            if os.path.isfile(f) and not f == 'main\migrations\__init__.py':
+            if os.path.isfile(f) and not f == os.path.join(MIGRATIONS, '__init__.py'):
                 os.remove(f)
 
         call_command('makemigrations')
