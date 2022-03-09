@@ -8,7 +8,6 @@ BaseCommand
 MIGRATIONS = os.path.relpath(os.path.join(os.getcwd(), 'main', 'migrations'))
 
 class Command(BaseCommand):
-    help = 'import booms'
 
     def add_arguments(self, parser):
         pass
