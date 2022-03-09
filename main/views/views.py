@@ -12,7 +12,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
-    
+
+
+# These functions relate to the account/*.html and main/index.html. These functions relate 
+#   to logining in and creating account.  
     
 @login_required(login_url='main:login')
 def index(request):

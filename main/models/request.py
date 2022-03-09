@@ -3,6 +3,7 @@ from django.conf import settings
 
 from unixtimestampfield.fields import UnixTimeStampField
 
+# Request model
 class Request(models.Model):
 
     class Request_Status(models.TextChoices):
@@ -28,7 +29,6 @@ class Request(models.Model):
     need_drive_by_date = UnixTimeStampField(max_length = 50)
     comment = models.TextField(blank = True) 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
-    #file_attachment = models.FileField()
    
     class Meta:
         verbose_name_plural = "Request"
