@@ -5,6 +5,7 @@ from main.views import maintainer, requestor, views
 
 app_name = 'main'
 
+# Implemented inferfaces
 urlpatterns = [
     path('register/', views.registerPage, name='register'),
     path('login/', views.loginPage, name='login'),

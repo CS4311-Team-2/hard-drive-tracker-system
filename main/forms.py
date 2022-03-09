@@ -10,6 +10,7 @@ class CreateUserForm(UserCreationForm):
         model = User
         fields =['username', 'email', 'password1', 'password2']
         
+# TODO: Remove this. 
 class HardDriveForm(forms.ModelForm):
     class Meta:
         model = HardDrive

@@ -4,6 +4,7 @@ from unixtimestampfield.fields import UnixTimeStampField
 
 from main.models.request import Request
 
+# Event model
 class Event(models.Model):
     class Status(models.TextChoices):
         CONFIRMED = "confirmed"

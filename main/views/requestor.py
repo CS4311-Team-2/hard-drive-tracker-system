@@ -12,6 +12,8 @@ from main.models.hard_drive_request import HardDriveRequest
 from time import time
 from datetime import datetime
 
+# These functions relate to requestor/*.html views. These functions serve only the 
+#   requestor role. 
 
 @login_required(login_url='main:login')
 @group_required('Requestor')

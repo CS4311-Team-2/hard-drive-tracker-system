@@ -9,6 +9,8 @@ from main.models.hard_drive import HardDrive
 from main.models.request import Request
 from main.models.event import Event
 
+# These functions relate to maintainer/*.html views. These functions serve only the 
+#   maintainer role. 
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
