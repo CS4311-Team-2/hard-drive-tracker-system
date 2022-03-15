@@ -1,0 +1,158 @@
+<div class="col-3" id="sticky-sidebar" style="width: 280px;">     
+    <div class"sticky-top">  
+        <ul class="nav nav-pills flex-column mb-auto">
+
+            {% load has_group %}
+            
+            {% if request.user|has_group:"Maintainer" or request.user|has_group:"Requestor" %}
+            <li class="nav-item">
+            <a href="{% url 'main:index' %}" class="nav-link 
+            
+            {% url 'main:index' as the_url%}
+            {% if request.path == the_url %}
+            active
+            {% else %}
+            link-dark
+            {% endif %}
+            
+            " aria-current="page">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                Home
+            </a>
+            </li>
+            {% endif %}
+
+            {% if request.user|has_group:"Maintainer"  %}
+            <li class="nav-item">
+            <a href="{% url 'main:view_all_requests' %}" class="nav-link
+            
+            {% url 'main:view_all_requests' as the_url%}
+            {% if request.path == the_url %}
+            active
+            {% else %}
+            link-dark
+            {% endif %}
+            
+            " aria-current="page">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                Request
+            </a>
+            </li>
+            {% endif %}
+
+            {% if request.user|has_group:"Maintainer" %}
+            <li class="nav-item">
+            <a href="#" class="nav-link
+            
+            link-dark
+            
+            " aria-current="page">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                Configuration
+            </a>
+            </li>
+            {% endif %}
+
+            {% if request.user|has_group:"Maintainer"  or request.user|has_group:"Requestor" %}
+            <li class="nav-item">
+            <a href="{% url 'main:view_all_harddrives' %}" class="nav-link 
+            
+            {% url 'main:view_all_harddrives' as the_url%}
+            {% if request.path == the_url %}
+            active
+            {% else %}
+            link-dark
+            {% endif %}
+            
+            " aria-current="page">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                Inventory
+            </a>
+            </li>
+            {% endif %}
+
+
+            {% if request.user|has_group:"Maintainer" %}
+            <li class="nav-item">
+            <a href="{% url 'main:add_hard_drive' %}" class="nav-link 
+            
+            {% url 'main:add_hard_drive' as the_url%}
+            {% if request.path == the_url %}
+            active
+            {% else %}
+            link-dark
+            {% endif %}
+            
+            " aria-current="page">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                Add Hard Drive
+            </a>
+            </li>
+            {% endif %}
+
+
+            {% if request.user|has_group:"Maintainer" %}
+            <li class="nav-item">
+            <a href="#" class="nav-link 
+            
+            link-dark
+            
+            " aria-current="page">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                Report
+            </a>
+            </li>
+            {% endif %}
+
+            {% if request.user|has_group:"Maintainer"  or request.user|has_group:"Requestor" %}
+            <li class="nav-item">
+            <a href="#" class="nav-link 
+            
+            link-dark
+
+            " aria-current="page">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                Profile
+            </a>
+            </li>
+            {% endif %}
+
+            {% if request.user|has_group:"Maintainer" %}
+            <li class="nav-item">
+            <a href="#" class="nav-link 
+            
+            link-dark
+            
+            " aria-current="page">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                Logs
+            </a>
+            </li>
+            {% endif %}
+
+
+            {% if request.user|has_group:"Requestor" %}
+            <li class="nav-item">
+            <a href="{% url 'main:make_request' %}" class="nav-link 
+            
+            {% url 'main:make_request' as the_url%}
+            {% if request.path == the_url %}
+            active
+            {% else %}
+            link-dark
+            {% endif %}
+            
+            " aria-current="page">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                Make Request
+            </a>
+            </li>
+            {% endif %}
+
+
+
+   
+      
+        </ul>
+    </div>
+  </div>
