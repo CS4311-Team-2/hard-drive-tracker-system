@@ -1,10 +1,11 @@
 from email.policy import default
-from tkinter import CASCADE
+#from tkinter import CASCADE
 from django.db import models
 from django.utils import timezone
 from unixtimestampfield.fields import UnixTimeStampField
 from .request import Request
 
+# Hard Drive model
 class HardDrive(models.Model):
     
     class Classification(models.TextChoices):
@@ -15,7 +16,6 @@ class HardDrive(models.Model):
         PASS = "pass"
         FAILED = "failed"
 
-    # TODO: Make sure this field when the object is created. 
     create_date = UnixTimeStampField(auto_now_add=True) 
     serial_number = models.CharField(max_length=100)
     manufacturer = models.CharField(blank=True, max_length=100)
@@ -25,10 +25,9 @@ class HardDrive(models.Model):
     hard_drive_size = models.CharField(max_length=100)
     classification = models.CharField(max_length=50, choices=Classification.choices, 
                                         default=Classification.UNCLASSIFIED)
-    # This field needs to be changed when the classification is changed. 
-    # TODO: This needs to give the option of a file or straight text. 
+    # TODO(django): This field needs to be changed when the classification is changed. 
     justification_for_classification_change = models.TextField(blank=True)
-    # TODO: Need to limit this number at 4. 
+    # TODO(django): Need to limit this number at 4. 
     hard_drive_image = models.CharField(blank=True, max_length=100)
     image_version_id = models.CharField(max_length=100)
     boot_test_status = models.CharField(max_length=50, choices=BootTestStatus.choices, 

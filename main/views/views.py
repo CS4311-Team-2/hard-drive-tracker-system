@@ -13,12 +13,16 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
+from django.http import Http404
 
 MAINTAINER = "Maintainer"
 
 def add_drive(request):
     return render(request, 'maintainer/add_hard_drive.html')
-        
+
+# These functions relate to the account/*.html and main/index.html. These functions relate 
+#   to logining in and creating account.  
+
 @login_required(login_url='main:login')
 def index(request):
     if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
@@ -36,9 +40,16 @@ def view_request(request):
     return redirect('main:index')
 
 @login_required(login_url='main:login')
+def view_all_requests(request):
+    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+        return maintainer.view_all_requests(request)
+    
+    return redirect('main:index')
+
+@login_required(login_url='main:login')
 def make_request(request):
     if request.user.groups.filter(name='Requestor').exists() | request.user.is_staff:
-        return requestor.view_request(request)
+        return requestor.make_request(request)
 
     return redirect('main:index')
 
@@ -100,4 +111,11 @@ def add_hard_drive(request):
 
     if request.user.groups.filter(name='Requestor').exists():
         raise Http404('Unauthorize access')
+
+@login_required(login_url='main:login')
+def view_all_harddrives(request):
+    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+        return maintainer.view_all_harddrives(request)
+    
+    return redirect('main:index')
         
