@@ -22,6 +22,18 @@
             </li>
             {% endif %}
 
+
+            {% if request.user.is_staff %}
+            <li class="nav-item">
+            <a href="/admin" class="nav-link link-dark" aria-current="page">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                Admin
+            </a>
+            </li>
+            {% endif %}
+
+            
+
             {% if request.user|has_group:"Maintainer"  %}
             <li class="nav-item">
             <a href="{% url 'main:view_all_requests' %}" class="nav-link
