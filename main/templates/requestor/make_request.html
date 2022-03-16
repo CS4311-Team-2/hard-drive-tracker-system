@@ -106,37 +106,33 @@
                                 <br>
                             </div>     
 
-                                <div class="col">
-                                    <br>
+                            <div class="col">
+                                <br>
+                                
+                                    <div class="form-group">
+                                        <label for="startDate">Start Date<span>*</span></label>
+                                        <input form="request" type="date" class="form-control" id="startDate" value="{{event.event_start_date|date:"Y-m-d"}}" name ="startDate"/>
+                                        <i class="fas fa-calandar-alt"></i>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="endDate">End Date<span>*</span></label>
+                                        <input form="request" type="date" class="form-control" id="endDate" value="{{event.event_end_date|date:"Y-m-d"}}" name="endDate"/>
+                                        <i class="fas fa-calandar-alt"></i>
+                                    </div>
                                     
-                                        <div class="form-group">
-                                            <label for="startDate">Start Date<span>*</span></label>
-                                            <input form="request" type="date" class="form-control" id="startDate" value="{{event.event_start_date|date:"Y-m-d"}}" name ="startDate"/>
-                                            <i class="fas fa-calandar-alt"></i>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="endDate">End Date<span>*</span></label>
-                                            <input form="request" type="date" class="form-control" id="endDate" value="{{event.event_end_date|date:"Y-m-d"}}" name="endDate"/>
-                                            <i class="fas fa-calandar-alt"></i>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label for="location">Location</label>
-                                            <input form="request" type="text" class ="form-control" id="location" value="{{event.event_location}}" name="c" placeholder="Location" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="eventName">Length of Reporting Cycle<span>*</span></label>
-                                            <input form="request" type="text" class ="form-control" id="lengthOfCycle" value="{{event.length_of_reporting_cycle}}" name="lengthOfCycle" placeholder="Days" />
-                                        </div>
-                                    
-                                    <br>
-                                </div>       
-                            </div> 
+                                    <div class="form-group">
+                                        <label for="location">Location</label>
+                                        <input form="request" type="text" class ="form-control" id="location" value="{{event.event_location}}" name="c" placeholder="Location" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="eventName">Length of Reporting Cycle<span>*</span></label>
+                                        <input form="request" type="text" class ="form-control" id="lengthOfCycle" value="{{event.length_of_reporting_cycle}}" name="lengthOfCycle" placeholder="Days" />
+                                    </div>
+                                
+                                <br>
+                            </div>     
                         </div>
-
                     </div>
-                </div>
-                </div>
                 </div>
                 <div class="row">                               
                     <div class="col-1">
@@ -280,13 +276,8 @@
                         </div>
                     </div>
                 </div>
-                
             </div>
-
-            
-        </div>
-
-        
+        </div>        
     </div>
 </div>
 

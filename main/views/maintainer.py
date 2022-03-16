@@ -109,7 +109,8 @@ def add_hard_drive(request):
         return redirect('main:index')
     
     else:
-        return render(request, 'maintainer/add_hard_drive.html')
+        print('groups:', request.user.groups)
+        return render(request, 'maintainer/add_hard_drive.html', {})
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
