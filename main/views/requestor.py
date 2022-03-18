@@ -90,15 +90,7 @@ def view_single_request(http_request, id):
 @group_required('Requestor')
 def make_request(http_request):
     if http_request.method == 'GET':
-        event   = Event()
-        request = Request()
-        event.request = request
-
-        request.save()
-        event.save()
-        
-        print(f'request_reference_no: {request.request_reference_no}')
-        return redirect('main:update_request', id=request.request_reference_no)
+        return render(http_request, 'requestor/make_request.html')
 
 
     if http_request.method == 'POST': 
