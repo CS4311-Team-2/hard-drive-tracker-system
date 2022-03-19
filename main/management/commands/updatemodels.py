@@ -16,8 +16,6 @@ REQUESTOR_USERNAME = 'Requestor'
 PASSWORD = 'pass'
 
 class Command(BaseCommand):
-    help = 'import booms'
-
     def add_arguments(self, parser):
         pass
 
@@ -57,10 +55,10 @@ class Command(BaseCommand):
         in zip(df.request_reference_no, df.request_reference_no_year, df.request_status, df.request_creation_date,
             df.request_last_modified_date, df.need_drive_by_date, df.comment):
 
-            models = Request(request_reference_no, request_reference_no_year, request_status, request_creation_date,
+            request = Request(request_reference_no, request_reference_no_year, request_status, request_creation_date,
                 request_last_modified_date, need_drive_by_date, comment)
 
-            models.save()
+            request.save()
     
         df = pd.read_csv('event.csv')
         for (id, event_name, event_description, event_location, event_type, length_of_reporting_cycles,
@@ -71,7 +69,7 @@ class Command(BaseCommand):
             event = Event(id, event_name, event_description, event_location, event_type, length_of_reporting_cycles,
                 event_status, event_start_date, event_end_date)
 
-            request = Request.objects.get(pk = 321)            
+            request = Request.objects.get(pk = 1)            
             event.request = request
             event.save()
 
@@ -101,7 +99,7 @@ class Command(BaseCommand):
         for (id,classification,amount_required,connection_port,hard_drive_size,hard_drive_type,comment) \
         in zip(df.id,df.classification,df.amount_required,df.connection_port,df.hard_drive_size,df.hard_drive_type,df.comment):
             models = HardDriveRequest(id,classification,amount_required,connection_port,hard_drive_size,hard_drive_type,comment)
-            request = Request.objects.get(pk = 321)
+            request = Request.objects.get(pk = 1)
             
             models.request = request
             models.save()
