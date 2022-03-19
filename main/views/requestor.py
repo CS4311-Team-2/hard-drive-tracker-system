@@ -1,8 +1,10 @@
 from itertools import chain
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.forms.models import modelformset_factory
 
+from main.forms import EventForm, HardDriveForm, HardDriveRequestForm
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
@@ -90,8 +92,43 @@ def view_single_request(http_request, id):
 @group_required('Requestor')
 def make_request(http_request):
     if http_request.method == 'GET':
-        return render(http_request, 'requestor/make_request.html')
+        event_form = EventForm()
+        hard_drive_request_form = HardDriveRequestForm()
+
+        context = {
+            'event_form' : event_form,
+            'hard_drive_request_form' : hard_drive_request_form
+        }
+        return render(http_request, 'requestor/make_request.html', context)
 
 
     if http_request.method == 'POST': 
-        pass
+        event_form = EventForm(http_request.POST)
+        print('event_form:', event_form.is_valid())
+        hard_drive_request_form = HardDriveRequestForm(http_request.POST)
+        print('hard_drive_request_form:', hard_drive_request_form.is_valid())
+
+        if event_form.is_valid() and hard_drive_request_form.is_valid():
+            request = Request()
+            request.save()
+
+            event = event_form.instance
+            event.request = request
+            event.save()
+
+            hard_drive_request = hard_drive_request_form.instance
+            hard_drive_request.request = request
+            hard_drive_request.save()
+
+            
+
+            return redirect('/admin')
+        else:
+            print(event_form.errors.as_data())
+            print(hard_drive_request_form.errors.as_data())
+
+
+    if http_request.htmx:
+        return render(http_request, 'components/request_form.html')
+
+

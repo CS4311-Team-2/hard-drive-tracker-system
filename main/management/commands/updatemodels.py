@@ -1,13 +1,13 @@
-
-import re
 from django.core.management.base import BaseCommand
-import pandas as pd
+from django.contrib.auth.models import User, Group
+
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 from main.models.request import Request
 from main.models.hard_drive import HardDrive
-from django.contrib.auth.models import User, Group
-from django.contrib.auth import authenticate
+
+import pandas as pd
+from datetime import date
 
 
 ADMIN_USERNAME = 'Admin'
@@ -68,12 +68,12 @@ class Command(BaseCommand):
         in zip(df.id, df.event_name, df.event_description, df.event_location, df.event_type, df.length_of_reporting_cycles,
             df.event_status, df.event_start_date, df.event_end_date):
 
-            models = Event(id, event_name, event_description, event_location, event_type, length_of_reporting_cycles,
+            event = Event(id, event_name, event_description, event_location, event_type, length_of_reporting_cycles,
                 event_status, event_start_date, event_end_date)
 
             request = Request.objects.get(pk = 321)            
-            models.request = request
-            models.save()
+            event.request = request
+            event.save()
 
         df = pd.read_csv('hard_drives.csv')
         for (id, create_date, serial_number, manufacturer,
