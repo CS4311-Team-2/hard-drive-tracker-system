@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,222 +29,184 @@
         });
   </script>
 </head>
+=======
+{% extends "main/base.html" %}  
 
-<body>
-    <div class="container-fluid">
+{% block content %}
+>>>>>>> 75fda99c9407dee9c8d34dc54695b1e7cabd318d
 
-        <header>
-            <!-- Start of Sidebar -->
-            <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+
+<div class="row">
+    <div class="col-2">
+        <!-- Start of Sidebar -->
+        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
             <div class="position-sticky">
-                <div class="list-group list-group-flush mx-3 mt-4">
-                    <h3>Search Content Area</h3>
+            <div class="list-group list-group-flush mx-3 mt-4">
+                <h3>Search Content Area</h3>
 
-                    <div class="request-attribute">
-                        <h4><strong>Request Attribute</strong></h4>
-                        <h5>Request Reference Number:</h5>
-                        <input type="text" class="form-control">
-                        <div class="dropdown show">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left:10%;">
-                              Request Status
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                              <a class="dropdown-item" href="#">Created</a>
-                              <a class="dropdown-item" href="#">Forecasted</a>
-                              <a class="dropdown-item" href="#">Confirmed</a>
-                              <a class="dropdown-item" href="#">Approved</a>
-                              <a class="dropdown-item" href="#">Declined</a>
-                              <a class="dropdown-item" href="#">Delivered</a>
-                              <a class="dropdown-item" href="#">Fulfilled</a>
-                              <a class="dropdown-item" href="#">Partial-Returned</a>
-                              <a class="dropdown-item" href="#">Closed</a>
-                              <a class="dropdown-item" href="#">Canceled</a>
-                              <a class="dropdown-item" href="#">Archived</a>
-                              <a class="dropdown-item" href="#">Overdue</a>
-                            </div>
+                <div class="request-attribute">
+                    <h4><strong>Request Attribute</strong></h4>
+                    <h5>Request Reference Number:</h5>
+                    <input type="text" class="form-control">
+                    <div class="dropdown show">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left:10%;">
+                            Request Status
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="#">Created</a>
+                            <a class="dropdown-item" href="#">Forecasted</a>
+                            <a class="dropdown-item" href="#">Confirmed</a>
+                            <a class="dropdown-item" href="#">Approved</a>
+                            <a class="dropdown-item" href="#">Declined</a>
+                            <a class="dropdown-item" href="#">Delivered</a>
+                            <a class="dropdown-item" href="#">Fulfilled</a>
+                            <a class="dropdown-item" href="#">Partial-Returned</a>
+                            <a class="dropdown-item" href="#">Closed</a>
+                            <a class="dropdown-item" href="#">Canceled</a>
+                            <a class="dropdown-item" href="#">Archived</a>
+                            <a class="dropdown-item" href="#">Overdue</a>
                         </div>
                     </div>
+                </div>
 
-                    <div class="hard-drive-attribute">
-                        <h4><strong>Hard Drive Attribute</strong></h4>
-                        <h5>Total No. of Drives:</h5>
-                        <input type="text" class="form-control">
-                        <!-- Radio -->
+                <div class="hard-drive-attribute">
+                    <h4><strong>Hard Drive Attribute</strong></h4>
+                    <h5>Total No. of Drives:</h5>
+                    <input type="text" class="form-control">
+                    <!-- Radio -->
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                        <label class="form-check-label" for="inlineCheckbox1">Less than</label>
+                    </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                            <label class="form-check-label" for="inlineCheckbox1">Less than</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                            <label class="form-check-label" for="inlineCheckbox2">Equal</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-                            <label class="form-check-label" for="inlineCheckbox3">Greater than</label>
-                          </div>
-
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                        <label class="form-check-label" for="inlineCheckbox2">Equal</label>
                     </div>
-            
-                    <div class="event-attribute">
-                        <h4><strong>Event Attribute</strong></h4>
-                        <h5>Username:</h5>
-                        <input type="text" class="form-control">
-
-                        <div class="dropdown show">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left:10%;">
-                              Request Status
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                              <a class="dropdown-item" href="#">Required</a>
-                            </div>
-                        </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                        <label class="form-check-label" for="inlineCheckbox3">Greater than</label>
                     </div>
 
-                    <div class="date-attribute">
-                        <h4><strong>Date Attribute</strong></h4>
-                        <div class="form-group">
-                            <label for="'startDate">Event Start Date<span>*</span></label>
-                            <input type="date" class="startDate" name="startDate"/>
-                            <i class="fas fa-calander-alt"></i>
-                        </div>
-                        <div class="form-group">
-                            <label for="'startDate">Event End Date<span>*</span></label>
-                            <input type="date" class="endDate" name="endDate"/>
-                            <i class="fas fa-calander-alt"></i>
-                        </div>
-                        <div class="form-group">
-                            <label for="'startDate">Request Date<span>*</span></label>
-                            <input type="date" class="endDate" name="endDate"/>
-                            <i class="fas fa-calander-alt"></i>
-                        </div>
-                        <div class="form-group">
-                            <label for="'startDate">Need Drive Due by Date<span>*</span></label>
-                            <input type="date" class="endDate" name="endDate"/>
-                            <i class="fas fa-calander-alt"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="keyword-attribute">
-                        <h4><strong>Keyword</strong></h4>
-                        <h5>Expression:</h5>
-                        <input type="text" class="form-control">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary" style="margin-left:10%;">Search</button>
                 </div>
+
+                <div class="event-attribute">
+                    <h4><strong>Event Attribute</strong></h4>
+                    <h5>Username:</h5>
+                    <input type="text" class="form-control">
+
+                    <div class="dropdown show">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left:10%;">
+                            Request Status
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="#">Required</a>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="date-attribute">
+                    <h4><strong>Date Attribute</strong></h4>
+                    <div class="form-group">
+                        <label for="'startDate">Event Start Date<span>*</span></label>
+                        <input type="date" class="startDate" name="startDate"/>
+                        <i class="fas fa-calander-alt"></i>
+                    </div>
+                    <div class="form-group">
+                        <label for="'startDate">Event End Date<span>*</span></label>
+                        <input type="date" class="endDate" name="endDate"/>
+                        <i class="fas fa-calander-alt"></i>
+                    </div>
+                    <div class="form-group">
+                        <label for="'startDate">Request Date<span>*</span></label>
+                        <input type="date" class="endDate" name="endDate"/>
+                        <i class="fas fa-calander-alt"></i>
+                    </div>
+                    <div class="form-group">
+                        <label for="'startDate">Need Drive Due by Date<span>*</span></label>
+                        <input type="date" class="endDate" name="endDate"/>
+                        <i class="fas fa-calander-alt"></i>
+                    </div>
+                </div>
+                
+                <div class="keyword-attribute">
+                    <h4><strong>Keyword</strong></h4>
+                    <h5>Expression:</h5>
+                    <input type="text" class="form-control">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="margin-left:10%;">Search</button>
             </div>
-            </nav>
-        </header>
+        </nav>
         <!-- End of Sidebar -->
-
-        <div class="row no-gutters">
-            <div class="col">
-                <div class="jumbotron">
-                    <h2>View All Requests</h2>      
-                </div>
-                <main class="content">
-                    <h3>Summary View of Requests</h3> 
-                        <div class="row">                               
-                            <div class="col">
-                                <div class="row">                               
-                                    <div class="col">   
-                                            <!-- Table -->
-                                            <div class="scroller">
-                                                <table class="table table-hover">
-                                                    <thead>
-                                                      <tr>
-                                                        <th scope="col">Reference No.</th>
-                                                        <th scope="col">Date</th>
-                                                        <th scope="col">Event Start Date</th>
-                                                        <th scope="col">Event End Date</th>
-                                                        <th scope="col">Need Drive Due by Date</th>
-                                                        <th scope="col">Event Name</th>
-                                                        <th scope="col">Event Description</th>
-                                                        <th scope="col">Event Type</th>
-                                                        <th scope="col">Event Lead Username</th>
-                                                        <th scope="col">Total No. of Drives</th>
-                                                        <th scope="col">Request Status</th>
-                                                      </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    {% for hard_drive in hard_drives %}
-                                                      <tr>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>
-                                                        <td>{{s}}</td>  
-                                                      </tr>
-                                                    {% empty %}
-                                                    <h3>No requests found.</h3>
-                                                    {% endfor %}
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                    </div>
+    </div>    
+    <div class="col">
+        <main class="content">
+            <h3>Summary View of Requests</h3> 
+            <div class="row">                               
+                <div class="col">
+                    <div class="row">                               
+                        <div class="col">   
+                                <!-- Table -->
+                                <div class="scroller">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">Reference No.</th>
+                                            <th scope="col">Request Creation Date</th>
+                                            <th scope="col">Event Start Date</th>
+                                            <th scope="col">Event End Date</th>
+                                            <th scope="col">Need Drive Due by Date</th>
+                                            <th scope="col">Event Name</th>
+                                            <th scope="col">Event Description</th>
+                                            <th scope="col">Event Type</th>
+                                            <th scope="col">Request Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for key, value in data.items %}
+                                                <tr>
+                                                <td>{{key.request_reference_no}}</td>
+                                                <td>{{key.request_creation_date}}</td>
+                                                <td>{{value.event_start_date}}</td>
+                                                <td>{{value.event_end_date}}</td>
+                                                <td>{{key.need_drive_by_date}}</td>
+                                                <td>{{value.event_name}}</td>
+                                                <td>{{value.event_description}}</td>
+                                                <td>{{value.event_type}}</td>
+                                                <td>{{key.request_status}}</td>  
+                                                </tr>
+                                            {% empty %}
+                                                <h3>No requests found.</h3>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="row">                               
-                                    <div class="col-1">
-                                    </div>
-                                    <div class="col">   
-                                        <br> 
-                                    </div>
-                                </div>
-                                <br>
-                            </div>
-                        
-                        <!-- Start footer buttons -->
-                        <div class="col" style="margin-left:60%;">
-                            <button type="submit" class="btn btn-primary">Clone Request</button>
-                        </div>        
-                        <div class="col">
-                            <button type="submit" class="btn btn-primary" style="margin-left:20%;">Add Request</button>
                         </div>
-                        <!-- End of footer buttons -->
-                    </div> 
-                </main>
-            </div>
+                    </div>
+                    <div class="row">                               
+                        <div class="col-1">
+                        </div>
+                        <div class="col">   
+                            <br> 
+                        </div>
+                    </div>
+                    <br>
+                </div>
             
-            <!-- Start of right navigation bar -->
-            <div class="col-2">
-                <!-- A vertical navbar -->
-                <nav class="navbar bg-light">
-                    <!-- Links -->
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Requests</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Events</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Hard Drives</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Reports</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">System Configurations</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Logs</a>
-                        </li>
-                    </ul>
-                </nav>
-                <br>
-            </div>
-            <!-- End of right navigation bar -->
-        </div>
-    </div>
-</body>
-</html>
+                <!-- Start footer buttons -->
+                <div class="col" style="margin-left:60%;">
+                    <button type="submit" class="btn btn-primary">Clone Request</button>
+                </div>        
+                <div class="col">
+                    <button type="submit" class="btn btn-primary" style="margin-left:20%;">Add Request</button>
+                </div>
+                <!-- End of footer buttons -->
+            </div> 
+        </main>
+    </div>    
+</div>
+
+
+ 
+
+{% endblock %}

@@ -39,6 +39,11 @@ pip freeze > requirements.txt
 
 ### Prepare Database
 
+* Use this command to prepare the database with the default data, this will delete everything on the database and updload the csv files into the database using both the makemigrations and migrate commands.
+```
+python manage.py resetdatabase
+```
+
 * This command will make a new migration file to update the database if the models in the model table had been modified. 
 ```
 python manage.py makemigrations

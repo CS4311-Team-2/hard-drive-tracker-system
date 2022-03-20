@@ -4,7 +4,7 @@ from unixtimestampfield.fields import UnixTimeStampField
 from email.policy import default
 from django.db import models
 
-
+# Hard Drive request model
 class HardDriveRequest(models.Model):
 
     class Classification(models.TextChoices):

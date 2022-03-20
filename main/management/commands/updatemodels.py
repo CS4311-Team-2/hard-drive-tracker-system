@@ -1,4 +1,4 @@
-from lib2to3.pytree import Base
+
 import re
 from django.core.management.base import BaseCommand
 import pandas as pd
