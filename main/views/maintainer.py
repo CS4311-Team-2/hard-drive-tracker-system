@@ -1,7 +1,6 @@
-from asyncio import events
-from multiprocessing import Event
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
+
 from datetime import datetime
 
 from main.views.decorators import group_required
@@ -12,12 +11,17 @@ from main.models.event import Event
 # These functions relate to maintainer/*.html views. These functions serve only the 
 #   maintainer role. 
 
+
+
 @login_required(login_url='main:login')
 @group_required('Maintainer')
 def home(request):
     deliquentdrives = HardDrive.objects.filter(status= 'delinquent')
     requests = Request.objects.all()
-    context = {"deliquentdrives" : deliquentdrives, "requests" : requests}
+    context = {
+        "deliquentdrives" : deliquentdrives, 
+        "requests" : requests,
+        }
     return render(request, 'maintainer/home.html', context)
 
 @login_required(login_url='main:login')
@@ -105,7 +109,8 @@ def add_hard_drive(request):
         return redirect('main:index')
     
     else:
-        return render(request, 'maintainer/add_hard_drive.html')
+        print('groups:', request.user.groups)
+        return render(request, 'maintainer/add_hard_drive.html', {})
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
