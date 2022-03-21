@@ -151,7 +151,13 @@
           
 
           {% include "components/sidebar.html" %}
-
+          
+          <script src="https://unpkg.com/htmx.org@1.1.0"></script>
+          <script>
+            document.body.addEventListener('htmx:configRequest', (event) => {
+              event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+            })
+          </script>
 
         </div>
       </main>

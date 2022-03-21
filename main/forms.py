@@ -40,3 +40,4 @@ class HardDriveRequestForm(forms.ModelForm):
         model = HardDriveRequest
         fields =['classification', 'amount_required', 'connection_port', 
                 'hard_drive_size', 'hard_drive_type', 'comment']
+

@@ -1,3 +1,4 @@
+import http
 from itertools import chain
 
 from django.shortcuts import render, redirect, get_object_or_404
@@ -91,24 +92,46 @@ def view_single_request(http_request, id):
 @login_required(login_url='main:login')
 @group_required('Requestor')
 def make_request(http_request):
-    if http_request.method == 'GET':
-        event_form = EventForm()
-        hard_drive_request_form = HardDriveRequestForm()
+    if http_request.htmx:
+        HDRFormSet = modelformset_factory(model=HardDriveRequest, form=HardDriveRequestForm)
+        
+        ids = list()
+        for form in HDRFormSet(http_request.POST):
+            ids.append(form.save().id)
+
+        print('ids: ', ids)
+
+        formset = HDRFormSet(queryset=HardDriveRequest.objects.filter(id__in=ids))
+        event_form = EventForm(http_request.POST)
+        
 
         context = {
             'event_form' : event_form,
-            'hard_drive_request_form' : hard_drive_request_form
+            'hdr_forms' : formset,
+        }
+
+        return render(http_request, 'components/request_form.html', context)
+
+
+    if http_request.method == 'GET':
+        event_form = EventForm()
+        HDRFormSet = modelformset_factory(model=HardDriveRequest, form=HardDriveRequestForm)
+        formset = HDRFormSet(queryset=HardDriveRequest.objects.none())
+
+        context = {
+            'event_form' : event_form,
+            'hdr_forms' : formset,
         }
         return render(http_request, 'requestor/make_request.html', context)
 
 
     if http_request.method == 'POST': 
+        print('POST')
         event_form = EventForm(http_request.POST)
-        print('event_form:', event_form.is_valid())
-        hard_drive_request_form = HardDriveRequestForm(http_request.POST)
-        print('hard_drive_request_form:', hard_drive_request_form.is_valid())
+        HDRFormSet = modelformset_factory(model=HardDriveRequest, form=HardDriveRequestForm)
+        
 
-        if event_form.is_valid() and hard_drive_request_form.is_valid():
+        if event_form.is_valid() and HDRFormSet(http_request.POST).is_valid():
             request = Request()
             request.save()
 
@@ -116,19 +139,16 @@ def make_request(http_request):
             event.request = request
             event.save()
 
-            hard_drive_request = hard_drive_request_form.instance
-            hard_drive_request.request = request
-            hard_drive_request.save()
-
+            for form in HDRFormSet(http_request.POST):
+                hard_drive_request = form.save()
+                hard_drive_request.request = request
+                hard_drive_request.save()
             
-
             return redirect('/admin')
         else:
             print(event_form.errors.as_data())
-            print(hard_drive_request_form.errors.as_data())
+            print(HDRFormSet(http_request.POST).errors.as_data())
 
 
-    if http_request.htmx:
-        return render(http_request, 'components/request_form.html')
-
+    
 

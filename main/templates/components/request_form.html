@@ -1,4 +1,4 @@
-<form action="{% url 'main:make_request' %}" method="POST" hx-post="." hx-swap="outerHTML">
+<form action="{% url 'main:make_request' %}" method="POST" id="request-form">
     {% csrf_token %}
     <div class="container-fluid" style="border:1px solid #cecece;">
         <div class="row">                               
@@ -79,70 +79,7 @@
                         
                             <div class="container-fluid" style="border:1px solid #cecece;">
                                 <div class="row">    
-                                    <div class="col">
-                                        <br>
-                                        
-                                            <div class="form-group">
-                                                <label for="quantity">Quantity<span>*</span></label>
-                                                {{hard_drive_request_form.amount_required}}
-                                            </div>
 
-                                        <br>
-                                    </div>    
-                                    <div class="col">
-                                        <br>
-                                        
-                                            <div class="form-group">
-                                                <label for="storagesize">Storage Size</label>
-                                                {{hard_drive_request_form.hard_drive_size}}
-                                            </div>
-
-                                        
-                                        <br>
-                                    </div>
-                                    <div class="col">   
-                                        <br>
-                                        
-                                        <div class="form-group">
-                                            <label for="classification">Classification<span>*</span></label>
-                                            {{hard_drive_request_form.classification}}
-                                        </div>
-                                    
-                                        <br>
-                                    </div>    
-                                    <div class="col">   
-                                        <br> 
-                                
-                                        <div class="form-group">
-                                            <label for="connection">Connection Port</label>
-                                            {{hard_drive_request_form.connection_port}}    
-                                        </div>
-                                    
-                                        <br>
-                                    </div>
-                                
-                                    <div class="col">   
-                                        <br> 
-                                    
-                                        <div class="form-group">
-                                            <label for="typeharddrive">Hard Drive Type</label>
-                                            {{hard_drive_request_form.hard_drive_type}}   
-                                        </div>
-                                        
-                                        <br>
-                                    </div>
-                                    <div class="col">
-                                        <br>
-                                        
-                                        <div class="btn-block">
-                                            <input form="request" type="hidden" name="request" value="{{request.request_reference_no}}">
-                                            <button form="request" type="submit" name="Add">Add</button>
-                                            </div>
-                                        
-                                        <br>
-                                        
-                                    </div>
-                                
                                     <div class="container-fluid" >
                                         <div class="row">    
                                             <div class="col">
@@ -157,14 +94,18 @@
                                                             <th scope="col">Hard Drive Type</th>
                                                         </tr>
                                                         </thead>
-                                                        {% for hd_request in hard_drive_requests %}
+                                                        {{hdr_forms.management_form}}
+                                                        {% for form in hdr_forms %}
+                                                        {% for hidden in form.hidden_fields %}
+                                                            {{ hidden }}
+                                                        {% endfor %}
                                                         <tbody>
                                                             <tr>
-                                                            <th scope="row">{{ hd_request.amount_required }}</th>
-                                                            <td>{{ hd_request.hard_drive_size }}</td>
-                                                            <td>{{ hd_request.classification }}</td>
-                                                            <td>{{ hd_request.connection_port }}</td>
-                                                            <td>{{ hd_request.hard_drive_type }}</td>
+                                                            <th scope="row">{{ form.amount_required }}</th>
+                                                            <td>{{ form.hard_drive_size }}</td>
+                                                            <td>{{ form.classification }}</td>
+                                                            <td>{{ form.connection_port }}</td>
+                                                            <td>{{ form.hard_drive_type }}</td>
                                                             </tr>
                                                         </tbody>
                                                         {% endfor %}
@@ -172,6 +113,14 @@
                                                 <br>
                                             </div>
                                         </div>
+
+                                        <button 
+                                            hx-post="{% url 'main:make_request' %}" 
+                                            hx-target="#request-form"
+                                            hx-swap="outerHTML">
+                                            Add
+                                        </button>
+
                                         <div class="row">                               
                                             <div class="col">   
                                                 <br> 
