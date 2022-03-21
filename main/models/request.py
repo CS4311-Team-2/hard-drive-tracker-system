@@ -1,7 +1,9 @@
-from datetime import datetime
 from django.db import models
+from django.conf import settings
+
 from unixtimestampfield.fields import UnixTimeStampField
 
+# Request model
 class Request(models.Model):
 
     class Request_Status(models.TextChoices):
@@ -19,14 +21,15 @@ class Request(models.Model):
         OVERDUE = "overdue"
     #Forecasted, confirmed shall be constrained by event status.?
     
-    request_reference_no = models.IntegerField()
-    request_reference_no_year = UnixTimeStampField(auto_now_add=True)
-    request_status = models.CharField(max_length = 50, choices= Request_Status.choices)
-    request_creation_date = UnixTimeStampField(auto_now_add=True)
-    request_last_modifed_date = UnixTimeStampField(auto_now=True, blank=True)
-    need_drive_by_date = models.CharField(max_length = 50)
+    request_reference_no = models.AutoField(primary_key=True)
+    request_reference_no_year = UnixTimeStampField(auto_now_add=True,default=0.0)
+    request_status = models.CharField(max_length = 50, choices= Request_Status.choices, default=Request_Status.CREATED)
+    request_creation_date = UnixTimeStampField(auto_now_add=True,default=0.0)
+    request_last_modifed_date = UnixTimeStampField(auto_now=True,default=0.0)
+    need_drive_by_date = UnixTimeStampField(max_length = 50)
     comment = models.TextField(blank = True) 
-    file_attachment = models.FileField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
    
     class Meta:
         verbose_name_plural = "Request"
+

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Maintainer Home</title>
+  <title>Requestor Home</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -42,38 +42,39 @@
                     <h1>Hard Drive Tracker System</h1>      
                 </div>
                 <main class="content"> 
-                    <h2 style="color:grey;">Welcome</h2> <br>
-                    <a class="btn btn-primary" href="#" role="button">Return Hard Drives</a>
-                    <h3>Pending Requests</h3>
+                    <h2 style="color:grey;">Welcome, {{ username }}</h2> <br>
+                    <a class="btn btn-primary" href="{% url 'main:make_request' %}" role="button">Make Request</a>
+                    <h3>My Requests</h3>
                     <hr size="1" width="100%" color="grey">  
+
 
                     <table class="table table-bordered">
                         <thead>
                           <tr>
                             <th scope="col">Reference No.</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Event Name</th>
                             <th scope="col">Creation Date</th>
-                            <th scope="col">Last Modified Date</th>
                             <th scope="col">Need Drive By Date</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {% for request in pending_requests %}
+                          {% for request in requests %}
                             <tr>
-                              <th scope="row">{{ request.title }}</th>
-                              <td>{{ request.title }}</td>
-                              <td>{{ request.title }}</td>
-                              <td>{{ request.title }}</td>
-                              <td>{{ request.title }}</td>
+                              <th scope="row">{{ request.request_reference_no }}</th>
+                              <td>{{ request.request_status }}</td>
+                              <td>{{ request.request_creation_date }}</td>
+                              <td>{{ request.request_creation_date }}</td>
+                              <td>{{ request.need_drive_by_date }}</td>
                             </tr>
                           {% empty %}
-                          <h3>No listings found. Try again.</h3>
+                          <h3>You do not have any requests at the moment</h3>
                           {% endfor %} 
                         </tbody>
                       </table>
 
 
-                    <h3>Delinquent Hard Drives</h3>
+                    <h3>Active Hard Drives</h3>
                     <hr size="1" width="100%" color="grey">  
 
                     <table class="table table-bordered">
@@ -85,14 +86,14 @@
                               </tr>
                             </thead>
                             <tbody>
-                              {% for hard_drive in delinquent_hard_drives %}
+                              {% for hard_drive in hard_drives %}
                                 <tr>
-                                  <th scope="row">{{ hard_drive.title }}</th>
-                                  <td>{{ hard_drive.title }}</td>
-                                  <td>{{ hard_drive.title }}</td>
+                                  <th scope="row">{{ hard_drive.serial_number }}</th>
+                                  <td>{{ hard_drive.expected_hard_drive_return_date }}</td>
+                                  <td>{{ hard_drive.request.request_reference_no }}</td>
                                 </tr>
                               {% empty %}
-                              <h3>No listings found. Try again.</h3>
+                              <h3>No hard drives listed at the moment</h3>
                               {% endfor %} 
                             </tbody>
                     </table>
@@ -106,13 +107,10 @@
                     <!-- Links -->
                     <ul class="navbar-nav">
                       <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="{% url 'main:index' %}">Home</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link" href="#">Request</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="#">Configuration</a>
+                          <a class="nav-link" href="{% url 'main:make_request' %}">Make Request</a>
                       </li>
                       <li class="nav-item">
                           <a class="nav-link" href="#">Inventory</a>
@@ -124,10 +122,7 @@
                           <a class="nav-link" href="#">Report</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link" href="#">Log</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="#">Sign Out</a>
+                          <a class="nav-link" href="{% url 'main:logout' %}">Sign Out</a>
                       </li>
                     </ul>
   
