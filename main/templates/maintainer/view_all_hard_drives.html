@@ -1,66 +1,57 @@
 {% extends "main/base.html" %}  
 
 {% block content %}
-
-<main class="content"> 
-    <div class="row">                               
-        <div class="col">
-            <div class="row">                               
-                <div class="col">   
-                        <!-- Table -->
-                        <div class="scroller">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                    <th scope="col">Serial Number</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Manufacturer</th>
-                                    <th scope="col">Model No</th>
-                                    <th scope="col">Classification</th>
-                                    <th scope="col">Connection Port</th>
-                                    <th scope="col">Size</th>
-                                    <th scope="col">Type</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {% for hard_drive in hardDrives %}
-                                    <tr>
-                                    <td>{{hard_drive.serial_number}}</td>  
-                                    <td>{{hard_drive.status}}</td>
-                                    <td>{{hard_drive.manufacturer}}</td>
-                                    <td>{{hard_drive.model_number}}</td>
-                                    <td>{{hard_drive.classification}}</td>
-                                    <td>{{hard_drive.connection_port}}</td>
-                                    <td>{{hard_drive.hard_drive_size}}</td>
-                                    <td>{{hard_drive.hard_drive_type}}</td>
-                                    </tr>
-                                {% empty %}
-                                <h3>No hard drives found.</h3>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                </div>
-            </div>
-            <div class="row">                               
-                <div class="col-1">
-                </div>
-                <div class="col">   
-                    <br> 
-                </div>
-            </div>
-            <br>
+<main class="content">
+  <div class="row">
+     <div class="col">
+        <div class="row">
+           <div class="tableFixHead">
+              <!-- Table -->
+              <div class="scroller">
+                 <table class="table table-hover">
+                    <thead>
+                       <tr>
+                         <th scope="col">View</th>
+                          <th scope="col">Serial Number</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">Manufacturer</th>
+                          <th scope="col">Model No</th>
+                          <th scope="col">Classification</th>
+                          <th scope="col">Connection Port</th>
+                          <th scope="col">Size</th>
+                          <th scope="col">Type</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                       {% for hard_drive in hardDrives %}
+                       <tr>
+                         <td><button>View</button></td>
+                          <td>{{hard_drive.serial_number}}</td>
+                          <td>{{hard_drive.status}}</td>
+                          <td>{{hard_drive.manufacturer}}</td>
+                          <td>{{hard_drive.model_number}}</td>
+                          <td>{{hard_drive.classification}}</td>
+                          <td>{{hard_drive.connection_port}}</td>
+                          <td>{{hard_drive.hard_drive_size}}</td>
+                          <td>{{hard_drive.hard_drive_type}}</td>
+                       </tr>
+                       {% empty %}
+                       <h3>No hard drives found.</h3>
+                       {% endfor %}
+                    </tbody>
+                 </table>
+              </div>
+           </div>
         </div>
-        
-        <!-- Buttons -->
-        <div class="col" style="margin-left:60%;">
-            <button type="submit" class="btn btn-primary">Return Hard Drives</button>
-        </div>        
-        
-        <div class="col">
-            <a class="btn" style="background-color:#4678B2;color:white;" href="{% url 'main:add_hard_drive' %}">Add New Hard Drive</a>
-        </div>
-    </div> 
+     </div>
+     <!-- Buttons -->
+     <div class="col" style="margin-left:60%;">
+        <button type="submit" class="btn btn-primary">Return Hard Drives</button>
+     </div>
+     <div class="col">
+        <a class="btn" style="background-color:#4678B2;color:white;" href="{% url 'main:add_hard_drive' %}">Add New Hard Drive</a>
+     </div>
+  </div>
+  </body>
 </main>
-
 {% endblock %}
