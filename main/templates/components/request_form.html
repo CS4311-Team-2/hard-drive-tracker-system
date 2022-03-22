@@ -1,3 +1,8 @@
+<!--This file needs to be its different comment because it is reloaded using
+    HTMX in order to add a new hard drive request to the form and not have to
+    refresh the page we only refresh this component.
+-->
+
 <form action="{% url 'main:make_request' %}" method="POST" id="request-form">
     {% csrf_token %}
     <div class="container-fluid" style="border:1px solid #cecece;">
