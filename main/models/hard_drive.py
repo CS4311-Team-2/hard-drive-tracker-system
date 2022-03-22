@@ -16,6 +16,14 @@ class HardDrive(models.Model):
         PASS = "pass"
         FAILED = "failed"
 
+    class ConnectionPort(models.TextChoices):
+        SATA = "SATA"
+        M2 = "M.2"
+
+    class Type(models.TextChoices):
+        HDD = "HDD"
+        SSD = "SSD"
+
     create_date = UnixTimeStampField(auto_now_add=True) 
     serial_number = models.CharField(max_length=100)
     manufacturer = models.CharField(blank=True, max_length=100)
