@@ -83,78 +83,225 @@
                                                 <div class="col">
                                                     <br>
                                                     <form>
-                                                        <div class="form-group">
-                                                            <label for="eventName">Event Name</label>
-                                                            <input type="text" class ="form-control" id="name" value={{pending_requests.title}} />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="eventDescription">Event Description</label>
-                                                            <textarea id="eventDescription" class="form-control" rows="6" value={{pending_requests.title}}></textarea>
-                                                        </div>
-                                                        <br>
-                                                        <div class="form-group">
-                                                            <label for="eventType">Event Type</label>
-                                                            <select>
-                                                            <option value=""disabled selected>Select Event Type</option>
-                                                            <option value="1" >PMR</option>
-                                                            <option value="2" >CVPA</option>
-                                                            <option value="3" >CVI</option>
-                                                            <option value="4" >VoF</option>
-                                                            <option value="5" >Cyber Resilience</option>
-                                                            <option value="6" >Individual Project</option>
-                                                            <option value="7" >Research Project</option>
-                                                            </select>
+                                                        <h5>Event Attributes</h5>
+                                                        <div class="row" style="margin-left:1%;">   
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="eventName">Event Name</label>
+                                                                    <input type="text" class ="form-control" id="name" value={{event.title}} />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="eventDescription">Event Description</label>
+                                                                    <textarea id="eventDescription" class="form-control" rows="3" value={{event.title}}></textarea>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="location">Event Location</label>
+                                                                    <input type="text" class ="form-control" id="location" value={{event.title}} />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="eventType">Event Type</label>
+                                                                    <select>
+                                                                    <option value=""disabled selected>Select Event Type</option>
+                                                                    <option value="1" >PMR</option>
+                                                                    <option value="2" >CVPA</option>
+                                                                    <option value="3" >CVI</option>
+                                                                    <option value="4" >VoF</option>
+                                                                    <option value="5" >Cyber Resilience</option>
+                                                                    <option value="6" >Individual Project</option>
+                                                                    <option value="7" >Research Project</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="eventName">Length of Reporting Cycle</label>
+                                                                    <input type="text" class ="form-control" id="lengthOfCycle" value={{event.title}} />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="eventStatus">Event Status</label>
+                                                                    <select>
+                                                                    <option value=""disabled selected>Select Event Status</option>
+                                                                    <option value="1" >Confirmed</option>
+                                                                    <option value="2" >Forecasted</option>
+                                                                    <option value="3" >Canceled</option>
+                                                                    </select>
+                                                                </div>
                                                             </div>
-                                                        <br>
-                                                    <div class="form-group">
-                                                            <label for="eventStatus">Event Status</label>
-                                                            <select>
-                                                            <option value=""disabled selected>Select Event Status</option>
-                                                            <option value="1" >Confirmed</option>
-                                                            <option value="2" >Forecasted</option>
-                                                            <option value="3" >Canceled</option>
-                                                            </select>
                                                         </div>
-                                                    </form>
                                                     <br>
                                                 </div>     
 
                                                 <div class="col">
                                                     <br>
-                                                    <form>
-                                                        <div class="form-group">
-                                                            <label for="startDate">Start Date</label>
-                                                            <input type="date" class="form-control" id="startDate"/>
-                                                            <i class="fas fa-calandar-alt"></i>
+                                                    <h5>Event Dates</h5>
+                                                    <div class="row" style="margin-eft:1%;"
+                                                        <div class="col"/>
+                                                            <div class="form-group">
+                                                                <label for="startDate">Event Start Date</label>
+                                                                <input type="date" class="form-control" id="startDate"/>
+                                                                <i class="fas fa-calandar-alt"></i>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="endDate">Event End Date</label>
+                                                                <input type="date" class="form-control" id="endDate"/>
+                                                                <i class="fas fa-calandar-alt"></i>
+                                                            </div>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="endDate">End Date</label>
-                                                            <input type="date" class="form-control" id="endDate"/>
-                                                            <i class="fas fa-calandar-alt"></i>
+                                                    </div>
+                                                    <h5>Event Participants</h5>
+                                                    <div class="row" style="margin-left:1%;">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="teamLeadName">Event Team Lead Name</label>
+                                                                <input type="text" class="form-control" id="teamLeadName" value={{event.title}}/>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="analystNames">Event Team Analyst Names</label>
+                                                                <input type="text" class="form-control" id="analystNames" value={{event.title}}/>
+                                                            </div>
                                                         </div>
-                                                        
-                                                        <div class="form-group">
-                                                            <label for="location">Location</label>
-                                                            <input type="text" class ="form-control" id="location" value={{pending_requests.title}} />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="eventName">Length of Reporting Cycle</label>
-                                                            <input type="text" class ="form-control" id="lengthOfCycle" value={{pending_requests.title}} />
-                                                        </div>
-                                                    </form>
-                                                    <br>
-                                                </div>       
-                                            </div> 
+                                                    </div>
+                                                </form>
+                                                <br>
+                                            </div>
                                         </div>
-                                        </div>
-
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">                               
+                                <div class="col-1">
+                                    <br>
+                                    <h4>Hard Drive Requests</h4>
                                 </div>
-                                <div class="row">                               
+                                <div class="col">   
+                                    <br> 
+                                    <div class="container-fluid" style="border:1px solid #cecece;">
+                                        <div class="row">    
+                                            <div class="col">
+                                                <br>
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label for="quantity">Quantity</label>
+                                                        <input type="text" class ="form-control" id="quantity" value={{event.title}} />
+                                                    </div>
+                                                </form>
+                                                <br>
+                                            </div>
+                                            <div class="col">
+                                                <br>
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label for="storagesize">Storage Size</label>
+                                                        <input type="text" class ="form-control" id="storagesize" value={{event.title}} />
+                                                    </div>
+                                                </form>
+                                                <br>
+                                            </div>
+                                            <div class="col">   
+                                                <br>
+                                                <form>
+                                                <div class="form-group">
+                                                    <label for="classification">Classification</label>
+                                                    <select>
+                                                    <option value=""disabled selected></option>
+                                                    <option value="1" >Classified</option>
+                                                    <option value="2" >Unclassified</option>
+                                                    </select>
+                                                    </div>
+                                                </form>
+                                                <br>
+                                            </div>    
+                                            <div class="col">   
+                                                <br> 
+                                                <form>
+                                                <div class="form-group">
+                                                    <label for="connection">Connection Port</label>
+                                                    <select>
+                                                    <option value=""disabled selected></option>
+                                                    <option value="1" >SATA</option>
+                                                    <option value="2" >M.2</option>
+                                                    </select>
+                                                    </div>
+                                                </form>
+                                                <br>
+                                            </div>
+                                        
+                                            <div class="col">   
+                                                <br> 
+                                                <form>
+                                                <div class="form-group">
+                                                    <label for="typeharddrive">Hard Drive Type</label>
+                                                    <select>
+                                                    <option value=""disabled selected></option>
+                                                    <option value="1" >HDD</option>
+                                                    <option value="2" >SSD</option>
+                                                    </select>
+                                                    </div>
+                                                </form>
+                                                <br>
+                                            </div>
+                                            <div class="col">
+                                                <br>
+                                                <form>
+                                                <div class="btn-block">
+                                                    <button type="add" href="/">Add</button>
+                                                    </div>
+                                                </form>
+                                                <br>
+                                            </div>
+                                            <div class="container-fluid" >
+                                        <div class="row">    
+                                            <div class="col">
+                                                <br>
+                                                <form> 
+                                                    
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                        <th scope="col">Quantity</th>
+                                                        <th scope="col">Storage Size</th>
+                                                        <th scope="col">Classification</th>
+                                                        <th scope="col">Connection Port</th>
+                                                        <th scope="col">Hard Drive Type</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for request in hard_drives %}
+
+                                                        <tr>
+                                                            <th scope="row">{{request.title}}</th>
+                                                            <td>{{request.title}}</td>
+                                                            <td>{{request.title}}</td>
+                                                            <td>{{request.title}}</td>
+                                                            <td>{{request.title}}</td>
+                                                        
+                                                        </tr>
+                                                    {% empty %}
+                                                    <h3>No requests found. Try again.</h3>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                                <br>
+                                                </form>
+                                                
+                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">   
+                                        <br> 
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="comments">Comments</label>
+                                                <textarea id="comments" class="form-control" rows="4" value={{pending_requests.title}}></textarea>
+                                            </div>
+                                        </form>
+                                        <br>
+                                    </div>
+                                </div>       
+                            </div>
+
+                            <div class="row">                               
                                     <div class="col-1">
                                         <br>
-                                        <h4>Hard Drive Requests</h4>
+                                        <h4>Hard Drive Assignment</h4>
                                     </div>
                                     <div class="col">   
                                         <br> 
@@ -162,136 +309,250 @@
                                             <div class="row">    
                                                 <div class="col">
                                                     <br>
-                                                    <form>
-                                                        <div class="form-group">
-                                                            <label for="quantity">Quantity</label>
-                                                            <input type="text" class ="form-control" id="quantity" value={{pending_requests.title}} />
-                                                        </div>
-
-                                                    </form>
+                                                    <div class="assignment-table">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col">Select/Unselect All</th>
+                                                                    <th scope="col">Issue Date</th>
+                                                                    <th scope="col">Modified Date</th>
+                                                                    <th scope="col">Request Reference</th>
+                                                                    <th scope="col">Hard Drive Serial Number</th>
+                                                                    <th scope="col">Hard Drive Status</th>
+                                                                    <th scope="col">Manufacturer</th>
+                                                                    <th scope="col">Model No.</th>
+                                                                    <th scope="col">Hard Drive Classification</th>
+                                                                    <th scope="col">Hard Drive Connection Port</th>
+                                                                    <th scope="col">Hard Drive Size</th>
+                                                                    <th scope="col">Hard Drive Type</th>
+                                                                    <th scope="col">Expected Hard Drive Return Date</th>
+                                                                    <th scope="col">Justification for Expected Hard Drive Return Date Change</th>
+                                                                    <th scope="col">Actual Hard Drive Return Date</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {% for request in hard_drives %}
+                                                                    <tr>
+                                                                            <td><input type="checkbox"></td>
+                                                                            <td>{{ request.title }}</td>
+                                                                            <td>{{ request.title }}</td>
+                                                                            <td>{{ request.title }}</td>
+                                                                            <td>{{ request.title }}</td>
+                                                                            <td>{{ request.title }}</td>
+                                                                            <td>{{ request.title }}</td>
+                                                                            <td>{{ request.title }}</td>
+                                                                            <td>{{ request.title }}</td>
+                                                                            <td>{{ request.title }}</td>
+                                                                            <td>{{ request.title }}</td>
+                                                                            <td>{{ request.title }}</td>
+                                                                            <td>{{ request.title }}</td>
+                                                                            <td>{{ request.title }}</td>
+                                                                            <td>{{ request.title }}</td>
+                                                                    </tr>
+                                                                {% empty %}
+                                                                <h3>No hard drives at the moment</h3>
+                                                                {% endfor %} 
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                     <br>
-                                                </div>
-                                                <div class="col">
-                                                    <br>
-                                                    <form>
-                                                        <div class="form-group">
-                                                            <label for="storagesize">Storage Size</label>
-                                                            <input type="text" class ="form-control" id="storagesize" value={{pending_requests.title}} />
-                                                        </div>
-
-                                                    </form>
-                                                    <br>
-                                                </div>
-                                                <div class="col">   
-                                                    <br>
-                                                    <form>
-                                                    <div class="form-group">
-                                                        <label for="classification">Classification</label>
-                                                        <select>
-                                                        <option value=""disabled selected></option>
-                                                        <option value="1" >Classified</option>
-                                                        <option value="2" >Unclassified</option>
-                                                        </select>
-                                                        </div>
-                                                    </form>
-                                                    <br>
-                                                </div>    
-                                                <div class="col">   
-                                                    <br> 
-                                                    <form>
-                                                    <div class="form-group">
-                                                        <label for="connection">Connection Port</label>
-                                                        <select>
-                                                        <option value=""disabled selected></option>
-                                                        <option value="1" >SATA</option>
-                                                        <option value="2" >M.2</option>
-                                                        </select>
-                                                        </div>
-                                                    </form>
-                                                    <br>
-                                                </div>
-                                            
-                                                <div class="col">   
-                                                    <br> 
-                                                    <form>
-                                                    <div class="form-group">
-                                                        <label for="typeharddrive">Hard Drive Type</label>
-                                                        <select>
-                                                        <option value=""disabled selected></option>
-                                                        <option value="1" >HDD</option>
-                                                        <option value="2" >SSD</option>
-                                                        </select>
-                                                        </div>
-                                                    </form>
-                                                    <br>
-                                                </div>
-                                                <div class="col">
-                                                    <br>
-                                                    <form>
-                                                    <div class="btn-block">
-                                                        <button type="add" href="/">Add</button>
-                                                        </div>
-                                                    </form>
-                                                    <br>
-                                                </div>
-                                               <div class="container-fluid" >
-                                            <div class="row">    
-                                                <div class="col">
-                                                    <br>
-                                                    <form> 
-                                                       
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                            <th scope="col">Quantity</th>
-                                                            <th scope="col">Storage Size</th>
-                                                            <th scope="col">Classification</th>
-                                                            <th scope="col">Connection Port</th>
-                                                            <th scope="col">Hard Drive Type</th>
-                                                          </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {% for request in hard_drives %}
-
-                                                            <tr>
-                                                              <th scope="row">{{request.title}}</th>
-                                                              <td>{{request.title}}</td>
-                                                              <td>{{request.title}}</td>
-                                                              <td>{{request.title}}</td>
-                                                              <td>{{request.title}}</td>
-                                                            
-                                                            </tr>
-                                                        {% empty %}
-                                                        <h3>No requests found. Try again.</h3>
-                                                        {% endfor %}
-                                                        </tbody>
-                                                    </table>
-                                                    <br>
-                                                    </form>
-                                                    
+                                                </div>          
+                                            </div> 
+                                            <div class="row">
+                                                <button type="submit" class="btn btn-primary">Confirm Pickup</button>
                                             </div>
-                                    </div>
-                                      <div class="row">                               
-                        
-                                    <div class="col">   
-                                        <br> 
-                                        <form>
-                                        <div class="form-group">
-                                                <label for="comments">Comments</label>
-                                                <textarea id="comments" class="form-control" rows="4" value={{pending_requests.title}}></textarea>
-                                            </div>
-                                            </form>
-                                        <br>
-
+                                            <br>
+                                        </div>
 
                                     </div>
                                 </div>
-                                </div>       
-                            </div> 
-                        </div>
+                            <div class="row">
+                                <div class="col-1">
+                                    <br>
+                                    <h4>Amendment Information</h4>
+                                </div>
+                                <div class="col">   
+                                    <br> 
+                                    <div class="container-fluid" style="border:1px solid #cecece;">
+                                        <div class="row">    
+                                            <div class="col">
+                                                <br>
+                                                <form>
+                                                    <h5>Amendment Attributes</h5> 
+                                                    <div class="row" style="margin-left:1%;">   
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="amendmentUser">User</label>
+                                                                <input type="text" class="form-control" id="amendmentUser">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="amendmentSubmission">Amendment Submission Date</label>
+                                                                <input type="date" class="form-control" id="startDate" >
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary" style="margin-left:0%;width:150px;">Submit Amendment</button>
+                                                        </div>
+                                                    </div>
+                                                <br>
+                                            </div>
+                                            <div class="col">
+                                                <br>
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label for="amendmentDescription">Amendment Description</label>
+                                                        <textarea class="form-control" id="amendmentDescription" rows="3" ></textarea>
+                                                    </div>
+                                                </form>
+                                                <br>
+                                            </div>
+                                        
+                                        <h5>Amendment History</h5> 
+                                        <div class="row" style="margin-left:1%;">   
+                                            <div class="col">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Timestamp</th>
+                                                            <th scope="col">Username</th>
+                                                            <th scope="col">Action Performed</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for amendment in amendments %}
+                                                            <tr>
+                                                                    <td>{{ amendment.title }}</td>
+                                                                    <td>{{ amendment.title }}</td>
+                                                                    <td>{{ amendment.title }}</td>
+                                                            </tr>
+                                                        {% empty %}
+                                                        <h3>No amendments found</h3>
+                                                        {% endfor %} 
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class="row">                               
+                                <div class="col-1">
+                                    <br>
+                                    <h4>Request Information</h4>
+                                </div>
+                                <div class="col">   
+                                    <br> 
+                                    <div class="container-fluid" style="border:1px solid #cecece;">
+                                        <div class="row">    
+                                            <div class="col">
+                                                <br>
+                                                <form>
+                                                    <h5>Request Attributes</h5> 
+                                                    <div class="row" style="margin-left:1%;">   
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="amendmentUser">Request Reference No.</label>
+                                                                <input type="text" class="form-control" id="amendmentUser" value={{request.title}}>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="amendmentSubmission">Requestor</label>
+                                                                <input type="text" class="form-control" id="amendmentSubmission" value={{request.title}}>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="amendmentUser">Request Creation Date</label>
+                                                                <input type="text" class="form-control" id="amendmentUser" value={{request.title}}>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="amendmentUser">Request Last Modified Date</label>
+                                                                <input type="date" class="form-control" id="startDate" value="2022-02-18">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="amendmentUser">Request Updated By</label>
+                                                                <input type="text" class="form-control" id="amendmentUser" value={{request.title}}>
+                                                            </div>
+                                                        </form>
+                                                        <br>
+                                                    </div>
+                                            </div>
+                                            <div class="col">
+                                                <br>
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label for="amendmentComment">Comment</label>
+                                                        <textarea class="form-control" id="amendmentComment" rows="3" ></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="endDate">Need Drives By Date</label>
+                                                        <input type="date" class="form-control" id="startDate" value="2022-02-18">
+                                                        <i class="fas fa-calandar-alt"></i>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="amendmentStatus">Request Status</label>
+                                                        <input type="text" class="form-control" id="amendmentStatus" value={{request.title}}>
+                                                    </div>
+                                                </form>
+                                                <br>
+                                            </div>       
+                                        </div> 
+
+                                        <h5>Request History</h5> 
+                                        <div class="row" style="margin-left:1%;">   
+                                            <div class="col">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Timestamp</th>
+                                                            <th scope="col">Username</th>
+                                                            <th scope="col">Action Performed</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for log in request_logs %}
+                                                            <tr>
+                                                                    <td>{{ log.title }}</td>
+                                                                    <td>{{ log.title }}</td>
+                                                                    <td>{{ log.title }}</td>
+                                                            </tr>
+                                                        {% empty %}
+                                                        <h3>No logs at the moment</h3>
+                                                        {% endfor %} 
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br>
+                        </div>
                     </div>
-                </div>
-                            <div class="btn-block">
-                            <button type="modifyrequest" href="/">Modify Request</button>
-                
+                    <br>
+                    <div class="row">
+                        <div class="col-9">
+                        </div>
+                        <div class="col-1">
+                            <button type=="submit" class="btn btn-primary">Save</button>
+                        </div>
+                        <div class="col-1">
+                            <button type="submit" class="btn btn-primary">Close</button>
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+            
+                            
+
+                            
+                     
+                   
+                            
