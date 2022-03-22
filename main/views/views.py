@@ -105,6 +105,7 @@ def logoutUser(request):
     logout(request)
     return redirect('main:login')
 
+@login_required(login_url='main:login')
 def add_hard_drive(request):
     if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
         return maintainer.add_hard_drive(request)

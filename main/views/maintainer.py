@@ -16,12 +16,14 @@ from main.models.event import Event
 @login_required(login_url='main:login')
 @group_required('Maintainer')
 def home(request):
-    deliquentdrives = HardDrive.objects.filter(status= 'delinquent')
-    requests = Request.objects.all()
+    requests = Request.objects.filter(request_status = Request.Request_Status.CREATED)
+    overdue_requests = Request.objects.filter(request_status = Request.Request_Status.OVERDUE)
+    deliquentdrives = HardDrive.objects.filter(request__in = overdue_requests)
+
     context = {
         "deliquentdrives" : deliquentdrives, 
         "requests" : requests,
-        }
+    }
     return render(request, 'maintainer/home.html', context)
 
 @login_required(login_url='main:login')
@@ -40,10 +42,7 @@ def view_all_requests(http_request):
             continue
         else:
             event = events[0]
-        print('here1')
         data[r] = event
-        print("here2")
-    print(data)
 
     context = {'data': data, 'requests' : requests}
     return render(http_request, 'maintainer/view_all_requests.html', context)

@@ -35,6 +35,9 @@
   <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
   <meta name="theme-color" content="#7952b3">
 
+  <!-- HTMX -->
+  <script src="https://unpkg.com/htmx.org@1.7.0"></script>
+
 
   <style rc-util-key="@ant-design-icons">
     .anticon {
@@ -126,7 +129,8 @@
 
       font-size: 3.5rem;
    
-      }
+    }
+    
     .form-group span {
     color: red;
     }
@@ -152,7 +156,13 @@
           
 
           {% include "components/sidebar.html" %}
-
+          
+          <script src="https://unpkg.com/htmx.org@1.1.0"></script>
+          <script>
+            document.body.addEventListener('htmx:configRequest', (event) => {
+              event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+            })
+          </script>
 
         </div>
       </main>
