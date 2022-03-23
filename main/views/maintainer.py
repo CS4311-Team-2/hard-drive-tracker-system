@@ -7,6 +7,7 @@ from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
 from main.models.event import Event
+from main.forms import HardDriveForm
 
 # These functions relate to maintainer/*.html views. These functions serve only the 
 #   maintainer role. 
@@ -121,6 +122,12 @@ def view_all_harddrives(request):
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
-def view_hard_drive(request, id=-1):
+def view_hard_drive(http_request, id=-1):
+    if id==-1:
+        print("ERROR ERROR")    
+    hard_drive = HardDrive.objects.filter(pk=id).first()
+    form = HardDriveForm(instance=hard_drive)
+
     print("Made it to the view_hard_drive", id)
-    return render(request, 'maintainer/view_hard_drive.html', None)
+    
+    return render(http_request, 'maintainer/view_hard_drive.html', {"form" : form})
