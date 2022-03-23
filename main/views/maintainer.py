@@ -118,3 +118,9 @@ def view_all_harddrives(request):
 
     context = {"hardDrives" : hardDrives}
     return render(request, 'maintainer/view_all_hard_drives.html', context)
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def view_hard_drive(request, id=-1):
+    print("Made it to the view_hard_drive", id)
+    return render(request, 'maintainer/view_hard_drive.html', None)
