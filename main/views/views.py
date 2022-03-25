@@ -33,9 +33,9 @@ def index(request):
 
 
 @login_required(login_url='main:login')
-def view_request(request):
+def view_request(request, key_id):
     if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
-        return maintainer.view_request(request)
+        return maintainer.view_request(request, key_id)
     
     return redirect('main:index')
 

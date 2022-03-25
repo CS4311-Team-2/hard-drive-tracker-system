@@ -71,27 +71,27 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="eventName">Event Name</label>
-                                                                    <input type="text" class="form-control" id="eventName" value={{event.title}} readonly>
+                                                                    <input type="text" class="form-control" id="eventName" value="{{event.event_name}}" readonly>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="eventDescription">Event Description</label>
-                                                                    <textarea class="form-control" id="eventDescription" rows="3" readonly >{{event.title}}</textarea>
+                                                                    <textarea class="form-control" id="eventDescription" rows="3" readonly >{{ event.event_description}}</textarea>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="eventLocation">Event Location</label>
-                                                                    <input type="text" class="form-control" id="eventLocation" value={{event.title}} readonly>
+                                                                    <input type="text" class="form-control" id="eventLocation" value="{{event.event_location}}" readonly>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="eventType">Event Type</label>
-                                                                    <input type="text" class="form-control" id="eventType" value={{event.title}} readonly>
+                                                                    <input type="text" class="form-control" id="eventType" value={{event.event_type}} readonly>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="lengthOfReportingCycle">Length of Reporting Cycle</label>
-                                                                    <input type="text" class="form-control" id="lengthOfReportingCycle" value={{event.title}} readonly>
+                                                                    <input type="text" class="form-control" id="lengthOfReportingCycle" value={{event.length_of_reporting_cycle}} readonly>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="eventStatus">Event Status</label>
-                                                                    <input type="text" class="form-control" id="eventStatus" value={{event.title}} readonly>
+                                                                    <input type="text" class="form-control" id="eventStatus" value={{event.event_status}} readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -106,11 +106,11 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="startDate">Event Start Date</label>
-                                                                    <input type="date" class="form-control" id="startDate" value="2022-03-03" readonly>
+                                                                    <input type="date" class="form-control" id="startDate" value={{event.event_start_date}} readonly>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="endDate">Event End Date</label>
-                                                                    <input type="date" class="form-control" id="endDate" value="2022-03-06" readonly>
+                                                                    <input type="date" class="form-control" id="endDate" value={{event.event_end_date}} readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -162,13 +162,67 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {% for request in hard_drive_requests %}
+                                                                {% for drive in requested_hard_drives %}
                                                                     <tr>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
+                                                                            <td>{{ drive.classification }}</td>
+                                                                            <td>{{ drive.amount_required }}</td>
+                                                                            <td>{{ drive.connection_port }}</td>
+                                                                            <td>{{ drive.hard_drive_size }}</td>
+                                                                            <td>{{ drive.hard_drive_type }}</td>
+                                                                    </tr>
+                                                                {% empty %}
+                                                                <h3>No hard drives found</h3>
+                                                                {% endfor %} 
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <br>
+                                                </div>          
+                                            </div> 
+                                            <div class="row">                               
+                                                <div class="col">   
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label for="comments">Comments</label>
+                                                            <textarea class="form-control" id="comments" rows="3" readonly value="Description"></textarea>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">                               
+                                    <div class="col-1">
+                                        <br>
+                                        <h4>Assigned Hard Drives</h4>
+                                    </div>
+                                    <div class="col">   
+                                        <br> 
+                                        <div class="container-fluid" style="border:1px solid #cecece;">
+                                            <div class="row">    
+                                                <div class="col">
+                                                    <br>
+                                                    <div class="assignment-table">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col">Hard Drive Serial Number*</th>
+                                                                    <th scope="col">Manufacturer*</th>
+                                                                    <th scope="col">Connection Port Type</th>
+                                                                    <th scope="col">Hard Drive Size</th>
+                                                                    <th scope="col">Classification*</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {% for drive in hard_drives %}
+                                                                    <tr>
+                                                                            <td>{{ drive.serial_number }}</td>
+                                                                            <td>{{ drive.manufacturer }}</td>
+                                                                            <td>{{ drive.connection_port }}</td>
+                                                                            <td>{{ drive.hard_drive_size }}</td>
+                                                                            <td>{{ drive.classification }}</td>
                                                                     </tr>
                                                                 {% empty %}
                                                                 <h3>No hard drives found</h3>
@@ -229,35 +283,35 @@
                                                                     <th scope="col">Justification for Hard Drive Return Date Change</th>
                                                                     <th scope="col">Actual Hard Drive Return Date</th>
                                                                     <th scope="col">Request Reference</th>
-                                                                    <th scope="col">Modifier</th>
                                                                     <th scope="col">Modified Date</th>
+                                                                    <th scope="col">Request</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {% for request in hard_drives %}
+                                                                {% for drive in all_hard_drives %}
                                                                     <tr>
                                                                             <td><input type="checkbox"></td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
-                                                                            <td>{{ request.title }}</td>
+                                                                            <td>{{ drive.create_date }}</td>
+                                                                            <td>{{ drive.serial_number }}</td>
+                                                                            <td>{{ drive.manufacturer }}</td>
+                                                                            <td>{{ drive.model_number }}</td>
+                                                                            <td>{{ drive.hard_drive_type }}</td>
+                                                                            <td>{{ drive.connection_port }}</td>
+                                                                            <td>{{ drive.hard_drive_size }}</td>
+                                                                            <td>{{ drive.classification }}</td>
+                                                                            <td>{{ drive.justification_for_classification_change }}</td>
+                                                                         
+                                                                            <td>{{ drive.image_version_id }}</td>
+                                                                            <td>{{ drive.boot_test_status }}</td>
+                                                                            <td>{{ drive.boot_test_expiration }}</td>
+                                                                            <td>{{ drive.status }}</td>
+                                                                            <td>{{ drive.justification_for_hard_drive_status_change }}</td>
+                                                                            <td>{{ drive.issue_date }}</td>
+                                                                            <td>{{ drive.expected_hard_drive_return_date }}</td>
+                                                                            <td>{{ drive.justification_for_hard_drive_return_date }}</td>
+                                                                            <td>{{ drive.actual_return_date }}</td>
+                                                                            <td>{{ drive.modified_date }}</td>
+                                                                            <td>{{ drive.request.request_reference_no }}</td>
                                                                     </tr>
                                                                 {% empty %}
                                                                 <h3>No hard drives at the moment</h3>
@@ -379,15 +433,15 @@
                                                     <form>
                                                         <div class="form-group">
                                                             <label for="amendmentUser">Request Reference No.</label>
-                                                            <input type="text" class="form-control" id="amendmentUser" value={{ request.title }} readonly>
+                                                            <input type="text" class="form-control" id="amendmentUser" value={{ req.request_reference_no }} readonly>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="amendmentSubmission">Requestor</label>
-                                                            <input type="text" class="form-control" id="amendmentSubmission" value={{ request.title }} readonly>
+                                                            <input type="text" class="form-control" id="amendmentSubmission" value={{ event.event_name }} readonly>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="amendmentUser">Request Creation Date</label>
-                                                            <input type="text" class="form-control" id="amendmentUser" value={{ request.title }} readonly>
+                                                            <input type="date" class="form-control" id="amendmentUser" value={{ req.request_creation_date }} readonly>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="amendmentUser">Request Last Modified Date</label>
@@ -410,7 +464,7 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="endDate">Need Drives By Date</label>
-                                                            <input type="date" class="form-control" id="startDate" value="2022-02-18">
+                                                            <input type="date" class="form-control" id="startDate" value={{ req.need_drive_by_date}}>
                                                             <i class="fas fa-calandar-alt"></i>
                                                         </div>
                                                         <div class="form-group">
