@@ -6,6 +6,7 @@ from django.forms.models import modelformset_factory
 
 from datetime import datetime
 from main.forms import HardDriveTypeForm
+from main.models import hard_drive_type
 
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
@@ -154,6 +155,16 @@ def configuration(request):
         }
         return render(request, 'maintainer/configuration.html', context)
 
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def delete_hard_drive_type(request, pk):
+    HardDriveType.objects.get(pk = pk).delete()
+    hard_drive_types = HardDriveType.objects.all()
+    context = {
+        "hard_drive_types" : hard_drive_types,
+    }
+    return render(request, 'components/hard_drive_types.html', context)
     
 
         

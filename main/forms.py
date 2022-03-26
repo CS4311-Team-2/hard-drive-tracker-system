@@ -37,6 +37,12 @@ class EventForm(forms.ModelForm):
         }
 
 class HardDriveRequestForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(HardDriveRequestForm, self).__init__(*args, **kwargs)
+        self.fields['hard_drive_type'] = forms.ChoiceField(
+            choices=[ (o.name, str(o.name)) for o in HardDriveType.objects.all()]
+        )
+
     class Meta:
         model = HardDriveRequest
         fields =['classification', 'amount_required', 'connection_port', 

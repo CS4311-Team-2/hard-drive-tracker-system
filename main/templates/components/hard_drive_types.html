@@ -8,7 +8,8 @@
             <span
                 class = "badge badge-danger badge-pill"
                 style="cursor: pointer;"
-                hx-delete="{% url 'main:configuration'%}"
+                hx-delete="{% url 'main:delete-hard-drive-type' hard_drive_type.pk %}"
+                hx-target="#hard-drive-types"
                 hx-confirm="Are you sure you want to delete this type?"
                 >
                 X
