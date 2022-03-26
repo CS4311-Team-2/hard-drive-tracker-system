@@ -99,8 +99,6 @@ def make_request(http_request):
         for form in HDRFormSet(http_request.POST):
             ids.append(form.save().id)
 
-        print('ids: ', ids)
-
         formset = HDRFormSet(queryset=HardDriveRequest.objects.filter(id__in=ids))
         event_form = EventForm(http_request.POST)
         
