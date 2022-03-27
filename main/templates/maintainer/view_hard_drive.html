@@ -13,34 +13,34 @@
             </div>
             <div class="form-group">
                 <label>Creation Date</label>
-                <input type="date" class="form-control" name="create_date" value="form.create_date">
+                {{form.create_date}}
             </div>
             <div class="form-group">
                 <label>Hard Drive Serial No.</label>
-                <input value={{form.serial_number}} type="text" class="form-control" name="serial_No">
+                {{ form.serial_number}}
             </div>
             <div class="form-group">
                 <label>Manufacturer</label>
-                <input type="text" class="form-control" name="manufacturer" >
+                {{ form.manufacturer}}
                 <!--its suppose to be a dropdown: refer SRS page 42-->
             </div>
             <div class="form-group">
                 <label>Model No.</label>
-                <input type="text" class="form-control" name="model_NO">
+                {{form.model_number}}
             </div>
             <div class="form-group">
                     <label>Hard Drive Type</label>
-                    <input type="text" class="form-control" name="hard_drive_type">
+                    {{form.hard_drive_type}}
                     <!--it suppose to be a dropdown: refer to SRS page 43-->
             </div>
             <div class="form-group">
                     <label>hard Drive Connection Port</label>
-                    <input type="text" class="form-control" name="connection_port">
+                    {{form.connection_port}}
                     <!--it suppose to be a dropdown: refer to SRS page 42-->
             </div>
             <div class="form-group">
                 <label>hard Drive Size</label>
-                <input type="text" class="form-control" name="hard_drive_size">
+                {{form.hard_drive_size}}
                 <!--its supposed to be a dropdown: Refer to SRS page 42. Cannot find the sizes-->
             </div>
             <div class="form-group">
@@ -56,16 +56,12 @@
             <div class="form-group">
                 <h3>Hard Drive Classification</h3>
                 <div class="dropdown">
-                    <label for="classification">Classification</label>
-                    <select id="classification" name="classification">
-                        <option value""disable selected></option>
-                        <option value="1">Classified</option>
-                        <option value="2">Unclassified</option>
-                    </select>
+                    <label for="classifixcation">Classification</label>
+                    {{form.classification}}
                 </div>
                 <h3> </h3>
                 <label for="startDate">Justification for Classification Change</label> 
-                <input type="text" class="form-control" name="justification_for_classification_change" >
+                {{form.justification_for_classification_change}}
             </div>
             <h3>Hard Drive Image Content Area</h3>
             <div class="form-group">
@@ -73,51 +69,39 @@
             </div>
             <div class="form-group">
                 <label>Image Version ID</label>
-                <input type="text" class="form-control" name="image_version_id" >
+                {{form.hard_drive_image}}
             </div>
             <div class="form-group">
                 <label>Boot Test Status</label>
-                <input type="text" class="form-control" name="boot_test_status" >
+                {{form.boot_test_status}}
                 <!--supposed to be a drop down: refer to SRS page 42-->
             </div>
             <div class="form-group">
                 <label>Boot Test Expiration Date</label>
-                <input type="date" class="form-control" name="boot_test_expiration_date">
+                {{form.boot_test_expiration}}
             </div>
             <h3>Hard Drive Condition</h3>
             <div class="dropdown">
                 <label>Hard Drive Status</label>
-                <select id="status" name="status">
-                    <option value="Disable">Selected</option>
-                    <option value="1">Assigned</option>
-                    <option value="2">Available</option>
-                    <option value="3">End of Life</option>
-                    <option value="4">Master Clone</option>
-                    <option value="5">Pending Wipe</option>
-                    <option value="6">Destroyed</option>
-                    <option value="7">Lost</option>
-                    <option value="8">Overdue</option>
-                    <option value="9">Picked Up</option>
-                    <option value="10">Returned</option>
-                    <option value="11">Pending Classification Change Approval</option>
-                </select>
+                <!--This needs to be a drop down. This can be done via text choices.-->
+                {{form.status}}
             </div>
             <h3> </h3>
             <div class="form-group">
                 <label>Justification for Hard Drive Status Change</label>
-                <input type="text" class="form-control" name="justification_for_hard_drive_status_change" >
+                {{form.justification_for_hard_drive_status_change}}
             </div>
             <div class="form-group">
                 <label>Issue Date</label>
-                <input type="date" class="form-control" name="issue_date">
+                {{form.issue_date}}
             </div>
             <div class="form-group">
                 <label>Expected Hard Drive Return Date</label>
-                <input type="date" class="form-control" name="expected_hard_drive_return_date">
+                {{form.expected_hard_drive_return_date}}
             </div>
             <div class="form-group">
                 <label>Justification for Hard Drive Return Date</label>
-                <input type="text" class="form-control" name="justification_for_hard_drive_return_date" >
+                {{form.justification_for_hard_drive_return_date}}
                 <!--missing file attachment-->
             </div>
             <input type="submit" class="btn btn-primary">

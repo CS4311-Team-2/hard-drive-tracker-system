@@ -126,7 +126,15 @@ def view_hard_drive(http_request, id=-1):
     if id==-1:
         print("ERROR ERROR")    
     hard_drive = HardDrive.objects.filter(pk=id).first()
-    form = HardDriveForm(instance=hard_drive)
+
+    # Saves new hard drive. 
+    if http_request.method == 'POST':
+        form = HardDriveForm(http_request.POST, instance=hard_drive)
+        if form.is_valid():
+            form.save()
+            return render(http_request, 'maintainer/view_hard_drive/'+id)
+    else:
+        form = HardDriveForm(instance=hard_drive)
 
     print("Made it to the view_hard_drive", id)
     

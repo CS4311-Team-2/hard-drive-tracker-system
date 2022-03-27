@@ -34,7 +34,7 @@ class HardDrive(models.Model):
     classification = models.CharField(max_length=50, choices=Classification.choices, 
                                         default=Classification.UNCLASSIFIED)
     # TODO(django): This field needs to be changed when the classification is changed. 
-    justification_for_classification_change = models.TextField(blank=True)
+    justification_for_classification_change = models.TextField(default='')
     # TODO(django): Need to limit this number at 4. 
     hard_drive_image = models.CharField(blank=True, max_length=100)
     image_version_id = models.CharField(max_length=100)

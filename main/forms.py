@@ -26,7 +26,10 @@ class HardDriveForm(forms.ModelForm):
                     'expected_hard_drive_return_date', 'justification_for_hard_drive_return_date',
                     'actual_return_date']
         widgets = {
-            "create_date": forms.SelectDateWidget()
+            "create_date": forms.SelectDateWidget(),
+            "issue_date" : forms.SelectDateWidget(),
+            'expected_hard_drive_return_date' : forms.SelectDateWidget(),
+            'actual_return_date' : forms.SelectDateWidget()
         }
 
 class EventForm(forms.ModelForm):
