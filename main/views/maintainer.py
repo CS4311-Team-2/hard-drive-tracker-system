@@ -12,8 +12,6 @@ from main.forms import HardDriveForm
 # These functions relate to maintainer/*.html views. These functions serve only the 
 #   maintainer role. 
 
-
-
 @login_required(login_url='main:login')
 @group_required('Maintainer')
 def home(request):
@@ -110,7 +108,7 @@ def add_hard_drive(request):
     
     else:
         print('groups:', request.user.groups)
-        return render(request, 'maintainer/add_hard_drive.html', {})
+        return render(request, 'maintainer/add_hard_drive.html', {"form": HardDriveForm()})
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')

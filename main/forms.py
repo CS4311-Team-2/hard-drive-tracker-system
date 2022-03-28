@@ -5,7 +5,7 @@ from main.models.hard_drive import HardDrive
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 
-JUSTIFICATION_TEXT_BOX = {'cols':85, 'rows':3}
+JUSTIFICATION_TEXT_BOX = {'cols':85, 'rows':3, 'class':'form-control'}
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -14,7 +14,7 @@ class CreateUserForm(UserCreationForm):
         
 class HardDriveForm(forms.ModelForm):
     # TODO: Need to make create_date non-editable. 
-    serial_number = forms.CharField(required=True)
+    serial_number = forms.CharField(forms.TextInput(attrs={'class':'form-control'}), required=True)
     class Meta:
         model = HardDrive
         fields = ['create_date', 'serial_number', 'manufacturer', 'model_number', 
