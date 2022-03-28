@@ -7,6 +7,7 @@ from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
 from main.models.event import Event
+from main.models.log import Log
 
 # These functions relate to maintainer/*.html views. These functions serve only the 
 #   maintainer role. 
@@ -105,6 +106,10 @@ def add_hard_drive(request):
         hardDrive.justification_for_hard_drive_return_date = request.POST.get("justification_for_hard_drive_return_date")
         hardDrive.save()
 
+        Log.objects.create(
+            action_preformed = "New Hard Drive Added By" + request.user.name
+        )
+
         return redirect('main:index')
     
     else:
@@ -118,3 +123,10 @@ def view_all_harddrives(request):
 
     context = {"hardDrives" : hardDrives}
     return render(request, 'maintainer/view_all_hard_drives.html', context)
+
+#@login_required(login_url='main:login')
+#@group_required('Maintainer')
+def view_log(request):
+    logs = Log.objects.all()
+    context = {"Logs" : logs}
+    return render(request, 'log/view_log.html', context)
