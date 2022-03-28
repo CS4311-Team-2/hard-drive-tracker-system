@@ -6,6 +6,7 @@ from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 
 JUSTIFICATION_TEXT_BOX = {'cols':85, 'rows':3, 'class':'form-control'}
+HARD_DRIVE_ATTR = {'class':'form-control'}
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -14,7 +15,6 @@ class CreateUserForm(UserCreationForm):
         
 class HardDriveForm(forms.ModelForm):
     # TODO: Need to make create_date non-editable. 
-    serial_number = forms.CharField(forms.TextInput(attrs={'class':'form-control'}), required=True)
     class Meta:
         model = HardDrive
         fields = ['create_date', 'serial_number', 'manufacturer', 'model_number', 
@@ -25,9 +25,11 @@ class HardDriveForm(forms.ModelForm):
                     'expected_hard_drive_return_date', 'justification_for_hard_drive_return_date',
                     'actual_return_date']
         widgets = {
+            'serial_number' : forms.TextInput(attrs={'class':'form-control'}),
+
             'justification_for_classification_change': forms.Textarea(attrs={**JUSTIFICATION_TEXT_BOX, 
                                                                                 **{"placeholder": "Empty"}}),
-            'justification_for_hard_drive_status_change': forms.Textarea(attrs=JUSTIFICATION_TEXT_BOX),
+            'justification_for_hard_drive_status_change': forms.TextInput(attrs=HARD_DRIVE_ATTR),
             'justification_for_hard_drive_return_date': forms.Textarea(attrs=JUSTIFICATION_TEXT_BOX), 
             "create_date": forms.SelectDateWidget(),
             "issue_date" : forms.SelectDateWidget(),
