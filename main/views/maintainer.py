@@ -131,9 +131,8 @@ def view_hard_drive(http_request, id=-1):
     if http_request.method == 'POST':
         form = HardDriveForm(http_request.POST, instance=hard_drive)
         if form.is_valid():
-            print("herhehrehrehrehrehreh")
             form.save()
-            return render(http_request, 'maintainer/view_hard_drive/'+id, {'form': form})
+            return render(http_request, 'maintainer/view_hard_drive.html', {'form': form, 'id':form})
         else:
             print(form.errors)
             

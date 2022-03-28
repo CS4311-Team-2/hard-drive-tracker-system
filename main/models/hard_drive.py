@@ -2,7 +2,6 @@ from email.policy import default
 #from tkinter import CASCADE
 from django.db import models
 from django.utils import timezone
-from unixtimestampfield.fields import UnixTimeStampField
 from .request import Request
 
 # Hard Drive model
@@ -40,7 +39,7 @@ class HardDrive(models.Model):
     image_version_id = models.CharField(max_length=100)
     boot_test_status = models.CharField(max_length=50, choices=BootTestStatus.choices, 
                                             default=BootTestStatus.PASS)
-    boot_test_expiration = UnixTimeStampField(use_numeric=True, default=0.0)
+    boot_test_expiration = models.DateField(blank=True)
 
     # The options to this field can be configured. 
     status = models.CharField(max_length=100)

@@ -87,13 +87,11 @@ class Command(BaseCommand):
             df.issue_date, df.expected_hard_drive_return_date, df.justification_for_hard_drive_return_date, 
             df.actual_return_date, df.modified_date):
 
-            models = HardDrive(id, '2021-05-18', serial_number, manufacturer, 
+            models = HardDrive(id, create_date, serial_number, manufacturer, 
             model_number, hard_drive_type, connection_port, hard_drive_size, classification, 
             justification_for_classification_change, hard_drive_image, imange_version_id, boot_test_status, boot_test_expiration, 
-            status, justification_for_hard_drive_status_change, '2021-05-18', expected_hard_drive_return_date, 
-            justification_for_hard_drive_return_date, '2021-05-18', '2021-05-18')
-
-            print(models.create_date)
+            status, justification_for_hard_drive_status_change, issue_date, expected_hard_drive_return_date, 
+            justification_for_hard_drive_return_date, actual_return_date, modified_date)
 
             models.save()
 
