@@ -131,9 +131,14 @@
 
             {% if request.user|has_group:"Maintainer" %}
             <li class="nav-item">
-            <a href="#" class="nav-link 
+            <a href="{% url 'main:log'%}" class="nav-link 
             
+            {% url 'main:log' as the_url%}
+            {% if request.path == the_url %}
+            active
+            {% else %}
             link-dark
+            {% endif %}
             
             " aria-current="page">
                 <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>

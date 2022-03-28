@@ -13,6 +13,7 @@
                        <tr>
                          <th scope="col">Time Stamp</th>
                           <th scope="col">Action Preformed</th>
+                          <th scope="col">User</th>
                        </tr>
                     </thead>
                     <tbody>
@@ -20,6 +21,7 @@
                        <tr>
                           <td>{{log.time_stamp}}</td>
                           <td>{{log.action_preformed}}</td>
+                          <td>{{log.user.username}}</td>
                        </tr>
                        {% empty %}
                        <h3>No log found.</h3>

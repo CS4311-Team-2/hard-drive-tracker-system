@@ -158,6 +158,7 @@ def make_request(http_request):
             print(HDRFormSet(http_request.POST).errors.as_data())
         Log.objects.create(
             action_preformed = "New Request Has Been Made"
+            #user = request.user
         )
 
 
