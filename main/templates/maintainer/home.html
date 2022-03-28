@@ -38,6 +38,7 @@
 <table class="table table-bordered">
   <thead>
     <tr>
+      
       <th scope="col">Hard Drive Serial Number</th>
       <th scope="col">Expected Return Date</th>
       <th scope="col">Associated Request No.</th>
@@ -46,9 +47,10 @@
   <tbody>
     {% for drive in deliquentdrives %}
       <tr>
+        
         <th scope="row">{{ request.serial_number }}</th>
         <td>{{ request.expected_hard_drive_return_date }}</td>
-        <td>{{ hard_drive.title }}</td>
+        <td>{{ hard_drive.associated_request_number }}</td>
       </tr>
     {% empty %}
       <h3>No delinquent hard drives at the moment</h3>
