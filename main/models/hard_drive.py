@@ -23,11 +23,11 @@ class HardDrive(models.Model):
         HDD = "HDD"
         SSD = "SSD"
 
-    create_date = models.DateField(blank=True) 
+    create_date = models.DateField(default=timezone.now) 
     serial_number = models.CharField(max_length=100)
     manufacturer = models.CharField(blank=True, max_length=100)
     model_number = models.CharField(blank=True, max_length=100)
-    hard_drive_type = models.CharField(max_length=100)
+    hard_drive_type = models.CharField(max_length=100)  
     connection_port = models.CharField(max_length=100)
     hard_drive_size = models.CharField(max_length=100)
     classification = models.CharField(max_length=50, choices=Classification.choices, 
@@ -39,21 +39,19 @@ class HardDrive(models.Model):
     image_version_id = models.CharField(max_length=100)
     boot_test_status = models.CharField(max_length=50, choices=BootTestStatus.choices, 
                                             default=BootTestStatus.PASS)
-    boot_test_expiration = models.DateField(blank=True)
+    boot_test_expiration = models.DateField(default=timezone.now)
 
     # The options to this field can be configured. 
     status = models.CharField(max_length=100)
     justification_for_hard_drive_status_change = models.TextField(blank=True)
-    issue_date = models.DateField(blank=True)
-    expected_hard_drive_return_date = models.DateField(blank=True)
+    issue_date = models.DateField(default=timezone.now)
+    expected_hard_drive_return_date = models.DateField(default=timezone.now)
     justification_for_hard_drive_return_date = models.TextField(blank=True)
-    actual_return_date = models.DateField(blank=True)
-    modified_date = models.DateField(blank=True)
+    actual_return_date = models.DateField(default=timezone.now)
+    modified_date = models.DateField(default=timezone.now)
     request = models.ForeignKey(Request, 
                     on_delete=models.CASCADE, null=True, blank=True, related_name="hard_drives")
 
     class Meta:
         verbose_name_plural = "Hard Drive"
-
-
-     #TODO Need to add foreign key to request.
+    

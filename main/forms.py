@@ -16,7 +16,7 @@ class CreateUserForm(UserCreationForm):
 class HardDriveForm(forms.ModelForm):
     class Meta:
         model = HardDrive
-        fields = ['create_date', 'serial_number', 'manufacturer', 'model_number', 
+        fields = ['serial_number', 'manufacturer', 'model_number', 
                     'hard_drive_type', 'connection_port', 'hard_drive_size', 'classification',
                     'justification_for_classification_change', 'hard_drive_image', 'image_version_id',
                     'boot_test_status', 'boot_test_expiration', 'status',
@@ -34,15 +34,11 @@ class HardDriveForm(forms.ModelForm):
             'hard_drive_type' : forms.TextInput(attrs=FORM_CONTROL),
             'connection_port' : forms.TextInput(attrs=FORM_CONTROL),
             'hard_drive_size' : forms.TextInput(attrs=FORM_CONTROL),
-            'classification' : forms.TextInput(attrs=FORM_CONTROL),
+            'classification' : forms.Select(attrs=FORM_CONTROL),
             'hard_drive_image' : forms.TextInput(attrs=FORM_CONTROL),
             'image_version_id' : forms.TextInput(attrs=FORM_CONTROL),
             'boot_test_status' : forms.TextInput(attrs=FORM_CONTROL),
             'status' : forms.TextInput(attrs=FORM_CONTROL),
-            
-
-
-            "create_date": forms.SelectDateWidget(),
             "issue_date" : forms.SelectDateWidget(),
             "boot_test_expiration" : forms.SelectDateWidget(),
             'expected_hard_drive_return_date' : forms.SelectDateWidget(),
