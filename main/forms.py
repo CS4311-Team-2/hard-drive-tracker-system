@@ -5,7 +5,8 @@ from main.models.hard_drive import HardDrive
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 
-JUSTIFICATION_TEXT_BOX = {'cols':85, 'rows':3}
+FORM_CONTROL = {'class':'form-control'}
+UNEDTIABLE_DATE = {**FORM_CONTROL, **{'readonly': 'readonly'}}
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -13,8 +14,6 @@ class CreateUserForm(UserCreationForm):
         fields =['username', 'email', 'password1', 'password2']
         
 class HardDriveForm(forms.ModelForm):
-    # TODO: Need to make create_date non-editable. 
-    serial_number = forms.CharField(required=True)
     class Meta:
         model = HardDrive
         fields = ['create_date', 'serial_number', 'manufacturer', 'model_number', 
@@ -25,16 +24,31 @@ class HardDriveForm(forms.ModelForm):
                     'expected_hard_drive_return_date', 'justification_for_hard_drive_return_date',
                     'actual_return_date']
         widgets = {
-            'justification_for_classification_change': forms.Textarea(attrs={**JUSTIFICATION_TEXT_BOX, 
-                                                                                **{"placeholder": "Empty"}}),
-            'justification_for_hard_drive_status_change': forms.Textarea(attrs=JUSTIFICATION_TEXT_BOX),
-            'justification_for_hard_drive_return_date': forms.Textarea(attrs=JUSTIFICATION_TEXT_BOX), 
+            'justification_for_classification_change': forms.TextInput(attrs=FORM_CONTROL),
+            'justification_for_hard_drive_status_change': forms.TextInput(attrs=FORM_CONTROL),
+            'justification_for_hard_drive_return_date': forms.TextInput(attrs=FORM_CONTROL),
+
+            'serial_number' : forms.TextInput(attrs=FORM_CONTROL), 
+            'manufacturer' : forms.TextInput(attrs=FORM_CONTROL),
+            'model_number' : forms.TextInput(attrs=FORM_CONTROL),
+            'hard_drive_type' : forms.TextInput(attrs=FORM_CONTROL),
+            'connection_port' : forms.TextInput(attrs=FORM_CONTROL),
+            'hard_drive_size' : forms.TextInput(attrs=FORM_CONTROL),
+            'classification' : forms.TextInput(attrs=FORM_CONTROL),
+            'hard_drive_image' : forms.TextInput(attrs=FORM_CONTROL),
+            'image_version_id' : forms.TextInput(attrs=FORM_CONTROL),
+            'boot_test_status' : forms.TextInput(attrs=FORM_CONTROL),
+            'status' : forms.TextInput(attrs=FORM_CONTROL),
+            
+
+
             "create_date": forms.SelectDateWidget(),
             "issue_date" : forms.SelectDateWidget(),
             "boot_test_expiration" : forms.SelectDateWidget(),
             'expected_hard_drive_return_date' : forms.SelectDateWidget(),
             'actual_return_date' : forms.SelectDateWidget()
         }
+
 
 class EventForm(forms.ModelForm):
     class Meta:

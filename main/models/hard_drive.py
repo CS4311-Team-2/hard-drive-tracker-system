@@ -24,7 +24,7 @@ class HardDrive(models.Model):
         HDD = "HDD"
         SSD = "SSD"
 
-    create_date = UnixTimeStampField(default=timezone.now) 
+    create_date = models.DateField(blank=True) 
     serial_number = models.CharField(max_length=100)
     manufacturer = models.CharField(blank=True, max_length=100)
     model_number = models.CharField(blank=True, max_length=100)
@@ -45,11 +45,11 @@ class HardDrive(models.Model):
     # The options to this field can be configured. 
     status = models.CharField(max_length=100)
     justification_for_hard_drive_status_change = models.TextField(blank=True)
-    issue_date = UnixTimeStampField(default=0.0)
-    expected_hard_drive_return_date = UnixTimeStampField(default=0.0)
+    issue_date = models.DateField(blank=True)
+    expected_hard_drive_return_date = models.DateField(blank=True)
     justification_for_hard_drive_return_date = models.TextField(blank=True)
-    actual_return_date = UnixTimeStampField(default=0.0)
-    modified_date = UnixTimeStampField(auto_now=True, auto_now_add=True)
+    actual_return_date = models.DateField(blank=True)
+    modified_date = models.DateField(blank=True)
     request = models.ForeignKey(Request, 
                     on_delete=models.CASCADE, null=True, blank=True, related_name="hard_drives")
 
