@@ -11,24 +11,14 @@ class Event(models.Model):
         FORECASTED = "forecasted"
         CANCELED = "canceled"
 
-    class Type(models.TextChoices):
-        PMR = "PMR"
-        CVPA = "CVPA"
-        CVI = "CVI"
-        VOF = "VoF"
-        CR = "Cyber Resilience"
-        IP = "Individual Project"
-        RP = "Research Project"
-
-    
-    event_name = models.CharField(max_length=100, blank = True)
+    event_name = models.CharField(max_length=100)
     event_description = models.TextField(blank= True)
     event_location = models.CharField(max_length=100, blank = True)
     event_type = models.CharField(max_length=50, choices = Type.choices, default = Type.PMR)
-    length_of_reporting_cycle = models.TextField(blank = True)
+    length_of_reporting_cycle = models.TextField(default = )
     event_status = models.CharField(max_length=50, choices = Status.choices, default = Status.CONFIRMED)
-    event_start_date = models.DateField(auto_now=False, auto_now_add=False)
-    event_end_date = models.DateField(blank = True)
+    event_start_date = models.DateField()
+    event_end_date = models.DateField()
     request = models.ForeignKey(Request, on_delete=models.CASCADE, blank=True, null=True, related_name="event")
 
     class Meta:

@@ -15,10 +15,7 @@ class HardDriveRequest(models.Model):
         choices = HardDrive.ConnectionPort.choices,
         default = HardDrive.ConnectionPort.M2)
     hard_drive_size = models.CharField(max_length=50,blank=True)
-    hard_drive_type = models.CharField(
-        max_length=50,
-        choices = HardDrive.Type.choices,
-        default = HardDrive.Type.HDD)
+    hard_drive_type = models.CharField(max_length=20)
     comment = models.TextField(blank=True)
     request = models.ForeignKey(
         Request,
