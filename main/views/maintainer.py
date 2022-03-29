@@ -12,9 +12,9 @@ from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
 from main.models.event import Event
+from main.forms import HardDriveForm
 from main.models.hard_drive_type import HardDriveType
 from django import db
-
 
 # These functions relate to maintainer/*.html views. These functions serve only the 
 #   maintainer role. 
@@ -130,6 +130,27 @@ def view_all_harddrives(request):
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
+def view_hard_drive(http_request, id=-1):
+    if id==-1:
+        print("ERROR ERROR")    
+    hard_drive = HardDrive.objects.filter(pk=id).first()
+
+    # Saves new hard drive. 
+    if http_request.method == 'POST':
+        form = HardDriveForm(http_request.POST, instance=hard_drive)
+        if form.is_valid():
+            form.save()
+            return render(http_request, 'maintainer/view_hard_drive.html', {'form': form, 'id':form})
+        else:
+            print(form.errors)
+            
+    else:
+        form = HardDriveForm(instance=hard_drive)
+    
+    return render(http_request, 'maintainer/view_hard_drive.html', {"form" : form, 'id':id})
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
 def configuration(request):
     form = HardDriveTypeForm()
 
@@ -165,9 +186,3 @@ def delete_hard_drive_type(request, pk):
         "hard_drive_types" : hard_drive_types,
     }
     return render(request, 'components/hard_drive_types.html', context)
-    
-
-        
-
-
-        
