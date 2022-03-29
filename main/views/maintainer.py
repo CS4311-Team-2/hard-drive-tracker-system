@@ -107,8 +107,8 @@ def add_hard_drive(request):
         hardDrive.save()
 
         Log.objects.create(
-            action_preformed = "New Hard Drive Added By"
-            #user = request.user
+            action_preformed = "New Hard Drive Added Serial Number: " + request.POST.get('serial_No')
+        
         )
 
         return redirect('main:index')
