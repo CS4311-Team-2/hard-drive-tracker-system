@@ -1,13 +1,20 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
+from django.core.management import call_command
+from django.forms.models import modelformset_factory
+
 
 from datetime import datetime
+from main.forms import HardDriveTypeForm
+from main.models import hard_drive_type
 
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
 from main.models.event import Event
 from main.forms import HardDriveForm
+from main.models.hard_drive_type import HardDriveType
+from django import db
 
 # These functions relate to maintainer/*.html views. These functions serve only the 
 #   maintainer role. 
@@ -120,6 +127,7 @@ def view_all_harddrives(request):
     context = {"hardDrives" : hardDrives}
     return render(request, 'maintainer/view_all_hard_drives.html', context)
 
+
 @login_required(login_url='main:login')
 @group_required('Maintainer')
 def view_hard_drive(http_request, id=-1):
@@ -140,3 +148,41 @@ def view_hard_drive(http_request, id=-1):
         form = HardDriveForm(instance=hard_drive)
     
     return render(http_request, 'maintainer/view_hard_drive.html', {"form" : form, 'id':id})
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def configuration(request):
+    form = HardDriveTypeForm()
+
+    if request.htmx:
+
+        form = HardDriveTypeForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+        hard_drive_types = HardDriveType.objects.all()
+
+        context = {
+            "hard_drive_types" : hard_drive_types,
+        }
+
+        return render(request, 'components/hard_drive_types.html', context)
+    
+    if request.method == 'GET':
+        hard_drive_types = HardDriveType.objects.all()
+        context = {
+            "hard_drive_types" : hard_drive_types,
+            "form" : form,
+        }
+        return render(request, 'maintainer/configuration.html', context)
+
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def delete_hard_drive_type(request, pk):
+    HardDriveType.objects.get(pk = pk).delete()
+    hard_drive_types = HardDriveType.objects.all()
+    context = {
+        "hard_drive_types" : hard_drive_types,
+    }
+    return render(request, 'components/hard_drive_types.html', context)
