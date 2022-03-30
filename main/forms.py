@@ -17,7 +17,7 @@ class CreateUserForm(UserCreationForm):
 class HardDriveForm(forms.ModelForm):
     class Meta:
         model = HardDrive
-        fields = ['serial_number', 'manufacturer', 'model_number', 
+        fields = ['create_date', 'modified_date', 'serial_number', 'manufacturer', 'model_number', 
                     'hard_drive_type', 'connection_port', 'hard_drive_size', 'classification',
                     'justification_for_classification_change', 'hard_drive_image', 'image_version_id',
                     'boot_test_status', 'boot_test_expiration', 'status',
@@ -40,11 +40,19 @@ class HardDriveForm(forms.ModelForm):
             'image_version_id' : forms.TextInput(attrs=FORM_CONTROL),
             'boot_test_status' : forms.TextInput(attrs=FORM_CONTROL),
             'status' : forms.TextInput(attrs=FORM_CONTROL),
+            'modified_date' : forms.DateInput(attrs=UNEDTIABLE_DATE),
+            "create_date":forms.DateInput(attrs=UNEDTIABLE_DATE),
             "issue_date" : forms.SelectDateWidget(),
             "boot_test_expiration" : forms.SelectDateWidget(),
             'expected_hard_drive_return_date' : forms.SelectDateWidget(),
             'actual_return_date' : forms.SelectDateWidget()
         }
+    def clean_image_version_id(self, *args, **kwargs):
+        image_version_id = self.cleaned_data.get("image_version_id")
+        if int(image_version_id) > 10000:
+            raise forms.ValidationError("This value is to big")
+        return image_version_id
+
 
 
 class EventForm(forms.ModelForm):

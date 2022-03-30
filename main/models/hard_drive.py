@@ -19,7 +19,7 @@ class HardDrive(models.Model):
         M2 = "M.2"
 
 
-    create_date = models.DateField(default=timezone.now) 
+    create_date = models.DateField(default=timezone.now, blank=True) 
     serial_number = models.CharField(max_length=100)
     manufacturer = models.CharField(blank=True, max_length=100)
     model_number = models.CharField(blank=True, max_length=100)
@@ -30,7 +30,7 @@ class HardDrive(models.Model):
                                         default=Classification.UNCLASSIFIED)
     # TODO(django): This field needs to be changed when the classification is changed. 
     justification_for_classification_change = models.TextField(default='')
-    # TODO(django): Need to limit this number at 4. 
+    # TODO(django): Need to limit this number at 4.     
     hard_drive_image = models.CharField(blank=True, max_length=100)
     image_version_id = models.CharField(max_length=100)
     boot_test_status = models.CharField(max_length=50, choices=BootTestStatus.choices, 
@@ -44,9 +44,17 @@ class HardDrive(models.Model):
     expected_hard_drive_return_date = models.DateField(default=timezone.now)
     justification_for_hard_drive_return_date = models.TextField(blank=True)
     actual_return_date = models.DateField(default=timezone.now)
-    modified_date = models.DateField(default=timezone.now)
+    modified_date = models.DateField(default=timezone.now, blank=True)
     request = models.ForeignKey(Request, 
                     on_delete=models.CASCADE, null=True, blank=True, related_name="hard_drives")
+    
+    # Manually save. 
+    def save(self, *args, **kwargs):
+        if self.create_date is None:
+            self.create_date = timezone.now()
+            print("Succesfully saved create date")
+        self.modified_date = timezone.now()
+        super(HardDrive, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = "Hard Drive"

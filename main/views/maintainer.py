@@ -20,8 +20,6 @@ from django import db
 # These functions relate to maintainer/*.html views. These functions serve only the 
 #   maintainer role. 
 
-
-
 @login_required(login_url='main:login')
 @group_required('Maintainer')
 def home(request):
@@ -58,22 +56,6 @@ def view_all_requests(http_request):
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
-def add_hard_drive(http_request):
-    
-    if (http_request.method == 'POST'):
-        data = dict(http_request.POST)
-        form = HardDriveForm(http_request.POST)
-        if form.is_valid():
-            hard_drive = form.save()
-            return redirect('main:index')
-        else:
-            print(form.errors)
-    else:
-        print('groups:', http_request.user.groups)
-        return render(http_request, 'maintainer/add_hard_drive.html', {'form': HardDriveForm()})
-
-@login_required(login_url='main:login')
-@group_required('Maintainer')
 def view_all_harddrives(request):
     hardDrives = HardDrive.objects.all()
 
@@ -82,10 +64,25 @@ def view_all_harddrives(request):
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
+def add_hard_drive(http_request):
+    if (http_request.method == 'POST'):
+        form = HardDriveForm(http_request.POST)
+        if form.is_valid():
+            hard_drive = form.save()
+            return redirect('main:index')
+        else:
+            print(form.errors)
+            return render(http_request, 'maintainer/add_hard_drive.html', {'form': form}) 
+    return render(http_request, 'maintainer/add_hard_drive.html', {'form': HardDriveForm()}) 
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
 def view_hard_drive(http_request, id=-1):
     if id==-1:
         print("ERROR ERROR")    
     hard_drive = HardDrive.objects.filter(pk=id).first()
+
+    print('CREATE HARD DRIVE:', hard_drive.create_date)
 
     # Saves new hard drive. 
     if http_request.method == 'POST':
@@ -95,6 +92,7 @@ def view_hard_drive(http_request, id=-1):
             return render(http_request, 'maintainer/view_hard_drive.html', {'form': form, 'id':form})
         else:
             print(form.errors)
+            render(http_request, 'maintainer/view_hard_drive.html', {"form" : form, 'id':id}) 
             
     else:
         form = HardDriveForm(instance=hard_drive)
