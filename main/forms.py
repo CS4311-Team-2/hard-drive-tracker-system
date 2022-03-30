@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from main.models.hard_drive import HardDrive
-from main.models.hard_drive_type import HardDriveType
+from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 

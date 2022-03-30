@@ -1,21 +1,13 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from django.utils import timezone
-from django.core.management import call_command
-from django.forms.models import modelformset_factory
 
-
-from datetime import datetime
 from main.forms import HardDriveTypeForm
-from main.models import hard_drive_type
-
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
 from main.models.event import Event
 from main.forms import HardDriveForm
-from main.models.hard_drive_type import HardDriveType
-from django import db
+from main.models.configurations.hard_drive_type import HardDriveType
 
 # These functions relate to maintainer/*.html views. These functions serve only the 
 #   maintainer role. 
