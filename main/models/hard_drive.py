@@ -1,5 +1,4 @@
 from email.policy import default
-#from tkinter import CASCADE
 from django.db import models
 from django.utils import timezone
 from .request import Request
@@ -19,9 +18,6 @@ class HardDrive(models.Model):
         SATA = "SATA"
         M2 = "M.2"
 
-    class Type(models.TextChoices):
-        HDD = "HDD"
-        SSD = "SSD"
 
     create_date = models.DateField(default=timezone.now) 
     serial_number = models.CharField(max_length=100)

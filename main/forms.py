@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from main.models.hard_drive import HardDrive
+from main.models.hard_drive_type import HardDriveType
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 
@@ -58,8 +59,24 @@ class EventForm(forms.ModelForm):
         }
 
 class HardDriveRequestForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(HardDriveRequestForm, self).__init__(*args, **kwargs)
+        self.fields['hard_drive_type'] = forms.ChoiceField(
+            choices=[ (o.name, str(o.name)) for o in HardDriveType.objects.all()]
+        )
+
     class Meta:
         model = HardDriveRequest
         fields =['classification', 'amount_required', 'connection_port', 
                 'hard_drive_size', 'hard_drive_type', 'comment']
+
+class HardDriveTypeForm(forms.ModelForm):
+    class Meta:
+        model = HardDriveType
+        fields =['name']
+
+        widgets = {
+            'name' : forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
 
