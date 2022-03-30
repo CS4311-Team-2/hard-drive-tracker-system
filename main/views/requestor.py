@@ -11,6 +11,7 @@ from main.models.hard_drive import HardDrive
 from main.models.request import Request
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
+from main.models.log import Log
 
 from time import time
 from datetime import datetime
@@ -66,6 +67,13 @@ def add_hard_drive_request(http_request):
             comment         = http_request.POST.get('comment', ''),
             request         = request,
         )
+
+        Log.objects.create(
+            action_preformed = ("New Hard Drive Request Added To The Event " + http_request.POST.get('event_name'))
+
+        )
+
+
 
         return redirect('main:update_request', id=request.request_reference_no)
 
@@ -146,6 +154,9 @@ def make_request(http_request):
         else:
             print(event_form.errors.as_data())
             print(HDRFormSet(http_request.POST).errors.as_data())
+        Log.objects.create(
+            action_preformed = "New Request Has Been Made To The Event " + http_request.POST.get('event_name')
+        )
 
 
     

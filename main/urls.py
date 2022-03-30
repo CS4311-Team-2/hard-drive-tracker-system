@@ -20,7 +20,12 @@ urlpatterns = [
     path('view_hard_drive/<int:id>/', maintainer.view_hard_drive, name="view_hard_drive"),
     path('view_all_harddrives/', views.view_all_harddrives, name='view_all_harddrives'),
 
+
+    path('request/<int:id>', requestor.view_single_request, name = 'update_request'),
+    path('hard_drive_request/create', requestor.add_hard_drive_request, name = 'create_hd_request'),
+    path('log/', maintainer.view_log, name='log')
     path('configuration/', views.configuration, name="configuration"),
 
     path('delete-hard-drive-type/<int:pk>/', maintainer.delete_hard_drive_type, name="delete-hard-drive-type"),
+
 ]

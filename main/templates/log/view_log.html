@@ -1,0 +1,39 @@
+{% extends "main/base.html" %}  
+
+{% block content %}
+<main class="content">
+  <div class="row">
+     <div class="col">
+        <div class="row">
+           <div class="tableFixHead">
+              <!-- Table -->
+              <div class="scroller">
+                 <table class="table table-hover">
+                    <thead>
+                       <tr>
+                         <th scope="col">Time Stamp</th>
+                          <th scope="col">Action Preformed</th>
+                          <th scope="col">User</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                       {% for log in Logs %}
+                       <tr>
+                          <td>{{log.time_stamp}}</td>
+                          <td>{{log.action_preformed}}</td>
+                          <td>{{log.user.username}}</td>
+                       </tr>
+                       {% empty %}
+                       <h3>No log found.</h3>
+                       {% endfor %}
+                    </tbody>
+                 </table>
+              </div>
+           </div>
+        </div>
+     </div>
+     <!-- Buttons -->
+  </div>
+  </body>
+</main>
+{% endblock %}
