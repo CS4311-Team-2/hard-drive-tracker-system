@@ -74,6 +74,8 @@ def view_hard_drive(http_request, id=-1):
         print("ERROR ERROR")    
     hard_drive = HardDrive.objects.filter(pk=id).first()
 
+    print(hard_drive.modifier.email)
+
     print('CREATE HARD DRIVE:', hard_drive.create_date)
 
     # Saves new hard drive. 

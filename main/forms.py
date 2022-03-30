@@ -7,7 +7,7 @@ from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 
 FORM_CONTROL = {'class':'form-control'}
-UNEDTIABLE_DATE = {**FORM_CONTROL, **{'readonly': 'readonly'}}
+UNEDTIABLE = {**FORM_CONTROL, **{'readonly': 'readonly'}}
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -15,9 +15,13 @@ class CreateUserForm(UserCreationForm):
         fields =['username', 'email', 'password1', 'password2']
         
 class HardDriveForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(HardDriveForm, self).__init__(*args, **kwargs)
+        self.fields['hard_drive_type'] = forms.ChoiceField(
+            choices=[ (o.name, str(o.name)) for o in HardDriveType.objects.all()])
     class Meta:
         model = HardDrive
-        fields = ['create_date', 'modified_date', 'serial_number', 'manufacturer', 'model_number', 
+        fields = ['create_date', 'modifier', 'modified_date', 'serial_number', 'manufacturer', 'model_number', 
                     'hard_drive_type', 'connection_port', 'hard_drive_size', 'classification',
                     'justification_for_classification_change', 'hard_drive_image', 'image_version_id',
                     'boot_test_status', 'boot_test_expiration', 'status',
@@ -28,32 +32,31 @@ class HardDriveForm(forms.ModelForm):
             'justification_for_classification_change': forms.TextInput(attrs=FORM_CONTROL),
             'justification_for_hard_drive_status_change': forms.TextInput(attrs=FORM_CONTROL),
             'justification_for_hard_drive_return_date': forms.TextInput(attrs=FORM_CONTROL),
-
+            
             'serial_number' : forms.TextInput(attrs=FORM_CONTROL), 
             'manufacturer' : forms.TextInput(attrs=FORM_CONTROL),
             'model_number' : forms.TextInput(attrs=FORM_CONTROL),
-            'hard_drive_type' : forms.TextInput(attrs=FORM_CONTROL),
             'connection_port' : forms.TextInput(attrs=FORM_CONTROL),
             'hard_drive_size' : forms.TextInput(attrs=FORM_CONTROL),
             'classification' : forms.Select(attrs=FORM_CONTROL),
             'hard_drive_image' : forms.TextInput(attrs=FORM_CONTROL),
             'image_version_id' : forms.TextInput(attrs=FORM_CONTROL),
             'boot_test_status' : forms.TextInput(attrs=FORM_CONTROL),
+            'modifier' : forms.TextInput(attrs=UNEDTIABLE), 
             'status' : forms.TextInput(attrs=FORM_CONTROL),
-            'modified_date' : forms.DateInput(attrs=UNEDTIABLE_DATE),
-            "create_date":forms.DateInput(attrs=UNEDTIABLE_DATE),
+            'modified_date' : forms.DateInput(attrs=UNEDTIABLE),
+            "create_date":forms.DateInput(attrs=UNEDTIABLE),
             "issue_date" : forms.SelectDateWidget(),
             "boot_test_expiration" : forms.SelectDateWidget(),
             'expected_hard_drive_return_date' : forms.SelectDateWidget(),
             'actual_return_date' : forms.SelectDateWidget()
         }
+
     def clean_image_version_id(self, *args, **kwargs):
         image_version_id = self.cleaned_data.get("image_version_id")
         if int(image_version_id) > 10000:
             raise forms.ValidationError("This value is to big")
         return image_version_id
-
-
 
 class EventForm(forms.ModelForm):
     class Meta:
@@ -70,8 +73,7 @@ class HardDriveRequestForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(HardDriveRequestForm, self).__init__(*args, **kwargs)
         self.fields['hard_drive_type'] = forms.ChoiceField(
-            choices=[ (o.name, str(o.name)) for o in HardDriveType.objects.all()]
-        )
+            choices=[ (o.name, str(o.name)) for o in HardDriveType.objects.all()])
 
     class Meta:
         model = HardDriveRequest

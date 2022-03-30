@@ -1,6 +1,7 @@
 from email.policy import default
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 from .request import Request
 
 # Hard Drive model
@@ -45,6 +46,7 @@ class HardDrive(models.Model):
     justification_for_hard_drive_return_date = models.TextField(blank=True)
     actual_return_date = models.DateField(default=timezone.now)
     modified_date = models.DateField(default=timezone.now, blank=True)
+    modifier = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE) 
     request = models.ForeignKey(Request, 
                     on_delete=models.CASCADE, null=True, blank=True, related_name="hard_drives")
     
@@ -54,6 +56,7 @@ class HardDrive(models.Model):
             self.create_date = timezone.now()
             print("Succesfully saved create date")
         self.modified_date = timezone.now()
+        
         super(HardDrive, self).save(*args, **kwargs)
 
     class Meta:
