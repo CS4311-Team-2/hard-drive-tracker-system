@@ -25,7 +25,9 @@
                     <tbody>
                        {% for hard_drive in hardDrives %}
                        <tr>
-                         <td><button>View</button></td>
+                          <td><a class="btn" 
+                              style="background-color:grey;color:white;" 
+                              href="{% url 'main:view_hard_drive' hard_drive.id %}">View</a></td>
                           <td>{{hard_drive.serial_number}}</td>
                           <td>{{hard_drive.status}}</td>
                           <td>{{hard_drive.manufacturer}}</td>
