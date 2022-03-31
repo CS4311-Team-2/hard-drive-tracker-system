@@ -11,7 +11,7 @@
                  <table class="table table-hover">
                     <thead>
                        <tr>
-                         <th scope="col">View</th>
+                         <th scope="col">Edit</th>
                           <th scope="col">Serial Number</th>
                           <th scope="col">Status</th>
                           <th scope="col">Manufacturer</th>
@@ -27,7 +27,7 @@
                        <tr>
                           <td><a class="btn" 
                               style="background-color:grey;color:white;" 
-                              href="{% url 'main:view_hard_drive' hard_drive.id %}">View</a></td>
+                              href="{% url 'main:view_hard_drive' hard_drive.id %}">Edit</a></td>
                           <td>{{hard_drive.serial_number}}</td>
                           <td>{{hard_drive.status}}</td>
                           <td>{{hard_drive.manufacturer}}</td>
