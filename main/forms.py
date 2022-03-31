@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from numpy import choose
 from main.models.hard_drive import HardDrive
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.event import Event
@@ -46,8 +47,8 @@ class HardDriveForm(forms.ModelForm):
             'classification' : forms.Select(attrs=FORM_CONTROL),
             'hard_drive_image' : forms.TextInput(attrs=FORM_CONTROL),
             'image_version_id' : forms.TextInput(attrs=FORM_CONTROL),
-            'boot_test_status' : forms.TextInput(attrs=FORM_CONTROL),
-            'status' : forms.TextInput(attrs=FORM_CONTROL),
+            'boot_test_status' : forms.Select(attrs=FORM_CONTROL),
+            'status' : forms.Select(attrs=FORM_CONTROL),
             'modified_date' : forms.DateInput(attrs=UNEDTIABLE),
             "create_date":forms.DateInput(attrs=UNEDTIABLE),
             "issue_date" : forms.TextInput(attrs=FORM_CONTROL_DATE),
@@ -56,11 +57,18 @@ class HardDriveForm(forms.ModelForm):
             'actual_return_date' : forms.TextInput(attrs=FORM_CONTROL_DATE)
         }
 
-    def clean_image_version_id(self, *args, **kwargs):
+    def clean_image_version_id(self):
         image_version_id = self.cleaned_data.get("image_version_id")
         if int(image_version_id) > 10000:
             raise forms.ValidationError("This value is to big")
         return image_version_id
+    
+    def clean_status(self):
+        status = self.cleaned_data.get('status')
+        classification = self.cleaned_data.get('classification')
+        if status == HardDrive.Status.PENDING_WIPE and classification == HardDrive.Classification.UNCLASSIFIED:
+            raise forms.ValidationError("This status can only be assigned to classified drives")
+        return status
 
 class EventForm(forms.ModelForm):
     class Meta:

@@ -76,6 +76,7 @@
             <div class="form-group">
                 <label>Image Version ID</label>
                 {{form.image_version_id}}
+                {{form.image_version_id.errors}}
             </div>
             <div class="form-group">
                 <label>Boot Test Status</label>
@@ -91,6 +92,7 @@
                 <label>Hard Drive Status</label>
                 <!--This needs to be a drop down. This can be done via text choices.-->
                 {{form.status}}
+                {{form.status.errors}}
             </div>
             <h3> </h3>
             <div class="form-group">
