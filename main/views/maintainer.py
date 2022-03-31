@@ -6,8 +6,12 @@ from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
 from main.models.event import Event
+
+from main.models.log import Log
+
 from main.forms import HardDriveForm
 from main.models.configurations.hard_drive_type import HardDriveType
+
 
 # These functions relate to maintainer/*.html views. These functions serve only the 
 #   maintainer role. 
@@ -68,6 +72,14 @@ def add_hard_drive(http_request):
             print(form.errors)
             return render(http_request, 'maintainer/add_hard_drive.html', {'form': form}) 
     return render(http_request, 'maintainer/add_hard_drive.html', {'form': HardDriveForm()}) 
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def view_log(request):
+    logs = Log.objects.all()
+    context = {"Logs" : logs}
+    return render(request, 'log/view_log.html', context)
+
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
@@ -134,3 +146,4 @@ def delete_hard_drive_type(request, pk):
         "hard_drive_types" : hard_drive_types,
     }
     return render(request, 'components/hard_drive_types.html', context)
+
