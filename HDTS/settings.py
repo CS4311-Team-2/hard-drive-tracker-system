@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django_htmx',
     'main',
     'django_filters',
+    'bootstrapform',
 ]
 
 MIDDLEWARE = [
