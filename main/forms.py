@@ -21,7 +21,7 @@ class HardDriveForm(forms.ModelForm):
             choices=[ (o.name, str(o.name)) for o in HardDriveType.objects.all()])
     class Meta:
         model = HardDrive
-        fields = ['create_date', 'modifier', 'modified_date', 'serial_number', 'manufacturer', 'model_number', 
+        fields = ['create_date', 'modified_date', 'serial_number', 'manufacturer', 'model_number', 
                     'hard_drive_type', 'connection_port', 'hard_drive_size', 'classification',
                     'justification_for_classification_change', 'hard_drive_image', 'image_version_id',
                     'boot_test_status', 'boot_test_expiration', 'status',
@@ -42,7 +42,6 @@ class HardDriveForm(forms.ModelForm):
             'hard_drive_image' : forms.TextInput(attrs=FORM_CONTROL),
             'image_version_id' : forms.TextInput(attrs=FORM_CONTROL),
             'boot_test_status' : forms.TextInput(attrs=FORM_CONTROL),
-            'modifier' : forms.TextInput(attrs=UNEDTIABLE), 
             'status' : forms.TextInput(attrs=FORM_CONTROL),
             'modified_date' : forms.DateInput(attrs=UNEDTIABLE),
             "create_date":forms.DateInput(attrs=UNEDTIABLE),

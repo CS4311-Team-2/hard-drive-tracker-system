@@ -60,7 +60,9 @@ def add_hard_drive(http_request):
     if (http_request.method == 'POST'):
         form = HardDriveForm(http_request.POST)
         if form.is_valid():
-            hard_drive = form.save()
+            hard_drive = form.save(commit=False)
+            hard_drive.modifier = http_request.user.email
+            hard_drive.save()
             return redirect('main:index')
         else:
             print(form.errors)
@@ -82,16 +84,18 @@ def view_hard_drive(http_request, id=-1):
     if http_request.method == 'POST':
         form = HardDriveForm(http_request.POST, instance=hard_drive)
         if form.is_valid():
-            form.save()
-            return render(http_request, 'maintainer/view_hard_drive.html', {'form': form, 'id':form})
+            hard_drive = form.save(commit=False)
+            hard_drive.modifier = http_request.user
+            hard_drive.save()
+            return render(http_request, 'maintainer/view_hard_drive.html', {'form': form, 'id':id, 'email':hard_drive.modifier.email})
         else:
             print(form.errors)
-            render(http_request, 'maintainer/view_hard_drive.html', {"form" : form, 'id':id}) 
+            render(http_request, 'maintainer/view_hard_drive.html', {"form" : form, 'id':id, 'email':hard_drive.modifier.email}) 
             
     else:
         form = HardDriveForm(instance=hard_drive)
     
-    return render(http_request, 'maintainer/view_hard_drive.html', {"form" : form, 'id':id})
+    return render(http_request, 'maintainer/view_hard_drive.html', {"form" : form, 'id':id, 'email':hard_drive.modifier.email})
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
