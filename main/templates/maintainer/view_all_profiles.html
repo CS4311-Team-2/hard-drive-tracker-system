@@ -1,0 +1,61 @@
+{% extends "main/base.html" %}  
+
+{% block content %}
+<main class="content">
+  <div class="row">
+     <div class="col">
+        <!-- Title -->
+        <div class="row">
+            <h3>Summary View of User Profiles</h3>
+        </div>
+        <br>
+        <div class="row">
+           <div class="tableFixHead">
+              <!-- Table -->
+              <div class="scroller">
+                 <table class="table table-hover">
+                    <thead>
+                       <tr>
+                         <th scope="col">View</th>
+                          <th scope="col">First Name</th>
+                          <th scope="col">Last Name</th>
+                          <th scope="col">User Role</th>
+                          <th scope="col">User Profile Status</th>
+                          <th scope="col">Last Modified Date</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                       {% for profile in userProfiles %}
+                       <tr>
+                          <td><a class="btn" 
+                              style="background-color:grey;color:white;" 
+                              href="">View</a></td>
+                          <td>{{profile.username}}</td>
+                          <td>{{profile.email}}</td>
+                          <td>{{profile.username}}</td>
+                          <td>{{profile.username}}</td>
+                          <td>{{profile.username}}</td>
+                       </tr>
+                       {% empty %}
+                       <h3>No user profiles found.</h3>
+                       {% endfor %}
+                    </tbody>
+                 </table>
+              </div>
+           </div>
+        </div>
+        <!-- Buttons -->
+        <br>
+        <br>
+         <div class="row">
+            <div class="col-1">
+               <div class="row">
+                  <a class="btn" style="background-color:#4678B2;color:white;" href="">Add</a>
+               </div>
+            </div>
+         </div>
+     </div>
+  </div>
+  </body>
+</main>
+{% endblock %}

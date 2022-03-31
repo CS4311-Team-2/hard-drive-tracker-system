@@ -19,6 +19,8 @@ from main.forms import HardDriveForm
 from main.models.hard_drive_type import HardDriveType
 from django import db
 
+from django.contrib.auth.models import User 
+
 
 # These functions relate to maintainer/*.html views. These functions serve only the 
 #   maintainer role. 
@@ -135,6 +137,14 @@ def view_all_harddrives(request):
 
     context = {"hardDrives" : hardDrives}
     return render(request, 'maintainer/view_all_hard_drives.html', context)
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def view_all_profiles(request):
+    userProfiles = User.objects.all()
+
+    context = {"userProfiles" : userProfiles}
+    return render(request, 'maintainer/view_all_profiles.html', context)
 
 
 @login_required(login_url='main:login')
