@@ -11,6 +11,8 @@
                  <table class="table table-hover">
                     <thead>
                        <tr>
+                        <!--<INPUT TYPE="Radio" Name="payment" Value="CC">Credit Card-->
+                          <th scope="col">Select/Unselect All</th>
                          <th scope="col">Edit</th>
                           <th scope="col">Serial Number</th>
                           <th scope="col">Status</th>
@@ -25,6 +27,10 @@
                     <tbody>
                        {% for hard_drive in hardDrives %}
                        <tr>
+                          <td>
+                              <a class="radio">
+                                 <label><input type="checkbox" id='selected' name="selected"></label>
+                              </a></td>
                           <td><a class="btn" 
                               style="background-color:grey;color:white;" 
                               href="{% url 'main:view_hard_drive' hard_drive.id %}">Edit</a></td>
