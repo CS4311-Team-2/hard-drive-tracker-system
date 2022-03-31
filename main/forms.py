@@ -17,8 +17,14 @@ class CreateUserForm(UserCreationForm):
 class HardDriveForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(HardDriveForm, self).__init__(*args, **kwargs)
-        self.fields['hard_drive_type'] = forms.ChoiceField(
+        self.fields['hard_drive_type'] = forms.ChoiceField( 
             choices=[ (o.name, str(o.name)) for o in HardDriveType.objects.all()])
+        self.fields['hard_drive_type'].widget.attrs = FORM_CONTROL
+        self.fields['issue_date'].widget.attrs = FORM_CONTROL
+        self.fields['boot_test_expiration'].widget.attrs = FORM_CONTROL
+        self.fields['expected_hard_drive_return_date'].widget.attrs = FORM_CONTROL
+        self.fields['actual_return_date'].widget.attrs = FORM_CONTROL
+        
     class Meta:
         model = HardDrive
         fields = ['create_date', 'modified_date', 'serial_number', 'manufacturer', 'model_number', 
