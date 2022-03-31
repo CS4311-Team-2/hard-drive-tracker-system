@@ -65,12 +65,12 @@ def add_hard_drive(http_request):
         form = HardDriveForm(http_request.POST)
         if form.is_valid():
             hard_drive = form.save(commit=False)
-            hard_drive.modifier = http_request.user.email
+            hard_drive.modifier = http_request.user
             hard_drive.save()
             return redirect('main:index')
         else:
             print(form.errors)
-            return render(http_request, 'maintainer/add_hard_drive.html', {'form': form}) 
+            return render(http_request, 'maintainer/add_hard_drive.html', {'form': form})
     return render(http_request, 'maintainer/add_hard_drive.html', {'form': HardDriveForm()}) 
 
 @login_required(login_url='main:login')
@@ -87,10 +87,7 @@ def view_hard_drive(http_request, id=-1):
     if id==-1:
         print("ERROR ERROR")    
     hard_drive = HardDrive.objects.filter(pk=id).first()
-
-    print(hard_drive.modifier.email)
-
-    print('CREATE HARD DRIVE:', hard_drive.create_date)
+    modifier = hard_drive.modifier.email
 
     # Saves new hard drive. 
     if http_request.method == 'POST':
@@ -106,6 +103,7 @@ def view_hard_drive(http_request, id=-1):
             
     else:
         form = HardDriveForm(instance=hard_drive)
+        form['modifier'].initial = modifier
     
     return render(http_request, 'maintainer/view_hard_drive.html', {"form" : form, 'id':id, 'email':hard_drive.modifier.email})
 

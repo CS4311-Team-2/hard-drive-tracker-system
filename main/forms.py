@@ -7,6 +7,7 @@ from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 
 FORM_CONTROL = {'class':'form-control'}
+FORM_CONTROL_DATE = {'class':'form-control', 'type':'Date'}
 UNEDTIABLE = {**FORM_CONTROL, **{'readonly': 'readonly'}}
 
 class CreateUserForm(UserCreationForm):
@@ -15,15 +16,13 @@ class CreateUserForm(UserCreationForm):
         fields =['username', 'email', 'password1', 'password2']
         
 class HardDriveForm(forms.ModelForm):
+    # This does not refer to the acutal modifier field, used to dipslay the field in the template. 
+    modifier = forms.CharField(widget=forms.TextInput(attrs=UNEDTIABLE))
     def __init__(self, *args, **kwargs):
         super(HardDriveForm, self).__init__(*args, **kwargs)
         self.fields['hard_drive_type'] = forms.ChoiceField( 
             choices=[ (o.name, str(o.name)) for o in HardDriveType.objects.all()])
         self.fields['hard_drive_type'].widget.attrs = FORM_CONTROL
-        self.fields['issue_date'].widget.attrs = FORM_CONTROL
-        self.fields['boot_test_expiration'].widget.attrs = FORM_CONTROL
-        self.fields['expected_hard_drive_return_date'].widget.attrs = FORM_CONTROL
-        self.fields['actual_return_date'].widget.attrs = FORM_CONTROL
         
     class Meta:
         model = HardDrive
@@ -51,10 +50,10 @@ class HardDriveForm(forms.ModelForm):
             'status' : forms.TextInput(attrs=FORM_CONTROL),
             'modified_date' : forms.DateInput(attrs=UNEDTIABLE),
             "create_date":forms.DateInput(attrs=UNEDTIABLE),
-            "issue_date" : forms.SelectDateWidget(),
-            "boot_test_expiration" : forms.SelectDateWidget(),
-            'expected_hard_drive_return_date' : forms.SelectDateWidget(),
-            'actual_return_date' : forms.SelectDateWidget()
+            "issue_date" : forms.TextInput(attrs=FORM_CONTROL_DATE),
+            "boot_test_expiration" : forms.TextInput(attrs=FORM_CONTROL_DATE),
+            'expected_hard_drive_return_date' : forms.TextInput(attrs=FORM_CONTROL_DATE),
+            'actual_return_date' : forms.TextInput(attrs=FORM_CONTROL_DATE)
         }
 
     def clean_image_version_id(self, *args, **kwargs):

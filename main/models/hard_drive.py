@@ -36,15 +36,15 @@ class HardDrive(models.Model):
     image_version_id = models.CharField(max_length=100)
     boot_test_status = models.CharField(max_length=50, choices=BootTestStatus.choices, 
                                             default=BootTestStatus.PASS)
-    boot_test_expiration = models.DateField(default=timezone.now)
+    boot_test_expiration = models.DateField(default=timezone.now, blank=True )
 
     # The options to this field can be configured. 
     status = models.CharField(max_length=100)
     justification_for_hard_drive_status_change = models.TextField(blank=True)
-    issue_date = models.DateField(default=timezone.now)
-    expected_hard_drive_return_date = models.DateField(default=timezone.now)
+    issue_date = models.DateField(blank=True)
+    expected_hard_drive_return_date = models.DateField(default=timezone.now, blank=True)
     justification_for_hard_drive_return_date = models.TextField(blank=True)
-    actual_return_date = models.DateField(default=timezone.now)
+    actual_return_date = models.DateField(blank=True)
     modified_date = models.DateField(default=timezone.now, blank=True)
     modifier = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE) 
     request = models.ForeignKey(Request, 
