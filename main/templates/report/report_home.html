@@ -1,0 +1,78 @@
+{% extends "main/base.html" %}  
+
+{% block content %}
+<h3>Hard Drive Details</h3>
+<!-- <div class="container-fluid" style="border:1px solid #cecece;"> -->
+<form method="POST", action="/add_hard_drive/">
+    {% csrf_token %}
+    <div class="row">    
+        <div class="col">
+            <br>
+            <div class="form-group">
+                <label>Hard Drives Serial No.</label>
+                <input type="text" class="form-control" name="serial_No">
+            </div>
+            <div class="form-group">
+                <label>Expected Hard Drive Return Date</label>
+                <input type="date" class="form-control" name="expected_hard_drive_return_date">
+            </div>
+            <div class="form-group">
+                    <label>Hard Drive Type</label>
+                    <select id="hard_drive_type" name="hard_drive_type">
+                        <option value""disable selected></option>
+                        <option value="1">SSD</option>
+                        <option value="2">HHD</option>
+                    </select>
+                    <!--it suppose to be a dropdown: refer to SRS page 43-->
+            </div>
+            <div class="form-group">
+                    <label>hard Drive Connection Port</label>
+                    <select id="connection_port" name="connection_port">
+                        <option value""disable selected></option>
+                        <option value="1">USB-C</option>
+                        <option value="2">USB</option>
+                    </select>
+                    <!--it suppose to be a dropdown: refer to SRS page 42-->
+            </div>
+            <div class="dropdown">
+                <label for="classification">Classification</label>
+                <select id="classification" name="classification">
+                    <option value""disable selected></option>
+                    <option value="1">Classified</option>
+                    <option value="2">Unclassified</option>
+                </select>
+            </div>
+            <div class="dropdown">
+                <label>Hard Drive Status</label>
+                <select id="status" name="status">
+                    <option value""disable selected></option>
+                    <option value="1">Assigned</option>
+                    <option value="2">Available</option>
+                    <option value="3">End of Life</option>
+                    <option value="4">Master Clone</option>
+                    <option value="5">Pending Wipe</option>
+                    <option value="6">Destroyed</option>
+                    <option value="7">Lost</option>
+                    <option value="8">Overdue</option>
+                    <option value="9">Picked Up</option>
+                    <option value="10">Returned</option>
+                    <option value="11">Pending Classification Change Approval</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Report Type</label>
+                <select id="connection_port" name="connection_port">
+                    <option value""disable selected></option>
+                    <option value="1">CSV</option>
+                    <option value="2">Excel</option>
+                    <option value="2">JSON</option>
+                </select>
+                <!--it suppose to be a dropdown: refer to SRS page 42-->
+        </div>
+            <br>
+        </div>     
+  
+    </div>
+    <input type="submit" class="btn btn-primary">
+</form>   
+{% endblock %}

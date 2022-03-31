@@ -1,9 +1,9 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.core.management import call_command
+
+
 from django.forms.models import modelformset_factory
-
-
 from datetime import datetime
 from main.forms import HardDriveTypeForm
 from main.models import hard_drive_type
@@ -203,4 +203,9 @@ def delete_hard_drive_type(request, pk):
         "hard_drive_types" : hard_drive_types,
     }
     return render(request, 'components/hard_drive_types.html', context)
+
+
+
+def report_home(request):
+    return render(request, 'report/report_home.html')
 
