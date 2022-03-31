@@ -4,6 +4,17 @@
 <main class="content">
   <div class="row">
      <div class="col">
+        <!--FILTERING-->
+        <div class="row">
+           <div class="col">
+              <div class="card card-body">
+                 <form method="get">
+                    {{profileFilter.form}}
+                    <button class="btn btn-primary" type="submit">Search</button>
+                 </form>
+              </div>
+           </div>
+        </div>
         <!-- Title -->
         <div class="row">
             <h3>Summary View of User Profiles</h3>
@@ -34,7 +45,7 @@
                           <td>{{profile.email}}</td>
                           <td>{{profile.username}}</td>
                           <td>{{profile.username}}</td>
-                          <td>{{profile.username}}</td>
+                          <td>{{profile.date_joined}}</td>
                        </tr>
                        {% empty %}
                        <h3>No user profiles found.</h3>

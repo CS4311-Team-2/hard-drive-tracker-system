@@ -20,6 +20,7 @@ from main.models.hard_drive_type import HardDriveType
 from django import db
 
 from django.contrib.auth.models import User 
+from main.filters import UserProfilesFilter
 
 
 # These functions relate to maintainer/*.html views. These functions serve only the 
@@ -143,7 +144,10 @@ def view_all_harddrives(request):
 def view_all_profiles(request):
     userProfiles = User.objects.all()
 
-    context = {"userProfiles" : userProfiles}
+    profileFilter = UserProfilesFilter(request.GET, queryset=userProfiles)
+    userProfiles = profileFilter.qs
+
+    context = {"userProfiles" : userProfiles, "profileFilter" : profileFilter}
     return render(request, 'maintainer/view_all_profiles.html', context)
 
 
