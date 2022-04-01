@@ -14,7 +14,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from django.http import Http404
-from ..filters import OrderFilter
 
 MAINTAINER = "Maintainer"
 
@@ -118,8 +117,7 @@ def add_hard_drive(request):
 def view_all_harddrives(request):
     if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
         return maintainer.view_all_harddrives(request)
-        
-    myFilter = OrderFilter()
+    
     return redirect('main:index')
 
 

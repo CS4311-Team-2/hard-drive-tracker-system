@@ -1,9 +1,55 @@
 {% extends "main/base.html" %}  
 
+{% load bootstrap %}
+
 {% block content %}
 <main class="content">
   <div class="row">
      <div class="col">
+        <div class="row">
+           <form method= "get">
+               <div class="form-row">
+                  <div>
+                     <div class="form-group col-md-2">
+                        <h1>Date</h1>
+                     </div>
+                     <div class="form-group col-md-2">
+                        {{hard_drive_filter.form.create_date | bootstrap}}
+                     </div>
+                     <div class="form-group col-md-2">
+                        {{hard_drive_filter.form.issue_date | bootstrap}}
+                     </div>
+                     <div class="form-group col-md-2">
+                        {{hard_drive_filter.form.modified_date | bootstrap}}
+                     </div>
+                     <div class="form-group col-md-2">
+                        {{hard_drive_filter.form.expected_hard_drive_return_date | bootstrap}}
+                     </div>
+                     <div class="form-group col-md-2">
+                        {{hard_drive_filter.form.boot_test_expiration | bootstrap}}
+                     </div>
+                     <div class="form-group col-md-1">
+                        <h1>User</div>
+                     </div>
+                     <div class="form-group col-md-2">
+                        {{hard_drive_filter.form.modifier | bootstrap}}
+                     </div>
+                     <div class="form-group col-md-2">
+                        <h1>Hard Drive Attributes</div>
+                     </div>
+                     <div class="form-group col-md-2">
+                        {{hard_drive_filter.form.serial_number | bootstrap}}
+                     </div>
+                     <div class="form-group col-md-2">
+                        {{hard_drive_filter.form.status | bootstrap}}
+                     </div>
+                     <p style="padding: 80px; border: 2px solid #A6ACAF;"></p>
+                     <button class="btn btn-primary" type="submit">Search</button>
+                  </div>
+
+               </div>
+           </form>
+        </div>
         <div class="row">
            <div class="tableFixHead">
               <!-- Table -->
@@ -24,7 +70,7 @@
                        </tr>
                     </thead>
                     <tbody>
-                       {% for hard_drive in hardDrives %}
+                       {% for hard_drive in hard_drives %}
                        <tr>
                           <td>
                               <a class="radio">
