@@ -5,114 +5,111 @@
 {% block content %}
 <main class="content">
    <link rel="stylesheet" href="mystyle.css">
-  <div class="row">
-     <div class="col">
-        <div class="row">
-           <form method= "get">
+   <div class="row">
+      <div class="col">
+         <div class="row">
+            <form method= "get">
                <div class="form-row">
-                  <div>
-                     <div>
-                        <!--Date Component-->
-                        <h1>Date</h1>
-                     </div>
-                     <div class="form-group col-md-2">
-                        {{hard_drive_filter.form.create_date | bootstrap}}
-                     </div>
-                     <div class="form-group col-md-2">
-                        {{hard_drive_filter.form.issue_date | bootstrap}}
-                     </div>
-                     <div class="form-group col-md-2">
-                        {{hard_drive_filter.form.modified_date | bootstrap}}
-                     </div>
-                     <div class="form-group col-md-2">
-                        {{hard_drive_filter.form.expected_hard_drive_return_date | bootstrap}}
-                     </div>
-                     <div class="form-group col-md-2">
-                        {{hard_drive_filter.form.boot_test_expiration | bootstrap}}
-                     </div>
-                     <div>
-                        <!--User Component-->
-                        <h1>User</h1>
-                     </div>
-                     <div class="form-group col-md-2">
-                        {{hard_drive_filter.form.modifier | bootstrap}}
-                     </div>
-                     <div>
-                        <!--Hard Drive Attributes Component-->
-                        <h1>Hard Drive Attributes</h1>
-                     </div>
-                     <div class="form-group col-md-2">
-                        {{hard_drive_filter.form.serial_number | bootstrap}}
-                     </div>
-                     <div class="form-group col-md-2">
-                        {{hard_drive_filter.form.status | bootstrap}}
-                     </div>
-                     <div class="form-group col-md-2">
-                        {{hard_drive_filter.form.image_version_id | bootstrap}}
-                     </div>
-                     <div class="form-group col-md-2">
-                        {{hard_drive_filter.form.boot_test_status | bootstrap}}
-                     </div>
-                     <div class="form-group col-md-2">
-                        {{hard_drive_filter.form.manufacturer | bootstrap}}
-                     </div>
-                     <div class="form-group col-md-2">
-                        {{hard_drive_filter.form.model_number | bootstrap}}
-                     </div>
-                     <div class="form-group col-md-2">
-                        {{hard_drive_filter.form.classification | bootstrap}}
-                     </div>
-                     <div class="form-group col-md-2">
-                        {{hard_drive_filter.form.connection_port | bootstrap}}
-                     </div>
-                     <div class="form-group col-md-2">
-                        {{hard_drive_filter.form.hard_drive_size | bootstrap}}
-                     </div>
-                     <div class="form-group col-md-2">
-                        {{hard_drive_filter.form.hard_drive_type | bootstrap}}
-                     </div>
-                     <div>
-                        <!--Hard Drive Attributes Component-->
-                        <!--Needs To add Requenst Reference No.-->
-                        <h1>Request Reference</h1>
-                     </div>
-                     <div class="form-group col-md-2">
-                        {{hard_drive_filter.form.hard_drive_type | bootstrap}}
-                     </div>
-                     <div class="col-md-2">
-                        <!--Hard Drive Attributes Component-->
-                        <h1>Keyword</h1>
-                     </div>
-                     <div class="col-md-2">
-                        <p>Expression</p>
-                        <input type="text" name="expression">
-                     </div>
-                     <!--<p style="padding: 200px; border: 2px solid #A6ACAF;"></p>-->
-                     <div><button class="btn btn-primary" type="submit">Search</button></div>
+                  <h1>Date</h1>
+                  <div class="form-group col-md-2">
+                     {{hard_drive_filter.form.create_date | bootstrap}} 
+                   </div>
+                  <div class="form-group col-md-2" >
+                     {{hard_drive_filter.form.issue_date | bootstrap}}
+                  </div>
+                  <div class="form-group col-md-2">
+                     {{hard_drive_filter.form.modified_date | bootstrap}}
+                  </div>
+                  <div class="form-group col-md-2">
+                     {{hard_drive_filter.form.expected_hard_drive_return_date | bootstrap}}
+                  </div>
+                  <div class="form-group col-md-2">
+                     {{hard_drive_filter.form.boot_test_expiration | bootstrap}}
                   </div>
                </div>
-           </form>
-        </div>
-        <div class="row">
-           <div class="tableFixHead">
-              <!-- Table -->
-              <div class="scroller">
-                 <table class="table table-hover">
-                    <thead>
-                       <tr>
-                          <th scope="col">Select/Unselect All</th>
-                         <th scope="col">Edit</th>
-                          <th scope="col">Serial Number</th>
-                          <th scope="col">Status</th>
-                          <th scope="col">Manufacturer</th>
-                          <th scope="col">Model No</th>
-                          <th scope="col">Classification</th>
-                          <th scope="col">Connection Port</th>
-                          <th scope="col">Size</th>
-                          <th scope="col">Type</th>
-                       </tr>
-                    </thead>
-                    <tbody>
+            </div>
+         </div>
+         <div class="row">
+            <form method="get">
+               <div class="form-row">
+                  <h1>User</h1>
+                  <div class="form-group col-md-2">
+                     {{hard_drive_filter.form.modifier | bootstrap}}
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <form method="get">
+               <div class="form-row">
+                  <h1>Hard Drive Attributes</h1>
+                  <div class="form-group col-md-2">
+                     {{hard_drive_filter.form.serial_number | bootstrap}}
+                  </div>
+                  <div class="form-group col-md-2">
+                     {{hard_drive_filter.form.status | bootstrap}}
+                  </div>
+                  <div class="form-group col-md-2">
+                     {{hard_drive_filter.form.image_version_id | bootstrap}}
+                  </div>
+                  <div class="form-group col-md-2">
+                     {{hard_drive_filter.form.boot_test_status | bootstrap}}
+                  </div>
+                  <div class="form-group col-md-2">
+                     {{hard_drive_filter.form.manufacturer | bootstrap}}
+                  </div>
+                  <div class="form-group col-md-2">
+                     {{hard_drive_filter.form.model_number | bootstrap}}
+                  </div>
+                  <div class="form-group col-md-2">
+                     {{hard_drive_filter.form.classification | bootstrap}}
+                  </div>
+                  <div class="form-group col-md-2">
+                     {{hard_drive_filter.form.connection_port | bootstrap}}
+                  </div>
+                  <div class="form-group col-md-2">
+                     {{hard_drive_filter.form.hard_drive_size | bootstrap}}
+                  </div>
+                  <div class="form-group col-md-2">
+                     {{hard_drive_filter.form.hard_drive_type | bootstrap}}
+                  </div>
+               </div>
+               <h1>Request Reference</h1>
+               <div class="form-row">
+                  <div class="form-group col-md-2">
+                     {{hard_drive_filter.form.hard_drive_type | bootstrap}}
+                  </div>
+               </div>
+               <div>
+                  <h1>Keyword</h1>
+                  <div class="form-group col-md-2">
+                     <p>Expression</p>
+                     <input type="text" class="form-control">
+                  </div>
+                  <button class="btn btn-primary" type="submit">Search</button>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="tableFixHead">
+               <!-- Table -->
+               <div class="scroller">
+                  <table class="table table-hover">
+                     <thead>
+                        <tr>
+                           <th scope="col">Select/Unselect All</th>
+                           <th scope="col">Edit</th>
+                           <th scope="col">Serial Number</th>
+                           <th scope="col">Status</th>
+                           <th scope="col">Manufacturer</th>
+                           <th scope="col">Model No</th>
+                           <th scope="col">Classification</th>
+                           <th scope="col">Connection Port</th>
+                           <th scope="col">Size</th>
+                           <th scope="col">Type</th>
+                        </tr>
+                     </thead>
+                     <tbody>
                        {% for hard_drive in hard_drives %}
                        <tr>
                           <td>
