@@ -1,0 +1,54 @@
+
+
+ <div>
+    <!--Hard Drive Attributes Component-->
+    <h1>Hard Drive Attributes</h1>
+ </div>
+ <div class="form-group col-md-2">
+    {{hard_drive_filter.form.serial_number | bootstrap}}
+ </div>
+ <div class="form-group col-md-2">
+    {{hard_drive_filter.form.status | bootstrap}}
+ </div>
+ <div class="form-group col-md-2">
+    {{hard_drive_filter.form.image_version_id | bootstrap}}
+ </div>
+ <div class="form-group col-md-2">
+    {{hard_drive_filter.form.boot_test_status | bootstrap}}
+ </div>
+ <div class="form-group col-md-2">
+    {{hard_drive_filter.form.manufacturer | bootstrap}}
+ </div>
+ <div class="form-group col-md-2">
+    {{hard_drive_filter.form.model_number | bootstrap}}
+ </div>
+ <div class="form-group col-md-2">
+    {{hard_drive_filter.form.classification | bootstrap}}
+ </div>
+ <div class="form-group col-md-2">
+    {{hard_drive_filter.form.connection_port | bootstrap}}
+ </div>
+ <div class="form-group col-md-2">
+    {{hard_drive_filter.form.hard_drive_size | bootstrap}}
+ </div>
+ <div class="form-group col-md-2">
+    {{hard_drive_filter.form.hard_drive_type | bootstrap}}
+ </div>
+ <div>
+    <!--Hard Drive Attributes Component-->
+    <!--Needs To add Requenst Reference No.-->
+    <h1>Request Reference</h1>
+ </div>
+ <div class="form-group col-md-2">
+    {{hard_drive_filter.form.hard_drive_type | bootstrap}}
+ </div>
+ <div class="form-group col-md-2">
+    <!--Hard Drive Attributes Component-->
+    <h1>Keyword</h1>
+ </div>
+ <div>
+    <p>Expression</p>
+    <input type="text" name="expression">
+ </div>
+ <!--<p style="padding: 200px; border: 2px solid #A6ACAF;"></p>-->
+ <div><button class="btn btn-primary" type="submit">Search</button></div>
