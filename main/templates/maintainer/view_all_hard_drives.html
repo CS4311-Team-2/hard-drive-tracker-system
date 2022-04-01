@@ -11,6 +11,7 @@
                <div class="form-row">
                   <div>
                      <div class="form-group col-md-2">
+                        <!--Date Component-->
                         <h1>Date</h1>
                      </div>
                      <div class="form-group col-md-2">
@@ -29,12 +30,14 @@
                         {{hard_drive_filter.form.boot_test_expiration | bootstrap}}
                      </div>
                      <div class="form-group col-md-1">
+                        <!--User Component-->
                         <h1>User</div>
                      </div>
                      <div class="form-group col-md-2">
                         {{hard_drive_filter.form.modifier | bootstrap}}
                      </div>
                      <div class="form-group col-md-2">
+                        <!--Hard Drive Attributes Component-->
                         <h1>Hard Drive Attributes</div>
                      </div>
                      <div class="form-group col-md-2">
@@ -43,7 +46,31 @@
                      <div class="form-group col-md-2">
                         {{hard_drive_filter.form.status | bootstrap}}
                      </div>
-                     <p style="padding: 80px; border: 2px solid #A6ACAF;"></p>
+                     <div class="form-group col-md-2">
+                        {{hard_drive_filter.form.image_version_id | bootstrap}}
+                     </div>
+                     <div class="form-group col-md-2">
+                        {{hard_drive_filter.form.boot_test_status | bootstrap}}
+                     </div>
+                     <div class="form-group col-md-2">
+                        {{hard_drive_filter.form.manufacturer | bootstrap}}
+                     </div>
+                     <div class="form-group col-md-2">
+                        {{hard_drive_filter.form.model_number | bootstrap}}
+                     </div>
+                     <div class="form-group col-md-2">
+                        {{hard_drive_filter.form.classification | bootstrap}}
+                     </div>
+                     <div class="form-group col-md-2">
+                        {{hard_drive_filter.form.connection_port | bootstrap}}
+                     </div>
+                     <div class="form-group col-md-2">
+                        {{hard_drive_filter.form.hard_drive_size | bootstrap}}
+                     </div>
+                     <div class="form-group col-md-2">
+                        {{hard_drive_filter.form.hard_drive_type | bootstrap}}
+                     </div>
+                     <p style="padding: 170px; border: 2px solid #A6ACAF;"></p>
                      <button class="btn btn-primary" type="submit">Search</button>
                   </div>
 
