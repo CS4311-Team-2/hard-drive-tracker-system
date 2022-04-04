@@ -1,10 +1,10 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from numpy import choose
 from main.models.hard_drive import HardDrive
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
+from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 
@@ -108,6 +108,15 @@ class HardDriveTypeForm(forms.ModelForm):
 class HardDriveManufacturersForm(forms.ModelForm):
     class Meta:
         model = HardDriveManufacturers
+        fields =['name']
+
+        widgets = {
+            'name' : forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class HardDriveConnectionPortsForm(forms.ModelForm):
+    class Meta:
+        model = HardDriveConnectionPorts
         fields =['name']
 
         widgets = {

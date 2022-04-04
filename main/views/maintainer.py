@@ -2,12 +2,13 @@ from urllib import request
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
-from main.forms import HardDriveTypeForm, HardDriveManufacturersForm
+from main.forms import HardDriveConnectionPortsForm, HardDriveTypeForm, HardDriveManufacturersForm
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
 from main.models.event import Event
 from main.models.log import Log
+from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
 from main.forms import HardDriveForm
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
@@ -103,11 +104,14 @@ def view_hard_drive(http_request, id=-1):
 def configuration(request):    
     hard_drive_types = HardDriveType.objects.all()
     hard_drive_manufacturers = HardDriveManufacturers.objects.all()
+    hard_drive_connection_ports = HardDriveConnectionPorts.objects.all()
     context = {
         "hard_drive_types" : hard_drive_types,
         "hard_drive_types_form" : HardDriveTypeForm(),
         "hard_drive_manufacturers": hard_drive_manufacturers,
-        "hard_drive_manufacturers_form": HardDriveManufacturersForm()
+        "hard_drive_manufacturers_form": HardDriveManufacturersForm(),
+        "hard_drive_connection_ports": hard_drive_connection_ports,
+        "hard_drive_connection_port_form": HardDriveConnectionPortsForm()
         }
     return render(request, 'maintainer/configuration.html', context)
 
