@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
@@ -68,6 +69,7 @@ def add_hard_drive(http_request):
             hard_drive = form.save(commit=False)
             hard_drive.modifier = http_request.user
             hard_drive.save()
+            Log.objects.create(action_performed="Created the hard drive: " + hard_drive.serial_number, user=http_request.user)
             return redirect('main:index')
         else:
             print(form.errors)
@@ -88,11 +90,9 @@ def view_hard_drive(http_request, id=-1):
             hard_drive = form.save(commit=False)
             hard_drive.modifier = http_request.user
             hard_drive.save()
-            return render(http_request, 'maintainer/view_hard_drive.html', {'form': form, 'id':id, 'email':hard_drive.modifier.email})
+            Log.objects.create(action_performed="Modified the hard drive: " + hard_drive.serial_number, user=http_request.user)
         else:
             print(form.errors)
-            render(http_request, 'maintainer/view_hard_drive.html', {"form" : form, 'id':id, 'email':hard_drive.modifier.email}) 
-            
     else:
         form = HardDriveForm(instance=hard_drive)
         form['modifier'].initial = modifier
