@@ -1,16 +1,16 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
-from main.forms import HardDriveTypeForm
+from main.forms import HardDriveTypeForm, HardDriveManufacturersForm
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
 from main.models.event import Event
-
 from main.models.log import Log
-
 from main.forms import HardDriveForm
 from main.models.configurations.hard_drive_type import HardDriveType
+from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
+
 
 
 # These functions relate to maintainer/*.html views. These functions serve only the 
@@ -102,13 +102,17 @@ def view_hard_drive(http_request, id=-1):
 @login_required(login_url='main:login')
 @group_required('Maintainer')
 def configuration(request):
-    form = HardDriveTypeForm()
+    hard_drive_types_form = HardDriveTypeForm()
+    hard_drive_manufacturers_form = HardDriveManufacturersForm()
     
     if request.method == 'GET':
         hard_drive_types = HardDriveType.objects.all()
+        hard_drive_manufacturers = HardDriveManufacturers.objects.all()
         context = {
             "hard_drive_types" : hard_drive_types,
-            "form" : form,
+            "hard_drive_types_form" : hard_drive_types_form,
+            "hard_drive_manufacturers": hard_drive_manufacturers,
+            "hard_drive_manufacturers_form": hard_drive_manufacturers_form
         }
         return render(request, 'maintainer/configuration.html', context)
 

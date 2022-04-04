@@ -1,15 +1,15 @@
-<div id="hard-drive-types">
+<div id="hard-drive-manufacturers">
 
-    {% for hard_drive_type in hard_drive_types %}
+    {% for hard_drive_manufacturer in hard_drive_manufacturers %}
         
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            {{hard_drive_type.name}}
+            {{hard_drive_manufacturer.name}}
 
             <span
                 class = "badge badge-danger badge-pill"
                 style="cursor: pointer;"
-                hx-delete="{% url 'main:delete-hard-drive-type' hard_drive_type.pk %}"
-                hx-target="#hard-drive-types"
+                hx-delete="{% url 'main:delete-hard-drive-manufacturers' hard_drive_manufacturer.pk %}"
+                hx-target="#hard-drive-manufacturers"
                 hx-confirm="Are you sure you want to delete this type?"
                 >
                 X

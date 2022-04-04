@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from numpy import choose
 from main.models.hard_drive import HardDrive
 from main.models.configurations.hard_drive_type import HardDriveType
+from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 
@@ -95,6 +96,15 @@ class HardDriveRequestForm(forms.ModelForm):
 class HardDriveTypeForm(forms.ModelForm):
     class Meta:
         model = HardDriveType
+        fields =['name']
+
+        widgets = {
+            'name' : forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class HardDriveManufacturersForm(forms.ModelForm):
+    class Meta:
+        model = HardDriveManufacturers
         fields =['name']
 
         widgets = {
