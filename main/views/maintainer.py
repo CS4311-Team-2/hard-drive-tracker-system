@@ -11,8 +11,6 @@ from main.forms import HardDriveForm
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
 
-
-
 # These functions relate to maintainer/*.html views. These functions serve only the 
 #   maintainer role. 
 
