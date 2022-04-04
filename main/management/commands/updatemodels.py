@@ -5,9 +5,11 @@ from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 from main.models.request import Request
 from main.models.hard_drive import HardDrive
+from main.models.configurations.hard_drive_type import HardDriveType
+from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
+from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
 
 import pandas as pd
-from datetime import date
 
 
 ADMIN_USERNAME = 'Admin'
@@ -104,9 +106,6 @@ class Command(BaseCommand):
             models.request = request
             models.save()
             
-        
-        
-
         requestor = User.objects.get(username__iexact = REQUESTOR_USERNAME)
 
         requests = Request.objects.all()
@@ -118,8 +117,15 @@ class Command(BaseCommand):
         for hard_drive in hard_drives:
             hard_drive.request = requests[0]
             hard_drive.save()
-
-
+        
+        # Configurations
+        HardDriveManufacturers.objects.create(name="HP")
+        HardDriveManufacturers.objects.create(name="Samsung")
+        HardDriveConnectionPorts.objects.create(name="SATA")
+        HardDriveConnectionPorts.objects.create(name="USB")
+        HardDriveType.objects.create(name="SSD")
+        HardDriveType.objects.create(name="HDD")
+        HardDriveType.objects.create(name="NVMe")
 
         print('Succesfully added dummy data')
         
