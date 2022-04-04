@@ -117,6 +117,7 @@ def add_hard_drive(request):
 def view_all_harddrives(request):
     if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
         return maintainer.view_all_harddrives(request)
+        
     
     return redirect('main:index')
 
