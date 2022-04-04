@@ -6,11 +6,10 @@ from main.views.decorators import group_required
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
 
-
 @login_required(login_url='main:login')
 @group_required('Maintainer')
 def hard_drive_type(request):
-    print()
+    print("----------\nHard Drive Type\n-------")
     form = HardDriveTypeForm(request.POST)
     if form.is_valid():
         form.save()
@@ -31,7 +30,7 @@ def delete_hard_drive_type(request, pk):
 @login_required(login_url='main:login')
 @group_required('Maintainer')
 def hard_drive_manufacturer(request):
-    print("Hello World")
+    print("----------\nHard Drive Manufacturer\n-------")
     form =  HardDriveManufacturersForm(request.POST)
     if form.is_valid():
         form.save()
