@@ -23,11 +23,11 @@ class HardDrive(models.Model):
         ASSIGNED = 'Assigned'
         AVAILABLE = 'Available'
         END_OF_LIFE = 'End of Life'
-        MASTER = 'MASTER CLONE'
+        MASTER = 'Master Clone'
         PENDING_WIPE = 'Pending Wipe'
         DESTROYED = "Destroyed"
         LOST = 'Lost'
-        OVERDUE = 'OVERDUE'
+        OVERDUE = 'Overdue'
         PICKED_UP = 'Picked Up'
         RETUREND = 'Returned'
         PENDING_CLASSIFICATION_CHANGE_APPROVAL = 'Pending Classification Change Approval'

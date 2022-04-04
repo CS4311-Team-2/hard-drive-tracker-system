@@ -11,8 +11,6 @@ from main.forms import HardDriveForm
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
 
-
-
 # These functions relate to maintainer/*.html views. These functions serve only the 
 #   maintainer role. 
 
@@ -70,8 +68,13 @@ def add_hard_drive(http_request):
             return redirect('main:index')
         else:
             print(form.errors)
+<<<<<<< HEAD
             return render(http_request, 'maintainer/view_hard_drive.html', {'form': form, "view_hard_drive":False})
     return render(http_request, 'maintainer/view_hard_drive.html', {'form': HardDriveForm(), "view_hard_drive":False}) 
+=======
+            return render(http_request, 'maintainer/add_hard_drive.html', {'form': form})
+    return render(http_request, 'maintainer/add_hard_drive.html', {'form': HardDriveForm()}) 
+>>>>>>> main
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
@@ -88,14 +91,23 @@ def view_hard_drive(http_request, id=-1):
             hard_drive = form.save(commit=False)
             hard_drive.modifier = http_request.user
             hard_drive.save()
+<<<<<<< HEAD
+=======
+            return render(http_request, 'maintainer/view_hard_drive.html', {'form': form, 'id':id, 'email':hard_drive.modifier.email})
+>>>>>>> main
         else:
             print(form.errors)
+            render(http_request, 'maintainer/view_hard_drive.html', {"form" : form, 'id':id, 'email':hard_drive.modifier.email}) 
             
     else:
         form = HardDriveForm(instance=hard_drive)
         form['modifier'].initial = modifier
     
+<<<<<<< HEAD
     return render(http_request, 'maintainer/view_hard_drive.html', {"form" : form, 'id':id, 'email':hard_drive.modifier.email, "view_hard_drive":True})
+=======
+    return render(http_request, 'maintainer/view_hard_drive.html', {"form" : form, 'id':id, 'email':hard_drive.modifier.email})
+>>>>>>> main
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
