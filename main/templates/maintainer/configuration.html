@@ -2,28 +2,47 @@
 
 {% block content %}
 
-<h3>Hard Drive Types</h3>
+<ul class="list-group col-4">
+    <h3>Hard Drive Types</h3>
+    <form method="POST" action="{% url 'main:configuration' %}" id="hard-drive-type-form">
+        {% csrf_token %}
 
-<form method="POST" action="{% url 'main:configuration' %}" id="hard-drive-type-form">
-    {% csrf_token %}
 
-    <ul class="list-group col-3">
+            {% include 'components/hard_drive_types.html' %}
+            
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{hard_drive_types_form.name}}
+                <button
+                    class="btn btn-success"
+                    hx-post="{% url 'main:hard_drive_type' %}" 
+                    hx-target="#hard-drive-types"
+                    hx-swap="outerHTML" 
+                    >
+                    Add Hard Drive Type
+                </button>
+            </li>
+    </form>
+    <br>
+    <br>
+    <h3>Hard Drive Manufacturers</h3>
 
-        {% include 'components/hard_drive_types.html' %}
-        
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            {{form.name}}
-            <button
-                class="btn btn-success"
-                hx-post="{% url 'main:configuration' %}" 
-                hx-target="#hard-drive-types"
-                hx-swap="outerHTML" 
-                >
-                Add Hard Drive Type
-            </button>
-        </li>
+    <form method="POST" action="{% url 'main:configuration' %}" id="hard-drive-manufacturers-form">
+        {% csrf_token %}
+            {% include 'components/hard_drive_manufacturers.html' %}
+            
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{hard_drive_manufacturers_form.name}}
+                <button
+                    class="btn btn-success"
+                    hx-post="{% url 'main:hard_drive_manufacturers' %}" 
+                    hx-target="#hard-drive-manufacturers"
+                    hx-swap="outerHTML" 
+                    >
+                    Add Hard Drive Manufacturers
+                </button>
+            </li>
 
-    </ul>
-</form>
+    </form>
+</ul>
 
 {% endblock %}

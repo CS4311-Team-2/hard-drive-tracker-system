@@ -19,6 +19,18 @@ class HardDrive(models.Model):
         SATA = "SATA"
         M2 = "M.2"
 
+    class Status(models.TextChoices):
+        ASSIGNED = 'Assigned'
+        AVAILABLE = 'Available'
+        END_OF_LIFE = 'End of Life'
+        MASTER = 'Master Clone'
+        PENDING_WIPE = 'Pending Wipe'
+        DESTROYED = "Destroyed"
+        LOST = 'Lost'
+        OVERDUE = 'Overdue'
+        PICKED_UP = 'Picked Up'
+        RETUREND = 'Returned'
+        PENDING_CLASSIFICATION_CHANGE_APPROVAL = 'Pending Classification Change Approval'
 
     create_date = models.DateField(default=timezone.now, blank=True) 
     serial_number = models.CharField(max_length=100)
@@ -39,7 +51,7 @@ class HardDrive(models.Model):
     boot_test_expiration = models.DateField(default=timezone.now, blank=True )
 
     # The options to this field can be configured. 
-    status = models.CharField(max_length=100)
+    status = models.CharField(max_length=100, choices=Status.choices, default=Status.AVAILABLE)
     justification_for_hard_drive_status_change = models.TextField(blank=True)
     issue_date = models.DateField(blank=True)
     expected_hard_drive_return_date = models.DateField(default=timezone.now, blank=True)

@@ -1,8 +1,10 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from numpy import choose
 from main.models.hard_drive import HardDrive
 from main.models.configurations.hard_drive_type import HardDriveType
+from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 
@@ -23,6 +25,10 @@ class HardDriveForm(forms.ModelForm):
         self.fields['hard_drive_type'] = forms.ChoiceField( 
             choices=[ (o.name, str(o.name)) for o in HardDriveType.objects.all()])
         self.fields['hard_drive_type'].widget.attrs = FORM_CONTROL
+        self.fields['manufacturer'] = forms.ChoiceField( 
+            choices=[ (o.name, str(o.name)) for o in HardDriveManufacturers.objects.all()])
+        self.fields['manufacturer'].widget.attrs = FORM_CONTROL
+
         
     class Meta:
         model = HardDrive
@@ -39,15 +45,14 @@ class HardDriveForm(forms.ModelForm):
             'justification_for_hard_drive_return_date': forms.TextInput(attrs=FORM_CONTROL),
             
             'serial_number' : forms.TextInput(attrs=FORM_CONTROL), 
-            'manufacturer' : forms.TextInput(attrs=FORM_CONTROL),
             'model_number' : forms.TextInput(attrs=FORM_CONTROL),
             'connection_port' : forms.TextInput(attrs=FORM_CONTROL),
             'hard_drive_size' : forms.TextInput(attrs=FORM_CONTROL),
             'classification' : forms.Select(attrs=FORM_CONTROL),
             'hard_drive_image' : forms.TextInput(attrs=FORM_CONTROL),
             'image_version_id' : forms.TextInput(attrs=FORM_CONTROL),
-            'boot_test_status' : forms.TextInput(attrs=FORM_CONTROL),
-            'status' : forms.TextInput(attrs=FORM_CONTROL),
+            'boot_test_status' : forms.Select(attrs=FORM_CONTROL),
+            'status' : forms.Select(attrs=FORM_CONTROL),
             'modified_date' : forms.DateInput(attrs=UNEDTIABLE),
             "create_date":forms.DateInput(attrs=UNEDTIABLE),
             "issue_date" : forms.TextInput(attrs=FORM_CONTROL_DATE),
@@ -56,11 +61,18 @@ class HardDriveForm(forms.ModelForm):
             'actual_return_date' : forms.TextInput(attrs=FORM_CONTROL_DATE)
         }
 
-    def clean_image_version_id(self, *args, **kwargs):
+    def clean_image_version_id(self):
         image_version_id = self.cleaned_data.get("image_version_id")
         if int(image_version_id) > 10000:
             raise forms.ValidationError("This value is to big")
         return image_version_id
+    
+    def clean_status(self):
+        status = self.cleaned_data.get('status')
+        classification = self.cleaned_data.get('classification')
+        if status == HardDrive.Status.PENDING_WIPE and classification == HardDrive.Classification.UNCLASSIFIED:
+            raise forms.ValidationError("This status can only be assigned to classified drives")
+        return status
 
 class EventForm(forms.ModelForm):
     class Meta:
@@ -87,6 +99,15 @@ class HardDriveRequestForm(forms.ModelForm):
 class HardDriveTypeForm(forms.ModelForm):
     class Meta:
         model = HardDriveType
+        fields =['name']
+
+        widgets = {
+            'name' : forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class HardDriveManufacturersForm(forms.ModelForm):
+    class Meta:
+        model = HardDriveManufacturers
         fields =['name']
 
         widgets = {
