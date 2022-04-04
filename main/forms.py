@@ -1,10 +1,10 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from numpy import choose
 from main.models.hard_drive import HardDrive
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
+from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 
@@ -28,8 +28,9 @@ class HardDriveForm(forms.ModelForm):
         self.fields['manufacturer'] = forms.ChoiceField( 
             choices=[ (o.name, str(o.name)) for o in HardDriveManufacturers.objects.all()])
         self.fields['manufacturer'].widget.attrs = FORM_CONTROL
-
-        
+        self.fields['connection_port'] = forms.ChoiceField( 
+            choices=[ (o.name, str(o.name)) for o in HardDriveConnectionPorts.objects.all()])
+        self.fields['connection_port'].widget.attrs = FORM_CONTROL
     class Meta:
         model = HardDrive
         fields = ['create_date', 'modified_date', 'serial_number', 'manufacturer', 'model_number', 
@@ -46,7 +47,6 @@ class HardDriveForm(forms.ModelForm):
             
             'serial_number' : forms.TextInput(attrs=FORM_CONTROL), 
             'model_number' : forms.TextInput(attrs=FORM_CONTROL),
-            'connection_port' : forms.TextInput(attrs=FORM_CONTROL),
             'hard_drive_size' : forms.TextInput(attrs=FORM_CONTROL),
             'classification' : forms.Select(attrs=FORM_CONTROL),
             'hard_drive_image' : forms.TextInput(attrs=FORM_CONTROL),
@@ -108,6 +108,15 @@ class HardDriveTypeForm(forms.ModelForm):
 class HardDriveManufacturersForm(forms.ModelForm):
     class Meta:
         model = HardDriveManufacturers
+        fields =['name']
+
+        widgets = {
+            'name' : forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class HardDriveConnectionPortsForm(forms.ModelForm):
+    class Meta:
+        model = HardDriveConnectionPorts
         fields =['name']
 
         widgets = {

@@ -11,10 +11,12 @@
             <div class="form-group">
                 <h4>Hard Drive Specification</h4>
             </div>
+            {% if view_hard_drive %}
             <div class="form-group">
                 <label>Creation Date</label>
                 {{form.create_date}}
             </div>
+            {% endif %}
             <div class="form-group">
                 <label>Hard Drive Serial No.</label>
                 {{ form.serial_number}}
@@ -43,6 +45,7 @@
                 {{form.hard_drive_size}}
                 <!--its supposed to be a dropdown: Refer to SRS page 42. Cannot find the sizes-->
             </div>
+            {% if view_hard_drive %}
             <div class="form-group">
                 <h3>Hard Drive Modifier</h3>
                 <label>Modifier</label>
@@ -53,6 +56,7 @@
                 <label>Modifier Date</label>
                 {{form.modified_date}}
             </div>
+            {% endif %}
             <br>
         </div>     
 
