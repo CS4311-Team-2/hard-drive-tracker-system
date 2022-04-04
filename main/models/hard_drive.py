@@ -48,7 +48,6 @@ class HardDrive(models.Model):
     modified_date = models.DateField(blank=True)
     request = models.ForeignKey(Request, 
                     on_delete=models.CASCADE, null=True, blank=True, related_name="hard_drives")
-    modifier = models.TextField(blank=True)
 
     class Meta:
         verbose_name_plural = "Hard Drive"

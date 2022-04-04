@@ -18,7 +18,6 @@ from main.models.log import Log
 from main.forms import HardDriveForm
 from main.models.hard_drive_type import HardDriveType
 from django import db
-from main.filters import HardDriveFilter
 
 
 # These functions relate to maintainer/*.html views. These functions serve only the 
@@ -132,13 +131,9 @@ def add_hard_drive(request):
 @login_required(login_url='main:login')
 @group_required('Maintainer')
 def view_all_harddrives(request):
-    hard_drives = HardDrive.objects.all()
-    
-    hard_drive_filter = HardDriveFilter(request.GET, queryset = hard_drives)
-    hard_drives = hard_drive_filter.qs
-    
-    context = {"hard_drives" : hard_drives, "hard_drive_filter": hard_drive_filter}
-    
+    hardDrives = HardDrive.objects.all()
+
+    context = {"hardDrives" : hardDrives}
     return render(request, 'maintainer/view_all_hard_drives.html', context)
 
 
