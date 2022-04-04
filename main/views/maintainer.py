@@ -75,14 +75,6 @@ def add_hard_drive(http_request):
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
-def view_log(request):
-    logs = Log.objects.all()
-    context = {"Logs" : logs}
-    return render(request, 'log/view_log.html', context)
-
-
-@login_required(login_url='main:login')
-@group_required('Maintainer')
 def view_hard_drive(http_request, id=-1):
     if id==-1:
         print("ERROR ERROR")    
@@ -111,20 +103,6 @@ def view_hard_drive(http_request, id=-1):
 @group_required('Maintainer')
 def configuration(request):
     form = HardDriveTypeForm()
-
-    if request.htmx:
-
-        form = HardDriveTypeForm(request.POST)
-        if form.is_valid():
-            form.save()
-
-        hard_drive_types = HardDriveType.objects.all()
-
-        context = {
-            "hard_drive_types" : hard_drive_types,
-        }
-
-        return render(request, 'components/hard_drive_types.html', context)
     
     if request.method == 'GET':
         hard_drive_types = HardDriveType.objects.all()
@@ -134,14 +112,10 @@ def configuration(request):
         }
         return render(request, 'maintainer/configuration.html', context)
 
-
 @login_required(login_url='main:login')
 @group_required('Maintainer')
-def delete_hard_drive_type(request, pk):
-    HardDriveType.objects.get(pk = pk).delete()
-    hard_drive_types = HardDriveType.objects.all()
-    context = {
-        "hard_drive_types" : hard_drive_types,
-    }
-    return render(request, 'components/hard_drive_types.html', context)
+def view_log(request):
+    logs = Log.objects.all()
+    context = {"Logs" : logs}
+    return render(request, 'log/view_log.html', context)
 
