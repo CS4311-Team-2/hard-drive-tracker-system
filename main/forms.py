@@ -25,6 +25,10 @@ class HardDriveForm(forms.ModelForm):
         self.fields['hard_drive_type'] = forms.ChoiceField( 
             choices=[ (o.name, str(o.name)) for o in HardDriveType.objects.all()])
         self.fields['hard_drive_type'].widget.attrs = FORM_CONTROL
+        self.fields['manufacturer'] = forms.ChoiceField( 
+            choices=[ (o.name, str(o.name)) for o in HardDriveManufacturers.objects.all()])
+        self.fields['manufacturer'].widget.attrs = FORM_CONTROL
+
         
     class Meta:
         model = HardDrive
@@ -41,7 +45,6 @@ class HardDriveForm(forms.ModelForm):
             'justification_for_hard_drive_return_date': forms.TextInput(attrs=FORM_CONTROL),
             
             'serial_number' : forms.TextInput(attrs=FORM_CONTROL), 
-            'manufacturer' : forms.TextInput(attrs=FORM_CONTROL),
             'model_number' : forms.TextInput(attrs=FORM_CONTROL),
             'connection_port' : forms.TextInput(attrs=FORM_CONTROL),
             'hard_drive_size' : forms.TextInput(attrs=FORM_CONTROL),

@@ -101,20 +101,16 @@ def view_hard_drive(http_request, id=-1):
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
-def configuration(request):
-    hard_drive_types_form = HardDriveTypeForm()
-    hard_drive_manufacturers_form = HardDriveManufacturersForm()
-    
-    if request.method == 'GET':
-        hard_drive_types = HardDriveType.objects.all()
-        hard_drive_manufacturers = HardDriveManufacturers.objects.all()
-        context = {
-            "hard_drive_types" : hard_drive_types,
-            "hard_drive_types_form" : hard_drive_types_form,
-            "hard_drive_manufacturers": hard_drive_manufacturers,
-            "hard_drive_manufacturers_form": hard_drive_manufacturers_form
+def configuration(request):    
+    hard_drive_types = HardDriveType.objects.all()
+    hard_drive_manufacturers = HardDriveManufacturers.objects.all()
+    context = {
+        "hard_drive_types" : hard_drive_types,
+        "hard_drive_types_form" : HardDriveTypeForm(),
+        "hard_drive_manufacturers": hard_drive_manufacturers,
+        "hard_drive_manufacturers_form": HardDriveManufacturersForm()
         }
-        return render(request, 'maintainer/configuration.html', context)
+    return render(request, 'maintainer/configuration.html', context)
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
