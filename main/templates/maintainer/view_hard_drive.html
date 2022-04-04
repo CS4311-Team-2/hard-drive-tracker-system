@@ -34,20 +34,24 @@
                     <!--it suppose to be a dropdown: refer to SRS page 43-->
             </div>
             <div class="form-group">
-                    <label>hard Drive Connection Port</label>
+                    <label>Hard Drive Connection Port</label>
                     {{form.connection_port}}
                     <!--it suppose to be a dropdown: refer to SRS page 42-->
             </div>
             <div class="form-group">
-                <label>hard Drive Size</label>
+                <label>Hard  Drive Size</label>
                 {{form.hard_drive_size}}
                 <!--its supposed to be a dropdown: Refer to SRS page 42. Cannot find the sizes-->
             </div>
             <div class="form-group">
                 <h3>Hard Drive Modifier</h3>
                 <label>Modifier</label>
+                {{form.modifier}}
                 <!--Not sure what exactly is supposed to go here.   -->
-                <input type="text" class="form-control" name="modifier">
+                <br>
+
+                <label>Modifier Date</label>
+                {{form.modified_date}}
             </div>
             <br>
         </div>     
