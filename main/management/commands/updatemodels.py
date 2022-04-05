@@ -1,13 +1,15 @@
-
-import re
 from django.core.management.base import BaseCommand
-import pandas as pd
+from django.contrib.auth.models import User, Group
+
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 from main.models.request import Request
 from main.models.hard_drive import HardDrive
-from django.contrib.auth.models import User, Group
-from django.contrib.auth import authenticate
+from main.models.configurations.hard_drive_type import HardDriveType
+from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
+from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
+
+import pandas as pd
 
 
 ADMIN_USERNAME = 'Admin'
@@ -16,8 +18,6 @@ REQUESTOR_USERNAME = 'Requestor'
 PASSWORD = 'pass'
 
 class Command(BaseCommand):
-    help = 'import booms'
-
     def add_arguments(self, parser):
         pass
 
@@ -57,10 +57,10 @@ class Command(BaseCommand):
         in zip(df.request_reference_no, df.request_reference_no_year, df.request_status, df.request_creation_date,
             df.request_last_modified_date, df.need_drive_by_date, df.comment):
 
-            models = Request(request_reference_no, request_reference_no_year, request_status, request_creation_date,
+            request = Request(request_reference_no, request_reference_no_year, request_status, request_creation_date,
                 request_last_modified_date, need_drive_by_date, comment)
 
-            models.save()
+            request.save()
     
         df = pd.read_csv('event.csv')
         for (id, event_name, event_description, event_location, event_type, length_of_reporting_cycles,
@@ -68,12 +68,12 @@ class Command(BaseCommand):
         in zip(df.id, df.event_name, df.event_description, df.event_location, df.event_type, df.length_of_reporting_cycles,
             df.event_status, df.event_start_date, df.event_end_date):
 
-            models = Event(id, event_name, event_description, event_location, event_type, length_of_reporting_cycles,
+            event = Event(id, event_name, event_description, event_location, event_type, length_of_reporting_cycles,
                 event_status, event_start_date, event_end_date)
 
-            request = Request.objects.get(pk = 321)            
-            models.request = request
-            models.save()
+            request = Request.objects.get(pk = 1)            
+            event.request = request
+            event.save()
 
         df = pd.read_csv('hard_drives.csv')
         for (id, create_date, serial_number, manufacturer,
@@ -101,14 +101,11 @@ class Command(BaseCommand):
         for (id,classification,amount_required,connection_port,hard_drive_size,hard_drive_type,comment) \
         in zip(df.id,df.classification,df.amount_required,df.connection_port,df.hard_drive_size,df.hard_drive_type,df.comment):
             models = HardDriveRequest(id,classification,amount_required,connection_port,hard_drive_size,hard_drive_type,comment)
-            request = Request.objects.get(pk = 321)
+            request = Request.objects.get(pk = 1)
             
             models.request = request
             models.save()
             
-        
-        
-
         requestor = User.objects.get(username__iexact = REQUESTOR_USERNAME)
 
         requests = Request.objects.all()
@@ -120,8 +117,15 @@ class Command(BaseCommand):
         for hard_drive in hard_drives:
             hard_drive.request = requests[0]
             hard_drive.save()
-
-
+        
+        # Configurations
+        HardDriveManufacturers.objects.create(name="HP")
+        HardDriveManufacturers.objects.create(name="Samsung")
+        HardDriveConnectionPorts.objects.create(name="SATA")
+        HardDriveConnectionPorts.objects.create(name="USB")
+        HardDriveType.objects.create(name="SSD")
+        HardDriveType.objects.create(name="HDD")
+        HardDriveType.objects.create(name="NVMe")
 
         print('Succesfully added dummy data')
         
