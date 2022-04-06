@@ -18,7 +18,7 @@ from main.models.event import Event
 def home(request):
     requests = Request.objects.filter(request_status = Request.Request_Status.CREATED)
     overdue_requests = Request.objects.filter(request_status = Request.Request_Status.OVERDUE)
-    deliquentdrives = HardDrive.objects.filter(request__in = overdue_requests)
+    deliquentdrives = HardDrive.objects.filter(status = 'delinquent')#must be delinquent
 
     context = {
         "deliquentdrives" : deliquentdrives, 
