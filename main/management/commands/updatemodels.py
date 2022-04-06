@@ -8,6 +8,7 @@ from main.models.hard_drive import HardDrive
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
+from users.models import UserProfile
 
 import pandas as pd
 
@@ -23,9 +24,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         
-        if not User.objects.filter(username__iexact=ADMIN_USERNAME).exists():
-            user = User.objects.create_superuser(username=ADMIN_USERNAME,
-                                 email='admin@gmail.com')
+        if not UserProfile.objects.filter(username__iexact=ADMIN_USERNAME).exists():
+            user = UserProfile.objects.create_superuser(username=ADMIN_USERNAME,
+                                 email='admin@army.mil')
             user.set_password(PASSWORD)
             user.save()
 
@@ -35,17 +36,17 @@ class Command(BaseCommand):
         requester_gp, _ = Group.objects.update_or_create(name='Requestor')
         requester_gp.save()
 
-        if not User.objects.filter(username__iexact=MAINTAINER_USERNAME).exists():
-            user = User.objects.create(username=MAINTAINER_USERNAME,
-                                 email='maintainer@gmail.com')
+        if not UserProfile.objects.filter(username__iexact=MAINTAINER_USERNAME).exists():
+            user = UserProfile.objects.create(username=MAINTAINER_USERNAME,
+                                 email='maintainer@army.mil')
             user.set_password(PASSWORD)
        
             maintainer_gp.user_set.add(user)
             user.save()
 
-        if not User.objects.filter(username__iexact=REQUESTOR_USERNAME).exists():
-            user = User.objects.create(username=REQUESTOR_USERNAME,
-                                 email='requestor@gmail.com')
+        if not UserProfile.objects.filter(username__iexact=REQUESTOR_USERNAME).exists():
+            user = UserProfile.objects.create(username=REQUESTOR_USERNAME,
+                                 email='requestor@army.mil')
             user.set_password(PASSWORD)
 
             requester_gp.user_set.add(user)
@@ -106,7 +107,7 @@ class Command(BaseCommand):
             models.request = request
             models.save()
             
-        requestor = User.objects.get(username__iexact = REQUESTOR_USERNAME)
+        requestor = UserProfile.objects.get(username__iexact = REQUESTOR_USERNAME)
 
         requests = Request.objects.all()
         for request in requests:
