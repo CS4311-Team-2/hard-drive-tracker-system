@@ -23,7 +23,7 @@ VIEW_HARD_DRIVE = "view_hard_drive"
 def home(request):
     requests = Request.objects.filter(request_status = Request.Request_Status.CREATED)
     overdue_requests = Request.objects.filter(request_status = Request.Request_Status.OVERDUE)
-    deliquentdrives = HardDrive.objects.filter(status = 'delinquent')#must be delinquent
+    deliquentdrives = HardDrive.objects.filter(request__in = overdue_requests)
 
     context = {
         "deliquentdrives" : deliquentdrives, 
