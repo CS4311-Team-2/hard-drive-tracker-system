@@ -41,7 +41,6 @@ class HardDrive(models.Model):
     hard_drive_size = models.CharField(max_length=100)
     classification = models.CharField(max_length=50, choices=Classification.choices, 
                                         default=Classification.UNCLASSIFIED)
-    #associated_request_number = models.CharField(max_length=100) #fix this 
     # TODO(django): This field needs to be changed when the classification is changed. 
     justification_for_classification_change = models.TextField(default='')
     # TODO(django): Need to limit this number at 4.     

@@ -27,7 +27,6 @@ def home(request):
     for r in overdue_requests:
         deliquent_drives |= HardDrive.objects.filter(request=r)
 
-
     context = {
         "deliquent_drives" : deliquent_drives, 
         "requests" : requests,
