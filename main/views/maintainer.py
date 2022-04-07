@@ -23,10 +23,12 @@ VIEW_HARD_DRIVE = "view_hard_drive"
 def home(request):
     requests = Request.objects.filter(request_status = Request.Request_Status.CREATED)
     overdue_requests = Request.objects.filter(request_status = Request.Request_Status.OVERDUE)
-    deliquentdrives = HardDrive.objects.filter(request__in = overdue_requests)
+    deliquent_drives = HardDrive.objects.none()
+    for r in overdue_requests:
+        deliquent_drives |= HardDrive.objects.filter(request=r)
 
     context = {
-        "deliquentdrives" : deliquentdrives, 
+        "deliquent_drives" : deliquent_drives, 
         "requests" : requests,
     }
     return render(request, 'maintainer/home.html', context)

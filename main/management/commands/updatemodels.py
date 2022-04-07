@@ -106,9 +106,8 @@ class Command(BaseCommand):
             
             models.request = request
             models.save()
-            
+        
         requestor = UserProfile.objects.get(username__iexact = REQUESTOR_USERNAME)
-
         requests = Request.objects.all()
         for request in requests:
             request.user = requestor
@@ -116,7 +115,8 @@ class Command(BaseCommand):
 
         hard_drives = HardDrive.objects.all()[:3]
         for hard_drive in hard_drives:
-            hard_drive.request = requests[0]
+            # Overdue Request
+            hard_drive.request = requests[3]
             hard_drive.save()
         
         # Configurations
