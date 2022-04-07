@@ -19,6 +19,8 @@ from main.forms import HardDriveForm
 from main.models.hard_drive_type import HardDriveType
 from django import db
 
+import csv
+
 
 # These functions relate to maintainer/*.html views. These functions serve only the 
 #   maintainer role. 
@@ -207,5 +209,63 @@ def delete_hard_drive_type(request, pk):
 
 
 def report_home(request):
+    if (request.method == 'POST'):
+        drive_serial_no = request.POST.get('serial_No')
+        drive_expected_return_date = request.POST.get('expected_hard_drive_return_date')
+        if (request.POST.get('hard_drive_type') == 1):
+            hard_drive_type == 'SSD'
+        if (request.POST.get('hard_drive_type') == 2):
+            hard_drive_type == 'HDD'
+        if (request.POST.get('connection_port') == 1):
+            connection_port == 'USB-C'
+        if (request.POST.get('connection_port') == 2):
+            connection_port == 'USB'
+        if (request.POST.get('classification') == 1):
+            classification == 'Classified'
+        if (request.POST.get('classification') == 2):
+            classification == 'Unclassified'
+
+        if (request.POST.get('status') == 1):
+            status == 'Assigned'
+        if (request.POST.get('status') == 2):
+            status == 'Available'
+        if (request.POST.get('status') == 3):
+            status == 'End of Life'
+        if (request.POST.get('status') == 4):
+            status == 'Master Clone'
+        if (request.POST.get('status') == 5):
+            status == 'Pending Wipe'
+        if (request.POST.get('status') == 6):
+            status == 'Destroyed'
+        if (request.POST.get('status') == 7):
+            status == 'Lost'
+        if (request.POST.get('status') == 8):
+            status == 'Overdue'
+        if (request.POST.get('status') == 9):
+            status == 'Picked Up'
+        if (request.POST.get('status') == 10):
+            status == 'Returned'
+        if (request.POST.get('status') == 11):
+            status == 'ending Classification Change Approval'
+
+        drives_to_report = HardDrive.objects.filter(status = status, hard_drive_type=hard_drive_type, connection_port=connection_port,classification=classification)
+        print(drives_to_report)
+        file_ = open("report.csv", "a", newline="")
+        writer = csv.writer(file)
+        tup =  ("serial_number", "status","type", "classifcation")
+        writer.writerow(tup)
+        for drive in drives_to_report:
+            tup = []
+            tup.append(drive.serial_number)
+            tup.append(drive.status)
+            tup.append(drive.hard_drive_type)
+            tup.append(drive.classification)
+            tup = tuple(tup)
+            writer.writerow(tup)
+
+
+        
+
+
     return render(request, 'report/report_home.html')
 
