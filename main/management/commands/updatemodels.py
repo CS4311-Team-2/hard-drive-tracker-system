@@ -97,13 +97,6 @@ class Command(BaseCommand):
             justification_for_hard_drive_return_date, actual_return_date, modified_date)
 
             models.save()
-    
-        hard_drives = HardDrive.objects.all()
-        hard_drives = hard_drives[:3]
-
-        for drive in hard_drives:
-            drive.request = Request.objects.get(pk = 4)
-            drive.save()
 
         df = pd.read_csv('hard_drive_requests.csv')
         for (id,classification,amount_required,connection_port,hard_drive_size,hard_drive_type,comment) \
