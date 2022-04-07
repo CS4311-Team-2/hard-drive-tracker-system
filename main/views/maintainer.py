@@ -18,10 +18,13 @@ from main.models.event import Event
 def home(request):
     requests = Request.objects.filter(request_status = Request.Request_Status.CREATED)
     overdue_requests = Request.objects.filter(request_status = Request.Request_Status.OVERDUE)
-    deliquentdrives = HardDrive.objects.filter(status = 'delinquent')#must be delinquent
+    deliquent_drives = HardDrive.objects.none()
+    for r in overdue_requests:
+        deliquent_drives |= HardDrive.objects.filter(request=r)
+
 
     context = {
-        "deliquentdrives" : deliquentdrives, 
+        "deliquent_drives" : deliquent_drives, 
         "requests" : requests,
     }
     return render(request, 'maintainer/home.html', context)
