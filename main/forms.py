@@ -19,7 +19,7 @@ class CreateUserForm(UserCreationForm):
 class HardDriveForm(forms.ModelForm):
     class Meta:
         model = HardDrive
-        fields = ['create_date', 'serial_number', 'manufacturer', 'model_number', 
+        fields = ['create_date', 'serial_number','manufacturer', 'model_number', 
                     'hard_drive_type', 'connection_port', 'hard_drive_size', 'classification',
                     'justification_for_classification_change', 'hard_drive_image', 'image_version_id',
                     'boot_test_status', 'boot_test_expiration', 'status',
