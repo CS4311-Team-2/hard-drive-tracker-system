@@ -209,3 +209,13 @@ def delete_hard_drive_type(request, pk):
     }
     return render(request, 'components/hard_drive_types.html', context)
 
+#@login_required(login_url='main:login')
+#@group_required('Maintainer')
+#def search_keyword(expression):
+#    if expression.method == 'POST':
+#        searched = expression.POST['expression']
+#        hardDrive = HardDrive.objects.filter(serial_number__contains="searched")
+#        render(expression, 'maintainer/view_all_hard_drives.html', {'expression': searched, 'hardDrive': hardDrive})
+#    else:
+#        render(expression, 'maintainer/view_all_hard_drives.html', {})
+

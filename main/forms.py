@@ -5,6 +5,8 @@ from main.models.hard_drive import HardDrive
 from main.models.hard_drive_type import HardDriveType
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
+from main.models.request import Request
+
 
 FORM_CONTROL = {'class':'form-control'}
 UNEDTIABLE_DATE = {**FORM_CONTROL, **{'readonly': 'readonly'}}
@@ -23,7 +25,7 @@ class HardDriveForm(forms.ModelForm):
                     'boot_test_status', 'boot_test_expiration', 'status',
                     'justification_for_hard_drive_status_change', 'issue_date', 
                     'expected_hard_drive_return_date', 'justification_for_hard_drive_return_date',
-                    'actual_return_date']
+                    'actual_return_date', 'request']
         widgets = {
             'justification_for_classification_change': forms.TextInput(attrs=FORM_CONTROL),
             'justification_for_hard_drive_status_change': forms.TextInput(attrs=FORM_CONTROL),
@@ -40,6 +42,7 @@ class HardDriveForm(forms.ModelForm):
             'image_version_id' : forms.TextInput(attrs=FORM_CONTROL),
             'boot_test_status' : forms.TextInput(attrs=FORM_CONTROL),
             'status' : forms.TextInput(attrs=FORM_CONTROL),
+            'request' : forms.TextInput(attrs=FORM_CONTROL),
             
 
 
