@@ -1,4 +1,3 @@
-from telnetlib import STATUS
 from django.test import TestCase, Client
 
 from main.management.commands.updatemodels import (Command, PASSWORD,
