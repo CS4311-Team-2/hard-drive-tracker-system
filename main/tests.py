@@ -60,8 +60,3 @@ class URLTests(HDTRTests):
         c = Client()
         response = c.post('/view_request/')
         self.assertEqual(response.status_code, REDIRECT)
-
-    
-
-
-    
