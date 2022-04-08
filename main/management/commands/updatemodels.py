@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
 
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
@@ -8,6 +8,7 @@ from main.models.hard_drive import HardDrive
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
+
 from users.models import UserProfile
 
 import pandas as pd
