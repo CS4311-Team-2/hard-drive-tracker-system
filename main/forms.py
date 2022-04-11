@@ -123,4 +123,11 @@ class HardDriveConnectionPortsForm(forms.ModelForm):
             'name' : forms.TextInput(attrs={'class': 'form-control'}),
         }
 
+class LoginUserForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields =['mock_group_is']
+        widgets = {
+            'mock_group_is': forms.Select(attrs=FORM_CONTROL)
+        }
 

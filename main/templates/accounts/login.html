@@ -90,18 +90,13 @@
                                 </div>         
                             </div>
                             {% if show_menu %}
-                                <div class="form-group">
-                                    <div class="dropdown">
-                                            <button class="btn2 btn-primary dropdown-toggle" 
-                                                    style="margin-left:0%;" type="button" 
-                                                    data-toggle="dropdown">Select User
-                                            </span></button>                            
-                                            <ul class="dropdown-menu">
-                                                <li><a href="{% url 'main:index'%}">Maintainer</a></li>
-                                                <li><a href="{% url 'main:index'%}">Admin</a></li>
-                                                <li><a href="#">Requestor</a></li>
-                                                <li><a href="#">Auditor</a></li>
-                                            </ul>
-                                </div>
+                                <form method="POST" action="">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label>Select User </label>
+                                        {{form.mock_group_is}}
+                                        <input class="btn btn-primary" type="submit" value="Select">
+                                    </div>
+                                </form>
                             {% endif %}
                     </body>
