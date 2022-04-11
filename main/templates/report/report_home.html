@@ -3,7 +3,8 @@
 {% block content %}
 <h3>Hard Drive Details</h3>
 <!-- <div class="container-fluid" style="border:1px solid #cecece;"> -->
-<form method="POST", action="report/">
+<form method="POST", action="/report/">
+    {% csrf_token %}
     <div class="row">    
         <div class="col">
             <br>

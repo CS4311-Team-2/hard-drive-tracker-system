@@ -20,6 +20,12 @@ from main.models.hard_drive_type import HardDriveType
 from django import db
 
 import csv
+import pandas as pd
+import json
+import os
+from mimetypes import MimeTypes as mimetypes
+import urllib 
+from django.http import HttpResponse
 
 
 # These functions relate to maintainer/*.html views. These functions serve only the 
@@ -209,49 +215,64 @@ def delete_hard_drive_type(request, pk):
 
 
 def report_home(request):
+    drive_serial_no = 1
+    status_ = " "
+    drive_expected_return_date = " "
+    hard_drive_type = " "
+    connection_port = " "
+    classification = " "
+
+    print(request.POST)
+
+
+
     if (request.method == 'POST'):
         drive_serial_no = request.POST.get('serial_No')
         drive_expected_return_date = request.POST.get('expected_hard_drive_return_date')
-        if (request.POST.get('hard_drive_type') == 1):
+        if (request.POST.get('hard_drive_type') == '1'):
             hard_drive_type == 'SSD'
-        if (request.POST.get('hard_drive_type') == 2):
+        if (request.POST.get('hard_drive_type') == '2'):
             hard_drive_type == 'HDD'
-        if (request.POST.get('connection_port') == 1):
+        if (request.POST.get('connection_port') == '1'):
             connection_port == 'USB-C'
-        if (request.POST.get('connection_port') == 2):
+        if (request.POST.get('connection_port') == '2'):
             connection_port == 'USB'
-        if (request.POST.get('classification') == 1):
+        if (request.POST.get('classification') == '1'):
             classification == 'Classified'
-        if (request.POST.get('classification') == 2):
+        if (request.POST.get('classification') == '2'):
             classification == 'Unclassified'
 
         if (request.POST.get('status') == 1):
-            status == 'Assigned'
-        if (request.POST.get('status') == 2):
-            status == 'Available'
-        if (request.POST.get('status') == 3):
-            status == 'End of Life'
-        if (request.POST.get('status') == 4):
-            status == 'Master Clone'
-        if (request.POST.get('status') == 5):
-            status == 'Pending Wipe'
-        if (request.POST.get('status') == 6):
-            status == 'Destroyed'
-        if (request.POST.get('status') == 7):
-            status == 'Lost'
-        if (request.POST.get('status') == 8):
-            status == 'Overdue'
-        if (request.POST.get('status') == 9):
-            status == 'Picked Up'
-        if (request.POST.get('status') == 10):
-            status == 'Returned'
-        if (request.POST.get('status') == 11):
-            status == 'ending Classification Change Approval'
+            status_ == 'Assigned'
+        if (request.POST.get('status') == '2'):
+            status_ == 'Available'
+        if (request.POST.get('status') == '3'):
+            status_ == 'End of Life'
+        if (request.POST.get('status') == '4'):
+            status_ == 'Master Clone'
+        if (request.POST.get('status') == '5'):
+            status_ == 'Pending Wipe'
+        if (request.POST.get('status') == '6'):
+            status_ == 'Destroyed'
+        if (request.POST.get('status') == '7'):
+            status_ == 'Lost'
+        if (request.POST.get('status') == '8'):
+            status_ == 'Overdue'
+        if (request.POST.get('status') == '9'):
+            status_ == 'Picked Up'
+        if (request.POST.get('status') == '10'):
+            status_ == 'Returned'
+        if (request.POST.get('status') == '11'):
+            status_ == 'ending Classification Change Approval'
 
-        drives_to_report = HardDrive.objects.filter(status = status, hard_drive_type=hard_drive_type, connection_port=connection_port,classification=classification)
+
+        #, hard_drive_type=hard_drive_type, connection_port=connection_port,classification=classification
+        print(status_)
+        drives_to_report = HardDrive.objects.filter(status = status_)
+        #drives_to_report = HardDrive.objects.all()
         print(drives_to_report)
         file_ = open("report.csv", "a", newline="")
-        writer = csv.writer(file)
+        writer = csv.writer(file_)
         tup =  ("serial_number", "status","type", "classifcation")
         writer.writerow(tup)
         for drive in drives_to_report:
@@ -263,9 +284,46 @@ def report_home(request):
             tup = tuple(tup)
             writer.writerow(tup)
 
+        if (request.POST.get('report_type') == '1'):
+            BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath('report.csv')))
+            print(BASE_DIR)
+            filename = '/hard-drive-tracker-system/report.csv'
+            filepath = BASE_DIR + filename
+            print(filepath)
+            path = open(filepath, 'r')
+            response = HttpResponse(path, content_type='text/csv')
+            response['Content-Disposition'] = "attachment; filename=%s" % filename
+            return response
+        if (request.POST.get('report_type') == '2'):
+            read_file = pd.read_csv ('report.csv')
+            read_file.to_excel ('rerprt.xlsx', index = None, header=True)
+            BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath('report.csv')))
+            print(BASE_DIR)
+            filename = '/hard-drive-tracker-system/report.csv'
+            filepath = BASE_DIR + filename
+            print(filepath)
+            path = open(filepath, 'r')
+            response = HttpResponse(path, content_type='text/csv')
+            response['Content-Disposition'] = "attachment; filename=%s" % filename
+            return response
+        if (request.POST.get('report_type') == '3'):
+            make_json('report.csv','report.json')
+
 
         
-
+        
 
     return render(request, 'report/report_home.html')
+
+
+    def make_json(csvFilePath, jsonFilePath):
+        data = {}
+        with open(csvFilePath, encoding='utf-8') as csvf:
+            csvReader = csv.DictReader(csvf)
+            for rows in csvReader:
+                key = rows['No']
+                data[key] = rows
+    
+        with open(jsonFilePath, 'w', encoding='utf-8') as jsonf:
+            jsonf.write(json.dumps(data, indent=4))
 
