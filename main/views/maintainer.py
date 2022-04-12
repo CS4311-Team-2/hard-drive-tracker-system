@@ -214,6 +214,19 @@ def delete_hard_drive_type(request, pk):
 
 
 
+
+def make_json(csvFilePath, jsonFilePath):
+    data = {}
+    with open(csvFilePath, encoding='utf-8') as csvf:
+        csvReader = csv.DictReader(csvf)
+        for rows in csvReader:
+            key = rows['No']
+            data[key] = rows
+    
+    with open(jsonFilePath, 'w', encoding='utf-8') as jsonf:
+        jsonf.write(json.dumps(data, indent=4))
+
+
 def report_home(request):
     drive_serial_no = 1
     status_ = " "
@@ -272,6 +285,7 @@ def report_home(request):
         #drives_to_report = HardDrive.objects.all()
         print(drives_to_report)
         file_ = open("report.csv", "a", newline="")
+        file_.truncate(0)
         writer = csv.writer(file_)
         tup =  ("serial_number", "status","type", "classifcation")
         writer.writerow(tup)
@@ -295,35 +309,32 @@ def report_home(request):
             response['Content-Disposition'] = "attachment; filename=%s" % filename
             return response
         if (request.POST.get('report_type') == '2'):
-            read_file = pd.read_csv ('report.csv')
-            read_file.to_excel ('rerprt.xlsx', index = None, header=True)
-            BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath('report.csv')))
+            read_file = pd.read_csv ('report.csv', encoding= 'unicode_escape')
+            read_file.to_excel ('report.xlsx', index = None, header=True)
+            BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath('report.xlsx')))
             print(BASE_DIR)
-            filename = '/hard-drive-tracker-system/report.csv'
+            filename = '/hard-drive-tracker-system/report.xlsx'
             filepath = BASE_DIR + filename
             print(filepath)
             path = open(filepath, 'r')
-            response = HttpResponse(path, content_type='text/csv')
+            response = HttpResponse(path, content_type='application/ms-excel')
             response['Content-Disposition'] = "attachment; filename=%s" % filename
             return response
         if (request.POST.get('report_type') == '3'):
             make_json('report.csv','report.json')
+            BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath('report.json')))
+            print(BASE_DIR)
+            filename = '/hard-drive-tracker-system/report.json'
+            filepath = BASE_DIR + filename
+            print(filepath)
+            path = open(filepath, 'r')
+            response = HttpResponse(path, content_type='application/json')
+            response['Content-Disposition'] = "attachment; filename=%s" % filename
+            return response
 
 
         
         
 
     return render(request, 'report/report_home.html')
-
-
-    def make_json(csvFilePath, jsonFilePath):
-        data = {}
-        with open(csvFilePath, encoding='utf-8') as csvf:
-            csvReader = csv.DictReader(csvf)
-            for rows in csvReader:
-                key = rows['No']
-                data[key] = rows
-    
-        with open(jsonFilePath, 'w', encoding='utf-8') as jsonf:
-            jsonf.write(json.dumps(data, indent=4))
 
