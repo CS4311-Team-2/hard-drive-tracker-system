@@ -1,12 +1,12 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from main.models.hard_drive import HardDrive
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
 from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
+from users.models import UserProfile
 
 FORM_CONTROL = {'class':'form-control'}
 FORM_CONTROL_DATE = {'class':'form-control', 'type':'Date'}
@@ -14,7 +14,7 @@ UNEDTIABLE = {**FORM_CONTROL, **{'readonly': 'readonly'}}
 
 class CreateUserForm(UserCreationForm):
     class Meta:
-        model = User
+        model = UserProfile
         fields =['username', 'email', 'password1', 'password2']
         
 class HardDriveForm(forms.ModelForm):

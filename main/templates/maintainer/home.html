@@ -44,11 +44,12 @@
     </tr>
   </thead>
   <tbody>
-    {% for request in deliquentdrives %}
+    {% for drive in deliquent_drives %}
       <tr>
-        <th scope="row">{{ request.serial_number }}</th>
-        <td>{{ request.expected_hard_drive_return_date }}</td>
-        <td>{{ hard_drive.title }}</td>
+        
+        <th scope="row">{{ drive.serial_number }}</th>
+        <td>{{ drive.expected_hard_drive_return_date }}</td>
+        <td>{{ drive.request.request_reference_no }}</td>
       </tr>
     {% empty %}
       <h3>No delinquent hard drives at the moment</h3>
