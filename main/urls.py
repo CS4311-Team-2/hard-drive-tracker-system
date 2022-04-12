@@ -1,6 +1,6 @@
 
 from django.urls import path
-from main.views import maintainer, requestor, views
+from main.views import maintainer, requestor, views, htmx 
 
 
 app_name = 'main'
@@ -24,4 +24,13 @@ urlpatterns = [
     path('delete-hard-drive-type/<int:pk>/', maintainer.delete_hard_drive_type, name="delete-hard-drive-type"),
     path('report/', maintainer.report_home, name='report_home'),
 
+    # Htmx configurations
+    path('hard_drive_types/', htmx.hard_drive_type, name = "hard_drive_type"), 
+    path('delete-hard-drive-type/<int:pk>/', htmx.delete_hard_drive_type, name="delete-hard-drive-type"), 
+
+    path('hard_drive_manufacturers/', htmx.hard_drive_manufacturer, name="hard_drive_manufacturers"),
+    path('delete-hard-drive-manufacturers/<int:pk>/', htmx.delete_hard_drive_manufacturer, name="delete-hard-drive-manufacturers"),
+
+    path('hard_drive_connection_port/', htmx.hard_drive_connection_port, name="hard_drive_connection_port"),
+    path('delete-hard-drive-connection-port/<int:pk>/', htmx.delete_hard_drive_connection_port, name="delete-hard-drive-connection-port")
 ]

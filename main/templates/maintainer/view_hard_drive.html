@@ -11,10 +11,12 @@
             <div class="form-group">
                 <h4>Hard Drive Specification</h4>
             </div>
+            {% if view_hard_drive %}
             <div class="form-group">
                 <label>Creation Date</label>
                 {{form.create_date}}
             </div>
+            {% endif %}
             <div class="form-group">
                 <label>Hard Drive Serial No.</label>
                 {{ form.serial_number}}
@@ -34,21 +36,27 @@
                     <!--it suppose to be a dropdown: refer to SRS page 43-->
             </div>
             <div class="form-group">
-                    <label>hard Drive Connection Port</label>
+                    <label>Hard Drive Connection Port</label>
                     {{form.connection_port}}
                     <!--it suppose to be a dropdown: refer to SRS page 42-->
             </div>
             <div class="form-group">
-                <label>hard Drive Size</label>
+                <label>Hard  Drive Size</label>
                 {{form.hard_drive_size}}
                 <!--its supposed to be a dropdown: Refer to SRS page 42. Cannot find the sizes-->
             </div>
+            {% if view_hard_drive %}
             <div class="form-group">
                 <h3>Hard Drive Modifier</h3>
                 <label>Modifier</label>
+                {{form.modifier}}
                 <!--Not sure what exactly is supposed to go here.   -->
-                <input type="text" class="form-control" name="modifier">
+                <br>
+
+                <label>Modifier Date</label>
+                {{form.modified_date}}
             </div>
+            {% endif %}
             <br>
         </div>     
 
@@ -72,6 +80,7 @@
             <div class="form-group">
                 <label>Image Version ID</label>
                 {{form.image_version_id}}
+                {{form.image_version_id.errors}}
             </div>
             <div class="form-group">
                 <label>Boot Test Status</label>
@@ -87,6 +96,7 @@
                 <label>Hard Drive Status</label>
                 <!--This needs to be a drop down. This can be done via text choices.-->
                 {{form.status}}
+                {{form.status.errors}}
             </div>
             <h3> </h3>
             <div class="form-group">

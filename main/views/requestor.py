@@ -1,11 +1,10 @@
-import http
 from itertools import chain
 
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.forms.models import modelformset_factory
 
-from main.forms import EventForm, HardDriveForm, HardDriveRequestForm
+from main.forms import EventForm, HardDriveRequestForm
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
@@ -13,7 +12,6 @@ from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 from main.models.log import Log
 
-from time import time
 from datetime import datetime
 
 # These functions relate to requestor/*.html views. These functions serve only the 
@@ -69,11 +67,9 @@ def add_hard_drive_request(http_request):
         )
 
         Log.objects.create(
-            action_preformed = ("New Hard Drive Request Added To The Event " + http_request.POST.get('event_name'))
-
-        )
-
-
+            action_preformed="New Hard Drive Request Added To The Event " + 
+                http_request.POST.get('event_name'), 
+            user=http_request)
 
         return redirect('main:update_request', id=request.request_reference_no)
 
