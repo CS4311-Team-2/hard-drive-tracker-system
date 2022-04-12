@@ -10,4 +10,4 @@ class UserProfilesFilter(django_filters.FilterSet):
     last_modified_date = DateFilter(field_name="date_joined", lookup_expr="gte", label="Last Modified Date")
     class Meta:
         model = User
-        fields = ['fname','lname','email_address','user_name','groups', 'last_modified_date']
+        fields = ['fname','lname','email_address','user_name','groups', 'last_modified_date', 'is_active']

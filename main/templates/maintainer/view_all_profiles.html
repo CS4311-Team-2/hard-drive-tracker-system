@@ -9,7 +9,8 @@
         <!--FILTERING-->
         <div class="row">
            <div class="col">
-              <div class="card card-body">
+              <div class="container-fluid" style="border:1px solid #cecece;">
+                 <h4>User Profile Attributes</h4>
                  <form method="get">
                   <div class="form-row">
                      <div class="form-group col-md-2">
@@ -25,11 +26,19 @@
                         {{profileFilter.form.email_address|bootstrap}}
                      </div>
                      <div class="form-group col-md-2">
-                        {{profileFilter.form.last_modified_date|bootstrap}}
+                        {{profileFilter.form.is_active|bootstrap}}
                      </div>
                      <div class="form-group col-md-2">
                         {{profileFilter.form.groups|bootstrap}}
-                        <button class="btn btn-primary" type="submit" style="margin-left:43%; width:100px;">Search</button>
+                     </div>
+                  </div>
+                  <h4>Date</h4>
+                  <div class="form-row">
+                     <div class="form-group col-md-2">
+                        {{profileFilter.form.last_modified_date|bootstrap}}
+                     </div>
+                     <div class="form-group col-md-2">
+                        <button class="btn btn-primary" type="submit" style="margin-top:11%;width:100px;">Search</button>
                      </div>
                   </div>
                  </form>
