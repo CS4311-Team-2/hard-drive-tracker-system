@@ -21,7 +21,6 @@ urlpatterns = [
     path('hard_drive_request/create', requestor.add_hard_drive_request, name = 'create_hd_request'),
     path('log/', maintainer.view_log, name='log'),
     path('configuration/', views.configuration, name="configuration"),
-    path('delete-hard-drive-type/<int:pk>/', maintainer.delete_hard_drive_type, name="delete-hard-drive-type"),
     path('report/', maintainer.report_home, name='report_home'),
 
     # Htmx configurations

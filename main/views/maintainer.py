@@ -7,7 +7,7 @@ from django.core.management import call_command
 from django.forms.models import modelformset_factory
 from datetime import datetime
 from main.forms import HardDriveTypeForm
-from main.models import hard_drive_type
+from main.models.configurations import hard_drive_type
 
 from main.forms import HardDriveConnectionPortsForm, HardDriveTypeForm, HardDriveManufacturersForm
 from main.views.decorators import group_required
@@ -225,6 +225,7 @@ def report_home(request):
             tup = tuple(tup)
             writer.writerow(tup)
 
+
         if (request.POST.get('report_type') == '1'):
             BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath('report.csv')))
             print(BASE_DIR)
@@ -236,8 +237,11 @@ def report_home(request):
             response['Content-Disposition'] = "attachment; filename=%s" % filename
             return response
         if (request.POST.get('report_type') == '2'):
+            print('reading csc')
             read_file = pd.read_csv ('report.csv', encoding= 'unicode_escape')
+            print('convert to excel')
             read_file.to_excel ('report.xlsx', index = None, header=True)
+            print('getting')
             BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath('report.xlsx')))
             print(BASE_DIR)
             filename = '/hard-drive-tracker-system/report.xlsx'
