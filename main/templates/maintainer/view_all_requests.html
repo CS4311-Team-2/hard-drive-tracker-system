@@ -141,7 +141,7 @@
                                                 <td>{{value.event_description}}</td>
                                                 <td>{{value.event_type}}</td>
                                                 <td>{{key.request_status}}</td>  
-                                                <td> <a class="btn" href="{% url 'main:view_request' key.request_reference_no %}">View </a></td>
+                                                <td> <a class="btn" style="background-color:grey;color:white;"  href="{% url 'main:view_request' key.request_reference_no %}">View </a></td>
                                                 </tr>
                                             {% empty %}
                                                 <h3>No requests found.</h3>

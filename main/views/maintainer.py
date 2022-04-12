@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from main.forms import HardDriveConnectionPortsForm, HardDriveTypeForm, HardDriveManufacturersForm
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
+from main.models.hard_drive_request import HardDriveRequest
 from main.models.request import Request
 from main.models.event import Event
 from main.models.log import Log
@@ -34,9 +35,8 @@ def home(request):
 @login_required(login_url='main:login')
 @group_required('Maintainer')
 def view_request(http_request, key_id):
-    print("before")
+
     req = Request.objects.get(request_reference_no = key_id)
-    print("here")
 
     # used for event information
     events = Event.objects.filter(request = req)
@@ -44,9 +44,11 @@ def view_request(http_request, key_id):
     
     #used for assigned hard drive sections
     hard_drives = HardDrive.objects.filter(request = req)
+    print(hard_drives)
     
     #used for the selecting hard drive section
-    all_hard_drives = HardDrive.objects.all()
+    all_hard_drives = HardDrive.objects.filter(request = None)
+    
     
     #used for requested hard drive
     requested_hard_drives = HardDriveRequest.objects.filter(request = req)

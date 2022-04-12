@@ -1,3 +1,5 @@
+{% extends "main/base.html" %}  
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -142,7 +144,7 @@
                                 <div class="row">                               
                                     <div class="col-1">
                                         <br>
-                                        <h4>Hard Drive Request</h4>
+                                        <h4>Requested Hard Drive Types</h4>
                                     </div>
                                     <div class="col">   
                                         <br> 
@@ -164,7 +166,7 @@
                                                             <tbody>
                                                                 {% for drive in requested_hard_drives %}
                                                                     <tr>
-                                                                            <td>{{ drive.classification }}</td>
+                                                                            <td>{{ drive.request.request_reference_no }}</td>
                                                                             <td>{{ drive.amount_required }}</td>
                                                                             <td>{{ drive.connection_port }}</td>
                                                                             <td>{{ drive.hard_drive_size }}</td>
@@ -300,7 +302,6 @@
                                                                             <td>{{ drive.hard_drive_size }}</td>
                                                                             <td>{{ drive.classification }}</td>
                                                                             <td>{{ drive.justification_for_classification_change }}</td>
-                                                                         
                                                                             <td>{{ drive.image_version_id }}</td>
                                                                             <td>{{ drive.boot_test_status }}</td>
                                                                             <td>{{ drive.boot_test_expiration }}</td>
@@ -311,6 +312,7 @@
                                                                             <td>{{ drive.justification_for_hard_drive_return_date }}</td>
                                                                             <td>{{ drive.actual_return_date }}</td>
                                                                             <td>{{ drive.modified_date }}</td>
+                                                                            <td>{{ drive.request.request_reference_no }}</td>
                                                                             <td>{{ drive.request.request_reference_no }}</td>
                                                                     </tr>
                                                                 {% empty %}
@@ -587,3 +589,5 @@
 
 </body>
 </html>
+
+{% endblock %}
