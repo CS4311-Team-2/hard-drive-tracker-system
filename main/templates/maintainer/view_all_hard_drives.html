@@ -1,6 +1,7 @@
 {% extends "main/base.html" %}  
 
 {% block content %}
+{% load bootstrap %}
 
 <main class="content">
    <link rel="stylesheet" href="mystyle.css">
@@ -11,7 +12,7 @@
                <h1>Date</h1>
                <div class="form-row" >
                   <div class="form-group col-md-2">
-                     <p>{{hard_drive_filter.form.create_date | bootstrap}} </p>
+                     {{hard_drive_filter.form.create_date | bootstrap}}
                   </div>
                   <div class="form-group col-md-2">
                      <p>{{hard_drive_filter.form.issue_date | bootstrap}}</p>
@@ -69,7 +70,7 @@
             <div class="form-group row">
                <h1>Request Reference</h1>
                <div class="form-group col-md-2">
-                  {{hard_drive_filter.form.| bootstrap}}
+                  {{hard_drive_filter.form.model_number | bootstrap}}
                </div>
             </div>
             <div class="form-group row">

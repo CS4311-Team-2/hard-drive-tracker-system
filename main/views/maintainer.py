@@ -12,6 +12,7 @@ from main.models.configurations.hard_drive_connection_ports import HardDriveConn
 from main.forms import HardDriveForm
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
+from main.filters import HardDriveFilter
 
 VIEW_HARD_DRIVE = "view_hard_drive"
 
@@ -58,8 +59,11 @@ def view_all_requests(http_request):
 @group_required('Maintainer')
 def view_all_harddrives(request):
     hardDrives = HardDrive.objects.all()
+    
+    hard_filter = HardDriveFilter(request.GET, queryset = hardDrives)
+    hardDrives = hard_filter.qs
 
-    context = {"hardDrives" : hardDrives}
+    context = {"hardDrives" : hardDrives, "hard_drive_filter" : hard_filter}
     return render(request, 'maintainer/view_all_hard_drives.html', context)
 
 @login_required(login_url='main:login')
