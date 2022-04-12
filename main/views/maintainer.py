@@ -13,7 +13,7 @@ from main.forms import HardDriveForm
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
 
-from django.contrib.auth.models import User 
+from users.models import UserProfile 
 from main.filters import UserProfilesFilter
 
 VIEW_HARD_DRIVE = "view_hard_drive"
@@ -68,7 +68,7 @@ def view_all_harddrives(request):
 @login_required(login_url='main:login')
 @group_required('Maintainer')
 def view_all_profiles(request):
-    userProfiles = User.objects.all()
+    userProfiles = UserProfile.objects.all()
 
     profileFilter = UserProfilesFilter(request.GET, queryset=userProfiles)
     userProfiles = profileFilter.qs
