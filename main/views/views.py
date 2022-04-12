@@ -12,8 +12,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
 from django.http import Http404
+
+from users.models import UserProfile
 
 MAINTAINER = "Maintainer"
 
@@ -72,7 +74,7 @@ def loginPage(request):
         }
     if request.user.is_authenticated:
         print("User authorized!")
-        user = User.objects.get(username=request.user.username)
+        user = UserProfile.objects.get(username=request.user.username)
         if user.groups.filter(name=Group(name=MAINTAINER)):
             messages.info(request, 'Welcome Maintainer!')
             context = {
@@ -89,7 +91,7 @@ def loginPage(request):
         if auth is not None:
             print("User credentials is correct")
             login(request, auth)
-            user = User.objects.get(username=username)
+            user = UserProfile.objects.get(username=username)
             print(user)
             if user.groups.filter(name=Group(name=MAINTAINER)):
                 print("User is made it here")
@@ -117,6 +119,7 @@ def add_hard_drive(request):
 def view_all_harddrives(request):
     if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
         return maintainer.view_all_harddrives(request)
+        
     
     return redirect('main:index')
 

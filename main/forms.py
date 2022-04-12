@@ -122,3 +122,17 @@ class HardDriveConnectionPortsForm(forms.ModelForm):
         widgets = {
             'name' : forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+
+        widgets = {
+            'name' : forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class HardDriveConnectionPortsForm(forms.ModelForm):
+    class Meta:
+        model = HardDriveConnectionPorts
+        fields =['name']
+
+        widgets = {
+            'name' : forms.TextInput(attrs={'class': 'form-control'}),
+        }

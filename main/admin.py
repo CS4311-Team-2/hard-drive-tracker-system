@@ -1,9 +1,13 @@
+
 from django.contrib import admin
 
-from main.models.hard_drive_type import HardDriveType
-from .models import HardDrive, Request, HardDriveRequest, Event
+from main.models.configurations.hard_drive_type import HardDriveType
+from main.models.hard_drive import HardDrive
+from main.models.event import Event
+from main.models.request import Request
+from main.models.hard_drive_request import HardDriveRequest
 
-# Models that can be edited in admin page. 
+
 admin.site.register(HardDrive)
 admin.site.register(Request)
 admin.site.register(HardDriveRequest)

@@ -1,7 +1,5 @@
 {% extends "main/base.html" %}  
 
-{% load bootstrap %}
-
 {% block content %}
 
 <main class="content">
@@ -107,13 +105,9 @@
                      <tbody>
                        {% for hard_drive in hard_drives %}
                        <tr>
-                          <td>
-                              <a class="radio">
-                                 <label><input type="checkbox" id='selected'></label>
-                              </a></td>
                           <td><a class="btn" 
                               style="background-color:grey;color:white;" 
-                              href="{% url 'main:view_hard_drive' hard_drive.id %}">Edit</a></td>
+                              href="{% url 'main:view_hard_drive' hard_drive.id %}">View</a></td>
                           <td>{{hard_drive.serial_number}}</td>
                           <td>{{hard_drive.status}}</td>
                           <td>{{hard_drive.manufacturer}}</td>

@@ -5,7 +5,8 @@ import os
 
 BaseCommand
 
-MIGRATIONS = os.path.relpath(os.path.join(os.getcwd(), 'main', 'migrations'))
+MAIN_MIGRATIONS = os.path.relpath(os.path.join(os.getcwd(), 'main', 'migrations'))
+USER_MIGRATIONS = os.path.relpath(os.path.join(os.getcwd(), 'users', 'migrations'))
 
 class Command(BaseCommand):
 
@@ -19,10 +20,16 @@ class Command(BaseCommand):
         else:
             print("The file does not exist")
 
-        for filename in os.listdir(MIGRATIONS):
-            f = os.path.join(MIGRATIONS, filename)
+        for filename in os.listdir(MAIN_MIGRATIONS):
+            f = os.path.join(MAIN_MIGRATIONS, filename)
 
-            if os.path.isfile(f) and not f == os.path.join(MIGRATIONS, '__init__.py'):
+            if os.path.isfile(f) and not f == os.path.join(MAIN_MIGRATIONS, '__init__.py'):
+                os.remove(f)
+
+        for filename in os.listdir(USER_MIGRATIONS):
+            f = os.path.join(USER_MIGRATIONS, filename)
+
+            if os.path.isfile(f) and not f == os.path.join(USER_MIGRATIONS, '__init__.py'):
                 os.remove(f)
 
         call_command('makemigrations')
