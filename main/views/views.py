@@ -32,7 +32,6 @@ def index(request):
 
     if request.user.groups.filter(name='Requestor').exists():
         return requestor.home(request)
-    print("------------------------------")
     logout(request)
     return redirect("main:index")
 
