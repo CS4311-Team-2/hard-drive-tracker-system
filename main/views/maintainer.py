@@ -281,11 +281,11 @@ def report_home(request):
 
         #, hard_drive_type=hard_drive_type, connection_port=connection_port,classification=classification
         print(status_)
-        drives_to_report = HardDrive.objects.filter(status = status_)
-        #drives_to_report = HardDrive.objects.all()
+        #drives_to_report = HardDrive.objects.filter(status = status_)
+        drives_to_report = HardDrive.objects.all()
         print(drives_to_report)
         file_ = open("report.csv", "a", newline="")
-        file_.truncate(0)
+        #file_.truncate(0)
         writer = csv.writer(file_)
         tup =  ("serial_number", "status","type", "classifcation")
         writer.writerow(tup)
