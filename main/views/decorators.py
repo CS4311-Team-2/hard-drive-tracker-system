@@ -14,8 +14,8 @@ def group_required(*group_names):
             if bool(user.groups.filter(name__in = group_names)) | user.is_superuser:
                 if user.groups.filter(name='Maintainer').exists() and group_names[0] == "Maintainer":
                     print("Group Decorator Maintainer-Maintainer")
-                    # v
                     return user.mock_group_is == UserProfile.MockGroupIs.MAINTAINER
+                return True
             if user.groups.filter(name='Maintainer').exists() and group_names[0] == "Requestor":
                 print("Group Decorator Maintainer-Requestor")
                 return user.mock_group_is == UserProfile.MockGroupIs.REQUESTOR
