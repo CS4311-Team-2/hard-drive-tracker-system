@@ -4,13 +4,15 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.forms.models import modelformset_factory
 
-from main.forms import EventForm, HardDriveRequestForm
+from main.forms import EventForm, HardDriveRequestForm, HardDriveForm
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 from main.models.log import Log
+from main.filters import HardDriveFilter
+from main.views.maintainer import VIEW_HARD_DRIVE
 
 from datetime import datetime
 
@@ -32,6 +34,36 @@ def home(request):
         "username"      : request.user.username
         }
     return render(request, 'requestor/home.html', context)
+
+@login_required(login_url='main:login')
+@group_required('Requestor')
+def view_all_hard_drive(http_request):
+    hard_drives = HardDrive.objects.all()
+    requests = Request.objects.filter(user = http_request.user)
+    hard_drives = HardDrive.objects.none()
+    for r in requests:
+        hard_drives |= HardDrive.objects.filter(request=r)
+    
+    hard_drive_filter = HardDriveFilter(http_request.GET, queryset = hard_drives)
+    hard_drives = hard_drive_filter.qs
+
+    context = {"hard_drives" : hard_drives, "hard_drive_filter" : hard_drive_filter}
+    return render(http_request, 'maintainer/view_all_hard_drives.html', context)
+
+@login_required(login_url='main:login')
+@group_required('Requestor')
+def view_hard_drive(http_request, id=-1):
+    if id==-1:
+        print("ERROR ERROR")    
+    hard_drive = HardDrive.objects.filter(pk=id).first()
+    form = HardDriveForm(instance=hard_drive)
+    form['modifier'].initial = hard_drive.modifier.email
+    form.make_all_readonly()
+    context = {"form" : form, 'id':id, 
+                'email':hard_drive.modifier.email, 
+                VIEW_HARD_DRIVE:True, "only_view":True}
+    return render(http_request, 'maintainer/view_hard_drive.html', context)  
+
 
 @login_required(login_url='main:login')
 @group_required('Requestor')
@@ -154,7 +186,4 @@ def make_request(http_request):
         Log.objects.create(
             action_preformed = "New Request Has Been Made To The Event " + http_request.POST.get('event_name')
         )
-
-
-    
-
+        
