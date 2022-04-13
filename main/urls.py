@@ -34,5 +34,6 @@ urlpatterns = [
     path('delete-hard-drive-manufacturers/<int:pk>/', htmx.delete_hard_drive_manufacturer, name="delete-hard-drive-manufacturers"),
 
     path('hard_drive_connection_port/', htmx.hard_drive_connection_port, name="hard_drive_connection_port"),
-    path('delete-hard-drive-connection-port/<int:pk>/', htmx.delete_hard_drive_connection_port, name="delete-hard-drive-connection-port")
+    path('delete-hard-drive-connection-port/<int:pk>/', htmx.delete_hard_drive_connection_port, name="delete-hard-drive-connection-port"),
+    path('auditor/view-all-users/', views.audi_view_all_users, name='view_all_users'),
 ]

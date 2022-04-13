@@ -33,6 +33,11 @@ def index(request):
     if request.user.groups.filter(name='Requestor').exists():
         return requestor.home(request)
 
+    if request.user.groups.filter(name = 'Auditor').exists():
+        return maintainer.home(request)
+
+    
+
 
 @login_required(login_url='main:login')
 def view_request(request):
@@ -129,3 +134,5 @@ def configuration(request):
         return maintainer.configuration(request)
         
     return redirect('main:index')
+
+
