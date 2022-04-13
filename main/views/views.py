@@ -30,6 +30,8 @@ def index(request):
 
     if request.user.groups.filter(name='Requestor').exists() | is_maintainer_requestor(request):
         return requestor.home(request)
+    logout(request)
+    return redirect("main:index")
 
 
 @login_required(login_url='main:login')
@@ -99,8 +101,13 @@ def loginPage(request):
 
         if auth is not None:
             print("User credentials is correct")
-            login(request, auth)
             user = UserProfile.objects.get(username=username)
+            # checks if user.status is not pending
+            if user.status == UserProfile.Status.PENDING:
+                messages.info(request, 'Adminstrator has not approved this account')
+                return render(request, 'accounts/login.html', context)
+                
+            login(request, auth)
             print(user)
             if user.groups.filter(name=Group(name=MAINTAINER)):
                 return redirect('main:login')

@@ -65,7 +65,7 @@
                     <h2>Hard Drive Tracking System</h2>      
                 </div>
                 <main class="content"> 
-                    <h3>Log In</h3> 
+                    <h3>Welcome to HTDS</h3> 
                         <br> 
                         <div class="container-fluid" style="border:1px solid #cecece;">
                             <div class="row">    
@@ -81,13 +81,31 @@
                                             <label for="password">Password<span>*</span></label><br/>
                                             <input type="password" name="password" placeholder="Password">
                                         </div>
-                                        <input class="btn btn-primary" type="submit" value="Log In">
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-1">
+                                                <button type="submit" class="btn btn-primary">Log In</button>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-1">
+                                                <button type= "button" class="btn btn-primary" onclick="location.href= {% url 'main:register' %}">Sign Up</button>
+                                            </div>
+                                        </div>
+                                            
+                                            <br>
+                                            <br>
+                                            <br>
                                     </form>
                                     {% for message in messages %}
                                         <p id="messages">{{message}}</p>
                                     {% endfor %} 
                                     <br>
-                                </div>         
+                                    
+                                </div> 
+                                
+                                
                             </div>
                             {% if show_menu %}
                                 <form method="POST" action="">
