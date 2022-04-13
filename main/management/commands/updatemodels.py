@@ -28,6 +28,7 @@ class Command(BaseCommand):
             user = UserProfile.objects.create_superuser(username=ADMIN_USERNAME,
                                  email='admin@army.mil')
             user.set_password(PASSWORD)
+            user.status = UserProfile.Status.ACTIVE
             user.save()
 
         maintainer_gp, _ = Group.objects.update_or_create(name='Maintainer')
@@ -40,6 +41,7 @@ class Command(BaseCommand):
             user = UserProfile.objects.create(username=MAINTAINER_USERNAME,
                                  email='maintainer@army.mil')
             user.set_password(PASSWORD)
+            user.status = UserProfile.Status.ACTIVE
        
             maintainer_gp.user_set.add(user)
             user.save()
@@ -48,6 +50,7 @@ class Command(BaseCommand):
             user = UserProfile.objects.create(username=REQUESTOR_USERNAME,
                                  email='requestor@army.mil')
             user.set_password(PASSWORD)
+            user.status = UserProfile.Status.ACTIVE
 
             requester_gp.user_set.add(user)
             user.save()
