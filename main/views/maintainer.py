@@ -58,12 +58,12 @@ def view_all_requests(http_request):
 @login_required(login_url='main:login')
 @group_required('Maintainer')
 def view_all_harddrives(request):
-    hardDrives = HardDrive.objects.all()
+    hard_drives = HardDrive.objects.all()
     
-    hard_filter = HardDriveFilter(request.GET, queryset = hardDrives)
-    hardDrives = hard_filter.qs
+    hard_drive_filter = HardDriveFilter(request.GET, queryset = hard_drives)
+    hard_drives = hard_drive_filter.qs
 
-    context = {"hardDrives" : hardDrives, "hard_drive_filter" : hard_filter}
+    context = {"hard_drives" : hard_drives, "hard_drive_filter" : hard_drive_filter}
     return render(request, 'maintainer/view_all_hard_drives.html', context)
 
 @login_required(login_url='main:login')
