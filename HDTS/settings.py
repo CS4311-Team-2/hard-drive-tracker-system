@@ -38,9 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_htmx',
-    'users',
-    'bootstrapform',
     'django_filters',
+    'bootstrapform',
+    'users',
     'main'
 ]
 

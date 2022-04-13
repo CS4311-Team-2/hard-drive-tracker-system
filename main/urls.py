@@ -19,6 +19,7 @@ urlpatterns = [
     path('add_hard_drive/', views.add_hard_drive, name = 'add_hard_drive'),
     path('view_hard_drive/<int:id>/', maintainer.view_hard_drive, name="view_hard_drive"),
     path('view_all_harddrives/', views.view_all_harddrives, name='view_all_harddrives'),
+    path('view_all_profiles/', views.view_all_profiles, name="view_all_profiles"),
 
 
     path('request/<int:id>', requestor.view_single_request, name = 'update_request'),
