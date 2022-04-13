@@ -12,6 +12,10 @@ from main.models.configurations.hard_drive_connection_ports import HardDriveConn
 from main.forms import HardDriveForm
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
+from main.filters import HardDriveFilter
+
+from users.models import UserProfile 
+from main.filters import UserProfilesFilter
 
 VIEW_HARD_DRIVE = "view_hard_drive"
 
@@ -57,10 +61,25 @@ def view_all_requests(http_request):
 @login_required(login_url='main:login')
 @group_required('Maintainer')
 def view_all_harddrives(request):
-    hardDrives = HardDrive.objects.all()
+    hard_drives = HardDrive.objects.all()
+    
+    hard_drive_filter = HardDriveFilter(request.GET, queryset = hard_drives)
+    hard_drives = hard_drive_filter.qs
 
-    context = {"hardDrives" : hardDrives}
+    context = {"hard_drives" : hard_drives, "hard_drive_filter" : hard_drive_filter}
     return render(request, 'maintainer/view_all_hard_drives.html', context)
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def view_all_profiles(request):
+    userProfiles = UserProfile.objects.all()
+
+    profileFilter = UserProfilesFilter(request.GET, queryset=userProfiles)
+    userProfiles = profileFilter.qs
+
+    context = {"userProfiles" : userProfiles, "profileFilter" : profileFilter}
+    return render(request, 'maintainer/view_all_profiles.html', context)
+
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')

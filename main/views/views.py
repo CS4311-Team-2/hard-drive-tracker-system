@@ -137,7 +137,6 @@ def configuration(request):
         
     return redirect('main:index')
 
-
 def is_maintainer(request):
     print(request.user.username)
     user = UserProfile.objects.get(username=request.user.username)
@@ -150,3 +149,10 @@ def is_maintainer_requestor(request):
     print(user.groups.filter(name='Maintainer').exists())
     print(user.mock_group_is == UserProfile.MockGroupIs.REQUESTOR)
     return (user.mock_group_is == UserProfile.MockGroupIs.REQUESTOR) and (user.groups.filter(name='Maintainer').exists())
+    
+@login_required(login_url='main:login')
+def view_all_profiles(request):
+    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+        return maintainer.view_all_profiles(request)
+            
+    return redirect('main:index')
