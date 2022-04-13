@@ -136,3 +136,11 @@ def configuration(request):
         return maintainer.configuration(request)
         
     return redirect('main:index')
+
+@login_required(login_url='main:login')
+def view_all_profiles(request):
+    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+        return maintainer.view_all_profiles(request)
+        
+    
+    return redirect('main:index')

@@ -60,8 +60,7 @@ class HardDrive(models.Model):
     modified_date = models.DateField(default=timezone.now, blank=True)
     modifier = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE) 
     request = models.ForeignKey(Request, 
-                    on_delete=models.CASCADE, null=True, blank=True, related_name="hard_drives")
-    
+                    on_delete=models.CASCADE, null=True, blank=True, related_name="hard_drives")    
     # Manually save. 
     def save(self, *args, **kwargs):
         if self.create_date is None:
@@ -70,7 +69,6 @@ class HardDrive(models.Model):
         self.modified_date = timezone.now()
         
         super(HardDrive, self).save(*args, **kwargs)
-
     class Meta:
         verbose_name_plural = "Hard Drive"
     
