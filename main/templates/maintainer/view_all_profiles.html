@@ -6,7 +6,8 @@
 <main class="content" style="margin-left:0%;margin-right:0%;">
    <div class="row">
       <div class="col-md-2">
-         <button type= "button" class="btn btn-primary" onclick="">Add New User</button>
+         <a class="btn btn-primary" 
+            href="{% url 'main:create_user_profile'%}">Add New User</a>
          <br><br>
       </div>
       <div class="col">
@@ -60,9 +61,10 @@
                         <tbody>
                            {% for profile in userProfiles %}
                            <tr>
+                             
                               <td><a class="btn" 
-                                    style="background-color:grey;color:white;" 
-                                    href="">View</a></td>
+                                 style="background-color:grey;color:white;" 
+                                 href="{% url 'main:view_user_profile' profile.id %}">View</a></td>
                               <td>{{profile.first_name}}</td>
                               <td>{{profile.last_name}}</td>
                               <td>
