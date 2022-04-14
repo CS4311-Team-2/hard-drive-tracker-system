@@ -2,7 +2,7 @@ from urllib import request
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
-from main.forms import HardDriveConnectionPortsForm, HardDriveTypeForm, HardDriveManufacturersForm
+from main.forms import CreateUserForm, HardDriveConnectionPortsForm, HardDriveTypeForm, HardDriveManufacturersForm, UserForm
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
@@ -79,6 +79,42 @@ def view_all_profiles(request):
 
     context = {"userProfiles" : userProfiles, "profileFilter" : profileFilter}
     return render(request, 'maintainer/view_all_profiles.html', context)
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def view_user_profile(request, id):
+    userProfile = UserProfile.objects.get(pk = id)
+    form = UserForm(instance=userProfile)
+
+    if request.method == 'POST':
+        form = UserForm(request.POST, instance=userProfile)
+        if form.is_valid():
+            form.save()
+            Log.objects.create(action_performed="Modified User: " + userProfile.username, user=request.user)
+            return redirect('main:view_all_profiles')
+    context = {
+        "userProfile" : userProfile,
+        "form" : form,
+
+        }
+    return render(request, 'maintainer/view_user_profile.html', context)
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def create_user_profile(request):
+    form = CreateUserForm()
+    if(request.method == 'POST'):
+        form= CreateUserForm(request.POST)
+        if form.is_valid():
+            userP = form.save()
+            Log.objects.create(action_performed="Created the user profile: "+userP.username, user=request.user)
+            return redirect('main:view_all_profiles')
+        else:
+            print(form.errors)
+    context = {
+         "form": form,
+         }
+    return render(request, 'maintainer/create_user_profile.html', context)
 
 
 @login_required(login_url='main:login')

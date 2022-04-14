@@ -27,4 +27,17 @@ class HardDriveFilter(django_filters.FilterSet):
         model = HardDrive
         fields = '__all__'
 
-    
+class UserProfile(django_filters.FilterSet):
+    first_name = django_filters.CharFilter(field_name="first_name", lookup_expr="icontains", label="First Name")
+    last_name = django_filters.CharFilter(field_name="last_name", lookup_expr="icontains", label="Last Name")
+    email = django_filters.CharFilter(field_name="email", lookup_expr="icontains", label="Email")
+    username = django_filters.CharFilter(field_name="username", lookup_expr="icontains", label="Username")
+
+    class Meta:
+        model = UserProfile
+        fields = ['first_name','last_name','email','username','groups', 'status']   
+    def search_all_fields(self, queryset, name, value):
+        return queryset.filter(
+            Q(first_name__icontains=value) | Q(last_name__icontains=value) | Q(email__icontains=value) | Q(username__icontains=value)
+        )
+
