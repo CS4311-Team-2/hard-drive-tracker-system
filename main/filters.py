@@ -3,7 +3,7 @@ import django_filters
 from main.models import request
 from users.models import UserProfile
 from django.db.models import Q, Count
-from .models import HardDrive, Request, Event
+from .models import HardDrive, Request, Event, Log
 from django import forms
 
 class DateInput(forms.DateInput):
@@ -71,5 +71,20 @@ class UserProfile(django_filters.FilterSet):
     def search_all_fields(self, queryset, name, value):
         return queryset.filter(
             Q(first_name__icontains=value) | Q(last_name__icontains=value) | Q(email__icontains=value) | Q(username__icontains=value)
+        )
+
+class LogFilter(django_filters.FilterSet):
+    time_stamp = django_filters.DateFilter(field_name="time_stamp", lookup_expr="gte", label="Time Stamp", widget=DateInput(attrs={'type': 'date'}))
+    user = django_filters.CharFilter(field_name="user", lookup_expr="icontains", label="Username")
+    action_performed = django_filters.CharFilter(field_name="action_performed", lookup_expr="icontains", label="Action Performed")
+    keyword = django_filters.CharFilter(method='search_all_log_fields',label="Search")
+
+    class Meta:
+        model = Log
+        fields = '__all__'
+
+    def search_all_log_fields(self, queryset, name, value):
+        return queryset.filter(
+            Q(time_stamp__icontains=value)  | Q(action_performed__icontains=value)
         )
 
