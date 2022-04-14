@@ -4,8 +4,10 @@ from main.models import request
 from users.models import UserProfile
 from django.db.models import Q, Count
 from .models import HardDrive, Request, Event
+from django import forms
 
-
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 class UserProfilesFilter(django_filters.FilterSet):
     first_name = django_filters.CharFilter(field_name="first_name", lookup_expr="icontains", label="First Name")
@@ -38,8 +40,8 @@ class RequestFilter(django_filters.FilterSet):
 
 class EventFilter(django_filters.FilterSet):
     event_name = django_filters.CharFilter(field_name="event_name", lookup_expr="icontains", label="Event Name")
-    event_start_date = django_filters.DateFilter(field_name="event_start_date", lookup_expr="gte", label="Event Start Date")
-    event_end_date = django_filters.DateFilter(field_name="event_end_date", lookup_expr="lte", label="Event End Date")
+    event_start_date = django_filters.DateFilter(field_name="event_start_date", lookup_expr="gte", label="Event Start Date", widget=DateInput(attrs={'type': 'date'}))
+    event_end_date = django_filters.DateFilter(field_name="event_end_date", lookup_expr="lte", label="Event End Date", widget=DateInput(attrs={'type': 'date'}))
     event_keyword = django_filters.CharFilter(method='search_all_event_fields',label="Event Keyword")
 
     class Meta:
