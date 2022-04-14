@@ -178,5 +178,21 @@ def is_maintainer_requestor(request):
 def view_all_profiles(request):
     if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
         return maintainer.view_all_profiles(request)
-            
+        
+    return redirect('main:index')
+
+@login_required(login_url='main:login')
+def view_user_profile(request, id):
+    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+        return maintainer.view_user_profile(request, id)
+        
+    
+    return redirect('main:index')
+
+@login_required(login_url='main:login')
+def create_user_profile(request):
+    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+        return maintainer.create_user_profile(request)
+        
+    
     return redirect('main:index')
