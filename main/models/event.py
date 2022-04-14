@@ -30,6 +30,8 @@ class Event(models.Model):
     event_start_date = models.DateField(auto_now=False, auto_now_add=False)
     event_end_date = models.DateField(blank = True)
     request = models.ForeignKey(Request, on_delete=models.CASCADE, blank=True, null=True, related_name="event")
+    analystNames = models.CharField(max_length=255, blank=True)
+    teamLeadName= models.CharField(max_length=100, blank=True)
 
     class Meta:
         verbose_name_plural = "Event"

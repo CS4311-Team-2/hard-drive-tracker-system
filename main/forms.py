@@ -92,7 +92,7 @@ class EventForm(forms.ModelForm):
         model = Event
         fields =['event_name', 'event_description', 'event_location', 'event_type',
                 'length_of_reporting_cycle', 'event_status', 'event_start_date',
-                'event_end_date']
+                'event_end_date','analystNames','teamLeadName']
         widgets = {
             'event_start_date': forms.SelectDateWidget(),
             'event_end_date': forms.SelectDateWidget()
