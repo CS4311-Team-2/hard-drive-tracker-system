@@ -17,7 +17,7 @@ urlpatterns = [
     path('make_request/', views.make_request, name='make_request'),
     
     path('add_hard_drive/', views.add_hard_drive, name = 'add_hard_drive'),
-    path('view_hard_drive/<int:id>/', maintainer.view_hard_drive, name="view_hard_drive"),
+    path('view_hard_drive/<int:id>/', views.view_hard_drive, name="view_hard_drive"),
     path('view_all_harddrives/', views.view_all_harddrives, name='view_all_harddrives'),
     path('view_all_profiles/', views.view_all_profiles, name="view_all_profiles"),
     
