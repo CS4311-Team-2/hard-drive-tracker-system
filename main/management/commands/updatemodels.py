@@ -16,7 +16,10 @@ import pandas as pd
 ADMIN_USERNAME = 'Admin'
 MAINTAINER_USERNAME = 'Maintainer'
 REQUESTOR_USERNAME = 'Requestor'
+AUDITOR_USERNAME = 'Auditor'
+ADMINISTRATOR_USERNAME = 'Administrator'
 PASSWORD = 'pass'
+
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
@@ -28,6 +31,7 @@ class Command(BaseCommand):
             user = UserProfile.objects.create_superuser(username=ADMIN_USERNAME,
                                  email='admin@army.mil')
             user.set_password(PASSWORD)
+            user.status = UserProfile.Status.ACTIVE
             user.save()
 
         maintainer_gp, _ = Group.objects.update_or_create(name='Maintainer')
@@ -36,10 +40,17 @@ class Command(BaseCommand):
         requester_gp, _ = Group.objects.update_or_create(name='Requestor')
         requester_gp.save()
 
+        auditor_gp, _ = Group.objects.update_or_create(name='Auditor')
+        auditor_gp.save()
+
+        administrator_gp, _ = Group.objects.update_or_create(name='Administrator')
+        administrator_gp.save()
+
         if not UserProfile.objects.filter(username__iexact=MAINTAINER_USERNAME).exists():
             user = UserProfile.objects.create(username=MAINTAINER_USERNAME,
                                  email='maintainer@army.mil')
             user.set_password(PASSWORD)
+            user.status = UserProfile.Status.ACTIVE
        
             maintainer_gp.user_set.add(user)
             user.save()
@@ -48,8 +59,28 @@ class Command(BaseCommand):
             user = UserProfile.objects.create(username=REQUESTOR_USERNAME,
                                  email='requestor@army.mil')
             user.set_password(PASSWORD)
+            user.status = UserProfile.Status.ACTIVE
 
             requester_gp.user_set.add(user)
+            user.save()
+
+        if not UserProfile.objects.filter(username__iexact=AUDITOR_USERNAME).exists():
+            user = UserProfile.objects.create(username=AUDITOR_USERNAME,
+                                 email='auditor@army.mil')
+            user.set_password(PASSWORD)
+            user.status = UserProfile.Status.ACTIVE
+
+            auditor_gp.user_set.add(user)
+            user.save()
+
+
+        if not UserProfile.objects.filter(username__iexact=ADMINISTRATOR_USERNAME).exists():
+            user = UserProfile.objects.create(username=ADMINISTRATOR_USERNAME,
+                                 email='administrator@army.mil')
+            user.set_password(PASSWORD)
+            user.status = UserProfile.Status.ACTIVE
+
+            administrator_gp.user_set.add(user)
             user.save()
         
         df = pd.read_csv('request.csv')

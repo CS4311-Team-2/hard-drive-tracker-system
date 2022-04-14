@@ -153,7 +153,7 @@
             {% endif %}
 
 
-            {% if request.user|has_group:"Requestor" %}
+            {% if request.user|has_group:"Requestor" or request.user|has_group:"Maintainer" %}
             <li class="nav-item">
             <a href="{% url 'main:make_request' %}" class="nav-link 
             
@@ -177,10 +177,7 @@
                 <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
                 Logout
             </a>
-            </li>
-
-   
-      
+            </li>      
         </ul>
     </div>
   </div>

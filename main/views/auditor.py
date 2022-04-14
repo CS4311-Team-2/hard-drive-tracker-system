@@ -1,7 +1,7 @@
 from urllib import request
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import UserProfile
+from users.models import UserProfile
 
 
 from main.forms import HardDriveConnectionPortsForm, HardDriveTypeForm, HardDriveManufacturersForm
@@ -34,12 +34,6 @@ def home(request):
         "requests" : requests,
     }
     return render(request, 'maintainer/home.html', context)
-
-@login_required(login_url='main:login')
-def audi_view_all_users(request):
-    users_list = UserProfile.objects.all()
-    context = {'users_lists' : users_list}
-    return render(request, 'auditor/view_all_users.html', context=context)
 
 
 @login_required(login_url='main:login')
