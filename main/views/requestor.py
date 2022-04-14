@@ -155,5 +155,6 @@ def make_request(http_request):
         )
 
 
-    
+def edit_request(request):
+    return render(request, 'requestor/edit_request.html')
 

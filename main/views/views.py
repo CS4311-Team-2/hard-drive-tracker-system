@@ -55,6 +55,15 @@ def make_request(request):
 
     return redirect('main:index')
 
+
+@login_required(login_url='main:login')
+def edit_request(request):
+    if request.user.groups.filter(name='Requestor').exists() | request.user.is_staff:
+        return requestor.edit_request(request)
+
+    return redirect('main:index')
+
+
 def registerPage(request):
     form = CreateUserForm()
     if request.method == 'POST':
