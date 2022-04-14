@@ -2,7 +2,7 @@
 from django.shortcuts import redirect, render
 
 from main.views import maintainer, requestor
-from ..forms import CreateUserForm, LoginUserForm
+from ..forms import CreateUserForm, CreateUserFormUser, LoginUserForm
 from django.http import Http404
 
 from django.contrib.auth import authenticate, login, logout
@@ -57,9 +57,9 @@ def make_request(request):
     return redirect('main:index')
 
 def registerPage(request):
-    form = CreateUserForm()
+    form = CreateUserFormUser()
     if request.method == 'POST':
-        form = CreateUserForm(request.POST)
+        form = CreateUserFormUser(request.POST)
         if form.is_valid():
             form.save()
             user = form.cleaned_data.get('username')

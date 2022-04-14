@@ -15,10 +15,17 @@ FORM_CONTROL_DATE = {'class':'form-control', 'type':'Date'}
 UNEDTIABLE = {**FORM_CONTROL, **{'readonly': 'readonly'}}
 UNEDTIABLE_DATE = {**FORM_CONTROL, **{'readonly': 'readonly'}}
 
+# Used for only Maintainers creating an account
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = UserProfile
         fields =['first_name','last_name','username','groups', 'status', 'email','direct_supervisor_email', 'branch_chief_email', 'password1', 'password2']
+
+# Used for a user creating an account on the register page
+class CreateUserFormUser(UserCreationForm):
+    class Meta:
+        model = UserProfile
+        fields =['first_name','last_name','username','email', 'password1', 'password2']
 
 
 class UserForm(forms.ModelForm):

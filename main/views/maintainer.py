@@ -107,6 +107,8 @@ def create_user_profile(request):
         form= CreateUserForm(request.POST)
         if form.is_valid():
             userP = form.save()
+            userP.groups.set(form.cleaned_data.get('groups'))
+            userP.save()
             Log.objects.create(action_performed="Created the user profile: "+userP.username, user=request.user)
             return redirect('main:view_all_profiles')
         else:
