@@ -21,6 +21,10 @@ class CreateUserForm(UserCreationForm):
         model = UserProfile
         fields =['first_name','last_name','username','groups', 'status', 'email','direct_supervisor_email', 'branch_chief_email', 'password1', 'password2']
 
+    def make_all_readonly(self):
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs = UNEDTIABLE
+
 # Used for a user creating an account on the register page
 class CreateUserFormUser(UserCreationForm):
     class Meta:

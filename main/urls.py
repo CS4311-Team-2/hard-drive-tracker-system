@@ -22,7 +22,8 @@ urlpatterns = [
     path('view_all_profiles/', views.view_all_profiles, name="view_all_profiles"),
     
 
-    path('view_user_profile/<int:id>', views.view_user_profile, name="view_user_profile"),
+    path('view_user_profile/<int:id>', maintainer.view_user_profile, name="view_user_profile"),
+    path('view_profile/', views.view_profile, name="view_profile"),
     path('create_user_profile/', views.create_user_profile, name="create_user_profile"),
 
 
