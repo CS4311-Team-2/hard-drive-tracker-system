@@ -154,7 +154,10 @@ def view_hard_drive(http_request, id=-1):
     else:
         form = HardDriveForm(instance=hard_drive)
         form['modifier'].initial = modifier
-    return render(http_request, 'maintainer/view_hard_drive.html', {"form" : form, 'id':id, 'email':hard_drive.modifier.email, VIEW_HARD_DRIVE:True})
+    context = {"form" : form, 'id':id, 
+                'email':hard_drive.modifier.email, 
+                VIEW_HARD_DRIVE:True, "only_view":False}
+    return render(http_request, 'maintainer/view_hard_drive.html', context)
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')

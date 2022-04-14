@@ -82,6 +82,10 @@ class HardDriveForm(forms.ModelForm):
             raise forms.ValidationError("This status can only be assigned to classified drives")
         return status
 
+    def make_all_readonly(self):
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs = UNEDTIABLE
+
 
 class EventForm(forms.ModelForm):
     class Meta:

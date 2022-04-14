@@ -21,3 +21,4 @@ class UserProfile(AbstractUser):
 
     # Used only for a maintainer
     mock_group_is = models.CharField(max_length=20, choices=MockGroupIs.choices, default=MockGroupIs.MAINTAINER)
+

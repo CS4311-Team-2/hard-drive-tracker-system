@@ -120,7 +120,9 @@
                 <label>Actual Return Date</label>
                 {{form.actual_return_date}}
             </div>
+            {% if not only_view %}
             <input type="submit" class="btn btn-primary">
+            {% endif %}
             <a class="btn" style="background-color:#4678B2;color:white;" href="{% url 'main:view_all_harddrives' %}">Close</a>
             <br>
         </div>       

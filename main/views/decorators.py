@@ -9,13 +9,11 @@ def group_required(*group_names):
     def in_group(user):
         print("in-group")
         if user.is_authenticated:
-            print("User is Authenticated [In-Group]")
-            print(group_names[0])
+            print("User is Authenticated [In-Group]: ", group_names)
             print("Mock group is: ", user.mock_group_is)
             if bool(user.groups.filter(name__in = group_names)) | user.is_superuser:
                 if user.groups.filter(name='Maintainer').exists() and group_names[0] == "Maintainer":
                     print("Group Decorator Maintainer-Maintainer")
-                    # 
                     return user.mock_group_is == UserProfile.MockGroupIs.MAINTAINER
                 return True
             if user.groups.filter(name='Maintainer').exists() and group_names[0] == "Requestor":
