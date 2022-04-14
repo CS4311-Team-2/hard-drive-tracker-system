@@ -77,7 +77,13 @@ class LogFilter(django_filters.FilterSet):
     time_stamp = django_filters.DateFilter(field_name="time_stamp", lookup_expr="gte", label="Time Stamp", widget=DateInput(attrs={'type': 'date'}))
     user = django_filters.CharFilter(field_name="user", lookup_expr="icontains", label="Username")
     action_performed = django_filters.CharFilter(field_name="action_performed", lookup_expr="icontains", label="Action Performed")
+    keyword = django_filters.CharFilter(method='search_all_log_fields',label="Search")
     
     class Meta:
         model = Log
         fields = '__all__'
+
+    def search_all_log_fields(self, queryset, name, value):
+        return queryset.filter(
+            Q(time_stamp__icontains=value)  | Q(action_performed__icontains=value)
+        )
