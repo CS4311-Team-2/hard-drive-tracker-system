@@ -12,7 +12,7 @@ from main.models.configurations.hard_drive_connection_ports import HardDriveConn
 from main.forms import HardDriveForm
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
-from main.filters import HardDriveFilter, RequestFilter, EventFilter
+from main.filters import HardDriveFilter, RequestFilter, EventFilter, LogFilter
 from users.models import UserProfile 
 from main.filters import UserProfilesFilter
 
@@ -186,6 +186,10 @@ def configuration(request):
 @group_required('Maintainer')
 def view_log(request):
     logs = Log.objects.all()
-    context = {"Logs" : logs}
+
+    log_filter = LogFilter(request.GET, queryset=logs)
+    logs = log_filter.qs
+
+    context = {"Logs" : logs, 'log_filter':log_filter}
     return render(request, 'log/view_log.html', context)
 

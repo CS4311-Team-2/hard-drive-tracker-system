@@ -1,8 +1,23 @@
 {% extends "main/base.html" %}  
 
+{% load bootstrap %}
+
+
 {% block content %}
 <main class="content">
   <div class="row">
+     <div class="col-md-2">
+      <div class="container-fluid" style="border:1px solid #cecece;">
+         <form method="get">
+            <br>
+             <h4> Log Attribute</h4>
+                {{log_filter.form | bootstrap}}
+             <h4>Keyword</h4>
+             <button class="btn btn-primary" type="submit" style="width:100px;">Search</button>
+             <br><br>
+         </form>
+      </div>
+     </div>
      <div class="col">
         <div class="row">
            <div class="tableFixHead">
@@ -12,7 +27,7 @@
                     <thead>
                        <tr>
                          <th scope="col">Time Stamp</th>
-                          <th scope="col">Action Preformed</th>
+                          <th scope="col">Action Performed</th>
                           <th scope="col">User</th>
                        </tr>
                     </thead>
