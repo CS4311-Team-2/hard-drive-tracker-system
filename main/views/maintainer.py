@@ -12,8 +12,7 @@ from main.models.configurations.hard_drive_connection_ports import HardDriveConn
 from main.forms import HardDriveForm
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
-from main.filters import HardDriveFilter
-
+from main.filters import HardDriveFilter, RequestFilter, EventFilter
 from users.models import UserProfile 
 from main.filters import UserProfilesFilter
 
@@ -47,15 +46,23 @@ def view_request(request):
 def view_all_requests(http_request):
     data = {}
     requests = Request.objects.all()
+
+    request_filter = RequestFilter(http_request.GET, queryset = requests)
+    requests = request_filter.qs
+
+    event_filter = EventFilter()
+
     for r in requests:
         events = Event.objects.filter(request = r)
+        event_filter = EventFilter(http_request.GET, queryset = events)
+        events = event_filter.qs
         if not events:
             continue
         else:
             event = events[0]
         data[r] = event
 
-    context = {'data': data, 'requests' : requests}
+    context = {'data': data, 'requests' : requests, 'request_filter': request_filter, 'event_filter': event_filter}
     return render(http_request, 'maintainer/view_all_requests.html', context)
 
 @login_required(login_url='main:login')
