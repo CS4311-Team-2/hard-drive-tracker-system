@@ -96,6 +96,7 @@ def view_single_request(http_request, id):
 @login_required(login_url='main:login')
 @group_required('Requestor')
 def make_request(http_request):
+    print("make_request from the requestor file")
     if http_request.htmx:
         HDRFormSet = modelformset_factory(model=HardDriveRequest, form=HardDriveRequestForm)
         

@@ -1,14 +1,10 @@
 # Create your views here.
 from django.shortcuts import redirect, render
 
-from main.views.decorators import group_required
 from main.views import maintainer, requestor
-from ..models import HardDrive
-from ..models import Request
-from ..forms import CreateUserForm
+from ..forms import CreateUserForm, LoginUserForm
 from django.http import Http404
 
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -27,10 +23,12 @@ def add_drive(request):
 
 @login_required(login_url='main:login')
 def index(request):
-    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+    print("Making it here!!!")
+    if is_maintainer(request) | request.user.is_staff:
+        print("Making it here 2----------")
         return maintainer.home(request)
 
-    if request.user.groups.filter(name='Requestor').exists():
+    if request.user.groups.filter(name='Requestor').exists() | is_maintainer_requestor(request):
         return requestor.home(request)
     logout(request)
     return redirect("main:index")
@@ -38,7 +36,7 @@ def index(request):
 
 @login_required(login_url='main:login')
 def view_request(request):
-    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+    if is_maintainer(request) | request.user.is_staff:
         return maintainer.view_request(request)
     
     return redirect('main:index')
@@ -52,7 +50,8 @@ def view_all_requests(request):
 
 @login_required(login_url='main:login')
 def make_request(request):
-    if request.user.groups.filter(name='Requestor').exists() | request.user.is_staff:
+    print("Make request in VIEW")
+    if request.user.groups.filter(name='Requestor').exists() | request.user.is_staff | is_maintainer_requestor(request): 
         return requestor.make_request(request)
 
     return redirect('main:index')
@@ -77,10 +76,20 @@ def loginPage(request):
     if request.user.is_authenticated:
         print("User authorized!")
         user = UserProfile.objects.get(username=request.user.username)
+        if request.method == 'POST':
+            print("---------------------------")
+            form = LoginUserForm(request.POST, instance=user)
+            if form.is_valid():
+                form.save()
+                return redirect('main:index')
+            else:
+                messages.info(request, form.errors)
+
         if user.groups.filter(name=Group(name=MAINTAINER)):
             messages.info(request, 'Welcome Maintainer!')
             context = {
-                "show_menu" : True
+                "show_menu" : True,
+                'form': LoginUserForm(instance=user)
             }
         else:
             return redirect('main:index')
@@ -101,7 +110,6 @@ def loginPage(request):
             login(request, auth)
             print(user)
             if user.groups.filter(name=Group(name=MAINTAINER)):
-                print("User is made it here")
                 return redirect('main:login')
             else:
                 return redirect('main:index')
@@ -137,10 +145,24 @@ def configuration(request):
         
     return redirect('main:index')
 
+def is_maintainer(request):
+    print(request.user.username)
+    user = UserProfile.objects.get(username=request.user.username)
+    print(user.groups.filter(name='Maintainer').exists())
+    print(user.mock_group_is == UserProfile.MockGroupIs.MAINTAINER)
+    return (user.mock_group_is == UserProfile.MockGroupIs.MAINTAINER) and (user.groups.filter(name='Maintainer').exists())
+
+def is_maintainer_requestor(request):
+    user = UserProfile.objects.get(username=request.user.username)
+    print(user.groups.filter(name='Maintainer').exists())
+    print(user.mock_group_is == UserProfile.MockGroupIs.REQUESTOR)
+    return (user.mock_group_is == UserProfile.MockGroupIs.REQUESTOR) and (user.groups.filter(name='Maintainer').exists())
+    
 @login_required(login_url='main:login')
 def view_all_profiles(request):
     if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
         return maintainer.view_all_profiles(request)
+<<<<<<< HEAD
         
     
     return redirect('main:index')
@@ -160,3 +182,7 @@ def create_user_profile(request):
         
     
     return redirect('main:index')
+=======
+            
+    return redirect('main:index')
+>>>>>>> origin
