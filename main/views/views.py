@@ -131,11 +131,27 @@ def add_hard_drive(request):
         raise Http404('Unauthorize access')
 
 @login_required(login_url='main:login')
+def view_hard_drive(request, id):
+    if request.user.is_staff | is_maintainer(request):
+        print("MADE IT HERE AS A MAINTAINER")
+        return maintainer.view_hard_drive(request, id)
+
+    if (request.user.groups.filter(name='Requestor').exists() | request.user.is_staff | is_maintainer_requestor(request)):
+        print("MADE IT HERE AS A REQUESTOR")
+        return requestor.view_hard_drive(request, id)
+
+    return redirect('main:index')
+
+@login_required(login_url='main:login')
 def view_all_harddrives(request):
-    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+    if request.user.is_staff | is_maintainer(request):
+        print("MADE IT HERE AS A MAINTAINER")
         return maintainer.view_all_harddrives(request)
-        
-    
+
+    if (request.user.groups.filter(name='Requestor').exists() | request.user.is_staff | is_maintainer_requestor(request)):
+        print("MADE IT HERE AS A REQUESTOR")
+        return requestor.view_all_hard_drive(request)
+
     return redirect('main:index')
 
 
@@ -162,5 +178,21 @@ def is_maintainer_requestor(request):
 def view_all_profiles(request):
     if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
         return maintainer.view_all_profiles(request)
-            
+        
+    return redirect('main:index')
+
+@login_required(login_url='main:login')
+def view_user_profile(request, id):
+    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+        return maintainer.view_user_profile(request, id)
+        
+    
+    return redirect('main:index')
+
+@login_required(login_url='main:login')
+def create_user_profile(request):
+    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+        return maintainer.create_user_profile(request)
+        
+    
     return redirect('main:index')
