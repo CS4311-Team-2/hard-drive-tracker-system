@@ -5,5 +5,5 @@ from .jobs import check_status
 
 def start():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(check_status, 'interval', minutes=1440)
+    scheduler.add_job(check_status, 'interval', minutes=1)
     scheduler.start()
