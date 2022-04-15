@@ -60,7 +60,6 @@ class Command(BaseCommand):
                                  email='requestor@army.mil')
             user.set_password(PASSWORD)
             user.status = UserProfile.Status.ACTIVE
-            #user.mock_group_is = UserProfile.MockGroupIs.REQUESTOR
 
             requester_gp.user_set.add(user)
             user.save()
@@ -70,7 +69,6 @@ class Command(BaseCommand):
                                  email='auditor@army.mil')
             user.set_password(PASSWORD)
             user.status = UserProfile.Status.ACTIVE
-            #user.mock_group_is = UserProfile.MockGroupIs.AUDITOR
 
             auditor_gp.user_set.add(user)
             user.save()
@@ -81,7 +79,6 @@ class Command(BaseCommand):
                                  email='administrator@army.mil')
             user.set_password(PASSWORD)
             user.status = UserProfile.Status.ACTIVE
-            #user.mock_group_is = UserProfile.MockGroupIs.ADMINISTRATOR
 
             administrator_gp.user_set.add(user)
             user.save()

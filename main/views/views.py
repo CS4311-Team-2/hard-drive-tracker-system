@@ -195,10 +195,9 @@ def view_all_profiles(request):
 
 @login_required(login_url='main:login')
 def create_user_profile(request):
-    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+    if is_in_groups(request, "Administrator"):
         return maintainer.create_user_profile(request)
-        
-    
+
     return redirect('main:index')
 
 @login_required(login_url='main:login')

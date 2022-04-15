@@ -61,7 +61,8 @@ def view_all_requests(http_request):
             event = events[0]
         data[r] = event
 
-    context = {'data': data, 'requests' : requests, 'request_filter': request_filter, 'event_filter': event_filter}
+    context = {'data': data, 'requests' : requests, 
+                'request_filter': request_filter, 'event_filter': event_filter}
     return render(http_request, 'maintainer/view_all_requests.html', context)
 
 @login_required(login_url='main:login')
@@ -80,7 +81,7 @@ def view_all_harddrives(request):
 def view_all_profiles(request):
     '''
     DeprecationWarning
-    Please use views.view_profiles
+    Please use views.view_all_profiles
     '''
     userProfiles = UserProfile.objects.all()
 
@@ -107,14 +108,15 @@ def view_user_profile(request, id):
     context = {
         "userProfile" : userProfile,
         "form" : form,
+        "auditor_view":False
         }
     
     if is_in_groups(request,"Auditor"):
         context['form'].make_all_readonly()
+        context['auditor_view'] = True
     return render(request, 'maintainer/view_user_profile.html', context)
 
 @login_required(login_url='main:login')
-@group_required('Maintainer')
 def create_user_profile(request):
     form = CreateUserForm()
     if(request.method == 'POST'):
