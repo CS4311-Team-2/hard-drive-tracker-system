@@ -1,6 +1,6 @@
 
 from django.urls import path
-from main.views import maintainer, requestor, views, htmx 
+from main.views import maintainer, requestor, views, htmx, administrator
 
 
 app_name = 'main'
@@ -43,5 +43,10 @@ urlpatterns = [
     path('delete-hard-drive-manufacturers/<int:pk>/', htmx.delete_hard_drive_manufacturer, name="delete-hard-drive-manufacturers"),
 
     path('hard_drive_connection_port/', htmx.hard_drive_connection_port, name="hard_drive_connection_port"),
-    path('delete-hard-drive-connection-port/<int:pk>/', htmx.delete_hard_drive_connection_port, name="delete-hard-drive-connection-port")
+    path('delete-hard-drive-connection-port/<int:pk>/', htmx.delete_hard_drive_connection_port, name="delete-hard-drive-connection-port"),
+    path('auditor/view-all-requests/', views.auditor.view_all_requests, name='view_all_requests'),
+    path('auditor/view-all-hard_drives/', views.auditor.view_all_harddrives, name='view_all_harddrives'),
+    path('auditor/', views.auditor.home, name='home'),
+    path('administrator/', administrator.view_all_profiles, name='view_all_profiles'),
+    
 ]

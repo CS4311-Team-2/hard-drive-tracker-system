@@ -1,8 +1,13 @@
 # Create your views here.
 from django.shortcuts import redirect, render
 
+<<<<<<< HEAD
+from main.views import maintainer, requestor, auditor, administrator
+from ..forms import CreateUserForm, LoginUserForm
+=======
 from main.views import maintainer, requestor
 from ..forms import CreateUserForm, CreateUserFormUser, LoginUserForm, UserForm
+>>>>>>> main
 from django.http import Http404
 
 from django.contrib.auth import authenticate, login, logout
@@ -23,15 +28,21 @@ def add_drive(request):
 
 @login_required(login_url='main:login')
 def index(request):
-    print("Making it here!!!")
     if is_maintainer(request) | request.user.is_staff:
-        print("Making it here 2----------")
         return maintainer.home(request)
 
     if request.user.groups.filter(name='Requestor').exists() | is_maintainer_requestor(request):
         return requestor.home(request)
-    logout(request)
+
+    if request.user.groups.filter(name = 'Auditor').exists():
+        return auditor.home(request)
+
+    if request.user.groups.filter(name = 'Administrator').exists():
+        return administrator.view_all_profiles(request)
+
     return redirect("main:index")
+
+    
 
 
 @login_required(login_url='main:login')
@@ -196,6 +207,12 @@ def create_user_profile(request):
         
     
     return redirect('main:index')
+
+@login_required(login_url='main:login')
+def audi_view_all_users(request):
+    if request.user.groups.filter(name='Auditor').exists() :
+        return auditor.audi_view_all_users(request)
+    print("Error Error at audi_view_all_users")
 
 @login_required(login_url='main:login')
 def view_profile(request):
