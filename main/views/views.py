@@ -1,13 +1,10 @@
 # Create your views here.
 from django.shortcuts import redirect, render
 
-<<<<<<< HEAD
 from main.views import maintainer, requestor, auditor, administrator
 from ..forms import CreateUserForm, LoginUserForm
-=======
 from main.views import maintainer, requestor
 from ..forms import CreateUserForm, CreateUserFormUser, LoginUserForm, UserForm
->>>>>>> main
 from django.http import Http404
 
 from django.contrib.auth import authenticate, login, logout
