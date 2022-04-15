@@ -16,6 +16,8 @@ from django.http import Http404
 from users.models import UserProfile
 from main.filters import UserProfilesFilter
 
+from main.views.util import is_in_groups
+
 MAINTAINER = "Maintainer"
 
 def add_drive(request):
@@ -162,7 +164,7 @@ def view_all_harddrives(request):
     return redirect('main:index')
 
 def configuration(request):
-    if is_allowed(request,'Maintainer'):
+    if is_in_groups(request,'Maintainer'):
         return maintainer.configuration(request)
         
     return redirect('main:index')
@@ -170,7 +172,7 @@ def configuration(request):
 @login_required(login_url='main:login')
 def view_all_profiles(request):
     '''Used by Auditor and Administrator'''
-    if not is_allowed(request, "Auditor", "Administrator"):
+    if not is_in_groups(request, "Auditor", "Administrator"):
         return redirect('main:index')
     
     user_profiles = UserProfile.objects.all()
@@ -215,14 +217,4 @@ def is_maintainer_requestor(request):
     print(user.groups.filter(name='Maintainer').exists())
     print(user.mock_group_is == UserProfile.MockGroupIs.REQUESTOR)
     return (user.mock_group_is == UserProfile.MockGroupIs.REQUESTOR) and (user.groups.filter(name='Maintainer').exists())
-
-# Need to implement this in all functions
-def is_allowed(request,*groups):
-    if request.user.is_staff:
-        return True
-
-    for group in groups:
-        if request.user.groups.filter(name=group).exists(): 
-            return True
-    return False
 

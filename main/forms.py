@@ -37,6 +37,10 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields =['first_name','last_name','email','username','groups', 'status', 'last_modified_date','direct_supervisor_email', 'branch_chief_email']
+        
+    def make_all_readonly(self):
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs = UNEDTIABLE
 
 class HardDriveForm(forms.ModelForm):
         # This does not refer to the acutal modifier field, used to dipslay the field in the template. 

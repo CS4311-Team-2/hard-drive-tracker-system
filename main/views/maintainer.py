@@ -15,6 +15,7 @@ from main.models.configurations.hard_drive_manufacturers import HardDriveManufac
 from main.filters import HardDriveFilter, RequestFilter, EventFilter, LogFilter
 from users.models import UserProfile 
 from main.filters import UserProfilesFilter
+from main.views.util import is_in_groups
 
 VIEW_HARD_DRIVE = "view_hard_drive"
 
@@ -67,7 +68,6 @@ def view_all_requests(http_request):
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
-@PendingDeprecationWarning
 def view_all_harddrives(request):
     hard_drives = HardDrive.objects.all()
     
@@ -94,12 +94,11 @@ def view_all_profiles(request):
     return render(request, 'maintainer/view_all_profiles.html', context)
 
 @login_required(login_url='main:login')
-@group_required('Maintainer')
 def view_user_profile(request, id):
     userProfile = UserProfile.objects.get(pk = id)
     form = UserForm(instance=userProfile)
 
-    if request.method == 'POST':
+    if request.method == 'POST' and is_in_groups(request,"Administrator"):
         form = UserForm(request.POST, instance=userProfile)
         if form.is_valid():
             form.save()
@@ -112,7 +111,9 @@ def view_user_profile(request, id):
         "userProfile" : userProfile,
         "form" : form,
         }
-        
+    
+    if is_in_groups(request,"Auditor"):
+        context['form'].make_all_readonly()
     return render(request, 'maintainer/view_user_profile.html', context)
 
 @login_required(login_url='main:login')
