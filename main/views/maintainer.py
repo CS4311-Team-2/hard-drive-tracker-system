@@ -38,12 +38,10 @@ def home(request):
     return render(request, 'maintainer/home.html', context)
 
 @login_required(login_url='main:login')
-@group_required('Maintainer')
 def view_request(request):
     return render(request, 'maintainer/view_request.html')
 
 @login_required(login_url='main:login')
-@group_required('Maintainer')
 def view_all_requests(http_request):
     data = {}
     requests = Request.objects.all()
@@ -67,7 +65,6 @@ def view_all_requests(http_request):
     return render(http_request, 'maintainer/view_all_requests.html', context)
 
 @login_required(login_url='main:login')
-@group_required('Maintainer')
 def view_all_harddrives(request):
     hard_drives = HardDrive.objects.all()
     
@@ -195,8 +192,9 @@ def configuration(request):
     return render(request, 'maintainer/configuration.html', context)
 
 @login_required(login_url='main:login')
-@group_required('Maintainer')
 def view_log(request):
+    if not is_in_groups(request,"Auditor", "Maintainer"):
+        return redirect("main:index")
     logs = Log.objects.all()
 
     log_filter = LogFilter(request.GET, queryset=logs)

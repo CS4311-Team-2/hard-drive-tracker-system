@@ -51,7 +51,6 @@ def view_all_hard_drive(http_request):
     return render(http_request, 'maintainer/view_all_hard_drives.html', context)
 
 @login_required(login_url='main:login')
-@group_required('Requestor')
 def view_hard_drive(http_request, id=-1):
     if id==-1:
         print("ERROR ERROR")    

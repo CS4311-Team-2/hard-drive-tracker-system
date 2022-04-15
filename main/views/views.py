@@ -54,6 +54,9 @@ def view_all_requests(request):
     if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
         return maintainer.view_all_requests(request)
     
+    if is_in_groups(request, "Auditor"):
+        return maintainer.view_all_requests(request)
+    
     return redirect('main:index')
 
 @login_required(login_url='main:login')
@@ -140,6 +143,7 @@ def add_hard_drive(request):
 
 @login_required(login_url='main:login')
 def view_hard_drive(request, id):
+    #TODO: Clean up this code to utilze is_in_groups
     if request.user.is_staff | is_maintainer(request):
         print("MADE IT HERE AS A MAINTAINER")
         return maintainer.view_hard_drive(request, id)
@@ -147,6 +151,10 @@ def view_hard_drive(request, id):
     if (request.user.groups.filter(name='Requestor').exists() | request.user.is_staff | is_maintainer_requestor(request)):
         print("MADE IT HERE AS A REQUESTOR")
         return requestor.view_hard_drive(request, id)
+    
+    if is_in_groups(request,"Auditor"):
+        # using requestor as auditor cannot edit only view
+        return requestor.view_hard_drive(request,id)
 
     return redirect('main:index')
 
@@ -155,6 +163,9 @@ def view_all_harddrives(request):
     print("Before If Statements")
     if request.user.is_staff | is_maintainer(request):
         print("MADE IT HERE AS A MAINTAINER")
+        return maintainer.view_all_harddrives(request)
+    
+    if is_in_groups(request,"Auditor"):
         return maintainer.view_all_harddrives(request)
 
     if (request.user.groups.filter(name='Requestor').exists() | request.user.is_staff | is_maintainer_requestor(request)):
