@@ -112,6 +112,8 @@
             <li class="nav-item">
             <a href="#" class="nav-link 
             
+
+            
             link-dark
             
             " aria-current="page">
@@ -121,18 +123,21 @@
             </li>
             {% endif %}
 
-            {% if request.user|has_group:"Maintainer"  or request.user|has_group:"Requestor" %}
             <li class="nav-item">
-            <a href="#" class="nav-link 
+            <a href="{% url 'main:view_profile' %}" class="nav-link 
             
+            {% url 'main:view_profile' as the_url%}
+            {% if request.path == the_url %}
+            active
+            {% else %}
             link-dark
+            {% endif %}
 
             " aria-current="page">
                 <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
                 Profile
             </a>
             </li>
-            {% endif %}
 
             {% if request.user|has_group:"Maintainer" %}
             <li class="nav-item">
@@ -153,7 +158,7 @@
             {% endif %}
 
 
-            {% if request.user|has_group:"Requestor" %}
+            {% if request.user|has_group:"Requestor" or request.user|has_group:"Maintainer" %}
             <li class="nav-item">
             <a href="{% url 'main:make_request' %}" class="nav-link 
             
@@ -177,10 +182,7 @@
                 <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
                 Logout
             </a>
-            </li>
-
-   
-      
+            </li>      
         </ul>
     </div>
   </div>
