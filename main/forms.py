@@ -15,11 +15,28 @@ FORM_CONTROL_DATE = {'class':'form-control', 'type':'Date'}
 UNEDTIABLE = {**FORM_CONTROL, **{'readonly': 'readonly'}}
 UNEDTIABLE_DATE = {**FORM_CONTROL, **{'readonly': 'readonly'}}
 
+# Used for only Maintainers creating an account
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = UserProfile
-        fields =['username', 'email', 'password1', 'password2']
-        
+        fields =['first_name','last_name','username','groups', 'status', 'email','direct_supervisor_email', 'branch_chief_email', 'password1', 'password2']
+
+    def make_all_readonly(self):
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs = UNEDTIABLE
+
+# Used for a user creating an account on the register page
+class CreateUserFormUser(UserCreationForm):
+    class Meta:
+        model = UserProfile
+        fields =['first_name','last_name','username','email', 'password1', 'password2']
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields =['first_name','last_name','email','username','groups', 'status', 'last_modified_date','direct_supervisor_email', 'branch_chief_email']
+
 class HardDriveForm(forms.ModelForm):
         # This does not refer to the acutal modifier field, used to dipslay the field in the template. 
     modifier = forms.CharField(widget=forms.TextInput(attrs=UNEDTIABLE))
@@ -86,7 +103,7 @@ class EventForm(forms.ModelForm):
         model = Event
         fields =['event_name', 'event_description', 'event_location', 'event_type',
                 'length_of_reporting_cycle', 'event_status', 'event_start_date',
-                'event_end_date']
+                'event_end_date','analystNames','teamLeadName']
         widgets = {
             'event_start_date': forms.SelectDateWidget(),
             'event_end_date': forms.SelectDateWidget()

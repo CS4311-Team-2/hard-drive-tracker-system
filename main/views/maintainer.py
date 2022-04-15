@@ -2,7 +2,7 @@ from urllib import request
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
-from main.forms import HardDriveConnectionPortsForm, HardDriveTypeForm, HardDriveManufacturersForm
+from main.forms import CreateUserForm, HardDriveConnectionPortsForm, HardDriveTypeForm, HardDriveManufacturersForm, UserForm
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
@@ -12,8 +12,7 @@ from main.models.configurations.hard_drive_connection_ports import HardDriveConn
 from main.forms import HardDriveForm
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
-from main.filters import HardDriveFilter
-
+from main.filters import HardDriveFilter, RequestFilter, EventFilter, LogFilter
 from users.models import UserProfile 
 from main.filters import UserProfilesFilter
 
@@ -47,15 +46,23 @@ def view_request(request):
 def view_all_requests(http_request):
     data = {}
     requests = Request.objects.all()
+
+    request_filter = RequestFilter(http_request.GET, queryset = requests)
+    requests = request_filter.qs
+
+    event_filter = EventFilter()
+
     for r in requests:
         events = Event.objects.filter(request = r)
+        event_filter = EventFilter(http_request.GET, queryset = events)
+        events = event_filter.qs
         if not events:
             continue
         else:
             event = events[0]
         data[r] = event
 
-    context = {'data': data, 'requests' : requests}
+    context = {'data': data, 'requests' : requests, 'request_filter': request_filter, 'event_filter': event_filter}
     return render(http_request, 'maintainer/view_all_requests.html', context)
 
 @login_required(login_url='main:login')
@@ -79,6 +86,47 @@ def view_all_profiles(request):
 
     context = {"userProfiles" : userProfiles, "profileFilter" : profileFilter}
     return render(request, 'maintainer/view_all_profiles.html', context)
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def view_user_profile(request, id):
+    userProfile = UserProfile.objects.get(pk = id)
+    form = UserForm(instance=userProfile)
+
+    if request.method == 'POST':
+        form = UserForm(request.POST, instance=userProfile)
+        if form.is_valid():
+            form.save()
+            Log.objects.create(action_performed="Modified User: " + userProfile.username, user=request.user)
+            return redirect('main:view_all_profiles')
+        else:
+            context = {"userProfile" : userProfile,"form" : form}
+            return render(request, 'maintainer/view_user_profile.html', context)
+    context = {
+        "userProfile" : userProfile,
+        "form" : form,
+        }
+        
+    return render(request, 'maintainer/view_user_profile.html', context)
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def create_user_profile(request):
+    form = CreateUserForm()
+    if(request.method == 'POST'):
+        form= CreateUserForm(request.POST)
+        if form.is_valid():
+            userP = form.save()
+            userP.groups.set(form.cleaned_data.get('groups'))
+            userP.save()
+            Log.objects.create(action_performed="Created the user profile: "+userP.username, user=request.user)
+            return redirect('main:view_all_profiles')
+        else:
+            print(form.errors)
+    context = {
+         "form": form,
+         }
+    return render(request, 'maintainer/create_user_profile.html', context)
 
 
 @login_required(login_url='main:login')
@@ -143,6 +191,10 @@ def configuration(request):
 @group_required('Maintainer')
 def view_log(request):
     logs = Log.objects.all()
-    context = {"Logs" : logs}
+
+    log_filter = LogFilter(request.GET, queryset=logs)
+    logs = log_filter.qs
+
+    context = {"Logs" : logs, 'log_filter':log_filter}
     return render(request, 'log/view_log.html', context)
 

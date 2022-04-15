@@ -9,7 +9,6 @@ from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
 from users.models import UserProfile
-
 import pandas as pd
 
 

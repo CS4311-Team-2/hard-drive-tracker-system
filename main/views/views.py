@@ -1,8 +1,13 @@
 # Create your views here.
 from django.shortcuts import redirect, render
 
+<<<<<<< HEAD
 from main.views import maintainer, requestor, auditor, administrator
 from ..forms import CreateUserForm, LoginUserForm
+=======
+from main.views import maintainer, requestor
+from ..forms import CreateUserForm, CreateUserFormUser, LoginUserForm, UserForm
+>>>>>>> main
 from django.http import Http404
 
 from django.contrib.auth import authenticate, login, logout
@@ -63,9 +68,9 @@ def make_request(request):
     return redirect('main:index')
 
 def registerPage(request):
-    form = CreateUserForm()
+    form = CreateUserFormUser()
     if request.method == 'POST':
-        form = CreateUserForm(request.POST)
+        form = CreateUserFormUser(request.POST)
         if form.is_valid():
             form.save()
             user = form.cleaned_data.get('username')
@@ -184,10 +189,35 @@ def is_maintainer_requestor(request):
 def view_all_profiles(request):
     if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
         return maintainer.view_all_profiles(request)
-            
+        
+    return redirect('main:index')
+
+# @login_required(login_url='main:login')
+# def view_user_profile(request, id):
+#     if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+#         return maintainer.view_user_profile(request, id)
+        
+    
+#     return redirect('main:index')
+
+@login_required(login_url='main:login')
+def create_user_profile(request):
+    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+        return maintainer.create_user_profile(request)
+        
+    
     return redirect('main:index')
 
 @login_required(login_url='main:login')
 def audi_view_all_users(request):
     if request.user.groups.filter(name='Auditor').exists() :
         return auditor.audi_view_all_users(request)
+    print("Error Error at audi_view_all_users")
+
+@login_required(login_url='main:login')
+def view_profile(request):
+    user = UserProfile.objects.get(username=request.user.username)
+    form = CreateUserForm(instance=user)
+    form.make_all_readonly()
+
+    return render(request, "maintainer/view_profile.html", {"form":form})

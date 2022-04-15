@@ -19,24 +19,30 @@
                             <div class="row">    
                                 <div class="col">
                                     <br>    
+                                    <h5>Event Attributes</h5>
                                     <div class="form-group">
                                         <label for="eventName">Event Name<span>*</span></label>
-                                        {{event_form.event_name}}
+                                        {{event_form.event_name }}
                                     </div>
                                     <div class="form-group">
                                         <label for="eventDescription">Event Description</label>
                                         {{event_form.event_description}}
                                     </div>
-                                            
-                                    <br>
-                                        
+                                    <div class="form-group">
+                                        <label for="location">Location</label>
+                                        {{event_form.event_location}}
+                                    </div>
+                                    
                                     <div class="form-group">
                                         <label for="eventType">Event Type<span>*</span></label>
                                         {{event_form.event_type}}
                                             
                                     </div>
                                     <br>
-                                        
+                                    <div class="form-group">
+                                        <label for="eventName">Length of Reporting Cycle<span>*</span></label>
+                                        {{event_form.length_of_reporting_cycle}}
+                                    </div>    
                                             
                                     <div class="form-group">
                                         <label for="eventStatus">Event Status<span>*</span></label>
@@ -47,26 +53,32 @@
 
                                 <div class="col">
                                     <br>
-                                    
+                                    <h5>Event Dates</h5>
+                                    <div class="form-group">
+                                        <label for="startDate">Start Date<span>*</span></label>
+                                        {{event_form.event_start_date}}
+                                        <i class="fas fa-calandar-alt"></i>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="endDate">End Date<span>*</span></label>
+                                        {{event_form.event_end_date}}
+                                        <i class="fas fa-calandar-alt"></i>
+                                    </div>
+                                    <h5>Event Participants</h5>
+                                    <div class="row" style="margin-left:1%;">
+                                        <div class="col">
                                         <div class="form-group">
-                                            <label for="startDate">Start Date<span>*</span></label>
-                                            {{event_form.event_start_date}}
-                                            <i class="fas fa-calandar-alt"></i>
+                                            <label for="teamLeadName">Event Team Lead Name</label>
+                                            {{event_form.teamLeadName}}
                                         </div>
                                         <div class="form-group">
-                                            <label for="endDate">End Date<span>*</span></label>
-                                            {{event_form.event_end_date}}
-                                            <i class="fas fa-calandar-alt"></i>
+                                            <label for="analystNames">Event Team Analyst Names</label>
+                                            {{event_form.analystNames}}
                                         </div>
+                                    </div>
+                                </div>
                                         
-                                        <div class="form-group">
-                                            <label for="location">Location</label>
-                                            {{event_form.event_location}}
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="eventName">Length of Reporting Cycle<span>*</span></label>
-                                            {{event_form.length_of_reporting_cycle}}
-                                        </div>
+                                        
                                     
                                     <br>
                                 </div>     
