@@ -47,6 +47,6 @@ urlpatterns = [
     #path('auditor/view-all-requests/', views.auditor.view_all_requests, name='view_all_requests'),
 
     path('auditor/', views.auditor.home, name='home'),
-    path('administrator/', administrator.view_all_profiles, name='view_all_profiles'),
+    #path('administrator/', administrator.view_all_profiles, name='view_all_profiles'),
     
 ]

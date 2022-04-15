@@ -15,6 +15,7 @@ FORM_CONTROL_DATE = {'class':'form-control', 'type':'Date'}
 UNEDTIABLE = {**FORM_CONTROL, **{'readonly': 'readonly'}}
 UNEDTIABLE_DATE = {**FORM_CONTROL, **{'readonly': 'readonly'}}
 
+# TODO: If possible we need to combine these forms
 # Used for only Maintainers creating an account
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -94,6 +95,7 @@ class HardDriveForm(forms.ModelForm):
         return status
 
     def make_all_readonly(self):
+        # TODO: This functions is duplicated, find way to only do it once. 
         for field_name in self.fields:
             self.fields[field_name].widget.attrs = UNEDTIABLE
 

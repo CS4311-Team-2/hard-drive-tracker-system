@@ -67,6 +67,7 @@ def view_all_requests(http_request):
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
+@PendingDeprecationWarning
 def view_all_harddrives(request):
     hard_drives = HardDrive.objects.all()
     
@@ -78,7 +79,12 @@ def view_all_harddrives(request):
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
+@PendingDeprecationWarning
 def view_all_profiles(request):
+    '''
+    DeprecationWarning
+    Please use views.view_profiles
+    '''
     userProfiles = UserProfile.objects.all()
 
     profileFilter = UserProfilesFilter(request.GET, queryset=userProfiles)
