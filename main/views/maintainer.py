@@ -15,6 +15,7 @@ from main.models.configurations.hard_drive_manufacturers import HardDriveManufac
 from main.filters import HardDriveFilter, RequestFilter, EventFilter, LogFilter
 from users.models import UserProfile 
 from main.filters import UserProfilesFilter
+from main.views.util import is_in_groups
 
 VIEW_HARD_DRIVE = "view_hard_drive"
 
@@ -37,12 +38,10 @@ def home(request):
     return render(request, 'maintainer/home.html', context)
 
 @login_required(login_url='main:login')
-@group_required('Maintainer')
 def view_request(request):
     return render(request, 'maintainer/view_request.html')
 
 @login_required(login_url='main:login')
-@group_required('Maintainer')
 def view_all_requests(http_request):
     data = {}
     requests = Request.objects.all()
@@ -62,11 +61,11 @@ def view_all_requests(http_request):
             event = events[0]
         data[r] = event
 
-    context = {'data': data, 'requests' : requests, 'request_filter': request_filter, 'event_filter': event_filter}
+    context = {'data': data, 'requests' : requests, 
+                'request_filter': request_filter, 'event_filter': event_filter}
     return render(http_request, 'maintainer/view_all_requests.html', context)
 
 @login_required(login_url='main:login')
-@group_required('Maintainer')
 def view_all_harddrives(request):
     hard_drives = HardDrive.objects.all()
     
@@ -78,7 +77,12 @@ def view_all_harddrives(request):
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
+@PendingDeprecationWarning
 def view_all_profiles(request):
+    '''
+    DeprecationWarning
+    Please use views.view_all_profiles
+    '''
     userProfiles = UserProfile.objects.all()
 
     profileFilter = UserProfilesFilter(request.GET, queryset=userProfiles)
@@ -88,12 +92,11 @@ def view_all_profiles(request):
     return render(request, 'maintainer/view_all_profiles.html', context)
 
 @login_required(login_url='main:login')
-@group_required('Maintainer')
 def view_user_profile(request, id):
     userProfile = UserProfile.objects.get(pk = id)
     form = UserForm(instance=userProfile)
 
-    if request.method == 'POST':
+    if request.method == 'POST' and is_in_groups(request,"Administrator"):
         form = UserForm(request.POST, instance=userProfile)
         if form.is_valid():
             form.save()
@@ -105,12 +108,15 @@ def view_user_profile(request, id):
     context = {
         "userProfile" : userProfile,
         "form" : form,
+        "auditor_view":False
         }
-        
+    
+    if is_in_groups(request,"Auditor"):
+        context['form'].make_all_readonly()
+        context['auditor_view'] = True
     return render(request, 'maintainer/view_user_profile.html', context)
 
 @login_required(login_url='main:login')
-@group_required('Maintainer')
 def create_user_profile(request):
     form = CreateUserForm()
     if(request.method == 'POST'):
@@ -188,8 +194,9 @@ def configuration(request):
     return render(request, 'maintainer/configuration.html', context)
 
 @login_required(login_url='main:login')
-@group_required('Maintainer')
 def view_log(request):
+    if not is_in_groups(request,"Auditor", "Maintainer"):
+        return redirect("main:index")
     logs = Log.objects.all()
 
     log_filter = LogFilter(request.GET, queryset=logs)

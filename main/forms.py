@@ -15,6 +15,7 @@ FORM_CONTROL_DATE = {'class':'form-control', 'type':'Date'}
 UNEDTIABLE = {**FORM_CONTROL, **{'readonly': 'readonly'}}
 UNEDTIABLE_DATE = {**FORM_CONTROL, **{'readonly': 'readonly'}}
 
+# TODO: If possible we need to combine these forms
 # Used for only Maintainers creating an account
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -36,6 +37,10 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields =['first_name','last_name','email','username','groups', 'status', 'last_modified_date','direct_supervisor_email', 'branch_chief_email']
+        
+    def make_all_readonly(self):
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs = UNEDTIABLE
 
 class HardDriveForm(forms.ModelForm):
         # This does not refer to the acutal modifier field, used to dipslay the field in the template. 
@@ -94,6 +99,7 @@ class HardDriveForm(forms.ModelForm):
         return status
 
     def make_all_readonly(self):
+        # TODO: This functions is duplicated, find way to only do it once. 
         for field_name in self.fields:
             self.fields[field_name].widget.attrs = UNEDTIABLE
 

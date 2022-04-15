@@ -50,6 +50,7 @@ class Command(BaseCommand):
                                  email='maintainer@army.mil')
             user.set_password(PASSWORD)
             user.status = UserProfile.Status.ACTIVE
+            user.mock_group_is = UserProfile.MockGroupIs.MAINTAINER
        
             maintainer_gp.user_set.add(user)
             user.save()

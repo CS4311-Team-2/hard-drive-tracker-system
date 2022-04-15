@@ -14,6 +14,9 @@ from django.contrib.auth.models import Group
 from django.http import Http404
 
 from users.models import UserProfile
+from main.filters import UserProfilesFilter
+
+from main.views.util import is_in_groups
 
 MAINTAINER = "Maintainer"
 
@@ -39,9 +42,6 @@ def index(request):
 
     return redirect("main:index")
 
-    
-
-
 @login_required(login_url='main:login')
 def view_request(request):
     if is_maintainer(request) | request.user.is_staff:
@@ -52,6 +52,9 @@ def view_request(request):
 @login_required(login_url='main:login')
 def view_all_requests(request):
     if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+        return maintainer.view_all_requests(request)
+    
+    if is_in_groups(request, "Auditor"):
         return maintainer.view_all_requests(request)
     
     return redirect('main:index')
@@ -140,6 +143,7 @@ def add_hard_drive(request):
 
 @login_required(login_url='main:login')
 def view_hard_drive(request, id):
+    #TODO: Clean up this code to utilze is_in_groups
     if request.user.is_staff | is_maintainer(request):
         print("MADE IT HERE AS A MAINTAINER")
         return maintainer.view_hard_drive(request, id)
@@ -147,62 +151,53 @@ def view_hard_drive(request, id):
     if (request.user.groups.filter(name='Requestor').exists() | request.user.is_staff | is_maintainer_requestor(request)):
         print("MADE IT HERE AS A REQUESTOR")
         return requestor.view_hard_drive(request, id)
+    
+    if is_in_groups(request,"Auditor"):
+        # using requestor as auditor cannot edit only view
+        return requestor.view_hard_drive(request,id)
 
     return redirect('main:index')
 
 @login_required(login_url='main:login')
 def view_all_harddrives(request):
+    print("Before If Statements")
     if request.user.is_staff | is_maintainer(request):
         print("MADE IT HERE AS A MAINTAINER")
+        return maintainer.view_all_harddrives(request)
+    
+    if is_in_groups(request,"Auditor"):
         return maintainer.view_all_harddrives(request)
 
     if (request.user.groups.filter(name='Requestor').exists() | request.user.is_staff | is_maintainer_requestor(request)):
         print("MADE IT HERE AS A REQUESTOR")
         return requestor.view_all_hard_drive(request)
-
+    print("After If Statements")
     return redirect('main:index')
 
-
 def configuration(request):
-    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+    if is_in_groups(request,'Maintainer'):
         return maintainer.configuration(request)
         
     return redirect('main:index')
-
-def is_maintainer(request):
-    print(request.user.username)
-    user = UserProfile.objects.get(username=request.user.username)
-    print(user.groups.filter(name='Maintainer').exists())
-    print(user.mock_group_is == UserProfile.MockGroupIs.MAINTAINER)
-    return (user.mock_group_is == UserProfile.MockGroupIs.MAINTAINER) and (user.groups.filter(name='Maintainer').exists())
-
-def is_maintainer_requestor(request):
-    user = UserProfile.objects.get(username=request.user.username)
-    print(user.groups.filter(name='Maintainer').exists())
-    print(user.mock_group_is == UserProfile.MockGroupIs.REQUESTOR)
-    return (user.mock_group_is == UserProfile.MockGroupIs.REQUESTOR) and (user.groups.filter(name='Maintainer').exists())
     
 @login_required(login_url='main:login')
 def view_all_profiles(request):
-    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
-        return maintainer.view_all_profiles(request)
-        
-    return redirect('main:index')
-
-# @login_required(login_url='main:login')
-# def view_user_profile(request, id):
-#     if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
-#         return maintainer.view_user_profile(request, id)
-        
+    '''Used by Auditor and Administrator'''
+    if not is_in_groups(request, "Auditor", "Administrator"):
+        return redirect('main:index')
     
-#     return redirect('main:index')
+    user_profiles = UserProfile.objects.all()
+    profile_filter = UserProfilesFilter(request.GET, queryset=user_profiles)
+    user_profiles = profile_filter.qs
+
+    context = {"userProfiles" : user_profiles, "profileFilter" : profile_filter}
+    return render(request, 'maintainer/view_all_profiles.html', context)
 
 @login_required(login_url='main:login')
 def create_user_profile(request):
-    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+    if is_in_groups(request, "Administrator"):
         return maintainer.create_user_profile(request)
-        
-    
+
     return redirect('main:index')
 
 @login_required(login_url='main:login')
@@ -218,3 +213,18 @@ def view_profile(request):
     form.make_all_readonly()
 
     return render(request, "maintainer/view_profile.html", {"form":form})
+
+# Util functions, only used to mock a maintainer. 
+def is_maintainer(request):
+    print(request.user.username)
+    user = UserProfile.objects.get(username=request.user.username)
+    print(user.groups.filter(name='Maintainer').exists())
+    print(user.mock_group_is == UserProfile.MockGroupIs.MAINTAINER)
+    return (user.mock_group_is == UserProfile.MockGroupIs.MAINTAINER) and (user.groups.filter(name='Maintainer').exists())
+
+def is_maintainer_requestor(request):
+    user = UserProfile.objects.get(username=request.user.username)
+    print(user.groups.filter(name='Maintainer').exists())
+    print(user.mock_group_is == UserProfile.MockGroupIs.REQUESTOR)
+    return (user.mock_group_is == UserProfile.MockGroupIs.REQUESTOR) and (user.groups.filter(name='Maintainer').exists())
+
