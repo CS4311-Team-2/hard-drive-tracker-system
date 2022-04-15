@@ -152,6 +152,7 @@ def view_hard_drive(request, id):
 
 @login_required(login_url='main:login')
 def view_all_harddrives(request):
+    print("Before If Statements")
     if request.user.is_staff | is_maintainer(request):
         print("MADE IT HERE AS A MAINTAINER")
         return maintainer.view_all_harddrives(request)
@@ -159,7 +160,7 @@ def view_all_harddrives(request):
     if (request.user.groups.filter(name='Requestor').exists() | request.user.is_staff | is_maintainer_requestor(request)):
         print("MADE IT HERE AS A REQUESTOR")
         return requestor.view_all_hard_drive(request)
-
+    print("After If Statements")
     return redirect('main:index')
 
 
