@@ -41,6 +41,9 @@ urlpatterns = [
     path('hard_drive_connection_port/', htmx.hard_drive_connection_port, name="hard_drive_connection_port"),
     path('delete-hard-drive-connection-port/<int:pk>/', htmx.delete_hard_drive_connection_port, name="delete-hard-drive-connection-port"),
 
+    path('hard_drive_size/', htmx.hard_drive_size, name="hard_drive_size"),
+    path('delete-hard-drive-size/<int:pk>/', htmx.delete_hard_drive_size, name="delete-hard-drive-size"),
+
     #TODO: We can prolly just reuse the maintainer homepage
     path('auditor/', views.auditor.home, name='home'),    
 ]
