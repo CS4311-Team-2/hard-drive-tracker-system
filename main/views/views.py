@@ -2,7 +2,7 @@
 from django.shortcuts import redirect, render
 
 from main.views import maintainer, requestor
-from ..forms import CreateUserForm, LoginUserForm
+from ..forms import CreateUserForm, CreateUserFormUser, LoginUserForm, UserForm
 from django.http import Http404
 
 from django.contrib.auth import authenticate, login, logout
@@ -57,9 +57,9 @@ def make_request(request):
     return redirect('main:index')
 
 def registerPage(request):
-    form = CreateUserForm()
+    form = CreateUserFormUser()
     if request.method == 'POST':
-        form = CreateUserForm(request.POST)
+        form = CreateUserFormUser(request.POST)
         if form.is_valid():
             form.save()
             user = form.cleaned_data.get('username')
@@ -181,13 +181,13 @@ def view_all_profiles(request):
         
     return redirect('main:index')
 
-@login_required(login_url='main:login')
-def view_user_profile(request, id):
-    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
-        return maintainer.view_user_profile(request, id)
+# @login_required(login_url='main:login')
+# def view_user_profile(request, id):
+#     if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+#         return maintainer.view_user_profile(request, id)
         
     
-    return redirect('main:index')
+#     return redirect('main:index')
 
 @login_required(login_url='main:login')
 def create_user_profile(request):
@@ -196,3 +196,11 @@ def create_user_profile(request):
         
     
     return redirect('main:index')
+
+@login_required(login_url='main:login')
+def view_profile(request):
+    user = UserProfile.objects.get(username=request.user.username)
+    form = CreateUserForm(instance=user)
+    form.make_all_readonly()
+
+    return render(request, "maintainer/view_profile.html", {"form":form})

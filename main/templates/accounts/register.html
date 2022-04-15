@@ -75,6 +75,14 @@
                                     <form method="POST" action="">
                                         {% csrf_token %}
                                         <div class="form-group">
+                                            <label for="username">First Name<span>*</span></label><br/>
+                                            {{form.first_name}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="username">Last Name<span>*</span></label><br/>
+                                            {{form.last_name}}
+                                        </div>
+                                        <div class="form-group">
                                             <label for="username">Username<span>*</span></label><br/>
                                             {{form.username}}
                                         </div>
