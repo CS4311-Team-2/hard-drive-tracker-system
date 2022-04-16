@@ -8,6 +8,7 @@ from main.models.hard_drive import HardDrive
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
+from main.models.configurations.hard_drive_size import HardDriveSize
 from users.models import UserProfile
 import pandas as pd
 
@@ -159,5 +160,9 @@ class Command(BaseCommand):
         HardDriveType.objects.create(name="HDD")
         HardDriveType.objects.create(name="NVMe")
 
+        HardDriveSize.objects.create(name="250 gbs")
+        HardDriveSize.objects.create(name="500 gbs")
+        HardDriveSize.objects.create(name="1 tb")
+        
         print('Succesfully added dummy data')
         

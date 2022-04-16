@@ -4,6 +4,7 @@ from main.models.hard_drive import HardDrive
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
 from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
+from main.models.configurations.hard_drive_size import HardDriveSize
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 from main.models.request import Request
@@ -56,6 +57,10 @@ class HardDriveForm(forms.ModelForm):
         self.fields['connection_port'] = forms.ChoiceField( 
             choices=[ (o.name, str(o.name)) for o in HardDriveConnectionPorts.objects.all()])
         self.fields['connection_port'].widget.attrs = FORM_CONTROL
+        self.fields['hard_drive_size'] = forms.ChoiceField( 
+            choices=[ (o.name, str(o.name)) for o in HardDriveSize.objects.all()])
+        self.fields['hard_drive_size'].widget.attrs = FORM_CONTROL
+        self.fields['modifier'].required = False
     class Meta:
         model = HardDrive
         fields = ['create_date', 'serial_number','manufacturer', 'model_number', 'modified_date',  
@@ -87,8 +92,11 @@ class HardDriveForm(forms.ModelForm):
         }
     def clean_image_version_id(self):
         image_version_id = self.cleaned_data.get("image_version_id")
-        if int(image_version_id) > 10000:
-            raise forms.ValidationError("This value is to big")
+        try: 
+            if int(image_version_id) > 10000:
+                raise forms.ValidationError("This value is to big")
+        except ValueError:
+            raise forms.ValidationError("Needs to be a number")
         return image_version_id
 
     def clean_status(self):
@@ -148,6 +156,15 @@ class HardDriveManufacturersForm(forms.ModelForm):
 class HardDriveConnectionPortsForm(forms.ModelForm):
     class Meta:
         model = HardDriveConnectionPorts
+        fields =['name']
+
+        widgets = {
+            'name' : forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class HardDriveSizeForm(forms.ModelForm):
+    class Meta:
+        model = HardDriveSize
         fields =['name']
 
         widgets = {
