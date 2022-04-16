@@ -92,8 +92,11 @@ class HardDriveForm(forms.ModelForm):
         }
     def clean_image_version_id(self):
         image_version_id = self.cleaned_data.get("image_version_id")
-        if int(image_version_id) > 10000:
-            raise forms.ValidationError("This value is to big")
+        try: 
+            if int(image_version_id) > 10000:
+                raise forms.ValidationError("This value is to big")
+        except ValueError:
+            raise forms.ValidationError("Needs to be a number")
         return image_version_id
 
     def clean_status(self):
