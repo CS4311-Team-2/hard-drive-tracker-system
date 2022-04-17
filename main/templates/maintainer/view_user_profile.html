@@ -1,0 +1,91 @@
+{% extends "main/base.html" %}  
+
+{%load bootstrap%}
+{% block content %}
+
+<form action="{% url 'main:view_user_profile' userProfile.id %}" method="POST" id="user-form">
+    {% csrf_token %} 
+
+<h3>Detailed View of a Selected User Profile</h3>
+<div class="container-fluid" style="border:1px solid #cecece;">
+    <div class="row">                               
+        <div class="col">
+                <div class="col">   
+                    <br> 
+                    <div class="container-fluid" style="border:1px solid #cecece;">
+                        <div class="row">    
+                            <div class="col">
+                                <br>
+                                <div class = "col">
+
+                                    <!-- USER PROFILE ATTRIBUTES -->
+                                        
+                                        <div class="form-group">
+                                            
+                                            {{form.first_name | bootstrap}}
+                                        </div>
+                                        <div class="form-group">
+                                            {{form.username | bootstrap}}
+                                        </div>
+                                        <div class="form-group">
+                                            {{form.status | bootstrap}}
+                                        </div>
+                                        <div class="form-group">
+                                            {{form.groups | bootstrap}}
+                                        </div>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <br>
+                                <div class="form-group">
+                                    {{form.last_name | bootstrap}}
+                                </div>
+                                <div class="form-group">
+                                    {{form.email | bootstrap}}                                        
+                                </div>
+                                 <div class="form-group">
+                                    {{form.direct_supervisor_email | bootstrap}}
+                                </div>
+                                <div class="form-group">
+                                    {{form.branch_chief_email | bootstrap}}
+                                </div>
+                                <div class="form-group">
+                                    {{form.last_modified_date | bootstrap}}
+                                </div>
+                                
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Save and Cancel Buttons -->
+            <div class="btn-block">
+                <div class="row">
+                    <div class="col-11">
+                        <br>
+                        <button class="btn btn-primary" onclick="location.href={% url 'main:view_all_profiles' %}">Cancel</button>
+                        <br>
+                        <br>                       
+                    </div>
+                    {% if not auditor_view %}
+                    <div class="col">
+                        <br>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <br>
+                        <br>                       
+                        
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+        
+
+</form>    
+
+
+{% endblock %}

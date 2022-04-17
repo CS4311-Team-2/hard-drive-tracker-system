@@ -1,0 +1,21 @@
+<div id="hard-drive-size">
+
+    {% for hard_drive_size in hard_drive_sizes %}
+        
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{hard_drive_size.name}}
+
+            <span
+                class = "badge badge-danger badge-pill"
+                style="cursor: pointer;"
+                hx-delete="{% url 'main:delete-hard-drive-size' hard_drive_size.pk %}"
+                hx-target="#hard-drive-size"
+                hx-confirm="Are you sure you want to delete this size?"
+                >
+                X
+            </span>
+        </li>
+        
+    {% endfor %}
+
+</div>

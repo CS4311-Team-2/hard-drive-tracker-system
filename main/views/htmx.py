@@ -1,11 +1,12 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
-from main.forms import HardDriveTypeForm, HardDriveManufacturersForm, HardDriveConnectionPortsForm
+from main.forms import HardDriveTypeForm, HardDriveManufacturersForm, HardDriveConnectionPortsForm, HardDriveSizeForm
 from main.views.decorators import group_required
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
 from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
+from main.models.configurations.hard_drive_size import HardDriveSize
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
@@ -69,5 +70,27 @@ def delete_hard_drive_connection_port(request, pk):
         "hard_drive_connection_ports" : hard_drive_connection_port,
     }
     return render(request, 'components/hard_drive_connection_port.html', context)
+
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def hard_drive_size(request):
+    print("----------\nHard Drive Size\n-------")
+    form =  HardDriveSizeForm(request.POST)
+    if form.is_valid():
+        form.save()
+    hard_drive_size = HardDriveSize.objects.all()
+    context = {"hard_drive_size" : hard_drive_size,}
+    return render(request, 'components/hard_drive_size.html', context)
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def delete_hard_drive_size(request, pk):
+    HardDriveSize.objects.get(pk = pk).delete()
+    hard_drive_size = HardDriveSize.objects.all()
+    context = {
+        "hard_drive_size" : hard_drive_size,
+    }
+    return render(request, 'components/hard_drive_size.html', context)
 
 

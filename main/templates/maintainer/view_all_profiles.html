@@ -1,0 +1,90 @@
+{% extends "main/base.html" %}  
+
+{% load bootstrap %}
+
+{% block content %}
+<main class="content" style="margin-left:0%;margin-right:0%;">
+   <div class="row">
+      <div class="col-md-2">
+         <a class="btn btn-primary" 
+            href="{% url 'main:create_user_profile'%}">Add New User</a>
+         <br><br>
+      </div>
+      <div class="col">
+         <h3>Summary View of User Profiles</h3>
+         <br><br>
+      </div>
+   </div>
+  <div class="row">
+     <div class="col-md-2">
+        <!--FILTERING-->
+        <div class="row">
+           <div class="col">
+              <div class="container-fluid" style="border:1px solid #cecece;">
+                 <form method="get">
+                    <br>
+                     <h4> User Profile Attribute</h4>
+                        {{profileFilter.form.first_name | bootstrap}}
+                        {{profileFilter.form.last_name | bootstrap}}
+                        {{profileFilter.form.email | bootstrap}}
+                        {{profileFilter.form.username | bootstrap}}
+                        {{profileFilter.form.status | bootstrap}}
+                        {{profileFilter.form.groups | bootstrap}}
+                     <h4>Date</h4>
+                        {{profileFilter.form.last_modified_date | bootstrap}}
+                     <h4>Keyword</h4>
+                        {{profileFilter.form.keyword | bootstrap}}
+                     <button class="btn btn-primary" type="submit" style="width:100px;">Search</button>
+                     <br><br>
+                 </form>
+              </div>
+           </div>
+        </div>
+        <br>
+      </div>
+        <div class="col">
+            <div class="row">
+               <div class="tableFixHead">
+                  <!-- Table -->
+                  <div class="scroller">
+                     <table class="table table-hover">
+                        <thead>
+                           <tr>
+                              <th scope="col">View</th>
+                              <th scope="col">First Name</th>
+                              <th scope="col">Last Name</th>
+                              <th scope="col">User Role</th>
+                              <th scope="col">User Profile Status</th>
+                              <th scope="col">Last Modified Date</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           {% for profile in userProfiles %}
+                           <tr>
+                             
+                              <td><a class="btn" 
+                                 style="background-color:grey;color:white;" 
+                                 href="{% url 'main:view_user_profile' profile.id %}">View</a></td>
+                              <td>{{profile.first_name}}</td>
+                              <td>{{profile.last_name}}</td>
+                              <td>
+                                 {% for group in profile.groups.all %}
+                                 {{ group.name }}
+                                 {% endfor %}
+                                 </td>
+                              <td>{{profile.status}}</td>
+                              <td>{{profile.date_joined}}</td>
+                           </tr>
+                           {% empty %}
+                           <h3>No user profiles found.</h3>
+                           {% endfor %}
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+     </div>
+  </div>
+  </body>
+</main>
+{% endblock %}

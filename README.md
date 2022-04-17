@@ -24,7 +24,7 @@ git reset --hard head
 * Keep your branch updated, if you are working in your branch and notice that the main is getting ahead to add the main additions to your branch
 ```
 git fetch
-git merge origin/master
+git merge origin/main
 ```  
 
 ### After Work

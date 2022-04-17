@@ -1,111 +1,38 @@
 {% extends "main/base.html" %}  
 
+{% load bootstrap %}
+
 {% block content %}
 
 
 <div class="row">
-    <div class="col-2">
-        <!-- Start of Sidebar -->
-        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
-            <div class="position-sticky">
-            <div class="list-group list-group-flush mx-3 mt-4">
-                <h3>Search Content Area</h3>
-
-                <div class="request-attribute">
-                    <h4><strong>Request Attribute</strong></h4>
-                    <h5>Request Reference Number:</h5>
-                    <input type="text" class="form-control">
-                    <div class="dropdown show">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left:10%;">
-                            Request Status
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Created</a>
-                            <a class="dropdown-item" href="#">Forecasted</a>
-                            <a class="dropdown-item" href="#">Confirmed</a>
-                            <a class="dropdown-item" href="#">Approved</a>
-                            <a class="dropdown-item" href="#">Declined</a>
-                            <a class="dropdown-item" href="#">Delivered</a>
-                            <a class="dropdown-item" href="#">Fulfilled</a>
-                            <a class="dropdown-item" href="#">Partial-Returned</a>
-                            <a class="dropdown-item" href="#">Closed</a>
-                            <a class="dropdown-item" href="#">Canceled</a>
-                            <a class="dropdown-item" href="#">Archived</a>
-                            <a class="dropdown-item" href="#">Overdue</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hard-drive-attribute">
-                    <h4><strong>Hard Drive Attribute</strong></h4>
-                    <h5>Total No. of Drives:</h5>
-                    <input type="text" class="form-control">
-                    <!-- Radio -->
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                        <label class="form-check-label" for="inlineCheckbox1">Less than</label>
-                    </div>
-                        <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                        <label class="form-check-label" for="inlineCheckbox2">Equal</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-                        <label class="form-check-label" for="inlineCheckbox3">Greater than</label>
-                    </div>
-
-                </div>
-
-                <div class="event-attribute">
-                    <h4><strong>Event Attribute</strong></h4>
-                    <h5>Username:</h5>
-                    <input type="text" class="form-control">
-
-                    <div class="dropdown show">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left:10%;">
-                            Request Status
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Required</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="date-attribute">
-                    <h4><strong>Date Attribute</strong></h4>
-                    <div class="form-group">
-                        <label for="'startDate">Event Start Date<span>*</span></label>
-                        <input type="date" class="startDate" name="startDate"/>
-                        <i class="fas fa-calander-alt"></i>
-                    </div>
-                    <div class="form-group">
-                        <label for="'startDate">Event End Date<span>*</span></label>
-                        <input type="date" class="endDate" name="endDate"/>
-                        <i class="fas fa-calander-alt"></i>
-                    </div>
-                    <div class="form-group">
-                        <label for="'startDate">Request Date<span>*</span></label>
-                        <input type="date" class="endDate" name="endDate"/>
-                        <i class="fas fa-calander-alt"></i>
-                    </div>
-                    <div class="form-group">
-                        <label for="'startDate">Need Drive Due by Date<span>*</span></label>
-                        <input type="date" class="endDate" name="endDate"/>
-                        <i class="fas fa-calander-alt"></i>
-                    </div>
-                </div>
-                
-                <div class="keyword-attribute">
-                    <h4><strong>Keyword</strong></h4>
-                    <h5>Expression:</h5>
-                    <input type="text" class="form-control">
-                </div>
-
-                <button type="submit" class="btn btn-primary" style="margin-left:10%;">Search</button>
-            </div>
-        </nav>
-        <!-- End of Sidebar -->
-    </div>    
+    <div class="col-md-2">
+        <!--FILTERING-->
+        <div class="row">
+           <div class="col">
+              <div class="container-fluid" style="border:1px solid #cecece;">
+                 <form method="get">
+                    <br>
+                     <h4>Request Attribute</h4>
+                     {{request_filter.form.request_reference_no | bootstrap}}
+                     {{request_filter.form.request_status | bootstrap}}
+                     <h4>Event Attribute</h4>
+                     {{event_filter.form.event_name | bootstrap}}
+                     {{event_filter.form.event_type | bootstrap}}
+                     <h4>Date</h4>
+                     {{event_filter.form.event_start_date | bootstrap}}
+                     {{event_filter.form.event_end_date | bootstrap}}
+                     <h4>Keyword</h4>
+                     {{request_filter.form.request_keyword | bootstrap}}
+                     {{event_filter.form.event_keyword | bootstrap}}
+                     <button class="btn btn-primary" type="submit" style="width:100px;">Search</button>
+                     <br><br>
+                 </form>
+              </div>
+           </div>
+        </div>
+        <br>
+      </div>   
     <div class="col">
         <main class="content">
             <h3>Summary View of Requests</h3> 
