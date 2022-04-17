@@ -6,6 +6,7 @@ from main.models.configurations.hard_drive_manufacturers import HardDriveManufac
 from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
+from main.models.request import Request
 from users.models import UserProfile
 
 FORM_CONTROL = {'class':'form-control'}
@@ -123,4 +124,11 @@ class HardDriveConnectionPortsForm(forms.ModelForm):
             'name' : forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-
+class RequestForm(forms.ModelForm):
+    class Meta:
+        model = Request
+        fields =['request_reference_no', 'request_status', 'comment']
+        widgets = {
+            
+            'request_last_modifed_date': forms.SelectDateWidget()
+        }

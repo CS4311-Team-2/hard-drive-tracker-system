@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.forms.models import modelformset_factory
 
-from main.forms import EventForm, HardDriveRequestForm
+from main.forms import EventForm, HardDriveForm, HardDriveRequestForm, RequestForm
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
@@ -155,6 +155,50 @@ def make_request(http_request):
         )
 
 
-def edit_request(request):
-    return render(request, 'requestor/edit_request.html')
+def edit_request(http_request, key_id):
+    req = Request.objects.get(request_reference_no = key_id)
+    # used for event information
+    events = Event.objects.filter(request = req).first()
+    #used for assigned hard drive sections
+    hard_drives = HardDrive.objects.filter(request = req)
+    #used for the selecting hard drive section
+    all_hard_drives = HardDrive.objects.filter(request = None)
+    #used for requested hard drive
+    requested_hard_drives = HardDriveRequest.objects.filter(request = req)
+   
+    print(req)
+    if http_request.method == 'POST':
+        print("here1")
+        form = EventForm(http_request.POST, instance=events)
+        if form.is_valid():
+            print("p")
+            events = form.save()
+            events.save()
+        else:
+            print(form.errors)
+
+        reqform = RequestForm(http_request.POST, instance=req)
+        if reqform.is_valid():
+            print("o")
+            req = reqform.save()
+            req.save()
+        else:
+            print(reqform.errors)
+
+        harddrivereqform = HardDriveRequestForm(http_request.POST, instance=requested_hard_drives.first())
+        if harddrivereqform.is_valid():
+            print("l")
+            harddrivereq = harddrivereqform.save()
+            harddrivereq.save()
+        else:
+            print(harddrivereqform.errors)
+
+     
+    else:
+        form = EventForm(instance=events)
+        reqform = RequestForm(instance=req)
+        harddrivereqform = HardDriveRequestForm(instance=requested_hard_drives.first())
+    print(req)
+    context = {'req' :req, 'hard_drives' :hard_drives, 'all_hard_drives' : all_hard_drives, 'requested_hard_drives' : requested_hard_drives, 'form' : form,  'reqform' : reqform, 'harddrivereqform' : harddrivereqform }
+    return render(http_request, 'requestor/new_edit_request.html', context)
 

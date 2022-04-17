@@ -91,20 +91,20 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="eventName">Event Name</label>
-                                                                    <input type="text" class ="form-control" id="name" value={{event.title}} />
+                                                                    <input type="text" class ="form-control" id="name" value="{{event.event_name}}" />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="eventDescription">Event Description</label>
-                                                                    <textarea id="eventDescription" class="form-control" rows="3" value={{event.title}}></textarea>
+                                                                    <textarea id="eventDescription" class="form-control" rows="3" >{{ event.event_description }}</textarea>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="location">Event Location</label>
-                                                                    <input type="text" class ="form-control" id="location" value={{event.title}} />
+                                                                    <input type="text" class ="form-control" id="location" value="{{event.event_location}}" />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="eventType">Event Type</label>
                                                                     <select>
-                                                                    <option value=""disabled selected>Select Event Type</option>
+                                                                    <option value=>{{event.event_type}}</option>
                                                                     <option value="1" >PMR</option>
                                                                     <option value="2" >CVPA</option>
                                                                     <option value="3" >CVI</option>
@@ -116,12 +116,12 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="eventName">Length of Reporting Cycle</label>
-                                                                    <input type="text" class ="form-control" id="lengthOfCycle" value={{event.title}} />
+                                                                    <input type="text" class ="form-control" id="lengthOfCycle" value={{event.length_of_reporting_cycle}} />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="eventStatus">Event Status</label>
                                                                     <select>
-                                                                    <option value=""disabled selected>Select Event Status</option>
+                                                                    <option value=>{{event.event_status}}</option>
                                                                     <option value="1" >Confirmed</option>
                                                                     <option value="2" >Forecasted</option>
                                                                     <option value="3" >Canceled</option>
@@ -139,12 +139,12 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="startDate">Event Start Date</label>
-                                                                    <input type="date" class="form-control" id="startDate"/>
+                                                                    <input type="date" class="form-control" id="startDate" value={{event.event_start_date}}/>
                                                                     <i class="fas fa-calandar-alt"></i>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="endDate">Event End Date</label>
-                                                                    <input type="date" class="form-control" id="endDate"/>
+                                                                    <input type="date" class="form-control" id="endDate" value={{event.event_end_date}}/>
                                                                     <i class="fas fa-calandar-alt"></i>
                                                                 </div>
                                                             </div>
@@ -192,7 +192,7 @@
                                                     <form>
                                                         <div class="form-group">
                                                             <label for="quantity">Quantity</label>
-                                                            <input type="text" class ="form-control" id="quantity" value={{event.title}} />
+                                                            <input type="text" class ="form-control" id="quantity" value="{{drive.amount_required}}">
                                                         </div>
                                                     </form>
                                                     <br>

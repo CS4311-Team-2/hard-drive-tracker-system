@@ -57,9 +57,9 @@ def make_request(request):
 
 
 @login_required(login_url='main:login')
-def edit_request(request):
+def edit_request(request, key_id):
     if request.user.groups.filter(name='Requestor').exists() | request.user.is_staff:
-        return requestor.edit_request(request)
+        return requestor.edit_request(request, key_id)
 
     return redirect('main:index')
 

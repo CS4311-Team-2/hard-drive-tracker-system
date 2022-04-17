@@ -1,0 +1,160 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<h2>Modify Request</h2>
+<!-- <div class="container-fluid" style="border:1px solid #cecece;"> -->
+<form method="POST" , action="">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col">
+            <br>
+            <div class="form-group">
+                <h3>Request Details</h3>
+            </div>
+            <h3> </h3>
+            <div class="form-group">
+                <label>Request Reference Number: </label>
+                {{req.request_reference_no}}
+            </div>
+            <h3> </h3>
+
+            <h3> </h3>
+            <div class="dropdown">
+                <label for="type">Request Status</label>
+                {{reqform.request_status}}
+            </div>
+
+            <h2> </h2>
+            <div class="form-group">
+                <label for="type">Request Creation Date: </label>
+                {{req.request_creation_date}}
+            </div>
+
+            <h3> </h3>
+            <div class="form-group">
+                <label>Comments</label>
+                <h1></h1>
+                {{reqform.comment}}
+            </div>
+            <div class="form-group">
+                <label>Requested By: </label>
+
+                {{req.user}}
+            </div>
+            <br>
+            <h1></h1>
+            <div class="form-group">
+                <h3>Hard Drive Request</h3>
+                <div class="dropdown">
+                    <label for="classifixcation">Classification</label>
+                    {{harddrivereqform.classification}}
+                </div>
+                <h3> </h3>
+                <div class="form-group">
+                    <label>Ammount Required</label>
+                    {{harddrivereqform.amount_required}}
+                </div>
+                <h3> </h3>
+                <div class="form-group">
+                    <label>Connection Port</label>
+                    {{harddrivereqform.connection_port}}
+                </div>
+                <h3> </h3>
+                <div class="dropdown">
+                    <label>Hard Drive Type</label>
+                    {{harddrivereqform.hard_drive_type}}
+                </div>
+                <h3> </h3>
+                <div class="form-group">
+                    <label>Hard Drive Size</label>
+                    {{harddrivereqform.hard_drive_size}}
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <div class="col">
+            <br>
+            <div class="form-group">
+                <h3>Event Attributes</h3>
+            </div>
+            <h3> </h3>
+            <div class="form-group">
+                <label>Event Name</label>
+                {{form.event_name}}
+            </div>
+            <h3> </h3>
+
+            <h3> </h3>
+            <div class="form-group">
+                <label>Event Description</label>
+                <h1></h1>
+
+                {{form.event_description}}
+            </div>
+            <h3> </h3>
+            <div class="form-group">
+                <label>Event Location</label>
+                {{form.event_location}}
+            </div>
+            <h3> </h3>
+            <div class="dropdown">
+                <label for="type">Event Type</label>
+                {{form.event_type}}
+            </div>
+            <h3> </h3>
+            <div class="dropdown">
+                <label for="type">Event Status</label>
+                {{form.event_status}}
+            </div>
+            <h3> </h3>
+            <div class="form-group">
+                <label>Event Start Date</label>
+                {{form.event_start_date}}
+            </div>
+            <h3> </h3>
+            <div class="form-group">
+                <label>Event End Date</label>
+                {{form.event_end_date}}
+            </div>
+            <br>
+        </div>
+    </div>
+
+    <div class="assignment-table">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Hard Drive Classification*</th>
+                    <th scope="col">Amount Required*</th>
+                    <th scope="col">Connection Port Type</th>
+                    <th scope="col">Hard Drive Size</th>
+                    <th scope="col">Hard Drive Type*</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for drive in requested_hard_drives %}
+                <tr>
+                    <td>{{ drive.request.request_reference_no }}</td>
+                    <td>{{ drive.amount_required }}</td>
+                    <td>{{ drive.connection_port }}</td>
+                    <td>{{ drive.hard_drive_size }}</td>
+                    <td>{{ drive.hard_drive_type }}</td>
+                </tr>
+                {% empty %}
+                <h3>No hard drives found</h3>
+                {% endfor %}
+            </tbody>
+        </table>
+        <input type="submit" class="btn btn-primary">
+        <a class="btn" style="background-color:#4678B2;color:white;"
+            href="{% url 'main:view_all_harddrives' %}">Close</a>
+    </div>
+</form>
+{% endblock %}
