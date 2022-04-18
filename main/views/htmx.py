@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
-from main.forms import HardDriveTypeForm, HardDriveManufacturersForm, HardDriveConnectionPortsForm, HardDriveSizeForm
+from main.forms import HardDriveTypeForm, HardDriveManufacturersForm, HardDriveConnectionPortsForm, HardDriveSizeForm, EventForm, RequestForm
 from main.views.decorators import group_required
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
@@ -9,6 +9,9 @@ from main.models.configurations.hard_drive_connection_ports import HardDriveConn
 from main.models.configurations.hard_drive_size import HardDriveSize
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
+from main.models.event import Event
+from main.models.hard_drive_request import HardDriveRequest
+from main.views.maintainer import get_request_form
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
@@ -114,3 +117,37 @@ def assign_hard_drive(http_request):
         "hard_drives" : assigned_hard_drives,
     }
     return render(http_request, 'components/assigned_hard_drives.html', context)
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def approve_request(http_request):
+    req = Request.objects.get(pk = http_request.POST['request_id'])
+    req.request_status = Request.Request_Status.APPROVED
+    req.save()
+
+    # used for event information
+    event = Event.objects.filter(request = req).first()
+    event_form = EventForm(instance=event)
+    event_form.make_all_readonly()
+    
+    #used for assigned hard drive sections
+    hard_drives = HardDrive.objects.filter(request = req)
+    print(hard_drives)
+    
+    #used for the selecting hard drive section
+    all_hard_drives = HardDrive.objects.filter(request = None)
+    
+    #used for requested hard drive
+    requested_hard_drives = HardDriveRequest.objects.filter(request = req)
+    request_form = RequestForm(instance=req)
+    request_form = get_request_form(req)
+    request_form.make_all_readonly()
+
+    context = {
+        'req' : req, 
+        'request_form': request_form, 
+        'event' :event_form, 
+        'hard_drives' :hard_drives, 
+        'all_hard_drives' : all_hard_drives, 
+        'requested_hard_drives' : requested_hard_drives }
+    return render(http_request, 'components/request.html', context)

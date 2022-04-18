@@ -1,0 +1,321 @@
+<form hx-target="this" hx-swap="outerHTML">
+    <input 
+        type="hidden" 
+        id="request_id" 
+        name="request_id" 
+        value="{{ req.request_reference_no }}"
+    >
+    <div class="row">                               
+        <div class="col">
+            <!-- Event Information Content Area -->
+            <div class="row">                               
+                <div class="col-0">
+                    <br>
+                    <h4>Event Information</h4>
+                </div>
+                <div class="col">
+                    <br> 
+                    <div class="container-fluid" style="border:1px solid #cecece;">
+                        <div class="row">    
+                            <div class="col">
+                                <br>
+                                    <!-- Event Attributes Content Area -->
+                                    <div class="row" style="">   
+                                        <div class="col-0">
+                                            <div class="form-group">
+                                                <label for="eventName">Event Name</label>
+                                                {{event.event_name}}
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="eventDescription">Event Description</label>
+                                                {{event.event_description}}
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="eventLocation">Event Location</label>
+                                                {{event.event_location}}
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="eventType">Event Type</label>
+                                                {{event.event_type}}
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="lengthOfReportingCycle">Length of Reporting Cycle</label>
+                                                {{event.length_of_reporting_cycle}}
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="eventStatus">Event Status</label>
+                                                {{event.event_status}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                <br>
+                            </div>     
+    
+                            <div class="col">
+                                <br>
+                                <!-- Event Dates Content Area -->
+                                <h5>Event Dates</h5> 
+                                <div class="row" style="">   
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="startDate">Event Start Date</label>
+                                            {{event.event_start_date}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="endDate">Event End Date</label>
+                                            {{event.event_end_date}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Event Participants Content Area -->
+                                <h5>Event Participants</h5> 
+                                <div class="row" style="margin-left:1%;">   
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="teamLeadName">Event Team Lead Name</label>
+                                            {{ event.teamLeadName }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="analystNames">Event Team Analyst Names</label>
+                                            {{ event.analystNames }} 
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>       
+                        </div> 
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Hard Drive Information Content Area -->
+            <!-- Hard Drive Requests Content Area -->
+            <div class="row">                               
+                <div class="col-0">
+                    <br>
+                    <h4>Requested Hard Drive Types</h4>
+                </div>
+                <div class="col">   
+                    <br> 
+                    <div class="container-fluid" style="border:1px solid #cecece;">
+                        <div class="row">    
+                            <div class="col">
+                                <br>
+                                <div class="assignment-table">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Hard Drive Classification*</th>
+                                                <th scope="col">Amount Required*</th>
+                                                <th scope="col">Connection Port Type</th>
+                                                <th scope="col">Hard Drive Size</th>
+                                                <th scope="col">Hard Drive Type*</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for drive in requested_hard_drives %}
+                                                <tr>
+                                                    <td>{{ drive.request.request_reference_no }}</td>
+                                                    <td>{{ drive.amount_required }}</td>
+                                                    <td>{{ drive.connection_port }}</td>
+                                                    <td>{{ drive.hard_drive_size }}</td>
+                                                    <td>{{ drive.hard_drive_type }}</td>
+                                                </tr>
+                                            {% empty %}
+                                            <h3>No hard drives found</h3>
+                                            {% endfor %} 
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <br>
+                            </div>          
+                        </div> 
+                        <div class="row">                               
+                            <div class="col">   
+                                <form>
+                                    <div class="form-group">
+                                        <label for="comments">Comments</label>
+                                        <textarea class="form-control" id="comments" rows="3" readonly value="Description"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+    
+            {% if req.request_status == 'created' %}
+            <div class="row">                               
+                <div class="col-0">
+                    <button 
+                        class="btn btn-success"
+                        hx-post="{% url 'main:approve_request' %}"
+                        >
+                        Approve
+                    </button>
+                </div>
+            </div> 
+            {% endif %}      
+    
+            {% if req.request_status == 'approved' %}
+            <div class="row">                               
+                <div class="col-0">
+                    <br>
+                    <h4>Assigned Hard Drives</h4>
+                </div>
+                <div class="col">   
+                    <br> 
+                    <div class="container-fluid" style="border:1px solid #cecece;">
+                        {% include 'components/assigned_hard_drives.html' %}
+    
+                    </div>
+    
+                </div>
+            </div>
+    
+            <!-- Amendment Information Content Area -->
+    
+            <div class="row">                               
+                <div class="col-0">
+                    <br>
+                    <h4>Amendment Information</h4>
+                </div>
+                <div class="col">   
+                    <br> 
+                    <div class="container-fluid" style="border:1px solid #cecece;">
+                        <div class="row">    
+                            <div class="col">
+                                <br>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="amendmentUser">User</label>
+                                        <input type="text" class="form-control" id="amendmentUser">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="amendmentSubmission">Amendment Submission Date</label>
+                                        <input type="date" class="form-control" id="startDate" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="amendmentDescription">Amendment Description</label>
+                                        <textarea class="form-control" id="amendmentDescription" rows="3" ></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" style="margin-left:0%;width:150px;">Submit Amendment</button>
+                                </form>
+                                <br>
+                            </div>     
+    
+                            <div class="col">
+                                <br>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="amendmentComment">Comment</label>
+                                        <textarea class="form-control" id="amendmentComment" rows="3" ></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="amendmentStatus">Amendment Status</label>
+                                        <select>
+                                            <option value=""disabled selected></option>
+                                            <option value="1" >Created</option>
+                                            <option value="2" >Approved</option>
+                                            <option value="2" >Denied</option>
+                                        </select>
+                                    </div>
+                                </form>
+                                <br>
+                            </div>       
+                        </div> 
+    
+                                <!-- Collapsible Amendment History Content Area -->
+                        <h5>Amendment History</h5> 
+                        <div class="row" style="margin-left:1%;">   
+                            <div class="col">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Timestamp</th>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">Action Performed</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for amendment in amendments %}
+                                            <tr>
+                                                    <td>{{ amendment.title }}</td>
+                                                    <td>{{ amendment.title }}</td>
+                                                    <td>{{ amendment.title }}</td>
+                                            </tr>
+                                        {% empty %}
+                                        <h3>No amendments found</h3>
+                                        {% endfor %} 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+            
+            <!-- Request Information Content Area -->
+    
+            <div class="row">                               
+                <div class="col-0">
+                    <br>
+                    <h4>Request Information</h4>
+                </div>
+                <div class="col">   
+                    <br> 
+                    <div class="container-fluid" style="border:1px solid #cecece;">
+                        <div class="row">    
+                            <div class="col">
+                                <br>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="amendmentUser">Request Reference No.</label>
+                                        {{request_form.request_reference_no}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="amendmentSubmission">Requestor</label>
+                                        {{request_form.requestor}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="amendmentUser">Request Creation Date</label>
+                                        {{request_form.request_creation_date}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="amendmentUser">Request Last Modified Date</label>
+                                        {{request_form.request_last_modified_date}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="amendmentUser">Request Updated By</label>
+                                        {{request_form.modifier}}
+                                    </div>
+                                </form>
+                                <br>
+                            </div>
+    
+                            <div class="col">
+                                <br>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="amendmentComment">Comment</label>
+                                        {{request_form.comment}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="endDate">Need Drives By Date</label>
+                                        {{request_form.need_drive_by_date}}
+                                    </div>
+                                    {{request_form.request_status}}
+                                </form>
+                                <br>
+                            </div>       
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            {% endif %}
+        </div>          
+    </div> 
+</form>
