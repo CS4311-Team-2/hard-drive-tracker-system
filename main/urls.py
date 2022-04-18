@@ -44,6 +44,10 @@ urlpatterns = [
     path('hard_drive_size/', htmx.hard_drive_size, name="hard_drive_size"),
     path('delete-hard-drive-size/<int:pk>/', htmx.delete_hard_drive_size, name="delete-hard-drive-size"),
 
+    path('assign_hard_drive/', htmx.assign_hard_drive, name="assign_hard_drive"),
+    path('approve_request/', htmx.approve_request, name="approve_request"),
+    path('fulfill_request/', htmx.fulfill_request, name="fulfill_request"),
+
     #TODO: We can prolly just reuse the maintainer homepage
     path('auditor/', views.auditor.home, name='home'),    
 ]

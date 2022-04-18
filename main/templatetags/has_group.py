@@ -6,7 +6,6 @@ register = template.Library()
 
 @register.filter(name='has_group') 
 def has_group(user, group_name):
-    print("Has=Group")
 
     if user.groups.filter(name="Maintainer").exists():
         # Need to manually check by role and mock_group

@@ -1,11 +1,11 @@
 id,create_date,serial_number,manufacturer,model_number,hard_drive_type,connection_port,hard_drive_size,classification,justification_for_classification_change,hard_drive_image,imange_version_id,boot_test_status,boot_test_expiration,status,justification_for_hard_drive_status_change,issue_date,expected_hard_drive_return_date,justification_for_hard_drive_return_date,actual_return_date,modified_date
-37,2022-02-18,123456,Dell,123456,SSD,SATA,8,classified,yes,Windows,1,pass,2022-02-18,delinquent,1645912697,2022-02-18,2022-02-18,1645912697,2022-02-18,2022-02-18
+37,2022-02-18,1234562,Dell,123456,SSD,SATA,8,classified,yes,Windows,1,pass,2022-02-18,delinquent,1645912697,2022-02-18,2022-02-18,1645912697,2022-02-18,2022-02-18
 38,2022-02-18,456789,HP,456789,HDD,SAN,8,classified,yes,MacOS,1,pass,2022-02-18,delinquent,1645912697,2022-02-18,2022-02-18,1645912697,2022-02-18,2022-02-18
-39,2022-02-18,789456,HP,789456,HDD,SAN,8,classified,yes,Linux,1,pass,2022-02-18,delinquent,1645912697,2022-02-18,2022-02-18,1645912697,2022-02-18,2022-02-18
-1,2022-02-18,123456,Dell,123456,SSD,SATA,8,classified,N/A,Windows,2341,pass,2022-02-18,Assigned,Hard Drives are given,2022-02-18,2022-02-18,The return date was assigned in the first place,2022-02-18,2022-02-18
-2,2022-02-18,456789,HP,456789,HDD,SAN,8,classified,N/A,MacOS,3453,pass,2022-02-18,Assigned,Hard Drives are given,2022-02-18,2022-02-18,The return date was assigned in the first place,2022-02-18,2022-02-18
+39,2022-02-18,7894561,HP,789456,HDD,SAN,8,classified,yes,Linux,1,pass,2022-02-18,delinquent,1645912697,2022-02-18,2022-02-18,1645912697,2022-02-18,2022-02-18
+1,2022-02-18,1234563,Dell,123456,SSD,SATA,8,classified,N/A,Windows,2341,pass,2022-02-18,Assigned,Hard Drives are given,2022-02-18,2022-02-18,The return date was assigned in the first place,2022-02-18,2022-02-18
+2,2022-02-18,4567892,HP,456789,HDD,SAN,8,classified,N/A,MacOS,3453,pass,2022-02-18,Assigned,Hard Drives are given,2022-02-18,2022-02-18,The return date was assigned in the first place,2022-02-18,2022-02-18
 3,2022-02-18,789456,HP,789456,HDD,SAN,8,classified,N/A,Linux,8674,pass,2022-02-18,Overdue,Hard Drives were not being returned,2022-02-18,2022-02-18,The return date was assigned in the first place,2022-02-18,2022-02-18
-4,2022-02-18,123456,Kingston Technology,9905469,SSD,USB,8,classified,N/A,Windows,4575,pass,2022-02-18,Assigned,Hard Drives are given,2022-02-18,2022-02-18,The return date was assigned in the first place,2022-02-18,2022-02-18
+4,2022-02-18,1234564,Kingston Technology,9905469,SSD,USB,8,classified,N/A,Windows,4575,pass,2022-02-18,Assigned,Hard Drives are given,2022-02-18,2022-02-18,The return date was assigned in the first place,2022-02-18,2022-02-18
 5,2022-02-18,9WM03PYK,Seagate,2000DL003,HDD,USB,8,classified,N/A,MacOS,2873,pass,2022-02-18,Assigned,Hard Drives are given,2022-02-18,2022-02-18,The return date was assigned in the first place,2022-02-18,2022-02-18
 6,2022-02-18,WCAWZ0064571,Western-Digital,WD10EAVS-00D7B1,HDD,SATA,8,classified,N/A,Linux,2337,pass,2022-02-18,Assigned,Hard Drives are given,2022-02-18,2022-02-18,The return date was assigned in the first place,2022-02-18,2022-02-18
 8,2022-02-18,1.00E+11,Sandisk,8459334,SSD,USB,8,classified,N/A,Windows,3445,pass,2022-02-18,Assigned,Hard Drives are given,2022-02-18,2022-02-18,The return date was assigned in the first place,2022-02-18,2022-02-18
