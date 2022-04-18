@@ -1,6 +1,4 @@
-from datetime import datetime
 from django.db import models
-from unixtimestampfield.fields import UnixTimeStampField
 
 from main.models.request import Request
 
@@ -32,6 +30,9 @@ class Event(models.Model):
     request = models.ForeignKey(Request, on_delete=models.CASCADE, blank=True, null=True, related_name="event")
     analystNames = models.CharField(max_length=255, blank=True)
     teamLeadName= models.CharField(max_length=100, blank=True)
+
+    def save(self, *args, **kwargs):
+        super(Event, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = "Event"

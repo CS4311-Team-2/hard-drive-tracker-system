@@ -3,8 +3,10 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
 from main.forms import CreateUserForm, HardDriveConnectionPortsForm, HardDriveTypeForm, HardDriveManufacturersForm, UserForm, HardDriveSizeForm
+from main.forms import EventForm, RequestForm
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
+from main.models.hard_drive_request import HardDriveRequest
 from main.models.request import Request
 from main.models.event import Event
 from main.models.log import Log
@@ -38,9 +40,62 @@ def home(request):
     }
     return render(request, 'maintainer/home.html', context)
 
+def view_request_created(http_request,req):
+    # TODO(Alex) Implement HMTX here, also if you can create the functionality to approve it.
+
+    # used for event information
+    event = Event.objects.filter(request = req).first()
+    event_form = EventForm(instance=event)
+    event_form.make_all_readonly()
+    
+    #used for assigned hard drive sections
+    hard_drives = HardDrive.objects.filter(request = req)
+    print(hard_drives)
+    
+    #used for the selecting hard drive section
+    all_hard_drives = HardDrive.objects.filter(request = None)
+    
+    #used for requested hard drive
+    requested_hard_drives = HardDriveRequest.objects.filter(request = req)
+    request_form = RequestForm(instance=req)
+    print(requested_hard_drives[0].classification)
+
+    context = {'req' : req, 'request_form': request_form, 'event' :event_form, 'hard_drives' :hard_drives, 
+                    'all_hard_drives' : all_hard_drives, 'requested_hard_drives' : requested_hard_drives }
+    return render(http_request, 'maintainer/view_request.html', context)
+
+
 @login_required(login_url='main:login')
-def view_request(request):
-    return render(request, 'maintainer/view_request.html')
+def view_request(http_request, key_id):
+
+    req = Request.objects.get(request_reference_no = key_id)
+
+    if req.request_status == Request.Request_Status.CREATED:
+        return view_request_created(http_request, req)
+
+    # TODO: Maintainer should be able to edit every field in the request.
+
+    # used for event information
+    event = Event.objects.filter(request = req).first()
+    event_form = EventForm(instance=event)
+    event_form.make_all_readonly()
+    
+    #used for assigned hard drive sections
+    hard_drives = HardDrive.objects.filter(request = req)
+    print(hard_drives)
+    
+    #used for the selecting hard drive section
+    all_hard_drives = HardDrive.objects.filter(request = None)
+    
+    #used for requested hard drive
+    # This is not working properly, 
+    requested_hard_drives = HardDriveRequest.objects.filter(request = req)
+    request_form = RequestForm(instance=req)
+    print(requested_hard_drives[0].classification)
+
+    context = {'req' : req, 'request_form': request_form, 'event' :event_form, 'hard_drives' :hard_drives, 
+                    'all_hard_drives' : all_hard_drives, 'requested_hard_drives' : requested_hard_drives }
+    return render(http_request, 'maintainer/view_request.html', context)
 
 @login_required(login_url='main:login')
 def view_all_requests(http_request):

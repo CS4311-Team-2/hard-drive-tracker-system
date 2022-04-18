@@ -11,10 +11,10 @@ urlpatterns = [
     path('login/', views.loginPage, name='login'),
     path('logout/', views.logoutUser, name='logout'),
     path('', views.index, name='index'), 
-
-    path('view_request/', views.view_request, name='view_request'),
+    path('view_request/<int:key_id>', views.view_request, name='view_request'),
     path('view_all_requests/', views.view_all_requests, name='view_all_requests'),
     path('make_request/', views.make_request, name='make_request'),
+    path('edit_request/<int:key_id>', views.edit_request, name='edit_request'),
     
     path('add_hard_drive/', views.add_hard_drive, name = 'add_hard_drive'),
     path('view_hard_drive/<int:id>/', views.view_hard_drive, name="view_hard_drive"),

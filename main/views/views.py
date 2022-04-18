@@ -43,9 +43,9 @@ def index(request):
     return redirect("main:index")
 
 @login_required(login_url='main:login')
-def view_request(request):
+def view_request(request, key_id):
     if is_maintainer(request) | request.user.is_staff:
-        return maintainer.view_request(request)
+        return maintainer.view_request(request,key_id)
     
     return redirect('main:index')
 
@@ -66,6 +66,15 @@ def make_request(request):
         return requestor.make_request(request)
 
     return redirect('main:index')
+
+
+@login_required(login_url='main:login')
+def edit_request(request, key_id):
+    if request.user.groups.filter(name='Requestor').exists() | request.user.is_staff:
+        return requestor.edit_request(request, key_id)
+
+    return redirect('main:index')
+
 
 def registerPage(request):
     form = CreateUserFormUser()
