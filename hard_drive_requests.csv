@@ -1,4 +1,4 @@
 id,classification,amount_required,connection_port,hard_drive_size,hard_drive_type,comment
-1,0,3,SATA,64,HDD,Nice
-2,1,6,M2,32,HDD,Works
-3,1,5,M2,32,SSD,It is good
+1,classified,3,SATA,64,HDD,Nice
+2,classified,6,M2,32,HDD,Works
+3,classified,5,M2,32,SSD,It is good
