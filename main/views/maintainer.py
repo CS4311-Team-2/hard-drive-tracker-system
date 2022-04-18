@@ -41,7 +41,7 @@ def home(request):
     return render(request, 'maintainer/home.html', context)
 
 def view_request_created(http_request,req):
-    # TODO(Alex) Implement HMTX here
+    # TODO(Alex) Implement HMTX here, also if you can create the functionality to approve it.
 
     # used for event information
     event = Event.objects.filter(request = req).first()
@@ -88,6 +88,7 @@ def view_request(http_request, key_id):
     all_hard_drives = HardDrive.objects.filter(request = None)
     
     #used for requested hard drive
+    # This is not working properly, 
     requested_hard_drives = HardDriveRequest.objects.filter(request = req)
     request_form = RequestForm(instance=req)
     print(requested_hard_drives[0].classification)

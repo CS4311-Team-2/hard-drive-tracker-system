@@ -144,6 +144,19 @@ class HardDriveRequestForm(forms.ModelForm):
         self.fields['hard_drive_type'] = forms.ChoiceField(
             choices=[ (o.name, str(o.name)) for o in HardDriveType.objects.all()]
         )
+        self.fields['hard_drive_type'].widget.attrs = FORM_CONTROL
+        
+        self.fields['connection_port'] = forms.ChoiceField( 
+            choices=[ (o.name, str(o.name)) for o in HardDriveConnectionPorts.objects.all()])
+        self.fields['connection_port'].widget.attrs = FORM_CONTROL
+        
+        self.fields['hard_drive_size'] = forms.ChoiceField( 
+            choices=[ (o.name, str(o.name)) for o in HardDriveSize.objects.all()])
+        self.fields['hard_drive_size'].widget.attrs = FORM_CONTROL
+
+        self.fields['amount_required'].widget.attrs = FORM_CONTROL
+        self.fields['classification'].widget.attrs = FORM_CONTROL
+        
 
     class Meta:
         model = HardDriveRequest
