@@ -156,7 +156,7 @@
                     {{admendment_form.description}}
                 </div>
                 <div class="form-group">
-                    <label>Date needed</label>
+                    <label>Decision needed by</label>
                     {{admendment_form.decision_date}}
                 </div>
                 <div class="form-group">
@@ -169,6 +169,33 @@
         <input type="submit" class="btn btn-primary">
         <a class="btn" style="background-color:#4678B2;color:white;"
             href="{% url 'main:view_all_harddrives' %}">Close</a>
+            <br>
+            <table class="table table-bordered">
+                <h3>Previous Admendment</h3>
+                <thead>
+                    <tr>
+                        <th scope="col">Create Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Comment</th>
+                        <th scope="col">Decision Needed By</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for admendment in admendments %}
+                    <tr>
+                        <td>{{ admendment.created }}</td>
+                        <td>{{ admendment.status  }}</td>
+                        <td>{{ admendment.description  }}</td>
+                        <td>{{ admendment.comment  }}</td>
+                        <td>{{ admendment.decision_date  }}</td>
+                    </tr>
+                    {% empty %}
+                    <h5>No Hard Drives Assigned</h5>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
     </div>
 </form>
 {% endblock %}

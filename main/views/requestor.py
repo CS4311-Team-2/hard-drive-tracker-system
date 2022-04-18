@@ -11,6 +11,7 @@ from main.models.request import Request
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 from main.models.log import Log
+from main.models.amendment import Admendment
 from main.filters import HardDriveFilter
 from main.views.maintainer import VIEW_HARD_DRIVE, get_request_form
 
@@ -219,6 +220,7 @@ def edit_request(http_request, key_id):
         if admendment_form.is_valid():
             admendment = admendment_form.save()
             admendment.user  = http_request.user
+            admendment.request = req
             admendment.save()
             print("Admendment Succefully saved")
         else:
@@ -229,7 +231,8 @@ def edit_request(http_request, key_id):
                 'all_hard_drives' : all_hard_drives, 
                 'requested_hard_drives' : requested_hard_drives, 'form' : form,  
                 'reqform' : reqform, 'harddrivereqform' : hard_drive_req_form,
-                'admendment_form':admendment_form}
+                'admendment_form':admendment_form,
+                'admendments': Admendment.objects.filter(request=req)}
 
     return render(http_request, 'requestor/new_edit_request.html', context)
 
