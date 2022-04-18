@@ -217,7 +217,7 @@ class RequestForm(forms.ModelForm):
 
 
 class EventForm(forms.ModelForm):
-
+    need_drives_by_date = forms.CharField(widget=forms.TextInput(attrs=FORM_CONTROL_DATE))
     def __init__(self,*args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
         for field_name in self.fields:
@@ -228,8 +228,8 @@ class EventForm(forms.ModelForm):
                 'length_of_reporting_cycle', 'event_status', 'event_start_date',
                 'event_end_date','analystNames','teamLeadName']
         widgets = {
-            'event_start_date': forms.DateInput(),
-            'event_end_date': forms.DateInput(),
+            'event_start_date': forms.TextInput(attrs=FORM_CONTROL_DATE),
+            'event_end_date': forms.TextInput(attrs=FORM_CONTROL_DATE),
             'event_description':forms.TextInput(attrs=FORM_CONTROL),
             'length_of_reporting_cycle':forms.TextInput(attrs=FORM_CONTROL)
         }

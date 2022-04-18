@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.forms.models import modelformset_factory
 
 from main.forms import AdmendmentForm, EventForm, HardDriveRequestForm, HardDriveForm, RequestForm
+from main.filters import HardDriveFilter, RequestFilter, EventFilter, LogFilter
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
@@ -35,6 +36,30 @@ def home(request):
         "username"      : request.user.username
         }
     return render(request, 'requestor/home.html', context)
+
+@login_required(login_url='main:login')
+def view_all_requests(http_request):
+    data = {}
+    requests = Request.objects.filter(requestor=http_request.user)
+
+    request_filter = RequestFilter(http_request.GET, queryset = requests)
+    requests = request_filter.qs
+
+    event_filter = EventFilter()
+
+    for r in requests:
+        events = Event.objects.filter(request = r)
+        event_filter = EventFilter(http_request.GET, queryset = events)
+        events = event_filter.qs
+        if not events:
+            continue
+        else:
+            event = events[0]
+        data[r] = event
+
+    context = {'data': data, 'requests' : requests, 
+                'request_filter': request_filter, 'event_filter': event_filter}
+    return render(http_request, 'maintainer/view_all_requests.html', context)
 
 @login_required(login_url='main:login')
 @group_required('Requestor')
@@ -165,11 +190,13 @@ def make_request(http_request):
         event_form = EventForm(http_request.POST)
         HDRFormSet = modelformset_factory(model=HardDriveRequest, form=HardDriveRequestForm)
         
-
+        print("We made it here")
         if event_form.is_valid() and HDRFormSet(http_request.POST).is_valid():
             request = Request()
+            request.need_drive_by_date = event_form.cleaned_data['need_drives_by_date']
+            request.requestor = http_request.user
             request.save()
-
+            print("------------------We Made It Here-----")
             event = event_form.instance
             event.request = request
             event.save()
@@ -179,7 +206,7 @@ def make_request(http_request):
                 hard_drive_request.request = request
                 hard_drive_request.save()
             
-            return redirect('/admin')
+            return redirect('main:index')
         else:
             print(event_form.errors.as_data())
             print(HDRFormSet(http_request.POST).errors.as_data())

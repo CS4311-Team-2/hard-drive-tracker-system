@@ -20,7 +20,7 @@ class Request(models.Model):
     #Forecasted, confirmed shall be constrained by event status.?
     
     request_reference_no = models.AutoField(primary_key=True)
-    request_reference_no_year = models.DateField(blank=True)
+    request_reference_no_year = models.DateField(null=True, blank=True)
     request_status = models.CharField(max_length=50, choices=Request_Status.choices, 
                                         default=Request_Status.CREATED)
     request_creation_date = models.DateField(auto_now_add=True)
