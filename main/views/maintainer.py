@@ -59,6 +59,8 @@ def view_request_created(http_request,req):
     requested_hard_drives = HardDriveRequest.objects.filter(request = req)
     request_form = RequestForm(instance=req)
     print(requested_hard_drives[0].classification)
+    request_form = get_request_form(req)
+    request_form.make_all_readonly()
 
     context = {'req' : req, 'request_form': request_form, 'event' :event_form, 'hard_drives' :hard_drives, 
                     'all_hard_drives' : all_hard_drives, 'requested_hard_drives' : requested_hard_drives }
@@ -86,16 +88,26 @@ def view_request(http_request, key_id):
     
     #used for the selecting hard drive section
     all_hard_drives = HardDrive.objects.filter(request = None)
-    
-    #used for requested hard drive
-    # This is not working properly, 
     requested_hard_drives = HardDriveRequest.objects.filter(request = req)
-    request_form = RequestForm(instance=req)
+    request_form = get_request_form(req)
+    request_form.make_all_readonly()
+
     print(requested_hard_drives[0].classification)
 
     context = {'req' : req, 'request_form': request_form, 'event' :event_form, 'hard_drives' :hard_drives, 
                     'all_hard_drives' : all_hard_drives, 'requested_hard_drives' : requested_hard_drives }
     return render(http_request, 'maintainer/view_request.html', context)
+
+def get_request_form(req):
+    request_form = RequestForm(instance=req)
+    request_form.fields['request_reference_no'].initial = req.request_reference_no
+    request_form.fields['request_creation_date'].initial = req.request_creation_date
+    request_form.fields['request_last_modified_date'].initial = req.request_last_modified_date
+
+    request_form.fields['requestor'].initial = req.requestor.username
+    # This not working
+    request_form.fields['modifier'].initial = req.user.username
+    return request_form
 
 @login_required(login_url='main:login')
 def view_all_requests(http_request):
