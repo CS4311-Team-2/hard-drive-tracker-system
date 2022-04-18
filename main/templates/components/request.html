@@ -156,7 +156,8 @@
                     </button>
                 </div>
             </div> 
-            {% endif %}      
+            {% endif %}
+                  
     
             {% if req.request_status == 'approved' or req.request_status == 'fullfilled' %}
             <div class="row">                               
@@ -171,6 +172,62 @@
     
                     </div>
     
+                </div>
+            </div>
+
+            <div class="row">                               
+                <div class="col-0">
+                    <br>
+                    <h4>Request Information</h4>
+                </div>
+                <div class="col">   
+                    <br> 
+                    <div class="container-fluid" style="border:1px solid #cecece;">
+                        <div class="row">    
+                            <div class="col">
+                                <br>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="amendmentUser">Request Reference No.</label>
+                                        {{request_form.request_reference_no}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="amendmentSubmission">Requestor</label>
+                                        {{request_form.requestor}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="amendmentUser">Request Creation Date</label>
+                                        {{request_form.request_creation_date}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="amendmentUser">Request Last Modified Date</label>
+                                        {{request_form.request_last_modified_date}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="amendmentUser">Request Updated By</label>
+                                        {{request_form.modifier}}
+                                    </div>
+                                </form>
+                                <br>
+                            </div>
+    
+                            <div class="col">
+                                <br>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="amendmentComment">Comment</label>
+                                        {{request_form.comment}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="endDate">Need Drives By Date</label>
+                                        {{request_form.need_drive_by_date}}
+                                    </div>
+                                    {{request_form.request_status}}
+                                </form>
+                                <br>
+                            </div>       
+                        </div>
+                    </div>
                 </div>
             </div>
     
@@ -259,61 +316,6 @@
             
             <!-- Request Information Content Area -->
     
-            <div class="row">                               
-                <div class="col-0">
-                    <br>
-                    <h4>Request Information</h4>
-                </div>
-                <div class="col">   
-                    <br> 
-                    <div class="container-fluid" style="border:1px solid #cecece;">
-                        <div class="row">    
-                            <div class="col">
-                                <br>
-                                <form>
-                                    <div class="form-group">
-                                        <label for="amendmentUser">Request Reference No.</label>
-                                        {{request_form.request_reference_no}}
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="amendmentSubmission">Requestor</label>
-                                        {{request_form.requestor}}
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="amendmentUser">Request Creation Date</label>
-                                        {{request_form.request_creation_date}}
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="amendmentUser">Request Last Modified Date</label>
-                                        {{request_form.request_last_modified_date}}
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="amendmentUser">Request Updated By</label>
-                                        {{request_form.modifier}}
-                                    </div>
-                                </form>
-                                <br>
-                            </div>
-    
-                            <div class="col">
-                                <br>
-                                <form>
-                                    <div class="form-group">
-                                        <label for="amendmentComment">Comment</label>
-                                        {{request_form.comment}}
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="endDate">Need Drives By Date</label>
-                                        {{request_form.need_drive_by_date}}
-                                    </div>
-                                    {{request_form.request_status}}
-                                </form>
-                                <br>
-                            </div>       
-                        </div>
-                    </div>
-                </div>
-            </div>
             <br>
 
             <div class="row">                               

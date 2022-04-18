@@ -2,7 +2,7 @@ from urllib import request
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
-from main.forms import CreateUserForm, HardDriveConnectionPortsForm, HardDriveTypeForm, HardDriveManufacturersForm, UserForm, HardDriveSizeForm
+from main.forms import CreateUserForm, HardDriveConnectionPortsForm, HardDriveTypeForm, HardDriveManufacturersForm, UserForm, HardDriveSizeForm, AdmendmentForm
 from main.forms import EventForm, RequestForm
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
@@ -87,7 +87,6 @@ def view_request(http_request, key_id):
     # used for event information
     event = Event.objects.filter(request = req).first()
     event_form = EventForm(instance=event)
-    event_form.make_all_readonly()
     
     #used for assigned hard drive sections
     hard_drives = HardDrive.objects.filter(request = req)
@@ -97,7 +96,6 @@ def view_request(http_request, key_id):
     all_hard_drives = HardDrive.objects.filter(request = None)
     requested_hard_drives = HardDriveRequest.objects.filter(request = req)
     request_form = get_request_form(req)
-    request_form.make_all_readonly()
 
     print(requested_hard_drives[0].classification)
 
@@ -107,7 +105,8 @@ def view_request(http_request, key_id):
         'event' : event_form, 
         'hard_drives' : hard_drives, 
         'all_hard_drives' : all_hard_drives, 
-        'requested_hard_drives' : requested_hard_drives, 
+        'requested_hard_drives' : requested_hard_drives,
+        'admendment_form': AdmendmentForm()
     }
 
     return render(http_request, 'maintainer/view_request.html', context)
