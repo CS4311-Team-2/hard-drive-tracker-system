@@ -2,7 +2,7 @@ from urllib import request
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
-from main.forms import CreateUserForm, HardDriveConnectionPortsForm, HardDriveTypeForm, HardDriveManufacturersForm, UserForm, HardDriveSizeForm, AdmendmentForm
+from main.forms import CreateUserForm, HardDriveConnectionPortsForm, HardDriveTypeForm, HardDriveManufacturersForm, UserForm, HardDriveSizeForm, AmendmentForm
 from main.forms import EventForm, RequestForm
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
@@ -10,6 +10,7 @@ from main.models.hard_drive_request import HardDriveRequest
 from main.models.request import Request
 from main.models.event import Event
 from main.models.log import Log
+from main.models.amendment import Amendment
 from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
 from main.forms import HardDriveForm
 from main.models.configurations.hard_drive_type import HardDriveType
@@ -97,6 +98,21 @@ def view_request(http_request, key_id):
     requested_hard_drives = HardDriveRequest.objects.filter(request = req)
     request_form = get_request_form(req)
 
+
+    # Okay so you want to assign the first admendment that is pending to the admenent form.
+    # If the maintainer approves it then he needs to edit the fields necessary. If all goes well then the 
+    #       admendent will be approved and logged.
+    # If there is another admendment still pending then it'll take the place of the preivous admendment. 
+    amendments = Amendment.objects.filter(request=req)
+    contains_pending_amendment = False
+    amendment_form = None
+    for amendment in amendments:
+        if amendment.status == Amendment.Status.PENDING:
+            amendment_form = AmendmentForm(instance=amendment)
+            contains_pending_amendment = True
+            break
+
+
     print(requested_hard_drives[0].classification)
 
     context = {
@@ -106,7 +122,9 @@ def view_request(http_request, key_id):
         'hard_drives' : hard_drives, 
         'all_hard_drives' : all_hard_drives, 
         'requested_hard_drives' : requested_hard_drives,
-        'admendment_form': AdmendmentForm()
+        'contains_amendments':len(amendments) != 0,
+        'contains_pending_amendment':contains_pending_amendment,
+        'amendment_form': amendment_form
     }
 
     return render(http_request, 'maintainer/view_request.html', context)

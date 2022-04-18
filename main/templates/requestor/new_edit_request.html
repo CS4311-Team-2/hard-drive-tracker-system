@@ -153,25 +153,25 @@
             <div class="col">
                 <div class="form-group">
                     <label>Description</label>
-                    {{admendment_form.description}}
+                    {{amendment_form.description}}
                 </div>
                 <div class="form-group">
                     <label>Decision needed by</label>
-                    {{admendment_form.decision_date}}
+                    {{amendment_form.decision_date}}
                 </div>
                 <div class="form-group">
                     <label>Comment</label>
-                    {{admendment_form.comment}}
+                    {{amendment_form.comment}}
                 </div>
             </div>
         </div>
-        {{admendment_form.errors}}
+        {{amendment_form.errors}}
         <input type="submit" class="btn btn-primary">
         <a class="btn" style="background-color:#4678B2;color:white;"
             href="{% url 'main:view_all_harddrives' %}">Close</a>
             <br>
             <table class="table table-bordered">
-                <h3>Previous Admendment</h3>
+                <h3>Previous Amendment</h3>
                 <thead>
                     <tr>
                         <th scope="col">Create Date</th>
@@ -182,16 +182,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for admendment in admendments %}
+                    {% for amendment in amendments %}
                     <tr>
-                        <td>{{ admendment.created }}</td>
-                        <td>{{ admendment.status  }}</td>
-                        <td>{{ admendment.description  }}</td>
-                        <td>{{ admendment.comment  }}</td>
-                        <td>{{ admendment.decision_date  }}</td>
+                        <td>{{ amendment.created }}</td>
+                        <td>{{ amendment.status  }}</td>
+                        <td>{{ amendment.description  }}</td>
+                        <td>{{ amendment.comment  }}</td>
+                        <td>{{ amendment.decision_date  }}</td>
                     </tr>
                     {% empty %}
-                    <h5>No Hard Drives Assigned</h5>
+                    <h5>No Amendments</h5>
                     {% endfor %}
                 </tbody>
             </table>

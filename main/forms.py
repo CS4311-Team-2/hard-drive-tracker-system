@@ -9,7 +9,7 @@ from main.models.configurations.hard_drive_size import HardDriveSize
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 from main.models.request import Request
-from main.models.amendment import Admendment
+from main.models.amendment import Amendment
 from users.models import UserProfile
 
 
@@ -239,14 +239,14 @@ class EventForm(forms.ModelForm):
             self.fields[field_name].widget.attrs = UNEDTIABLE
 
 
-class AdmendmentForm(forms.ModelForm):
+class AmendmentForm(forms.ModelForm):
 
     def __init__(self,*args, **kwargs):
-        super(AdmendmentForm, self).__init__(*args, **kwargs)
+        super(AmendmentForm, self).__init__(*args, **kwargs)
         for field_name in self.fields:
             self.fields[field_name].widget.attrs = FORM_CONTROL
     class Meta:
-        model = Admendment
+        model = Amendment
         fields = ['description', 'decision_date', 'comment']
         widgets = {'decision_date':forms.TextInput(attrs=FORM_CONTROL_DATE)}
     def make_all_readonly(self):

@@ -290,17 +290,21 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Timestamp</th>
-                                            <th scope="col">Username</th>
-                                            <th scope="col">Action Performed</th>
+                                            <th scope="col">Create Date</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Comment</th>
+                                            <th scope="col">Decision Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for amendment in amendments %}
                                             <tr>
-                                                    <td>{{ amendment.title }}</td>
-                                                    <td>{{ amendment.title }}</td>
-                                                    <td>{{ amendment.title }}</td>
+                                                    <td>{{ amendment.created }}</td>
+                                                    <td>{{ amendment.status }}</td>
+                                                    <td>{{ amendment.description }}</td>
+                                                    <td>{{ amendment.comment }}</td>
+
                                             </tr>
                                         {% empty %}
                                         <h3>No amendments found</h3>
