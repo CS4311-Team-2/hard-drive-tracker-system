@@ -158,7 +158,7 @@
             </div> 
             {% endif %}      
     
-            {% if req.request_status == 'approved' %}
+            {% if req.request_status == 'approved' or req.request_status == 'fullfilled' %}
             <div class="row">                               
                 <div class="col-0">
                     <br>
@@ -315,6 +315,18 @@
                 </div>
             </div>
             <br>
+
+            <div class="row">                               
+                <div class="col-0">
+                    <button 
+                        class="btn btn-primary"
+                        hx-post="{% url 'main:fulfill_request' %}"
+                        >
+                        Fulfill Request
+                    </button>
+                </div>
+            </div> 
+
             {% endif %}
         </div>          
     </div> 

@@ -151,3 +151,37 @@ def approve_request(http_request):
         'all_hard_drives' : all_hard_drives, 
         'requested_hard_drives' : requested_hard_drives }
     return render(http_request, 'components/request.html', context)
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def fulfill_request(http_request):
+    req = Request.objects.get(pk = http_request.POST['request_id'])
+    req.request_status = Request.Request_Status.FULLFILLED
+    req.save()
+
+    # used for event information
+    event = Event.objects.filter(request = req).first()
+    event_form = EventForm(instance=event)
+    event_form.make_all_readonly()
+    
+    #used for assigned hard drive sections
+    hard_drives = HardDrive.objects.filter(request = req)
+    print(hard_drives)
+    
+    #used for the selecting hard drive section
+    all_hard_drives = HardDrive.objects.filter(request = None)
+    
+    #used for requested hard drive
+    requested_hard_drives = HardDriveRequest.objects.filter(request = req)
+    request_form = RequestForm(instance=req)
+    request_form = get_request_form(req)
+    request_form.make_all_readonly()
+
+    context = {
+        'req' : req, 
+        'request_form': request_form, 
+        'event' :event_form, 
+        'hard_drives' :hard_drives, 
+        'all_hard_drives' : all_hard_drives, 
+        'requested_hard_drives' : requested_hard_drives }
+    return render(http_request, 'components/request.html', context)
