@@ -34,7 +34,7 @@
 
             
 
-            {% if request.user|has_group:"Maintainer"  or request.user|has_group:"Auditor" %}
+            {% if request.user|has_group:"Maintainer"  or request.user|has_group:"Auditor" or request.user|has_group:"Requestor"  %}
             <li class="nav-item">
             <a href="{% url 'main:view_all_requests' %}" class="nav-link
             

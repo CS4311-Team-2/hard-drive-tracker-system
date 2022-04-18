@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.forms.models import modelformset_factory
 
-from main.forms import EventForm, HardDriveRequestForm, HardDriveForm, RequestForm
+from main.forms import AdmendmentForm, EventForm, HardDriveRequestForm, HardDriveForm, RequestForm
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
@@ -12,7 +12,7 @@ from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 from main.models.log import Log
 from main.filters import HardDriveFilter
-from main.views.maintainer import VIEW_HARD_DRIVE
+from main.views.maintainer import VIEW_HARD_DRIVE, get_request_form
 
 from datetime import datetime
 
@@ -192,44 +192,44 @@ def edit_request(http_request, key_id):
     events = Event.objects.filter(request = req).first()
     #used for assigned hard drive sections
     hard_drives = HardDrive.objects.filter(request = req)
-    #used for the selecting hard drive section
-    all_hard_drives = HardDrive.objects.filter(request = None)
+    #used for the selecting hard drive section  
+    all_hard_drives = HardDrive.objects.filter(request = req)
     #used for requested hard drive
     requested_hard_drives = HardDriveRequest.objects.filter(request = req)
+
+    total_amount_of_drives_requested = 0
+    for requested_hard_drive in requested_hard_drives:
+        print(requested_hard_drive.amount_required)
+        total_amount_of_drives_requested += requested_hard_drive.amount_required
    
-    print(req)
+    print(total_amount_of_drives_requested)
+    form = EventForm(instance=events)
+    form.make_all_readonly()
+    reqform = get_request_form(req)
+
+    reqform.fields['total_amount_of_drives_requested'].initial = total_amount_of_drives_requested
+    reqform.fields['total_amount_of_drives_assigned'].initial = len(all_hard_drives)
+    reqform.make_all_readonly()
+    hard_drive_req_form = HardDriveRequestForm(instance=requested_hard_drives.first())
+    hard_drive_req_form.make_all_readonly()
+
     if http_request.method == 'POST':
-        print("here1")
-        form = EventForm(http_request.POST, instance=events)
-        if form.is_valid():
-            print("p")
-            events = form.save()
-            events.save()
+        print("Post")
+        admendment_form = AdmendmentForm(http_request.POST)
+        if admendment_form.is_valid():
+            admendment = admendment_form.save()
+            admendment.user  = http_request.user
+            admendment.save()
+            print("Admendment Succefully saved")
         else:
-            print(form.errors)
+            print(admendment_form.errors)
+    admendment_form = AdmendmentForm()
 
-        reqform = RequestForm(http_request.POST, instance=req)
-        if reqform.is_valid():
-            print("o")
-            req = reqform.save()
-            req.save()
-        else:
-            print(reqform.errors)
+    context = {'req' :req, 'hard_drives' :hard_drives, 
+                'all_hard_drives' : all_hard_drives, 
+                'requested_hard_drives' : requested_hard_drives, 'form' : form,  
+                'reqform' : reqform, 'harddrivereqform' : hard_drive_req_form,
+                'admendment_form':admendment_form}
 
-        harddrivereqform = HardDriveRequestForm(http_request.POST, instance=requested_hard_drives.first())
-        if harddrivereqform.is_valid():
-            print("l")
-            harddrivereq = harddrivereqform.save()
-            harddrivereq.save()
-        else:
-            print(harddrivereqform.errors)
-
-     
-    else:
-        form = EventForm(instance=events)
-        reqform = RequestForm(instance=req)
-        harddrivereqform = HardDriveRequestForm(instance=requested_hard_drives.first())
-    print(req)
-    context = {'req' :req, 'hard_drives' :hard_drives, 'all_hard_drives' : all_hard_drives, 'requested_hard_drives' : requested_hard_drives, 'form' : form,  'reqform' : reqform, 'harddrivereqform' : harddrivereqform }
     return render(http_request, 'requestor/new_edit_request.html', context)
 

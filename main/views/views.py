@@ -56,6 +56,10 @@ def view_all_requests(request):
     
     if is_in_groups(request, "Auditor"):
         return maintainer.view_all_requests(request)
+
+
+    if is_in_groups(request, "Requestor"):
+        return maintainer.view_all_requests(request)
     
     return redirect('main:index')
 
