@@ -70,8 +70,8 @@ def view_request(http_request, key_id):
 
     req = Request.objects.get(request_reference_no = key_id)
 
-    if req.request_status == Request.Request_Status.CREATED:
-        return view_request_created(http_request, req)
+    # if req.request_status == Request.Request_Status.CREATED:
+    #     return view_request_created(http_request, req)
 
     # TODO: Maintainer should be able to edit every field in the request.
 
@@ -91,6 +91,9 @@ def view_request(http_request, key_id):
     # This is not working properly, 
     requested_hard_drives = HardDriveRequest.objects.filter(request = req)
     request_form = RequestForm(instance=req)
+    request_form.fields['request_create_date'] = req.request_creation_date
+    print("Values::::", req.request_creation_date)
+    request_form.fields['request_last_modified_date'] = req.request_last_modified_date
     print(requested_hard_drives[0].classification)
 
     context = {'req' : req, 'request_form': request_form, 'event' :event_form, 'hard_drives' :hard_drives, 
