@@ -56,15 +56,6 @@ class Command(BaseCommand):
             maintainer_gp.user_set.add(user)
             user.save()
 
-        if not UserProfile.objects.filter(username__iexact=REQUESTOR_USERNAME).exists():
-            user = UserProfile.objects.create(username=REQUESTOR_USERNAME,
-                                 email='requestor@army.mil')
-            user.set_password(PASSWORD)
-            user.status = UserProfile.Status.ACTIVE
-
-            requester_gp.user_set.add(user)
-            user.save()
-
         if not UserProfile.objects.filter(username__iexact=AUDITOR_USERNAME).exists():
             user = UserProfile.objects.create(username=AUDITOR_USERNAME,
                                  email='auditor@army.mil')
@@ -83,6 +74,15 @@ class Command(BaseCommand):
 
             administrator_gp.user_set.add(user)
             user.save()
+
+        if not UserProfile.objects.filter(username__iexact=REQUESTOR_USERNAME).exists():
+            user = UserProfile.objects.create(username=REQUESTOR_USERNAME,
+                                 email='requestor@army.mil')
+            user.set_password(PASSWORD)
+            user.status = UserProfile.Status.ACTIVE
+
+            requester_gp.user_set.add(user)
+            user.save()
         
         df = pd.read_csv('request.csv')
         for (request_reference_no, request_reference_no_year, request_status, request_creation_date,
@@ -92,7 +92,8 @@ class Command(BaseCommand):
 
             request = Request(request_reference_no, request_reference_no_year, request_status, request_creation_date,
                 request_last_modified_date, need_drive_by_date, comment)
-
+            request.user = UserProfile.objects.get(username__iexact=MAINTAINER_USERNAME)
+            request.requestor = UserProfile.objects.get(username__iexact=REQUESTOR_USERNAME)
             request.save()
     
         df = pd.read_csv('event.csv')

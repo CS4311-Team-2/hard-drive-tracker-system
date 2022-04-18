@@ -316,19 +316,19 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="amendmentSubmission">Requestor</label>
-                                        <input type="text" class="form-control" id="amendmentSubmission" value="Eddie" readonly>
+                                        {{request_form.requestor}}
                                     </div>
                                     <div class="form-group">
                                         <label for="amendmentUser">Request Creation Date</label>
-                                        <input type="date" class="form-control" id="amendmentUser" value={{ req.request_creation_date }} readonly>
+                                        {{request_form.request_creation_date}}
                                     </div>
                                     <div class="form-group">
                                         <label for="amendmentUser">Request Last Modified Date</label>
-                                        <input type="date" class="form-control" id="startDate" value="2022-02-18" readonly>
+                                        {{request_form.request_last_modified_date}}
                                     </div>
                                     <div class="form-group">
                                         <label for="amendmentUser">Request Updated By</label>
-                                        <input type="text" class="form-control" id="amendmentUser" value={{ request.title }} readonly>
+                                        {{request_form.modifier}}
                                     </div>
                                 </form>
                                 <br>
@@ -339,67 +339,20 @@
                                 <form>
                                     <div class="form-group">
                                         <label for="amendmentComment">Comment</label>
-                                        <textarea class="form-control" id="amendmentComment" rows="3" ></textarea>
+                                        {{request_form.comment}}
                                     </div>
                                     <div class="form-group">
                                         <label for="endDate">Need Drives By Date</label>
-                                        <input type="date" class="form-control" id="startDate" value={{ req.need_drive_by_date}}>
-                                        <i class="fas fa-calandar-alt"></i>
+                                        {{request_form.need_drive_by_date}}
                                     </div>
-                                    <div class="form-group">
-                                        <label for="amendmentStatus">Request Status</label>
-                                        <select>
-                                            <option value=""disabled selected></option>
-                                            <option value="1" >Created</option>
-                                            <option value="2" >Forecasted</option>
-                                            <option value="1" >Confirmed</option>
-                                            <option value="2" >Approved</option>
-                                            <option value="1" >Declined</option>
-                                            <option value="2" >Delivered</option>
-                                            <option value="1" >Fulfilled</option>
-                                            <option value="2" >Partial-Returned</option>
-                                            <option value="1" >Closed</option>
-                                            <option value="2" >Canceled</option>
-                                            <option value="1" >Archived</option>
-                                            <option value="2" >Overdue</option>
-                                        </select>
-                                    </div>
+                                    {{request_form.request_status}}
                                 </form>
                                 <br>
                             </div>       
                         </div>
-
-                                <!-- Collapsible Request History Content Area -->
-                        <h5>Request History</h5> 
-                        <div class="row" style="margin-left:1%;">   
-                            <div class="col">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Timestamp</th>
-                                            <th scope="col">Username</th>
-                                            <th scope="col">Action Performed</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for log in request_logs %}
-                                            <tr>
-                                                    <td>{{ log.title }}</td>
-                                                    <td>{{ log.title }}</td>
-                                                    <td>{{ log.title }}</td>
-                                            </tr>
-                                        {% empty %}
-                                        <h3>No logs at the moment</h3>
-                                        {% endfor %} 
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
                     </div>
-
                 </div>
             </div>
-
             <br>
         </div>          
         </div> 
