@@ -33,7 +33,7 @@ class HardDrive(models.Model):
         PENDING_CLASSIFICATION_CHANGE_APPROVAL = 'Pending Classification Change Approval'
 
     create_date = models.DateField(default=timezone.now, blank=True) 
-    serial_number = models.CharField(max_length=100)
+    serial_number = models.CharField(unique=True, max_length=100)
     manufacturer = models.CharField(blank=True, max_length=100)
     model_number = models.CharField(blank=True, max_length=100)
     hard_drive_type = models.CharField(max_length=100)  

@@ -7,6 +7,8 @@ from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
 from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
 from main.models.configurations.hard_drive_size import HardDriveSize
+from main.models.hard_drive import HardDrive
+from main.models.request import Request
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
@@ -93,4 +95,22 @@ def delete_hard_drive_size(request, pk):
     }
     return render(request, 'components/hard_drive_size.html', context)
 
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def assign_hard_drive(http_request):
+    request = Request.objects.get(pk = http_request.POST['request_id'])
+    print('serial-number:', http_request.POST['serial-number'])
+    assigned_hard_drive = HardDrive.objects.get(serial_number = http_request.POST['serial-number'])
+    print('assigned_hard_drive:', assigned_hard_drive)
+    assigned_hard_drive.request = request
+    assigned_hard_drive.status = HardDrive.Status.ASSIGNED
+    
+    assigned_hard_drive.save()
+    request.save()
+    assigned_hard_drives = HardDrive.objects.filter(request = request)
 
+    context = {
+        "req" : request,
+        "hard_drives" : assigned_hard_drives,
+    }
+    return render(http_request, 'components/assigned_hard_drives.html', context)

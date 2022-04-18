@@ -150,64 +150,7 @@
                 <div class="col">   
                     <br> 
                     <div class="container-fluid" style="border:1px solid #cecece;">
-                        <div class="row">    
-                            <div class="col">
-                                <br>
-                                <div class="assignment-table">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Hard Drive Serial Number*</th>
-                                                <th scope="col">Manufacturer*</th>
-                                                <th scope="col">Connection Port Type</th>
-                                                <th scope="col">Hard Drive Size</th>
-                                                <th scope="col">Classification*</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {% for drive in hard_drives %}
-                                                <tr>
-                                                    <td>{{ drive.serial_number }}</td>
-                                                    <td>{{ drive.manufacturer }}</td>
-                                                    <td>{{ drive.connection_port }}</td>
-                                                    <td>{{ drive.hard_drive_size }}</td>
-                                                    <td>{{ drive.classification }}</td>
-                                                </tr>
-                                            {% endfor %} 
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <br>
-                            </div>          
-                        </div> 
-
-                        <div class="row">                               
-                            <div class="col">  
-                                <div class="input-group mb-5"> 
-                                    <input type="text" class="form-control">
-                                    <div
-                                        class="btn btn-success input-group-append"
-                                        hx-post="{% url 'main:hard_drive_manufacturers' %}" 
-                                        hx-target="#hard-drive-manufacturers"
-                                        hx-swap="outerHTML" 
-                                        >
-                                        Add Hard Drive
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">                               
-                            <div class="col">   
-                                <form>
-                                    <div class="form-group">
-                                        <label for="comments">Comments</label>
-                                        <textarea class="form-control" id="comments" rows="3" readonly value="Description"></textarea>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
+                        {% include 'components/assigned_hard_drives.html' %}
                     </div>
 
                 </div>
@@ -280,9 +223,9 @@
                                     <tbody>
                                         {% for amendment in amendments %}
                                             <tr>
-                                                    <td>{{ amendment.title }}</td>
-                                                    <td>{{ amendment.title }}</td>
-                                                    <td>{{ amendment.title }}</td>
+                                                <td>{{ amendment.title }}</td>
+                                                <td>{{ amendment.title }}</td>
+                                                <td>{{ amendment.title }}</td>
                                             </tr>
                                         {% empty %}
                                         <h3>No amendments found</h3>

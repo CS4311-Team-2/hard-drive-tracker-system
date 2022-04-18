@@ -43,6 +43,7 @@ def home(request):
 def view_request_created(http_request,req):
     # TODO(Alex) Implement HMTX here, also if you can create the functionality to approve it.
 
+
     # used for event information
     event = Event.objects.filter(request = req).first()
     event_form = EventForm(instance=event)
@@ -60,8 +61,13 @@ def view_request_created(http_request,req):
     request_form = RequestForm(instance=req)
     print(requested_hard_drives[0].classification)
 
-    context = {'req' : req, 'request_form': request_form, 'event' :event_form, 'hard_drives' :hard_drives, 
-                    'all_hard_drives' : all_hard_drives, 'requested_hard_drives' : requested_hard_drives }
+    context = {
+        'req' : req, 
+        'request_form': request_form, 
+        'event' :event_form, 
+        'hard_drives' :hard_drives, 
+        'all_hard_drives' : all_hard_drives, 
+        'requested_hard_drives' : requested_hard_drives }
     return render(http_request, 'maintainer/view_request.html', context)
 
 
@@ -69,6 +75,7 @@ def view_request_created(http_request,req):
 def view_request(http_request, key_id):
 
     req = Request.objects.get(request_reference_no = key_id)
+    hard_drives = HardDrive.objects.filter(request = req)
 
     if req.request_status == Request.Request_Status.CREATED:
         return view_request_created(http_request, req)
@@ -85,16 +92,22 @@ def view_request(http_request, key_id):
     print(hard_drives)
     
     #used for the selecting hard drive section
-    all_hard_drives = HardDrive.objects.filter(request = None)
+    all_hard_drives = HardDrive.objects.all()
     
     #used for requested hard drive
     # This is not working properly, 
     requested_hard_drives = HardDriveRequest.objects.filter(request = req)
     request_form = RequestForm(instance=req)
-    print(requested_hard_drives[0].classification)
 
-    context = {'req' : req, 'request_form': request_form, 'event' :event_form, 'hard_drives' :hard_drives, 
-                    'all_hard_drives' : all_hard_drives, 'requested_hard_drives' : requested_hard_drives }
+    context = {
+        'req' : req,
+        'request_form': request_form, 
+        'event' : event_form, 
+        'hard_drives' : hard_drives, 
+        'all_hard_drives' : all_hard_drives, 
+        'requested_hard_drives' : requested_hard_drives, 
+    }
+
     return render(http_request, 'maintainer/view_request.html', context)
 
 @login_required(login_url='main:login')
