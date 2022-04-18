@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
 from main.forms import CreateUserForm, HardDriveConnectionPortsForm, HardDriveTypeForm, HardDriveManufacturersForm, UserForm, HardDriveSizeForm
+from main.forms import EventForm
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.hard_drive_request import HardDriveRequest
@@ -45,8 +46,9 @@ def view_request(http_request, key_id):
     req = Request.objects.get(request_reference_no = key_id)
 
     # used for event information
-    events = Event.objects.filter(request = req)
-    event = events[0]
+    event = Event.objects.filter(request = req).first()
+    event_form = EventForm(instance=event)
+    event_form.make_all_readonly()
     
     #used for assigned hard drive sections
     hard_drives = HardDrive.objects.filter(request = req)
@@ -59,7 +61,8 @@ def view_request(http_request, key_id):
     requested_hard_drives = HardDriveRequest.objects.filter(request = req)
     print(requested_hard_drives[0].classification)
 
-    context = {'req' : req, 'event' :event, 'hard_drives' :hard_drives, 'all_hard_drives' : all_hard_drives, 'requested_hard_drives' : requested_hard_drives }
+    context = {'req' : req, 'event' :event_form, 'hard_drives' :hard_drives, 
+                    'all_hard_drives' : all_hard_drives, 'requested_hard_drives' : requested_hard_drives }
     return render(http_request, 'maintainer/view_request.html', context)
 
 @login_required(login_url='main:login')

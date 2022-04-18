@@ -21,46 +21,38 @@
     .btn {
         margin-left:90%;
         margin-top:1%;
-        width: 100px;
+        width: 90px;
     }
     .content {
         display: flex;
         flex-direction: column;
         flex: 4;
-        margin-left:3%;
+        margin-left:2%;
         margin-right:3%;
-    }
-    .navbar{
-        padding-bottom: 100%;
     }
     .assignment-table { 
         overflow-x: scroll; 
-        max-width:1150px;
+        max-width:1000px;
     }
     
   </style>
 </head>
 <body>
-
     <div class="container-fluid">
         <div class="row no-gutters">
             <div class="col">
-                <div class="jumbotron">
-                    <h2>Requests</h2>      
-                </div>
                 <main class="content"> 
                     <h3>Detailed View of a Selected Request</h3>
-                    <div class="container-fluid" style="border:1px solid #cecece;">
+                    <div class="container-fluid">
                         <div class="row">                               
                             <div class="col">
-
                                 <!-- Event Information Content Area -->
                                 <div class="row">                               
-                                    <div class="col-1">
+                                    <div class="col-0">
                                         <br>
                                         <h4>Event Information</h4>
                                     </div>
-                                    <div class="col">   
+                                    <div class="col">
                                         <br> 
                                         <div class="container-fluid" style="border:1px solid #cecece;">
                                             <div class="row">    
@@ -68,32 +60,31 @@
                                                     <br>
                                                     <form>
                                                         <!-- Event Attributes Content Area -->
-                                                        <h5>Event Attributes</h5> 
-                                                        <div class="row" style="margin-left:1%;">   
-                                                            <div class="col">
+                                                        <div class="row" style="">   
+                                                            <div class="col-0">
                                                                 <div class="form-group">
                                                                     <label for="eventName">Event Name</label>
-                                                                    <input type="text" class="form-control" id="eventName" value="{{event.event_name}}" readonly>
+                                                                    {{event.event_name}}
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="eventDescription">Event Description</label>
-                                                                    <textarea class="form-control" id="eventDescription" rows="3" readonly >{{ event.event_description}}</textarea>
+                                                                    {{event.event_description}}
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="eventLocation">Event Location</label>
-                                                                    <input type="text" class="form-control" id="eventLocation" value="{{event.event_location}}" readonly>
+                                                                    {{event.event_location}}
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="eventType">Event Type</label>
-                                                                    <input type="text" class="form-control" id="eventType" value={{event.event_type}} readonly>
+                                                                    {{event.event_type}}
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="lengthOfReportingCycle">Length of Reporting Cycle</label>
-                                                                    <input type="text" class="form-control" id="lengthOfReportingCycle" value={{event.length_of_reporting_cycle}} readonly>
+                                                                    {{event.length_of_reporting_cycle}}
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="eventStatus">Event Status</label>
-                                                                    <input type="text" class="form-control" id="eventStatus" value={{event.event_status}} readonly>
+                                                                    {{event.event_status}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -104,15 +95,15 @@
                                                     <br>
                                                         <!-- Event Dates Content Area -->
                                                         <h5>Event Dates</h5> 
-                                                        <div class="row" style="margin-left:1%;">   
+                                                        <div class="row" style="">   
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="startDate">Event Start Date</label>
-                                                                    <input type="date" class="form-control" id="startDate" value={{event.event_start_date}} readonly>
+                                                                    {{event.event_start_date}}
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="endDate">Event End Date</label>
-                                                                    <input type="date" class="form-control" id="endDate" value={{event.event_end_date}} readonly>
+                                                                    {{event.event_end_date}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -122,11 +113,11 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="teamLeadName">Event Team Lead Name</label>
-                                                                    <input type="text" class="form-control" id="teamLeadName" value={{ event.title }} readonly>
+                                                                    {{ event.teamLeadName }}
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="analystNames">Event Team Analyst Names</label>
-                                                                    <input type="text" class="form-control" id="analystNames" value={{ event.title }} readonly>
+                                                                    {{ event.analystNames }} 
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -142,7 +133,7 @@
                                 <!-- Hard Drive Information Content Area -->
                                 <!-- Hard Drive Requests Content Area -->
                                 <div class="row">                               
-                                    <div class="col-1">
+                                    <div class="col-0">
                                         <br>
                                         <h4>Requested Hard Drive Types</h4>
                                     </div>

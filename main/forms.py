@@ -113,15 +113,30 @@ class HardDriveForm(forms.ModelForm):
 
 
 class EventForm(forms.ModelForm):
+
+    def __init__(self,*args, **kwargs):
+        super(EventForm, self).__init__(*args, **kwargs)
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs = FORM_CONTROL
+
+
     class Meta:
         model = Event
         fields =['event_name', 'event_description', 'event_location', 'event_type',
                 'length_of_reporting_cycle', 'event_status', 'event_start_date',
                 'event_end_date','analystNames','teamLeadName']
         widgets = {
-            'event_start_date': forms.SelectDateWidget(),
-            'event_end_date': forms.SelectDateWidget()
+            'event_start_date': forms.DateInput(),
+            'event_end_date': forms.DateInput(),
+            'event_description':forms.TextInput(attrs=FORM_CONTROL),
+            'length_of_reporting_cycle':forms.TextInput(attrs=FORM_CONTROL)
         }
+    def make_all_readonly(self):
+        # TODO: This functions is duplicated, find way to only do it once. 
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs = UNEDTIABLE
+
+
 
 class HardDriveRequestForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -143,7 +158,11 @@ class HardDriveTypeForm(forms.ModelForm):
         widgets = {
             'name' : forms.TextInput(attrs={'class': 'form-control'}),
         }
-        
+    def make_all_readonly(self):
+        # TODO: This functions is duplicated, find way to only do it once. 
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs = UNEDTIABLE
+
 class HardDriveManufacturersForm(forms.ModelForm):
     class Meta:
         model = HardDriveManufacturers
