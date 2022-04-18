@@ -142,6 +142,17 @@
 
                 </div>
             </div>
+
+
+            <div class="row">                               
+                <div class="col-0">
+                    <button class="btn btn-success">
+                        Approve
+                    </button>
+                </div>
+            </div>       
+
+            {% if req.request_status != 'created' %}
             <div class="row">                               
                 <div class="col-0">
                     <br>
@@ -298,25 +309,9 @@
                 </div>
             </div>
             <br>
+            {% endif %}
         </div>          
-        </div> 
-</div>
-<br>
-<div class="row">
-
-    <div class="col-9">
-    </div>
-    <div class="col-1">
-        <button type="submit" class="btn btn-primary">Save</button>
-    </div>
-    <div class="col-1">
-        <button type="submit" class="btn btn-primary">Close</button>
-    </div>
-    <div class="col-2">
-    </div>
-    <br>
-    <br>
-    <br>
+    </div> 
 </div>
 
 {% endblock %}

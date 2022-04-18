@@ -94,21 +94,12 @@ def view_request(http_request, key_id):
     print(hard_drives)
     
     #used for the selecting hard drive section
-<<<<<<< HEAD
-    all_hard_drives = HardDrive.objects.all()
-    
-    #used for requested hard drive
-    # This is not working properly, 
-    requested_hard_drives = HardDriveRequest.objects.filter(request = req)
-    request_form = RequestForm(instance=req)
-=======
     all_hard_drives = HardDrive.objects.filter(request = None)
     requested_hard_drives = HardDriveRequest.objects.filter(request = req)
     request_form = get_request_form(req)
     request_form.make_all_readonly()
 
     print(requested_hard_drives[0].classification)
->>>>>>> origin/main
 
     context = {
         'req' : req,
