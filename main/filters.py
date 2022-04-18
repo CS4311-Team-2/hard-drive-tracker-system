@@ -54,7 +54,20 @@ class EventFilter(django_filters.FilterSet):
         )
 
 class HardDriveFilter(django_filters.FilterSet):
+    create_date = django_filters.DateFilter(field_name="create_date", lookup_expr="gte", label="Creation Date From", widget=DateInput(attrs={'type': 'date'}))
+    issue_date = django_filters.DateFilter(field_name="issue_date", lookup_expr="gte", label="Issue Date From", widget=DateInput(attrs={'type': 'date'}))
+    modified_date = django_filters.DateFilter(field_name="modified_date", lookup_expr="gte", label="Last Modified Date From", widget=DateInput(attrs={'type': 'date'}))
+    expected_hard_drive_return_date = django_filters.DateFilter(field_name="expected_hard_drive_return_date", lookup_expr="gte", label="Expected Return Date From", widget=DateInput(attrs={'type': 'date'}))
+    boot_test_expiration = django_filters.DateFilter(field_name="boot_test_expiration", lookup_expr="gte", label="Boot Test Expiration Date From", widget=DateInput(attrs={'type': 'date'}))
     
+    serial_number = django_filters.CharFilter(field_name="serial_number", lookup_expr="icontains", label="Serial Number")
+    image_version_id = django_filters.CharFilter(field_name="image_version_id", lookup_expr="icontains", label="Image Version ID")
+    manufacturer = django_filters.CharFilter(field_name="manufacturer", lookup_expr="icontains", label="Manufacturer")
+    model_number = django_filters.CharFilter(field_name="model_number", lookup_expr="icontains", label="Model Number")
+    connection_port = django_filters.CharFilter(field_name="connection_port", lookup_expr="icontains", label="Connection Port")
+    hard_drive_size = django_filters.CharFilter(field_name="hard_drive_size", lookup_expr="icontains", label="Hard Drive Size")
+    hard_drive_type = django_filters.CharFilter(field_name="hard_drive_type", lookup_expr="icontains", label="Hard Drive Type")
+
     class Meta:
         model = HardDrive
         fields = '__all__'
