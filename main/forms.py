@@ -182,13 +182,13 @@ class HardDriveConnectionPortsForm(forms.ModelForm):
         }
 
 class RequestForm(forms.ModelForm):
+    request_create_date = forms.CharField(widget=forms.TextInput(attrs=FORM_CONTROL))
+    request_last_modified_date = forms.CharField(widget=forms.TextInput(attrs=FORM_CONTROL))
     class Meta:
         model = Request
-        fields =['request_reference_no', 'request_status', 'comment']
-        widgets = {
-            
-            'request_last_modifed_date': forms.SelectDateWidget()
-        }
+        fields = ['request_reference_no', 'request_reference_no_year',
+                    'request_status','need_drive_by_date','comment']
+        widgets = {}
 class HardDriveSizeForm(forms.ModelForm):
     class Meta:
         model = HardDriveSize

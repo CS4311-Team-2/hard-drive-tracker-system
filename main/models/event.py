@@ -1,6 +1,4 @@
-from datetime import datetime
 from django.db import models
-from unixtimestampfield.fields import UnixTimeStampField
 
 from main.models.request import Request
 

@@ -42,7 +42,7 @@
         <div class="row no-gutters">
             <div class="col">
                 <main class="content"> 
-                    <h3>Detailed View of a Selected Request</h3>
+                    <h3>Detailed View of a Created Request</h3>
                     <div class="container-fluid">
                         <div class="row">                               
                             <div class="col">
@@ -126,7 +126,6 @@
                                                 </div>       
                                             </div> 
                                         </div>
-
                                     </div>
                                 </div>
 
@@ -187,7 +186,7 @@
                                     </div>
                                 </div>
                                 <div class="row">                               
-                                    <div class="col-1">
+                                    <div class="col-0">
                                         <br>
                                         <h4>Assigned Hard Drives</h4>
                                     </div>
@@ -242,7 +241,7 @@
                                 </div>
                                 <!-- Hard Drive Assignment Content Area -->
                                 <div class="row">                               
-                                    <div class="col-1">
+                                    <div class="col-0">
                                         <br>
                                         <h4>Hard Drive Assignment</h4>
                                     </div>
@@ -426,11 +425,11 @@
                                                     <form>
                                                         <div class="form-group">
                                                             <label for="amendmentUser">Request Reference No.</label>
-                                                            <input type="text" class="form-control" id="amendmentUser" value={{ req.request_reference_no }} readonly>
+                                                            {{request_form.request_reference_no}}
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="amendmentSubmission">Requestor</label>
-                                                            <input type="text" class="form-control" id="amendmentSubmission" value={{ event.event_name }} readonly>
+                                                            <input type="text" class="form-control" id="amendmentSubmission" value="Eddie" readonly>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="amendmentUser">Request Creation Date</label>
@@ -446,7 +445,7 @@
                                                         </div>
                                                     </form>
                                                     <br>
-                                                </div>     
+                                                </div>
 
                                                 <div class="col">
                                                     <br>
@@ -481,7 +480,7 @@
                                                     </form>
                                                     <br>
                                                 </div>       
-                                            </div> 
+                                            </div>
 
                                                  <!-- Collapsible Request History Content Area -->
                                             <h5>Request History</h5> 
@@ -535,9 +534,6 @@
                         <br>
                         <br>
                     </div>
-                    
-                    
-
                 </main>
             </div>
         </div>
