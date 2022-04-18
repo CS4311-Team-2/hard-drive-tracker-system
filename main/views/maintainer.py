@@ -70,8 +70,8 @@ def view_request(http_request, key_id):
 
     req = Request.objects.get(request_reference_no = key_id)
 
-    # if req.request_status == Request.Request_Status.CREATED:
-    #     return view_request_created(http_request, req)
+    if req.request_status == Request.Request_Status.CREATED:
+        return view_request_created(http_request, req)
 
     # TODO: Maintainer should be able to edit every field in the request.
 
