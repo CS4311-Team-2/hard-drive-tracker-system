@@ -51,11 +51,15 @@ def view_request(request, key_id):
 
 @login_required(login_url='main:login')
 def view_all_requests(request):
-    if request.user.groups.filter(name='Maintainer').exists() | request.user.is_staff:
+    if is_maintainer(request) | request.user.is_staff:
         return maintainer.view_all_requests(request)
     
     if is_in_groups(request, "Auditor"):
         return maintainer.view_all_requests(request)
+
+
+    if is_in_groups(request, "Requestor") | is_maintainer_requestor(request):
+        return requestor.view_all_requests(request)
     
     return redirect('main:index')
 

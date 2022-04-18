@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from matplotlib import widgets
 from main.models.hard_drive import HardDrive
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
@@ -8,6 +9,7 @@ from main.models.configurations.hard_drive_size import HardDriveSize
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 from main.models.request import Request
+from main.models.amendment import Admendment
 from users.models import UserProfile
 
 
@@ -135,6 +137,10 @@ class HardDriveRequestForm(forms.ModelForm):
         model = HardDriveRequest
         fields =['classification', 'amount_required', 'connection_port', 
                 'hard_drive_size', 'hard_drive_type', 'comment']
+    def make_all_readonly(self):
+        # TODO: This functions is duplicated, find way to only do it once. 
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs = UNEDTIABLE
 
 class HardDriveTypeForm(forms.ModelForm):
     class Meta:
@@ -167,51 +173,6 @@ class HardDriveConnectionPortsForm(forms.ModelForm):
             'name' : forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-class RequestForm(forms.ModelForm):
-
-    request_creation_date = forms.CharField(widget=forms.TextInput(attrs=FORM_CONTROL))
-    request_last_modified_date = forms.CharField(widget=forms.TextInput(attrs=FORM_CONTROL))
-    modifier = forms.CharField(widget=forms.TextInput(attrs=UNEDTIABLE))
-    requestor = forms.CharField(widget=forms.TextInput(attrs=UNEDTIABLE))
-    request_reference_no = forms.CharField(widget=forms.TextInput(attrs=UNEDTIABLE))
-
-    def __init__(self,*args, **kwargs):
-        super(RequestForm, self).__init__(*args, **kwargs)
-        for field_name in self.fields:
-            self.fields[field_name].widget.attrs = FORM_CONTROL
-    class Meta:
-        model = Request
-        fields = ['request_reference_no_year','request_status','need_drive_by_date','comment']
-        widgets = {}
-
-    def make_all_readonly(self):
-        # TODO: This functions is duplicated, find way to only do it once. 
-        for field_name in self.fields:
-            self.fields[field_name].widget.attrs = UNEDTIABLE
-
-
-class EventForm(forms.ModelForm):
-
-    def __init__(self,*args, **kwargs):
-        super(EventForm, self).__init__(*args, **kwargs)
-        for field_name in self.fields:
-            self.fields[field_name].widget.attrs = FORM_CONTROL
-    class Meta:
-        model = Event
-        fields =['event_name', 'event_description', 'event_location', 'event_type',
-                'length_of_reporting_cycle', 'event_status', 'event_start_date',
-                'event_end_date','analystNames','teamLeadName']
-        widgets = {
-            'event_start_date': forms.DateInput(),
-            'event_end_date': forms.DateInput(),
-            'event_description':forms.TextInput(attrs=FORM_CONTROL),
-            'length_of_reporting_cycle':forms.TextInput(attrs=FORM_CONTROL)
-        }
-    def make_all_readonly(self):
-        # TODO: This functions is duplicated, find way to only do it once. 
-        for field_name in self.fields:
-            self.fields[field_name].widget.attrs = UNEDTIABLE
-    
 class HardDriveSizeForm(forms.ModelForm):
     class Meta:
         model = HardDriveSize
@@ -229,4 +190,67 @@ class LoginUserForm(forms.ModelForm):
             'mock_group_is': forms.Select(attrs=FORM_CONTROL)
         }
 
-    
+class RequestForm(forms.ModelForm):
+    request_creation_date = forms.CharField(widget=forms.TextInput(attrs=FORM_CONTROL))
+    request_last_modified_date = forms.CharField(widget=forms.TextInput(attrs=FORM_CONTROL))
+    modifier = forms.CharField(widget=forms.TextInput(attrs=UNEDTIABLE))
+    requestor = forms.CharField(widget=forms.TextInput(attrs=UNEDTIABLE))
+    request_reference_no = forms.CharField(widget=forms.TextInput(attrs=UNEDTIABLE))
+
+    # These are only used for viewing a request via the Requestor
+    total_amount_of_drives_requested = forms.CharField(widget=forms.TextInput(attrs=UNEDTIABLE))
+    total_amount_of_drives_assigned = forms.CharField(widget=forms.TextInput(attrs=UNEDTIABLE))
+
+    def __init__(self,*args, **kwargs):
+        super(RequestForm, self).__init__(*args, **kwargs)
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs = FORM_CONTROL
+    class Meta:
+        model = Request
+        fields = ['request_reference_no_year','request_status','need_drive_by_date','comment']
+        widgets = {}
+
+    def make_all_readonly(self):
+        # TODO: This functions is duplicated, find way to only do it once. 
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs = UNEDTIABLE
+
+
+class EventForm(forms.ModelForm):
+    need_drives_by_date = forms.CharField(widget=forms.TextInput(attrs=FORM_CONTROL_DATE))
+    def __init__(self,*args, **kwargs):
+        super(EventForm, self).__init__(*args, **kwargs)
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs = FORM_CONTROL
+    class Meta:
+        model = Event
+        fields =['event_name', 'event_description', 'event_location', 'event_type',
+                'length_of_reporting_cycle', 'event_status', 'event_start_date',
+                'event_end_date','analystNames','teamLeadName']
+        widgets = {
+            'event_start_date': forms.TextInput(attrs=FORM_CONTROL_DATE),
+            'event_end_date': forms.TextInput(attrs=FORM_CONTROL_DATE),
+            'event_description':forms.TextInput(attrs=FORM_CONTROL),
+            'length_of_reporting_cycle':forms.TextInput(attrs=FORM_CONTROL)
+        }
+    def make_all_readonly(self):
+        # TODO: This functions is duplicated, find way to only do it once. 
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs = UNEDTIABLE
+
+
+class AdmendmentForm(forms.ModelForm):
+
+    def __init__(self,*args, **kwargs):
+        super(AdmendmentForm, self).__init__(*args, **kwargs)
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs = FORM_CONTROL
+    class Meta:
+        model = Admendment
+        fields = ['description', 'decision_date', 'comment']
+        widgets = {'decision_date':forms.TextInput(attrs=FORM_CONTROL_DATE)}
+    def make_all_readonly(self):
+        # TODO: This functions is duplicated, find way to only do it once. 
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs = UNEDTIABLE
+

@@ -11,73 +11,36 @@
             <div class="form-group">
                 <h3>Request Details</h3>
             </div>
-            <h3> </h3>
             <div class="form-group">
                 <label>Request Reference Number: </label>
-                {{req.request_reference_no}}
+                {{reqform.request_reference_no }}
             </div>
-            <h3> </h3>
-
-            <h3> </h3>
             <div class="dropdown">
                 <label for="type">Request Status</label>
                 {{reqform.request_status}}
             </div>
-
-            <h2> </h2>
             <div class="form-group">
-                <label for="type">Request Creation Date: </label>
-                {{req.request_creation_date}}
+                <label>Request Creation Date: </label>
+                {{reqform.request_creation_date}}
             </div>
-
-            <h3> </h3>
             <div class="form-group">
                 <label>Comments</label>
-                <h1></h1>
                 {{reqform.comment}}
             </div>
             <div class="form-group">
                 <label>Requested By: </label>
-
-                {{req.user}}
+                {{reqform.requestor}}
+            </div>
+            <div class="form-group">
+                <label>Total Amount of Drives Requested: </label>
+                {{reqform.total_amount_of_drives_requested}}
+            </div>
+            <div class="form-group">
+                <label>Total Amount Assigned: </label>
+                {{reqform.total_amount_of_drives_assigned}}
             </div>
             <br>
-            <h1></h1>
-            <div class="form-group">
-                <h3>Hard Drive Request</h3>
-                <div class="dropdown">
-                    <label for="classifixcation">Classification</label>
-                    {{harddrivereqform.classification}}
-                </div>
-                <h3> </h3>
-                <div class="form-group">
-                    <label>Ammount Required</label>
-                    {{harddrivereqform.amount_required}}
-                </div>
-                <h3> </h3>
-                <div class="form-group">
-                    <label>Connection Port</label>
-                    {{harddrivereqform.connection_port}}
-                </div>
-                <h3> </h3>
-                <div class="dropdown">
-                    <label>Hard Drive Type</label>
-                    {{harddrivereqform.hard_drive_type}}
-                </div>
-                <h3> </h3>
-                <div class="form-group">
-                    <label>Hard Drive Size</label>
-                    {{harddrivereqform.hard_drive_size}}
-                </div>
-
-            </div>
-
-
         </div>
-
-
-
-
 
         <div class="col">
             <br>
@@ -94,11 +57,8 @@
             <h3> </h3>
             <div class="form-group">
                 <label>Event Description</label>
-                <h1></h1>
-
                 {{form.event_description}}
             </div>
-            <h3> </h3>
             <div class="form-group">
                 <label>Event Location</label>
                 {{form.event_location}}
@@ -128,6 +88,7 @@
     </div>
 
     <div class="assignment-table">
+        <h3>Requested Hard Drives</h3>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -141,7 +102,11 @@
             <tbody>
                 {% for drive in requested_hard_drives %}
                 <tr>
-                    <td>{{ drive.request.request_reference_no }}</td>
+                    {% if drive.classification == 1 %}
+                    <td>Classified</td>
+                    {% else %}
+                    <td>Unclassified</td>
+                    {% endif %}
                     <td>{{ drive.amount_required }}</td>
                     <td>{{ drive.connection_port }}</td>
                     <td>{{ drive.hard_drive_size }}</td>
@@ -152,9 +117,85 @@
                 {% endfor %}
             </tbody>
         </table>
+        <br>
+        <table class="table table-bordered">
+            <h3>Assigned Hard Drives</h3>
+            <thead>
+                <tr>
+                    <th scope="col">Serial Number</th>
+                    <th scope="col">Hard Drive Classification*</th>
+                    <th scope="col">Connection Port Type</th>
+                    <th scope="col">Hard Drive Size</th>
+                    <th scope="col">Hard Drive Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for drive in all_hard_drives %}
+                <tr>
+                    {% if drive.classification == 1 %}
+                    <td>Classified</td>
+                    {% else %}
+                    <td>Unclassified</td>
+                    {% endif %}
+                    <td>{{ drive.amount_required }}</td>
+                    <td>{{ drive.connection_port }}</td>
+                    <td>{{ drive.hard_drive_size }}</td>
+                    <td>{{ drive.hard_drive_type }}</td>
+                </tr>
+                {% empty %}
+                <h5>No Hard Drives Assigned</h5>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <h5>Make Amendment</h5>
+        <div class="row"> 
+            <div class="col">
+                <div class="form-group">
+                    <label>Description</label>
+                    {{admendment_form.description}}
+                </div>
+                <div class="form-group">
+                    <label>Decision needed by</label>
+                    {{admendment_form.decision_date}}
+                </div>
+                <div class="form-group">
+                    <label>Comment</label>
+                    {{admendment_form.comment}}
+                </div>
+            </div>
+        </div>
+        {{admendment_form.errors}}
         <input type="submit" class="btn btn-primary">
         <a class="btn" style="background-color:#4678B2;color:white;"
             href="{% url 'main:view_all_harddrives' %}">Close</a>
+            <br>
+            <table class="table table-bordered">
+                <h3>Previous Admendment</h3>
+                <thead>
+                    <tr>
+                        <th scope="col">Create Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Comment</th>
+                        <th scope="col">Decision Needed By</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for admendment in admendments %}
+                    <tr>
+                        <td>{{ admendment.created }}</td>
+                        <td>{{ admendment.status  }}</td>
+                        <td>{{ admendment.description  }}</td>
+                        <td>{{ admendment.comment  }}</td>
+                        <td>{{ admendment.decision_date  }}</td>
+                    </tr>
+                    {% empty %}
+                    <h5>No Hard Drives Assigned</h5>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
     </div>
 </form>
 {% endblock %}

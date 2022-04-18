@@ -117,7 +117,7 @@ def get_request_form(req):
     request_form.fields['request_reference_no'].initial = req.request_reference_no
     request_form.fields['request_creation_date'].initial = req.request_creation_date
     request_form.fields['request_last_modified_date'].initial = req.request_last_modified_date
-
+    
     request_form.fields['requestor'].initial = req.requestor.username
     # This not working
     request_form.fields['modifier'].initial = req.user.username
