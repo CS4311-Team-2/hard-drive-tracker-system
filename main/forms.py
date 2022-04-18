@@ -130,13 +130,18 @@ class HardDriveRequestForm(forms.ModelForm):
         self.fields['hard_drive_size'].widget.attrs = FORM_CONTROL
 
         self.fields['amount_required'].widget.attrs = FORM_CONTROL
-        self.fields['classification'].widget.attrs = FORM_CONTROL
         
 
     class Meta:
         model = HardDriveRequest
         fields =['classification', 'amount_required', 'connection_port', 
                 'hard_drive_size', 'hard_drive_type', 'comment']
+
+        widgets = {
+            'classification' : forms.Select(attrs=FORM_CONTROL),
+        }
+
+        
     def make_all_readonly(self):
         # TODO: This functions is duplicated, find way to only do it once. 
         for field_name in self.fields:
