@@ -105,7 +105,7 @@ class Command(BaseCommand):
             event = Event(id, event_name, event_description, event_location, event_type, length_of_reporting_cycles,
                 event_status, event_start_date, event_end_date)
 
-            request = Request.objects.get(pk = 1)            
+            request = Request.objects.get(pk = event.pk)            
             event.request = request
             event.save()
 
