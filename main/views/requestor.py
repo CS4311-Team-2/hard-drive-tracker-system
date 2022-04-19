@@ -189,30 +189,38 @@ def make_request(http_request):
         print('POST')
         event_form = EventForm(http_request.POST)
         HDRFormSet = modelformset_factory(model=HardDriveRequest, form=HardDriveRequestForm)
+        formset = HDRFormSet(http_request.POST)
+
+        context = {
+            'event_form' : event_form,
+            'hdr_forms' : formset,
+        }
+
         
-        print("We made it here")
-        if event_form.is_valid() and HDRFormSet(http_request.POST).is_valid():
+        if event_form.is_valid() and formset.is_valid():
+            print('Forms are valid')
             request = Request()
             request.need_drive_by_date = event_form.cleaned_data['need_drives_by_date']
             request.requestor = http_request.user
             request.save()
-            print("------------------We Made It Here-----")
+            print('request saved')
             event = event_form.instance
             event.request = request
             event.save()
 
-            for form in HDRFormSet(http_request.POST):
+            for form in formset:
                 hard_drive_request = form.save()
                 hard_drive_request.request = request
                 hard_drive_request.save()
             
+            Log.objects.create(
+                action_performed = "New Request Has Been Made To The Event " + http_request.POST.get('event_name')
+            )
+
             return redirect('main:index')
         else:
-            print(event_form.errors.as_data())
-            print(HDRFormSet(http_request.POST).errors.as_data())
-        Log.objects.create(
-            action_preformed = "New Request Has Been Made To The Event " + http_request.POST.get('event_name')
-        )
+            return render(http_request, 'requestor/make_request.html', context)
+        
 
 def edit_request(http_request, key_id):
     req = Request.objects.get(request_reference_no = key_id)
