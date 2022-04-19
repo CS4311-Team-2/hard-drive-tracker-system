@@ -156,7 +156,8 @@
                     </button>
                 </div>
             </div> 
-            {% endif %}      
+            {% endif %}
+                  
     
             {% if req.request_status == 'approved' or req.request_status == 'fullfilled' %}
             <div class="row">                               
@@ -173,92 +174,7 @@
     
                 </div>
             </div>
-    
-            <!-- Amendment Information Content Area -->
-    
-            <div class="row">                               
-                <div class="col-0">
-                    <br>
-                    <h4>Amendment Information</h4>
-                </div>
-                <div class="col">   
-                    <br> 
-                    <div class="container-fluid" style="border:1px solid #cecece;">
-                        <div class="row">    
-                            <div class="col">
-                                <br>
-                                <form>
-                                    <div class="form-group">
-                                        <label for="amendmentUser">User</label>
-                                        <input type="text" class="form-control" id="amendmentUser">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="amendmentSubmission">Amendment Submission Date</label>
-                                        <input type="date" class="form-control" id="startDate" >
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="amendmentDescription">Amendment Description</label>
-                                        <textarea class="form-control" id="amendmentDescription" rows="3" ></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary" style="margin-left:0%;width:150px;">Submit Amendment</button>
-                                </form>
-                                <br>
-                            </div>     
-    
-                            <div class="col">
-                                <br>
-                                <form>
-                                    <div class="form-group">
-                                        <label for="amendmentComment">Comment</label>
-                                        <textarea class="form-control" id="amendmentComment" rows="3" ></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="amendmentStatus">Amendment Status</label>
-                                        <select>
-                                            <option value=""disabled selected></option>
-                                            <option value="1" >Created</option>
-                                            <option value="2" >Approved</option>
-                                            <option value="2" >Denied</option>
-                                        </select>
-                                    </div>
-                                </form>
-                                <br>
-                            </div>       
-                        </div> 
-    
-                                <!-- Collapsible Amendment History Content Area -->
-                        <h5>Amendment History</h5> 
-                        <div class="row" style="margin-left:1%;">   
-                            <div class="col">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Timestamp</th>
-                                            <th scope="col">Username</th>
-                                            <th scope="col">Action Performed</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for amendment in amendments %}
-                                            <tr>
-                                                    <td>{{ amendment.title }}</td>
-                                                    <td>{{ amendment.title }}</td>
-                                                    <td>{{ amendment.title }}</td>
-                                            </tr>
-                                        {% empty %}
-                                        <h3>No amendments found</h3>
-                                        {% endfor %} 
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-    
-                </div>
-            </div>
-            
-            <!-- Request Information Content Area -->
-    
+
             <div class="row">                               
                 <div class="col-0">
                     <br>
@@ -314,6 +230,101 @@
                     </div>
                 </div>
             </div>
+    
+            <!-- Amendment Information Content Area -->
+    
+            <div class="row">                               
+                <div class="col-0">
+                    <br>
+                    <h5>Amendment Information</h5>
+                </div>
+                <div class="col">   
+                    <br> 
+                    <div class="container-fluid" style="border:1px solid #cecece;">
+                        {% if contains_pending_amendment %}
+                        <div class="row">    
+                            <div class="col">
+                                <br>
+                                <form method="POST", action="">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="amendmentUser">ID</label>
+                                        {{amendment_form.id}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="amendmentUser">User</label>
+                                        {{amendment_form.user}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="amendmentSubmission">Amendment Submission Date</label>
+                                        {{amendment_form.created}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="amendmentDescription">Amendment Description</label>
+                                        {{amendment_form.description}}
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" name="approve" 
+                                                            style="">Approve Amendment</button>
+                                    <button type="submit" class="btn btn-primary" name="deny" 
+                                                            style="">Deny Amendment</button>                                    
+                                </form>
+                                <br>
+                            </div>     
+    
+                            <div class="col">
+                                <br>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="amendmentComment">Comment</label>
+                                        {{amendment_form.comment}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="amendmentStatus">Amendment Status</label>
+                                        {{amendment_form.status}}
+                                    </div>
+                                </form>
+                                <br>
+                            </div>       
+                        </div> 
+                        {%endif%}
+    
+                                <!-- Collapsible Amendment History Content Area -->
+                        <h5>Amendment History</h5> 
+                        <div class="row" style="margin-left:1%;">   
+                            <div class="col">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Create Date</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Comment</th>
+                                            <th scope="col">Decision Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for amendment in amendments %}
+                                            <tr>
+                                                    <td>{{ amendment.created }}</td>
+                                                    <td>{{ amendment.status }}</td>
+                                                    <td>{{ amendment.description }}</td>
+                                                    <td>{{ amendment.comment }}</td>
+                                                    <td>{{ amendment.decision_date }}</td>
+                                            </tr>
+                                        {% empty %}
+                                        <h3>No amendments found</h3>
+                                        {% endfor %} 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+            
+            <!-- Request Information Content Area -->
+    
             <br>
 
             <div class="row">                               

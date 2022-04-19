@@ -2,7 +2,7 @@ from urllib import request
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
-from main.forms import CreateUserForm, HardDriveConnectionPortsForm, HardDriveTypeForm, HardDriveManufacturersForm, UserForm, HardDriveSizeForm
+from main.forms import CreateUserForm, HardDriveConnectionPortsForm, HardDriveTypeForm, HardDriveManufacturersForm, UserForm, HardDriveSizeForm, AmendmentForm
 from main.forms import EventForm, RequestForm
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
@@ -10,6 +10,7 @@ from main.models.hard_drive_request import HardDriveRequest
 from main.models.request import Request
 from main.models.event import Event
 from main.models.log import Log
+from main.models.amendment import Amendment
 from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
 from main.forms import HardDriveForm
 from main.models.configurations.hard_drive_type import HardDriveType
@@ -21,6 +22,7 @@ from main.filters import UserProfilesFilter
 from main.views.util import is_in_groups
 
 VIEW_HARD_DRIVE = "view_hard_drive"
+current_amendment = None
 
 # These functions relate to maintainer/*.html views. These functions serve only the 
 #   maintainer role. 
@@ -43,7 +45,6 @@ def home(request):
 def view_request_created(http_request,req):
     # TODO(Alex) Implement HMTX here, also if you can create the functionality to approve it.
 
-
     # used for event information
     event = Event.objects.filter(request = req).first()
     event_form = EventForm(instance=event)
@@ -59,7 +60,6 @@ def view_request_created(http_request,req):
     #used for requested hard drive
     requested_hard_drives = HardDriveRequest.objects.filter(request = req)
     request_form = RequestForm(instance=req)
-    print(requested_hard_drives[0].classification)
     request_form = get_request_form(req)
     request_form.make_all_readonly()
 
@@ -87,7 +87,6 @@ def view_request(http_request, key_id):
     # used for event information
     event = Event.objects.filter(request = req).first()
     event_form = EventForm(instance=event)
-    event_form.make_all_readonly()
     
     #used for assigned hard drive sections
     hard_drives = HardDrive.objects.filter(request = req)
@@ -97,9 +96,43 @@ def view_request(http_request, key_id):
     all_hard_drives = HardDrive.objects.filter(request = None)
     requested_hard_drives = HardDriveRequest.objects.filter(request = req)
     request_form = get_request_form(req)
-    request_form.make_all_readonly()
 
-    print(requested_hard_drives[0].classification)
+    if http_request.method == "POST":
+        id = http_request.POST['id']
+        print(id)
+        amendment = Amendment.objects.get(pk=id)
+        print("Hello")
+
+        if "approve" in http_request.POST:
+            amendment.status = Amendment.Status.APPROVED
+            amendment.save()
+            print("Approve")
+        else:
+            amendment.status = Amendment.Status.DENIED
+            amendment.save()
+            print("Deny")
+
+
+    # Okay so you want to assign the first admendment that is pending to the admenent form.
+    # If the maintainer approves it then he needs to edit the fields necessary. If all goes well then the 
+    #       admendent will be approved and logged.
+    # If there is another admendment still pending then 
+    #       it'll take the place of the preivous admendment. 
+    amendments = Amendment.objects.filter(request=req)
+    contains_pending_amendment = False
+    amendment_form = None
+    for amendment in amendments:
+        if amendment.status == Amendment.Status.PENDING and contains_pending_amendment==False:
+            amendment_form = AmendmentForm(instance=amendment)
+            amendment_form.fields['user'].initial = amendment.user.username
+            amendment_form.fields['created'].initial = amendment.created
+            amendment_form.fields['id'].initial = amendment.pk
+            amendment_form.make_all_readonly()
+            contains_pending_amendment = True
+            break
+
+
+    print(contains_pending_amendment)
 
     context = {
         'req' : req,
@@ -107,7 +140,11 @@ def view_request(http_request, key_id):
         'event' : event_form, 
         'hard_drives' : hard_drives, 
         'all_hard_drives' : all_hard_drives, 
-        'requested_hard_drives' : requested_hard_drives, 
+        'requested_hard_drives' : requested_hard_drives,
+        'amendments':amendments,
+        'contains_amendments':len(amendments) != 0,
+        'contains_pending_amendment':contains_pending_amendment,
+        'amendment_form': amendment_form
     }
 
     return render(http_request, 'maintainer/view_request.html', context)

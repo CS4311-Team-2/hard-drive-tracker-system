@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.forms.models import modelformset_factory
 
-from main.forms import AdmendmentForm, EventForm, HardDriveRequestForm, HardDriveForm, RequestForm
+from main.forms import AmendmentForm, EventForm, HardDriveRequestForm, HardDriveForm, RequestForm
 from main.filters import HardDriveFilter, RequestFilter, EventFilter, LogFilter
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
@@ -12,7 +12,7 @@ from main.models.request import Request
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 from main.models.log import Log
-from main.models.amendment import Admendment
+from main.models.amendment import Amendment
 from main.filters import HardDriveFilter
 from main.views.maintainer import VIEW_HARD_DRIVE, get_request_form
 
@@ -251,23 +251,23 @@ def edit_request(http_request, key_id):
 
     if http_request.method == 'POST':
         print("Post")
-        admendment_form = AdmendmentForm(http_request.POST)
-        if admendment_form.is_valid():
-            admendment = admendment_form.save()
-            admendment.user  = http_request.user
-            admendment.request = req
-            admendment.save()
-            print("Admendment Succefully saved")
+        amendment_form = AmendmentForm(http_request.POST)
+        if amendment_form.is_valid():
+            amendment = amendment_form.save()
+            amendment.user  = http_request.user
+            amendment.request = req
+            amendment.save()
+            print("Amendment Succefully saved")
         else:
-            print(admendment_form.errors)
-    admendment_form = AdmendmentForm()
+            print(amendment_form.errors)
+    amendment_form = AmendmentForm()
 
     context = {'req' :req, 'hard_drives' :hard_drives, 
                 'all_hard_drives' : all_hard_drives, 
                 'requested_hard_drives' : requested_hard_drives, 'form' : form,  
                 'reqform' : reqform, 'harddrivereqform' : hard_drive_req_form,
-                'admendment_form':admendment_form,
-                'admendments': Admendment.objects.filter(request=req)}
+                'amendment_form':amendment_form,
+                'amendments': Amendment.objects.filter(request=req)}
 
     return render(http_request, 'requestor/new_edit_request.html', context)
 
