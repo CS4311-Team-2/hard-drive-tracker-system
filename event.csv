@@ -1,3 +1,6 @@
 id,event_name,event_description,event_location,event_type,length_of_reporting_cycles,event_status,event_start_date,event_end_date
 1,Pied Piper,Prepare the software for demo 1,El Paso-Texas-UnitedStates,CVI,604800,Confirmed,2021-05-18,2022-02-18
-2,Software Boys,Prepare the software for demo 1,El Paso-Texas-UnitedStates,Type B,604800,Forcasted,2020-07-12,2022-03-18
+2,Software Boys,Prepare the software for demo 2,El Paso-Texas-UnitedStates,Type B,604800,Forcasted,2020-07-12,2022-03-18
+3,Research Project for AirForce,Preparing Airplanes,Las Cruces,Rp,604800,Confirmed,2020-07-12,2022-03-20
+4,Finance Meeting,Check the servers of the bank,El Paso-Texas-UnitedStates,Type B,604800,Forcasted,2020-07-12,2022-02-18
+5,Testing at FortBlitz,Going to the Dessert,El Paso-Texas-UnitedStates,Rp,604800,Forcasted,2020-07-12,2022-03-10
