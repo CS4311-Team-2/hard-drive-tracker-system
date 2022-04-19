@@ -60,7 +60,6 @@ def view_request_created(http_request,req):
     #used for requested hard drive
     requested_hard_drives = HardDriveRequest.objects.filter(request = req)
     request_form = RequestForm(instance=req)
-    print(requested_hard_drives[0].classification)
     request_form = get_request_form(req)
     request_form.make_all_readonly()
 
