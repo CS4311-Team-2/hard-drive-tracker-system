@@ -107,8 +107,10 @@ def view_request(http_request, key_id):
     contains_pending_amendment = False
     amendment_form = None
     for amendment in amendments:
-        if amendment.status == Amendment.Status.PENDING:
+        if amendment.status == Amendment.Status.PENDING and contains_pending_amendment==False:
             amendment_form = AmendmentForm(instance=amendment)
+            amendment_form.fields['user'].initial = amendment.user.username
+            amendment_form.fields['created'].initial = amendment.created
             contains_pending_amendment = True
             break
 
@@ -122,6 +124,7 @@ def view_request(http_request, key_id):
         'hard_drives' : hard_drives, 
         'all_hard_drives' : all_hard_drives, 
         'requested_hard_drives' : requested_hard_drives,
+        'amendments':amendments,
         'contains_amendments':len(amendments) != 0,
         'contains_pending_amendment':contains_pending_amendment,
         'amendment_form': amendment_form

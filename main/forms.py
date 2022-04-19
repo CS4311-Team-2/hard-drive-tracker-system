@@ -241,13 +241,15 @@ class EventForm(forms.ModelForm):
 
 class AmendmentForm(forms.ModelForm):
 
+    user = forms.CharField(widget=forms.TextInput(attrs=UNEDTIABLE))
+    created = forms.CharField(widget=forms.TextInput(attrs=FORM_CONTROL))
     def __init__(self,*args, **kwargs):
         super(AmendmentForm, self).__init__(*args, **kwargs)
         for field_name in self.fields:
             self.fields[field_name].widget.attrs = FORM_CONTROL
     class Meta:
         model = Amendment
-        fields = ['description', 'decision_date', 'comment']
+        fields = ['description', 'decision_date', 'comment', 'status']
         widgets = {'decision_date':forms.TextInput(attrs=FORM_CONTROL_DATE)}
     def make_all_readonly(self):
         # TODO: This functions is duplicated, find way to only do it once. 

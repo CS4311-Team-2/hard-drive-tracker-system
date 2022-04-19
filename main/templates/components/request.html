@@ -247,15 +247,15 @@
                                 <form>
                                     <div class="form-group">
                                         <label for="amendmentUser">User</label>
-                                        <input type="text" class="form-control" id="amendmentUser">
+                                        {{amendment_form.user}}
                                     </div>
                                     <div class="form-group">
                                         <label for="amendmentSubmission">Amendment Submission Date</label>
-                                        <input type="date" class="form-control" id="startDate" >
+                                        {{amendment_form.created}}
                                     </div>
                                     <div class="form-group">
                                         <label for="amendmentDescription">Amendment Description</label>
-                                        <textarea class="form-control" id="amendmentDescription" rows="3" ></textarea>
+                                        {{amendment_form.description}}
                                     </div>
                                     <button type="submit" class="btn btn-primary" style="margin-left:0%;width:150px;">Submit Amendment</button>
                                 </form>
@@ -267,16 +267,11 @@
                                 <form>
                                     <div class="form-group">
                                         <label for="amendmentComment">Comment</label>
-                                        <textarea class="form-control" id="amendmentComment" rows="3" ></textarea>
+                                        {{amendment_form.comment}}
                                     </div>
                                     <div class="form-group">
                                         <label for="amendmentStatus">Amendment Status</label>
-                                        <select>
-                                            <option value=""disabled selected></option>
-                                            <option value="1" >Created</option>
-                                            <option value="2" >Approved</option>
-                                            <option value="2" >Denied</option>
-                                        </select>
+                                        {{amendment_form.status}}
                                     </div>
                                 </form>
                                 <br>
@@ -304,7 +299,7 @@
                                                     <td>{{ amendment.status }}</td>
                                                     <td>{{ amendment.description }}</td>
                                                     <td>{{ amendment.comment }}</td>
-
+                                                    <td>{{ amendment.decision_date }}</td>
                                             </tr>
                                         {% empty %}
                                         <h3>No amendments found</h3>
