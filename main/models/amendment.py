@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 from .request import Request
 
-class Admendment(models.Model):
+class Amendment(models.Model):
     class Status(models.TextChoices):
         PENDING = 'pending'
         APPROVED = 'approved'

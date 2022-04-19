@@ -46,6 +46,9 @@ def index(request):
 def view_request(request, key_id):
     if is_maintainer(request) | request.user.is_staff:
         return maintainer.view_request(request,key_id)
+
+    if is_in_groups(request, "Requestor"):
+        return requestor.edit_request(request,key_id)
     
     return redirect('main:index')
 

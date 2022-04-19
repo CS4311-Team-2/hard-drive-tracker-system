@@ -8,7 +8,7 @@ from main.models.configurations.hard_drive_size import HardDriveSize
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 from main.models.request import Request
-from main.models.amendment import Admendment
+from main.models.amendment import Amendment
 from users.models import UserProfile
 
 
@@ -219,13 +219,15 @@ class RequestForm(forms.ModelForm):
         for field_name in self.fields:
             self.fields[field_name].widget.attrs = UNEDTIABLE
 
-
 class EventForm(forms.ModelForm):
     need_drives_by_date = forms.CharField(widget=forms.TextInput(attrs=FORM_CONTROL_DATE))
     def __init__(self,*args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
         for field_name in self.fields:
             self.fields[field_name].widget.attrs = FORM_CONTROL
+        self.fields['event_name'].required = True
+        self.fields['analystNames'].required = True
+        self.fields['teamLeadName'].required = True
     class Meta:
         model = Event
         fields =['event_name', 'event_description', 'event_location', 'event_type',
@@ -243,15 +245,18 @@ class EventForm(forms.ModelForm):
             self.fields[field_name].widget.attrs = UNEDTIABLE
 
 
-class AdmendmentForm(forms.ModelForm):
-
+class AmendmentForm(forms.ModelForm):
+    id = forms.CharField(widget=forms.TextInput(attrs=UNEDTIABLE))    
+    user = forms.CharField(widget=forms.TextInput(attrs=UNEDTIABLE))
+    created = forms.CharField(widget=forms.TextInput(attrs=FORM_CONTROL))
     def __init__(self,*args, **kwargs):
-        super(AdmendmentForm, self).__init__(*args, **kwargs)
+        super(AmendmentForm, self).__init__(*args, **kwargs)
         for field_name in self.fields:
             self.fields[field_name].widget.attrs = FORM_CONTROL
+            self.fields[field_name].required = False
     class Meta:
-        model = Admendment
-        fields = ['description', 'decision_date', 'comment']
+        model = Amendment
+        fields = ['description', 'decision_date', 'comment', 'status']
         widgets = {'decision_date':forms.TextInput(attrs=FORM_CONTROL_DATE)}
     def make_all_readonly(self):
         # TODO: This functions is duplicated, find way to only do it once. 

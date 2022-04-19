@@ -27,7 +27,7 @@
           <td>{{ request.request_creation_date }}</td>
           <td>{{ request.request_creation_date }}</td>
           <td>{{ request.need_drive_by_date }}</td>
-          <td> <a class="btn" style="background-color:grey;color:white;"  href="{% url 'main:edit_request' request.request_reference_no %}">Edit </a></td>
+          <td> <a class="btn" style="background-color:grey;color:white;"  href="{% url 'main:edit_request' request.request_reference_no %}">View </a></td>
         </tr>
       {% empty %}
         <h3>You do not have any requests at the moment</h3>
