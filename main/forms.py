@@ -220,13 +220,15 @@ class RequestForm(forms.ModelForm):
         for field_name in self.fields:
             self.fields[field_name].widget.attrs = UNEDTIABLE
 
-
 class EventForm(forms.ModelForm):
     need_drives_by_date = forms.CharField(widget=forms.TextInput(attrs=FORM_CONTROL_DATE))
     def __init__(self,*args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
         for field_name in self.fields:
             self.fields[field_name].widget.attrs = FORM_CONTROL
+        self.fields['event_name'].required = True
+        self.fields['analystNames'].required = True
+        self.fields['teamLeadName'].required = True
     class Meta:
         model = Event
         fields =['event_name', 'event_description', 'event_location', 'event_type',
