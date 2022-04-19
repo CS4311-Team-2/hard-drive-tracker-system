@@ -4,7 +4,8 @@
 
             {% load has_group %}
             
-            {% if request.user|has_group:"Maintainer" or request.user|has_group:"Requestor" %}
+            {% if request.user|has_group:"Maintainer" or request.user|has_group:"Requestor" or request.user|has_group:"Auditor" %}
+            <li class="nav-item">
             <li class="nav-item">
             <a href="{% url 'main:index' %}" class="nav-link 
             
