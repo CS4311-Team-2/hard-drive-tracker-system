@@ -71,9 +71,9 @@
                                     </div>
                                 </div>
                                         
-                                        
+                                {{event_form.errors}}  
                                     
-                                    <br>
+                                <br>
                                 </div>     
                             </div>
                         </div>
@@ -118,6 +118,7 @@
                                                             <td>{{ form.hard_drive_type }}</td>
                                                             </tr>
                                                         </tbody>
+                                                        {{form.errors}}
                                                         {% endfor %}
                                                 </table>
                                                 <br>
