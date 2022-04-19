@@ -198,6 +198,7 @@ def configuration(request):
     
 @login_required(login_url='main:login')
 def view_all_profiles(request):
+    print('view_all_profiles')
     '''Used by Auditor and Administrator'''
     if not is_in_groups(request, "Auditor", "Administrator"):
         return redirect('main:index')
