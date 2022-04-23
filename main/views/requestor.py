@@ -67,13 +67,14 @@ def view_all_hard_drive(http_request):
     hard_drives = HardDrive.objects.all()
     requests = Request.objects.filter(user = http_request.user)
     hard_drives = HardDrive.objects.none()
+    is_requestor = True
     for r in requests:
         hard_drives |= HardDrive.objects.filter(request=r)
     
     hard_drive_filter = HardDriveFilter(http_request.GET, queryset = hard_drives)
     hard_drives = hard_drive_filter.qs
 
-    context = {"hard_drives" : hard_drives, "hard_drive_filter" : hard_drive_filter}
+    context = {"hard_drives" : hard_drives, "hard_drive_filter" : hard_drive_filter, "is_requestor": is_requestor}
     return render(http_request, 'maintainer/view_all_hard_drives.html', context)
 
 @login_required(login_url='main:login')

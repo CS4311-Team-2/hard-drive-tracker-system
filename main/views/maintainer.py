@@ -187,11 +187,11 @@ def view_all_requests(http_request):
 @login_required(login_url='main:login')
 def view_all_harddrives(request):
     hard_drives = HardDrive.objects.all()
-    
+    is_requestor = False
     hard_drive_filter = HardDriveFilter(request.GET, queryset = hard_drives)
     hard_drives = hard_drive_filter.qs
 
-    context = {"hard_drives" : hard_drives, "hard_drive_filter" : hard_drive_filter}
+    context = {"hard_drives" : hard_drives, "hard_drive_filter" : hard_drive_filter, "is_requestor" :is_requestor}
     return render(request, 'maintainer/view_all_hard_drives.html', context)
 
 @login_required(login_url='main:login')
