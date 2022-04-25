@@ -98,28 +98,9 @@ def registerPage(request):
     
 def loginPage(request):
     context = {
-        "show_menu" : False
+        "show_menu" : False,
+        'form': LoginUserForm()
         }
-    if request.user.is_authenticated:
-        print("User authorized!")
-        user = UserProfile.objects.get(username=request.user.username)
-        if request.method == 'POST':
-            print("---------------------------")
-            form = LoginUserForm(request.POST, instance=user)
-            if form.is_valid():
-                form.save()
-                return redirect('main:index')
-            else:
-                messages.info(request, form.errors)
-
-        if user.groups.filter(name=Group(name=MAINTAINER)):
-            messages.info(request, 'Welcome Maintainer!')
-            context = {
-                "show_menu" : True,
-                'form': LoginUserForm(instance=user)
-            }
-        else:
-            return redirect('main:index')
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -127,22 +108,22 @@ def loginPage(request):
         auth = authenticate(request, username=username, password=password)
 
         if auth is not None:
-            print("User credentials is correct")
+            print("Here")
             user = UserProfile.objects.get(username=username)
             # checks if user.status is not pending
             if user.status == UserProfile.Status.PENDING:
                 messages.info(request, 'Adminstrator has not approved this account')
                 return render(request, 'accounts/login.html', context)
-                
+            form = LoginUserForm(request.POST)
             login(request, auth)
-            print(user)
-            if user.groups.filter(name=Group(name=MAINTAINER)):
-                return redirect('main:login')
-            else:
+            # Should always work! 
+            if is_in_groups(request, form['groups'].value()):
                 return redirect('main:index')
+            logout(request)
+            messages.info(request, 'Username or password is incorrect')
+            return render(request, 'accounts/login.html', context)            
         else:
             messages.info(request, 'Username or password is incorrect')
-
     return render(request, 'accounts/login.html', context)
 
 def logoutUser(request):
