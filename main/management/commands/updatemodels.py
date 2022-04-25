@@ -9,15 +9,18 @@ from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
 
+from main.models.configurations.hard_drive_size import HardDriveSize
 from users.models import UserProfile
-
 import pandas as pd
 
 
 ADMIN_USERNAME = 'Admin'
 MAINTAINER_USERNAME = 'Maintainer'
 REQUESTOR_USERNAME = 'Requestor'
+AUDITOR_USERNAME = 'Auditor'
+ADMINISTRATOR_USERNAME = 'Administrator'
 PASSWORD = 'pass'
+
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
@@ -29,6 +32,7 @@ class Command(BaseCommand):
             user = UserProfile.objects.create_superuser(username=ADMIN_USERNAME,
                                  email='admin@army.mil')
             user.set_password(PASSWORD)
+            user.status = UserProfile.Status.ACTIVE
             user.save()
 
         maintainer_gp, _ = Group.objects.update_or_create(name='Maintainer')
@@ -37,18 +41,46 @@ class Command(BaseCommand):
         requester_gp, _ = Group.objects.update_or_create(name='Requestor')
         requester_gp.save()
 
+        auditor_gp, _ = Group.objects.update_or_create(name='Auditor')
+        auditor_gp.save()
+
+        administrator_gp, _ = Group.objects.update_or_create(name='Administrator')
+        administrator_gp.save()
+
         if not UserProfile.objects.filter(username__iexact=MAINTAINER_USERNAME).exists():
             user = UserProfile.objects.create(username=MAINTAINER_USERNAME,
                                  email='maintainer@army.mil')
             user.set_password(PASSWORD)
+            user.status = UserProfile.Status.ACTIVE
+            user.mock_group_is = UserProfile.MockGroupIs.MAINTAINER
        
             maintainer_gp.user_set.add(user)
+            user.save()
+
+        if not UserProfile.objects.filter(username__iexact=AUDITOR_USERNAME).exists():
+            user = UserProfile.objects.create(username=AUDITOR_USERNAME,
+                                 email='auditor@army.mil')
+            user.set_password(PASSWORD)
+            user.status = UserProfile.Status.ACTIVE
+
+            auditor_gp.user_set.add(user)
+            user.save()
+
+
+        if not UserProfile.objects.filter(username__iexact=ADMINISTRATOR_USERNAME).exists():
+            user = UserProfile.objects.create(username=ADMINISTRATOR_USERNAME,
+                                 email='administrator@army.mil')
+            user.set_password(PASSWORD)
+            user.status = UserProfile.Status.ACTIVE
+
+            administrator_gp.user_set.add(user)
             user.save()
 
         if not UserProfile.objects.filter(username__iexact=REQUESTOR_USERNAME).exists():
             user = UserProfile.objects.create(username=REQUESTOR_USERNAME,
                                  email='requestor@army.mil')
             user.set_password(PASSWORD)
+            user.status = UserProfile.Status.ACTIVE
 
             requester_gp.user_set.add(user)
             user.save()
@@ -61,7 +93,8 @@ class Command(BaseCommand):
 
             request = Request(request_reference_no, request_reference_no_year, request_status, request_creation_date,
                 request_last_modified_date, need_drive_by_date, comment)
-
+            request.user = UserProfile.objects.get(username__iexact=MAINTAINER_USERNAME)
+            request.requestor = UserProfile.objects.get(username__iexact=REQUESTOR_USERNAME)
             request.save()
     
         df = pd.read_csv('event.csv')
@@ -73,7 +106,7 @@ class Command(BaseCommand):
             event = Event(id, event_name, event_description, event_location, event_type, length_of_reporting_cycles,
                 event_status, event_start_date, event_end_date)
 
-            request = Request.objects.get(pk = 1)            
+            request = Request.objects.get(pk = event.pk)            
             event.request = request
             event.save()
 
@@ -129,5 +162,9 @@ class Command(BaseCommand):
         HardDriveType.objects.create(name="HDD")
         HardDriveType.objects.create(name="NVMe")
 
+        HardDriveSize.objects.create(name="250 gbs")
+        HardDriveSize.objects.create(name="500 gbs")
+        HardDriveSize.objects.create(name="1 tb")
+        
         print('Succesfully added dummy data')
         

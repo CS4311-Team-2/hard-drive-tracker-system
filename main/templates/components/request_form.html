@@ -5,11 +5,12 @@
 
 <form action="{% url 'main:make_request' %}" method="POST" id="request-form">
     {% csrf_token %}
+    {% load bootstrap %}
     <div class="container-fluid" style="border:1px solid #cecece;">
         <div class="row">                               
             <div class="col">
                 <div class="row">                               
-                    <div class="col-1">
+                    <div class="col-0">
                         <br>
                         <h4>Event</h4>
                     </div>
@@ -19,62 +20,66 @@
                             <div class="row">    
                                 <div class="col">
                                     <br>    
+                                    <h5>Event Attributes</h5>
                                     <div class="form-group">
-                                        <label for="eventName">Event Name<span>*</span></label>
-                                        {{event_form.event_name}}
+                                        {{event_form.event_name | bootstrap}}
                                     </div>
                                     <div class="form-group">
-                                        <label for="eventDescription">Event Description</label>
-                                        {{event_form.event_description}}
+                                        {{event_form.event_description | bootstrap}}
                                     </div>
+                                    <div class="form-group">
+                                        {{event_form.event_location | bootstrap}}
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        {{event_form.event_type | bootstrap}}
                                             
+                                    </div>
                                     <br>
-                                        
                                     <div class="form-group">
-                                        <label for="eventType">Event Type<span>*</span></label>
-                                        {{event_form.event_type}}
-                                            
-                                    </div>
-                                    <br>
-                                        
+                                        {{event_form.length_of_reporting_cycle | bootstrap}}
+                                    </div>    
                                             
                                     <div class="form-group">
-                                        <label for="eventStatus">Event Status<span>*</span></label>
-                                        {{event_form.event_status}}
+                                        {{event_form.event_status | bootstrap}}
                                     </div>
                                     <br>
                                 </div>     
 
                                 <div class="col">
                                     <br>
-                                    
+                                    <h5>Event Dates</h5>
+                                    <div class="form-group">
+                                        {{event_form.event_start_date | bootstrap}}
+                                        <i class="fas fa-calandar-alt"></i>
+                                    </div>
+                                    <div class="form-group">
+                                        {{event_form.event_end_date | bootstrap}}
+                                    </div>
+                                    <div class="form-group">
+                                        {{event_form.need_drives_by_date | bootstrap}}
+                                    </div>
+                                    <h5>Event Participants</h5>
+                                    <div class="row" style="margin-left:1%;">
+                                        <div class="col">
                                         <div class="form-group">
-                                            <label for="startDate">Start Date<span>*</span></label>
-                                            {{event_form.event_start_date}}
-                                            <i class="fas fa-calandar-alt"></i>
+                                            {{event_form.teamLeadName | bootstrap}}
                                         </div>
                                         <div class="form-group">
-                                            <label for="endDate">End Date<span>*</span></label>
-                                            {{event_form.event_end_date}}
-                                            <i class="fas fa-calandar-alt"></i>
+                                            {{event_form.analystNames  | bootstrap}}
                                         </div>
+                                    </div>
+                                </div>
                                         
-                                        <div class="form-group">
-                                            <label for="location">Location</label>
-                                            {{event_form.event_location}}
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="eventName">Length of Reporting Cycle<span>*</span></label>
-                                            {{event_form.length_of_reporting_cycle}}
-                                        </div>
+                                {{event_form.errors}}  
                                     
-                                    <br>
+                                <br>
                                 </div>     
                             </div>
                         </div>
                     </div>
                     <div class="row">                               
-                        <div class="col-1">
+                        <div class="col-0">
                             <br>
                             <h4>Hard Drive Requests</h4>
                         </div>
@@ -113,6 +118,7 @@
                                                             <td>{{ form.hard_drive_type }}</td>
                                                             </tr>
                                                         </tbody>
+                                                        {{form.errors}}
                                                         {% endfor %}
                                                 </table>
                                                 <br>
@@ -122,7 +128,8 @@
                                         <button 
                                             hx-post="{% url 'main:make_request' %}" 
                                             hx-target="#request-form"
-                                            hx-swap="outerHTML">
+                                            hx-swap="outerHTML"
+                                            class="btn btn-success">
                                             Add
                                         </button>
 
@@ -147,7 +154,7 @@
                     <div class="btn-block">
                         <div class="row">
                             <div class="col">
-                                <button type="submit">Request</button>
+                                <button type="submit" class="btn btn-success">Request</button>
                                 <br>
                             </div>
                         </div>

@@ -4,7 +4,8 @@
 
             {% load has_group %}
             
-            {% if request.user|has_group:"Maintainer" or request.user|has_group:"Requestor" %}
+            {% if request.user|has_group:"Maintainer" or request.user|has_group:"Requestor" or request.user|has_group:"Auditor" %}
+            <li class="nav-item">
             <li class="nav-item">
             <a href="{% url 'main:index' %}" class="nav-link 
             
@@ -34,7 +35,7 @@
 
             
 
-            {% if request.user|has_group:"Maintainer"  %}
+            {% if request.user|has_group:"Maintainer"  or request.user|has_group:"Auditor" or request.user|has_group:"Requestor"  %}
             <li class="nav-item">
             <a href="{% url 'main:view_all_requests' %}" class="nav-link
             
@@ -70,7 +71,7 @@
             </li>
             {% endif %}
 
-            {% if request.user|has_group:"Maintainer"  or request.user|has_group:"Requestor" %}
+            {% if request.user|has_group:"Maintainer"  or request.user|has_group:"Requestor" or request.user|has_group:"Auditor" %}
             <li class="nav-item">
             <a href="{% url 'main:view_all_harddrives' %}" class="nav-link 
             
@@ -108,9 +109,29 @@
             {% endif %}
 
 
-            {% if request.user|has_group:"Maintainer" %}
+            {% if request.user|has_group:"Auditor" or request.user|has_group:"Administrator"%}
+            <li class="nav-item">
+            <a href="{% url 'main:view_all_profiles' %}" class="nav-link 
+            
+            {% url 'main:view_all_profiles' as the_url%}
+            {% if request.path == the_url %}
+            active
+            {% else %}
+            link-dark
+            {% endif %}
+                        
+            " aria-current="page">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                View All Profiles
+            </a>
+            </li>
+            {% endif %}
+
+            {% if request.user|has_group:"Maintainer" or request.user|has_group:"Auditor" or request.user|has_group:"Administrator"%}
             <li class="nav-item">
             <a href="#" class="nav-link 
+            
+
             
             link-dark
             
@@ -121,20 +142,23 @@
             </li>
             {% endif %}
 
-            {% if request.user|has_group:"Maintainer"  or request.user|has_group:"Requestor" %}
             <li class="nav-item">
-            <a href="#" class="nav-link 
+            <a href="{% url 'main:view_profile' %}" class="nav-link 
             
+            {% url 'main:view_profile' as the_url%}
+            {% if request.path == the_url %}
+            active
+            {% else %}
             link-dark
+            {% endif %}
 
             " aria-current="page">
                 <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
                 Profile
             </a>
             </li>
-            {% endif %}
 
-            {% if request.user|has_group:"Maintainer" %}
+            {% if request.user|has_group:"Maintainer" or request.user|has_group:"Auditor" %}
             <li class="nav-item">
             <a href="{% url 'main:log'%}" class="nav-link 
             
@@ -153,7 +177,7 @@
             {% endif %}
 
 
-            {% if request.user|has_group:"Requestor" %}
+            {% if request.user|has_group:"Requestor" or request.user|has_group:"Maintainer" %}
             <li class="nav-item">
             <a href="{% url 'main:make_request' %}" class="nav-link 
             
@@ -177,10 +201,7 @@
                 <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
                 Logout
             </a>
-            </li>
-
-   
-      
+            </li>      
         </ul>
     </div>
   </div>

@@ -1,29 +1,69 @@
 {% extends "main/base.html" %}  
 
 {% block content %}
-<main class="content">
-  <div class="row">
-     <div class="col">
-        <div class="row">
-           <div class="tableFixHead">
-              <!-- Table -->
-              <div class="scroller">
-                 <table class="table table-hover">
-                    <thead>
-                       <tr>
-                         <th scope="col">View</th>
-                          <th scope="col">Serial Number</th>
-                          <th scope="col">Status</th>
-                          <th scope="col">Manufacturer</th>
-                          <th scope="col">Model No</th>
-                          <th scope="col">Classification</th>
-                          <th scope="col">Connection Port</th>
-                          <th scope="col">Size</th>
-                          <th scope="col">Type</th>
-                       </tr>
-                    </thead>
-                    <tbody>
-                       {% for hard_drive in hardDrives %}
+{% load bootstrap %}
+
+<main class="content" style="margin-left:0%;margin-right:0%;">
+   <div class="row">
+      <div class="col-md-2">
+      <a class="btn" style="background-color:#4678B2;color:white;" href="{% url 'main:add_hard_drive' %}">Add New Hard Drive</a>
+         <br><br>
+      </div>
+      <div class="col">
+         <h3>Summary View of All Hard Drives</h3>
+         <br><br>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-2">
+         <div class="container-fluid" style="border:1px solid #cecece;">
+            <form method="get">
+               <br>
+               <h4>User</h4>
+               {{hard_drive_filter.form.modifier | bootstrap}}
+               <h4>Hard Drive Attributes</h4>
+                  {{hard_drive_filter.form.serial_number | bootstrap}}
+                  {{hard_drive_filter.form.status | bootstrap}}
+                  {{hard_drive_filter.form.image_version_id | bootstrap}}
+                  {{hard_drive_filter.form.boot_test_status | bootstrap}}
+                  {{hard_drive_filter.form.manufacturer | bootstrap}}
+                  {{hard_drive_filter.form.model_number | bootstrap}}
+                  {{hard_drive_filter.form.classification | bootstrap}}
+                  {{hard_drive_filter.form.connection_port | bootstrap}}
+                  {{hard_drive_filter.form.hard_drive_size | bootstrap}}
+                  {{hard_drive_filter.form.hard_drive_type | bootstrap}}
+                  <h4>Date</h4>
+                  {{hard_drive_filter.form.create_date | bootstrap}}
+                  {{hard_drive_filter.form.issue_date | bootstrap}}
+                  {{hard_drive_filter.form.modified_date | bootstrap}}
+                  {{hard_drive_filter.form.expected_hard_drive_return_date | bootstrap}}
+                  {{hard_drive_filter.form.boot_test_expiration | bootstrap}}
+                <button class="btn btn-primary" type="submit" style="width:100px;">Search</button>
+                <br><br>
+            </form>
+         </div>
+      </div>
+      <div class="col">
+         <div class="row">
+            <div class="tableFixHead">
+               <!-- Table -->
+               <div class="scroller">
+                  <table class="table table-hover">
+                     <thead>
+                        <tr>
+                           <th scope="col">View</th>
+                           <th scope="col">Serial Number</th>
+                           <th scope="col">Status</th>
+                           <th scope="col">Manufacturer</th>
+                           <th scope="col">Model No</th>
+                           <th scope="col">Classification</th>
+                           <th scope="col">Connection Port</th>
+                           <th scope="col">Size</th>
+                           <th scope="col">Type</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                       {% for hard_drive in hard_drives %}
                        <tr>
                           <td><a class="btn" 
                               style="background-color:grey;color:white;" 
@@ -45,13 +85,6 @@
               </div>
            </div>
         </div>
-     </div>
-     <!-- Buttons -->
-     <div class="col" style="margin-left:60%;">
-        <button type="submit" class="btn btn-primary">Return Hard Drives</button>
-     </div>
-     <div class="col">
-        <a class="btn" style="background-color:#4678B2;color:white;" href="{% url 'main:add_hard_drive' %}">Add New Hard Drive</a>
      </div>
   </div>
   </body>

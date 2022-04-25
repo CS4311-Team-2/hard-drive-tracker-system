@@ -4,13 +4,17 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.forms.models import modelformset_factory
 
-from main.forms import EventForm, HardDriveRequestForm
+from main.forms import AmendmentForm, EventForm, HardDriveRequestForm, HardDriveForm, RequestForm
+from main.filters import HardDriveFilter, RequestFilter, EventFilter, LogFilter
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 from main.models.log import Log
+from main.models.amendment import Amendment
+from main.filters import HardDriveFilter
+from main.views.maintainer import VIEW_HARD_DRIVE, get_request_form
 
 from datetime import datetime
 
@@ -32,6 +36,59 @@ def home(request):
         "username"      : request.user.username
         }
     return render(request, 'requestor/home.html', context)
+
+@login_required(login_url='main:login')
+def view_all_requests(http_request):
+    data = {}
+    requests = Request.objects.filter(requestor=http_request.user)
+
+    request_filter = RequestFilter(http_request.GET, queryset = requests)
+    requests = request_filter.qs
+
+    event_filter = EventFilter()
+
+    for r in requests:
+        events = Event.objects.filter(request = r)
+        event_filter = EventFilter(http_request.GET, queryset = events)
+        events = event_filter.qs
+        if not events:
+            continue
+        else:
+            event = events[0]
+        data[r] = event
+
+    context = {'data': data, 'requests' : requests, 
+                'request_filter': request_filter, 'event_filter': event_filter}
+    return render(http_request, 'maintainer/view_all_requests.html', context)
+
+@login_required(login_url='main:login')
+@group_required('Requestor')
+def view_all_hard_drive(http_request):
+    hard_drives = HardDrive.objects.all()
+    requests = Request.objects.filter(user = http_request.user)
+    hard_drives = HardDrive.objects.none()
+    for r in requests:
+        hard_drives |= HardDrive.objects.filter(request=r)
+    
+    hard_drive_filter = HardDriveFilter(http_request.GET, queryset = hard_drives)
+    hard_drives = hard_drive_filter.qs
+
+    context = {"hard_drives" : hard_drives, "hard_drive_filter" : hard_drive_filter}
+    return render(http_request, 'maintainer/view_all_hard_drives.html', context)
+
+@login_required(login_url='main:login')
+def view_hard_drive(http_request, id=-1):
+    if id==-1:
+        print("ERROR ERROR")    
+    hard_drive = HardDrive.objects.filter(pk=id).first()
+    form = HardDriveForm(instance=hard_drive)
+    form['modifier'].initial = hard_drive.modifier.email
+    form.make_all_readonly()
+    context = {"form" : form, 'id':id, 
+                'email':hard_drive.modifier.email, 
+                VIEW_HARD_DRIVE:True, "only_view":True}
+    return render(http_request, 'maintainer/view_hard_drive.html', context)  
+
 
 @login_required(login_url='main:login')
 @group_required('Requestor')
@@ -96,6 +153,7 @@ def view_single_request(http_request, id):
 @login_required(login_url='main:login')
 @group_required('Requestor')
 def make_request(http_request):
+    print("make_request from the requestor file")
     if http_request.htmx:
         HDRFormSet = modelformset_factory(model=HardDriveRequest, form=HardDriveRequestForm)
         
@@ -131,29 +189,85 @@ def make_request(http_request):
         print('POST')
         event_form = EventForm(http_request.POST)
         HDRFormSet = modelformset_factory(model=HardDriveRequest, form=HardDriveRequestForm)
+        formset = HDRFormSet(http_request.POST)
+
+        context = {
+            'event_form' : event_form,
+            'hdr_forms' : formset,
+        }
+
         
-
-        if event_form.is_valid() and HDRFormSet(http_request.POST).is_valid():
+        if event_form.is_valid() and formset.is_valid():
+            print('Forms are valid')
             request = Request()
+            request.need_drive_by_date = event_form.cleaned_data['need_drives_by_date']
+            request.requestor = http_request.user
             request.save()
-
+            print('request saved')
             event = event_form.instance
             event.request = request
             event.save()
 
-            for form in HDRFormSet(http_request.POST):
+            for form in formset:
                 hard_drive_request = form.save()
                 hard_drive_request.request = request
                 hard_drive_request.save()
             
-            return redirect('/admin')
+            Log.objects.create(
+                action_performed = "New Request Has Been Made To The Event " + http_request.POST.get('event_name')
+            )
+
+            return redirect('main:index')
         else:
-            print(event_form.errors.as_data())
-            print(HDRFormSet(http_request.POST).errors.as_data())
-        Log.objects.create(
-            action_preformed = "New Request Has Been Made To The Event " + http_request.POST.get('event_name')
-        )
+            return render(http_request, 'requestor/make_request.html', context)
+        
 
+def edit_request(http_request, key_id):
+    req = Request.objects.get(request_reference_no = key_id)
+    # used for event information
+    events = Event.objects.filter(request = req).first()
+    #used for assigned hard drive sections
+    hard_drives = HardDrive.objects.filter(request = req)
+    #used for the selecting hard drive section  
+    all_hard_drives = HardDrive.objects.filter(request = req)
+    #used for requested hard drive
+    requested_hard_drives = HardDriveRequest.objects.filter(request = req)
 
-    
+    total_amount_of_drives_requested = 0
+    for requested_hard_drive in requested_hard_drives:
+        print(requested_hard_drive.amount_required)
+        total_amount_of_drives_requested += requested_hard_drive.amount_required
+   
+    print(total_amount_of_drives_requested)
+    form = EventForm(instance=events)
+    form.make_all_readonly()
+    reqform = get_request_form(req)
+
+    reqform.fields['total_amount_of_drives_requested'].initial = total_amount_of_drives_requested
+    reqform.fields['total_amount_of_drives_assigned'].initial = len(all_hard_drives)
+    reqform.make_all_readonly()
+    hard_drive_req_form = HardDriveRequestForm(instance=requested_hard_drives.first())
+    hard_drive_req_form.make_all_readonly()
+
+    if http_request.method == 'POST':
+        print("Post")
+        amendment_form = AmendmentForm(http_request.POST)
+        if amendment_form.is_valid():
+            amendment = amendment_form.save()
+            amendment.user  = http_request.user
+            amendment.request = req
+            amendment.save()
+            print("Amendment Succefully saved")
+        else:
+            print(amendment_form.errors)
+    amendment_form = AmendmentForm()
+
+    context = {'req' :req, 'hard_drives' :hard_drives, 
+                'all_hard_drives' : all_hard_drives, 
+                'requested_hard_drives' : requested_hard_drives, 'form' : form,  
+                'reqform' : reqform, 'harddrivereqform' : hard_drive_req_form,
+                'amendment_form':amendment_form,
+                'amendments': Amendment.objects.filter(request=req)}
+
+    return render(http_request, 'requestor/new_edit_request.html', context)
 
