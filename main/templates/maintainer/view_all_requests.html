@@ -4,7 +4,23 @@
 
 {% block content %}
 
-
+<div class="row">
+    <div class="col-md-2">
+        <div class="row">
+            <button type="submit" class="btn btn-primary" style="margin-left:5%; width: 120px;">Clone Request</button>
+        </div>
+        <br>
+        <div class="row">
+            <button type="submit" class="btn btn-primary" style="margin-left:5%; width: 120px;">Add Request</button>
+        </div>
+        <br>
+    </div>
+    <div class="col">
+        <br>
+        <br>
+        <h3>Summary View of Requests</h3> 
+    </div>
+</div>
 <div class="row">
     <div class="col-md-2">
         <!--FILTERING-->
@@ -94,12 +110,12 @@
         <br>
       </div>   
     <div class="col">
-        <main class="content">
-            <h3>Summary View of Requests</h3> 
+        <main class="content" style="margin-left:0%;margin-right:0%;">
             <div class="row">                               
                 <div class="col">
                     <div class="row">                               
                         <div class="col">   
+                            <div class="tableFixHead">
                                 <!-- Table -->
                                 <div class="scroller">
                                     <table class="table table-hover">
@@ -114,6 +130,7 @@
                                             <th scope="col">Event Description</th>
                                             <th scope="col">Event Type</th>
                                             <th scope="col">Request Status</th>
+                                            <th scope="col">View</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -136,6 +153,8 @@
                                         </tbody>
                                     </table>
                                 </div>
+
+                            </div>
                         </div>
                     </div>
                     <div class="row">                               
@@ -147,15 +166,6 @@
                     </div>
                     <br>
                 </div>
-            
-                <!-- Start footer buttons -->
-                <div class="col" style="margin-left:60%;">
-                    <button type="submit" class="btn btn-primary">Clone Request</button>
-                </div>        
-                <div class="col">
-                    <button type="submit" class="btn btn-primary" style="margin-left:20%;">Add Request</button>
-                </div>
-                <!-- End of footer buttons -->
             </div> 
         </main>
     </div>    

@@ -3,7 +3,6 @@
 {% load bootstrap %}
 
 {% block content %}
-<main class="content">
   <div class="row">
    <div class="col-md-2">
       <div class="container-fluid" style="border:1px solid #cecece;">
@@ -53,6 +52,8 @@
       </div>
      </div>
      <div class="col">
+      <main class="content">
+         <h3>Summary View of Logs</h3> 
         <div class="row">
            <div class="tableFixHead">
               <!-- Table -->
@@ -80,9 +81,9 @@
               </div>
            </div>
         </div>
+      </main>
      </div>
      <!-- Buttons -->
   </div>
   </body>
-</main>
 {% endblock %}
