@@ -89,7 +89,7 @@ class UserProfile(django_filters.FilterSet):
 class LogFilter(django_filters.FilterSet):
     time_stamp = django_filters.DateFilter(field_name="time_stamp", lookup_expr="gte", label="Time Stamp From", widget=DateInput(attrs={'type': 'date'}))
     action_performed = django_filters.CharFilter(field_name="action_performed", lookup_expr="icontains", label="Action Performed")
-    keyword = django_filters.CharFilter(method='search_all_log_fields',label="Search")
+    keyword = django_filters.CharFilter(method='search_all_log_fields',label="Log Keyword")
 
     class Meta:
         model = Log
