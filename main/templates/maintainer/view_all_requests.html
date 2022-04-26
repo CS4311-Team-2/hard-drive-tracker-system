@@ -44,7 +44,6 @@
                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#filterdropdown">
                               <div class="card-body">
                                 {{request_filter.form.request_keyword | bootstrap}}
-                                {{event_filter.form.event_keyword | bootstrap}}
                               </div>
                             </div>
                         </div>
@@ -96,6 +95,8 @@
                               <div class="card-body">
                                 {{event_filter.form.event_start_date | bootstrap}}
                                 {{event_filter.form.event_end_date | bootstrap}}
+                                {{request_filter.form.request_creation_date | bootstrap}}
+                                {{request_filter.form.need_drive_by_date | bootstrap}}
                               </div>
                             </div>
                         </div>
