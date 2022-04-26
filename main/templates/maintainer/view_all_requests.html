@@ -13,20 +13,80 @@
               <div class="container-fluid" style="border:1px solid #cecece;">
                  <form method="get">
                     <br>
-                     <h4>Request Attribute</h4>
-                     {{request_filter.form.request_reference_no | bootstrap}}
-                     {{request_filter.form.request_status | bootstrap}}
-                     <h4>Event Attribute</h4>
-                     {{event_filter.form.event_name | bootstrap}}
-                     {{event_filter.form.event_type | bootstrap}}
-                     <h4>Date</h4>
-                     {{event_filter.form.event_start_date | bootstrap}}
-                     {{event_filter.form.event_end_date | bootstrap}}
-                     <h4>Keyword</h4>
-                     {{request_filter.form.request_keyword | bootstrap}}
-                     {{event_filter.form.event_keyword | bootstrap}}
-                     <button class="btn btn-primary" type="submit" style="width:100px;">Search</button>
-                     <br><br>
+                    <h3 style="font-size:18px;">Search and Filter</h3>
+                    <br>
+                    <div class="accordion" id="filterdropdown">
+                        <!-- Keyword Filter -->
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                              <h5 class="mb-0">
+                                <button class="btn" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                  Keyword
+                                </button>
+                              </h5>
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#filterdropdown">
+                              <div class="card-body">
+                                {{request_filter.form.request_keyword | bootstrap}}
+                                {{event_filter.form.event_keyword | bootstrap}}
+                              </div>
+                            </div>
+                        </div>
+                        <br>
+                        <!-- Request Filter -->
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <button class="btn" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Request Attribute
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#filterdropdown">
+                                <div class="card-body">
+                                    {{request_filter.form.request_reference_no | bootstrap}}
+                                    {{request_filter.form.request_status | bootstrap}}
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <!-- Event Filter -->
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                              <h5 class="mb-0">
+                                <button class="btn" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                  Event Attribute
+                                </button>
+                              </h5>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#filterdropdown">
+                              <div class="card-body">
+                                {{event_filter.form.event_name | bootstrap}}
+                                {{event_filter.form.event_type | bootstrap}}
+                              </div>
+                            </div>
+                        </div>
+                        <br>
+                        <!-- Date Filter -->
+                        <div class="card">
+                            <div class="card-header" id="headingFour">
+                              <h5 class="mb-0">
+                                <button class="btn" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                  Date
+                                </button>
+                              </h5>
+                            </div>
+                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#filterdropdown">
+                              <div class="card-body">
+                                {{event_filter.form.event_start_date | bootstrap}}
+                                {{event_filter.form.event_end_date | bootstrap}}
+                              </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    <button class="btn btn-primary" type="submit" style="width:100px;">Search</button>
+                    <br><br>
                  </form>
               </div>
            </div>
