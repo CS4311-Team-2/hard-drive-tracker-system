@@ -25,6 +25,7 @@ class UserProfilesFilter(django_filters.FilterSet):
     def search_all_fields(self, queryset, name, value):
         return queryset.filter(
             Q(first_name__icontains=value) | Q(last_name__icontains=value) | Q(email__icontains=value) | Q(username__icontains=value) 
+            | Q(last_modified_date__icontains=value) | Q(direct_supervisor_email__icontains=value) | Q(branch_chief_email__icontains=value) | Q(status__icontains=value)
         )
 
 class RequestFilter(django_filters.FilterSet):
@@ -69,9 +70,19 @@ class HardDriveFilter(django_filters.FilterSet):
     hard_drive_size = django_filters.CharFilter(field_name="hard_drive_size", lookup_expr="icontains", label="Hard Drive Size")
     hard_drive_type = django_filters.CharFilter(field_name="hard_drive_type", lookup_expr="icontains", label="Hard Drive Type")
 
+    hard_drive_keyword = django_filters.CharFilter(method='search_all_hard_drive_fields',label="Hard Drive Keyword")
+
     class Meta:
         model = HardDrive
         fields = '__all__'
+
+    def search_all_hard_drive_fields(self, queryset, name, value):
+        return queryset.filter(
+            Q(create_date__icontains=value) | Q(issue_date__icontains=value)  | Q(modified_date__icontains=value) | Q(expected_hard_drive_return_date__icontains=value) | Q(boot_test_expiration__icontains=value) 
+            | Q(serial_number__icontains=value) | Q(image_version_id__icontains=value) |Q(manufacturer__icontains=value) | Q(model_number__icontains=value) | Q(connection_port__icontains=value) 
+            | Q(hard_drive_size__icontains=value) | Q(hard_drive_type__icontains=value) |Q(classification__icontains=value) | Q(justification_for_classification_change__icontains=value) | Q(hard_drive_image__icontains=value) 
+            | Q(boot_test_status__icontains=value) |Q(status__icontains=value) | Q(justification_for_hard_drive_status_change__icontains=value) | Q(justification_for_hard_drive_return_date__icontains=value)| Q(actual_return_date__icontains=value) 
+        )   
 
 class UserProfile(django_filters.FilterSet):
     first_name = django_filters.CharFilter(field_name="first_name", lookup_expr="icontains", label="First Name")
