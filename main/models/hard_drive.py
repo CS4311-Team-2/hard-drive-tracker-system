@@ -42,21 +42,21 @@ class HardDrive(models.Model):
     classification = models.CharField(max_length=50, choices=Classification.choices, 
                                         default=Classification.UNCLASSIFIED)
     # TODO(django): This field needs to be changed when the classification is changed. 
-    justification_for_classification_change = models.TextField(default='')
+    justification_for_classification_change = models.TextField(null=True, blank=True)
     # TODO(django): Need to limit this number at 4.     
     hard_drive_image = models.CharField(blank=True, max_length=100)
     image_version_id = models.CharField(max_length=100)
     boot_test_status = models.CharField(max_length=50, choices=BootTestStatus.choices, 
                                             default=BootTestStatus.PASS)
-    boot_test_expiration = models.DateField(default=timezone.now, blank=True )
+    boot_test_expiration = models.DateField(default=timezone.now)
 
     # The options to this field can be configured. 
     status = models.CharField(max_length=100, choices=Status.choices, default=Status.AVAILABLE)
-    justification_for_hard_drive_status_change = models.TextField(blank=True)
-    issue_date = models.DateField(blank=True)
-    expected_hard_drive_return_date = models.DateField(default=timezone.now, blank=True)
-    justification_for_hard_drive_return_date = models.TextField(blank=True)
-    actual_return_date = models.DateField(blank=True)
+    justification_for_hard_drive_status_change = models.TextField(null=True, blank=True)
+    issue_date = models.DateField(null=True, blank=True)
+    expected_hard_drive_return_date = models.DateField(null=True, blank=True)
+    justification_for_hard_drive_return_date = models.TextField(null=True, blank=True)
+    actual_return_date = models.DateField(null=True, blank=True)
     modified_date = models.DateField(default=timezone.now, blank=True)
     modifier = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE) 
     request = models.ForeignKey(Request, 
