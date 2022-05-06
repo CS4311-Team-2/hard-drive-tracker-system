@@ -74,6 +74,9 @@ class HardDriveForm(forms.ModelForm):
             choices=[ (o.name, str(o.name)) for o in HardDriveSize.objects.all()])
         self.fields['hard_drive_size'].widget.attrs = FORM_CONTROL
         self.fields['modifier'].required = False
+        self.fields['issue_date'].required = False
+        self.fields['serial_number'].required = True
+        self.fields['model_number'].required = True
     class Meta:
         model = HardDrive
         fields = ['create_date', 'serial_number','manufacturer', 'model_number', 'modified_date',  
