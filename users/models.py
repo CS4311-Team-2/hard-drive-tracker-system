@@ -19,5 +19,5 @@ class UserProfile(AbstractUser):
     status = models.CharField(max_length = 20, choices= Status.choices, default=Status.PENDING)
     last_modified_date = models.DateField(default=timezone.now, blank=True)
 
-    # Used only for a maintainer
+    # DEPRICATED 
     mock_group_is = models.CharField(max_length=20, choices=MockGroupIs.choices, default=MockGroupIs.MAINTAINER)
