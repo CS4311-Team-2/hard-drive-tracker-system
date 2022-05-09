@@ -10,7 +10,7 @@ from main.models.hard_drive_request import HardDriveRequest
 from main.models.request import Request
 from main.models.amendment import Amendment
 from users.models import UserProfile
-
+from django.contrib.auth.models import Group
 
 FORM_CONTROL = {'class':'form-control'}
 FORM_CONTROL_DATE = {'class':'form-control', 'type':'Date'}
@@ -44,6 +44,18 @@ class UserForm(forms.ModelForm):
         for field_name in self.fields:
             self.fields[field_name].widget.attrs = UNEDTIABLE
 
+class LoginUserForm(forms.ModelForm):
+
+    #group = forms.CharField(widget=forms.TextInput(attrs=FORM_CONTROL))
+    def __init__(self, *args, **kwargs):
+        super(LoginUserForm, self).__init__(*args, **kwargs)
+        self.fields['groups'] = forms.ChoiceField( 
+            choices=[ (o.name, str(o.name)) for o in Group.objects.all()])
+    class Meta:
+        model = UserProfile
+        # Not used. 
+        fields = ["groups"]
+
 class HardDriveForm(forms.ModelForm):
         # This does not refer to the acutal modifier field, used to dipslay the field in the template. 
     modifier = forms.CharField(widget=forms.TextInput(attrs=UNEDTIABLE))
@@ -62,6 +74,9 @@ class HardDriveForm(forms.ModelForm):
             choices=[ (o.name, str(o.name)) for o in HardDriveSize.objects.all()])
         self.fields['hard_drive_size'].widget.attrs = FORM_CONTROL
         self.fields['modifier'].required = False
+        self.fields['issue_date'].required = False
+        self.fields['serial_number'].required = True
+        self.fields['model_number'].required = True
     class Meta:
         model = HardDrive
         fields = ['create_date', 'serial_number','manufacturer', 'model_number', 'modified_date',  
@@ -184,14 +199,6 @@ class HardDriveSizeForm(forms.ModelForm):
 
         widgets = {
             'name' : forms.TextInput(attrs={'class': 'form-control'}),
-        }
-
-class LoginUserForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields =['mock_group_is']
-        widgets = {
-            'mock_group_is': forms.Select(attrs=FORM_CONTROL)
         }
 
 class RequestForm(forms.ModelForm):

@@ -258,6 +258,12 @@ def create_user_profile(request):
 @group_required('Maintainer')
 def add_hard_drive(http_request):
     form = HardDriveForm()
+    form.fields['justification_for_classification_change'].required = False
+    form.fields['hard_drive_image'].required = True
+    form.fields['boot_test_expiration'].required = True
+    form.fields['serial_number'].required = True
+    form.fields['model_number'].required = True
+
     if (http_request.method == 'POST'):
         form = HardDriveForm(http_request.POST)
         if form.is_valid():

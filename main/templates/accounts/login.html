@@ -81,7 +81,10 @@
                                             <label for="password">Password<span>*</span></label><br/>
                                             <input type="password" name="password" placeholder="Password">
                                         </div>
-                                        <br>
+                                        <div class="form-group">
+                                            <label>Select Role </label>
+                                            {{form.groups}}
+                                        </div>
                                         <div class="row">
                                             <div class="col-1">
                                                 <button type="submit" class="btn btn-primary">Log In</button>
@@ -92,29 +95,14 @@
                                             <div class="col-1">
                                                 <button type= "button" class="btn btn-primary" onclick="location.href= {% url 'main:register' %}">Sign Up</button>
                                             </div>
-                                        </div>
-                                            
-                                            <br>
-                                            <br>
-                                            <br>
+                                        </div>                                    
                                     </form>
                                     {% for message in messages %}
                                         <p id="messages">{{message}}</p>
                                     {% endfor %} 
                                     <br>
                                     
-                                </div> 
-                                
-                                
+                                </div>        
                             </div>
-                            {% if show_menu %}
-                                <form method="POST" action="">
-                                    {% csrf_token %}
-                                    <div class="form-group">
-                                        <label>Select User </label>
-                                        {{form.mock_group_is}}
-                                        <input class="btn btn-primary" type="submit" value="Select">
-                                    </div>
-                                </form>
-                            {% endif %}
+                            </form>
                     </body>
