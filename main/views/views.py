@@ -14,6 +14,7 @@ from django.contrib.auth.models import Group
 from django.http import Http404
 
 from users.models import UserProfile
+from main.models.log import Log
 from main.filters import UserProfilesFilter
 
 from main.views.util import is_in_groups
@@ -205,14 +206,13 @@ def audi_view_all_users(request):
     print("Error Error at audi_view_all_users")
 
 @login_required(login_url='main:login')
+# This is for an individual user. 
 def view_profile(request):
     user = UserProfile.objects.get(username=request.user.username)
-    form = CreateUserForm(instance=user)
-    form.make_all_readonly()
+    return maintainer.view_user_profile(request, user.pk)
 
-    return render(request, "maintainer/view_profile.html", {"form":form})
-
-# Util functions, only used to mock a maintainer. 
+# Util functions, only used to mock a maintainer. No longer in use. 
+# This type of checking has no use!
 def is_maintainer(request):
     print(request.user.username)
     user = UserProfile.objects.get(username=request.user.username)
@@ -220,6 +220,7 @@ def is_maintainer(request):
     print(user.mock_group_is == UserProfile.MockGroupIs.MAINTAINER)
     return (user.mock_group_is == UserProfile.MockGroupIs.MAINTAINER) and (user.groups.filter(name='Maintainer').exists())
 
+# No longer in use
 def is_maintainer_requestor(request):
     user = UserProfile.objects.get(username=request.user.username)
     print(user.groups.filter(name='Maintainer').exists())

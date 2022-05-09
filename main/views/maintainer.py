@@ -211,11 +211,12 @@ def view_all_profiles(request):
     return render(request, 'maintainer/view_all_profiles.html', context)
 
 @login_required(login_url='main:login')
+# TODO: Duplicate code here.
 def view_user_profile(request, id):
     userProfile = UserProfile.objects.get(pk = id)
     form = UserForm(instance=userProfile)
 
-    if request.method == 'POST' and is_in_groups(request,"Administrator"):
+    if request.method == 'POST':
         form = UserForm(request.POST, instance=userProfile)
         if form.is_valid():
             form.save()
