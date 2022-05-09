@@ -1,0 +1,21 @@
+<div id="direct-supervisor">
+
+    {% for direct_supervisor in direct_supervisors %}
+        
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{direct_supervisor.name}}
+
+            <span
+                class = "badge badge-danger badge-pill"
+                style="cursor: pointer;"
+                hx-delete="{% url 'main:delete-direct-supervisor' direct_supervisor.pk %}"
+                hx-target="#direct-supervisor"
+                hx-confirm="Are you sure you want to delete this size?"
+                >
+                X
+            </span>
+        </li>
+        
+    {% endfor %}
+
+</div>

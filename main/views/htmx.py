@@ -128,21 +128,24 @@ def direct_supervisor(request):
     form = DirectSupervisorForm(request.POST)
     if form.is_valid():
         form.save()
-    hard_drive_size = DirectSupervisor.objects.all()
+    direct_supervisor = DirectSupervisor.objects.all()
     context = {
-        "hard_drive_size" : hard_drive_size,
+        "direct_supervisors" : direct_supervisor,
     }
-    return render(request, 'components/hard_drive_size.html', context)
+    return render(request, 'components/direct_supervisor.html', context)
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')
 def delete_direct_supervisor(request, pk):
-    HardDriveSize.objects.get(pk = pk).delete()
-    hard_drive_size = HardDriveSize.objects.all()
+    DirectSupervisor.objects.get(pk = pk).delete()
+    form = DirectSupervisorForm(request.POST)
+    if form.is_valid():
+        form.save()
+    direct_supervisor = DirectSupervisor.objects.all()
     context = {
-        "hard_drive_size" : hard_drive_size,
+        "direct_supervisors" : direct_supervisor,
     }
-    return render(request, 'components/hard_drive_size.html', context)
+    return render(request, 'components/direct_supervisor.html', context)
 
 @login_required(login_url='main:login')
 @group_required('Maintainer')

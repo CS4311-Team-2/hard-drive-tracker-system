@@ -101,6 +101,26 @@
                 </button>
             </li>
     </form>
+
+    <br>
+    <br>
+    <h3>Direct Supervisor</h3>
+    <form method="POST" action="{% url 'main:configuration' %}" id="direct-supervisor-form">
+        {% csrf_token %}
+            {% include 'components/direct_supervisor.html' %}
+            
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{direct_supervisor_form.name}}
+                <button
+                    class="btn btn-success"
+                    hx-post="{% url 'main:direct_supervisor' %}" 
+                    hx-target="#direct-supervisor"
+                    hx-swap="outerHTML" 
+                    >
+                    Add Branch Chief
+                </button>
+            </li>
+    </form>
 </ul>
 
 {% endblock %}
