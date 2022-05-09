@@ -1,11 +1,12 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
-from main.forms import HardDriveTypeForm, HardDriveManufacturersForm, HardDriveConnectionPortsForm, HardDriveSizeForm, EventForm, RequestForm
+from main.forms import HardDriveTypeForm, HardDriveManufacturersForm, HardDriveConnectionPortsForm, HardDriveSizeForm, EventForm, RequestForm, BranchChiefForm, DirectSupervisorForm
 from main.views.decorators import group_required
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
 from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
+from main.models.configurations.emails_configs import BranchChief, DirectSupervisor
 from main.models.configurations.hard_drive_size import HardDriveSize
 from main.models.hard_drive import HardDrive
 from main.models.request import Request
@@ -91,6 +92,51 @@ def hard_drive_size(request):
 @login_required(login_url='main:login')
 @group_required('Maintainer')
 def delete_hard_drive_size(request, pk):
+    HardDriveSize.objects.get(pk = pk).delete()
+    hard_drive_size = HardDriveSize.objects.all()
+    context = {
+        "hard_drive_size" : hard_drive_size,
+    }
+    return render(request, 'components/hard_drive_size.html', context)
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def branch_chief(request):
+    print("Hello")
+    form = BranchChiefForm(request.POST)
+    if form.is_valid():
+        form.save()
+    branch_chief = BranchChief.objects.all()
+    context = {
+        "branch_chiefs" : branch_chief,
+    }
+    return render(request, 'components/branch_chief.html', context)
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def delete_branch_chief(request, pk):
+    BranchChief.objects.get(pk = pk).delete()
+    branch_chief = BranchChief.objects.all()
+    context = {
+        "branch_chiefs" : branch_chief,
+    }
+    return render(request, 'components/branch_chief.html', context)
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def direct_supervisor(request):
+    form = DirectSupervisorForm(request.POST)
+    if form.is_valid():
+        form.save()
+    hard_drive_size = DirectSupervisor.objects.all()
+    context = {
+        "hard_drive_size" : hard_drive_size,
+    }
+    return render(request, 'components/hard_drive_size.html', context)
+
+@login_required(login_url='main:login')
+@group_required('Maintainer')
+def delete_direct_supervisor(request, pk):
     HardDriveSize.objects.get(pk = pk).delete()
     hard_drive_size = HardDriveSize.objects.all()
     context = {

@@ -48,6 +48,12 @@ urlpatterns = [
     path('approve_request/', htmx.approve_request, name="approve_request"),
     path('fulfill_request/', htmx.fulfill_request, name="fulfill_request"),
 
+    path('branch_chief/', htmx.branch_chief, name = "branch_chief"), 
+    path('delete-branch-chief/<int:pk>/', htmx.delete_branch_chief, name="delete-branch-chief"),
+    
+    path('direct_supervisor/', htmx.direct_supervisor, name = "direct_supervisor"), 
+    path('delete-direct-supervisor/<int:pk>/', htmx.delete_direct_supervisor, name="delete-direct-supervisor"), 
+
     #TODO: We can prolly just reuse the maintainer homepage
     path('auditor/', views.auditor.home, name='home'),    
 ]

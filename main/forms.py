@@ -5,6 +5,7 @@ from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
 from main.models.configurations.hard_drive_connection_ports import HardDriveConnectionPorts
 from main.models.configurations.hard_drive_size import HardDriveSize
+from main.models.configurations.emails_configs import BranchChief, DirectSupervisor
 from main.models.event import Event
 from main.models.hard_drive_request import HardDriveRequest
 from main.models.request import Request
@@ -164,6 +165,32 @@ class HardDriveRequestForm(forms.ModelForm):
 class HardDriveTypeForm(forms.ModelForm):
     class Meta:
         model = HardDriveType
+        fields =['name']
+
+        widgets = {
+            'name' : forms.TextInput(attrs={'class': 'form-control'}),
+        }
+    def make_all_readonly(self):
+        # TODO: This functions is duplicated, find way to only do it once. 
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs = UNEDTIABLE
+
+class BranchChiefForm(forms.ModelForm):
+    class Meta:
+        model = BranchChief
+        fields =['name']
+
+        widgets = {
+            'name' : forms.TextInput(attrs={'class': 'form-control'}),
+        }
+    def make_all_readonly(self):
+        # TODO: This functions is duplicated, find way to only do it once. 
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs = UNEDTIABLE
+
+class DirectSupervisorForm(forms.ModelForm):
+    class Meta:
+        model = DirectSupervisor
         fields =['name']
 
         widgets = {

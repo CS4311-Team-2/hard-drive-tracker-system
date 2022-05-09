@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
 from main.forms import CreateUserForm, HardDriveConnectionPortsForm, HardDriveTypeForm, HardDriveManufacturersForm, UserForm, HardDriveSizeForm, AmendmentForm
-from main.forms import EventForm, RequestForm
+from main.forms import EventForm, RequestForm, DirectSupervisorForm, BranchChiefForm
 from main.views.decorators import group_required
 from main.models.hard_drive import HardDrive
 from main.models.hard_drive_request import HardDriveRequest
@@ -16,6 +16,7 @@ from main.forms import HardDriveForm
 from main.models.configurations.hard_drive_type import HardDriveType
 from main.models.configurations.hard_drive_size import HardDriveSize
 from main.models.configurations.hard_drive_manufacturers import HardDriveManufacturers
+from main.models.configurations.emails_configs import BranchChief, DirectSupervisor
 from main.filters import HardDriveFilter, RequestFilter, EventFilter, LogFilter
 from users.models import UserProfile 
 from main.filters import UserProfilesFilter
@@ -310,6 +311,8 @@ def configuration(request):
     hard_drive_manufacturers = HardDriveManufacturers.objects.all()
     hard_drive_connection_ports = HardDriveConnectionPorts.objects.all()
     hard_drive_size = HardDriveSize.objects.all()
+    branch_cheif = BranchChief.objects.all()
+    direct_supervisor = DirectSupervisor.objects.all()
     context = {
         "hard_drive_types" : hard_drive_types,
         "hard_drive_types_form" : HardDriveTypeForm(),
@@ -318,7 +321,11 @@ def configuration(request):
         "hard_drive_connection_ports": hard_drive_connection_ports,
         "hard_drive_connection_port_form": HardDriveConnectionPortsForm(),
         "hard_drive_sizes":hard_drive_size, 
-        "hard_drive_size_form":HardDriveSizeForm() 
+        "hard_drive_size_form":HardDriveSizeForm(),
+        "branch_cheif": branch_cheif, 
+        "branch_chief_form":BranchChiefForm(),
+        "direct_supervisor": direct_supervisor,
+        "direct_supervisor_form":DirectSupervisorForm()
         }
     return render(request, 'maintainer/configuration.html', context)
 

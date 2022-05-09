@@ -1,0 +1,21 @@
+<div id="branch-chief">
+
+    {% for branch_chief in branch_chiefs %}
+        
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{branch_chief.name}}
+
+            <span
+                class = "badge badge-danger badge-pill"
+                style="cursor: pointer;"
+                hx-delete="{% url 'main:delete-branch-chief' branch_chief.pk %}"
+                hx-target="#branch-chief"
+                hx-confirm="Are you sure you want to delete this email?"
+                >
+                X
+            </span>
+        </li>
+        
+    {% endfor %}
+
+</div>
