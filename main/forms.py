@@ -21,9 +21,17 @@ UNEDTIABLE_DATE = {**FORM_CONTROL, **{'readonly': 'readonly'}}
 # TODO: If possible we need to combine these forms
 # Used for only Maintainers creating an account
 class CreateUserForm(UserCreationForm):
+
+    def __init__(self, *args, **kwargs):
+        super(CreateUserForm, self).__init__(*args, **kwargs)
+        self.fields['branch_chief_email'] = forms.ChoiceField(
+            choices=[ (o.name, str(o.name)) for o in BranchChief.objects.all()])
+        self.fields['direct_supervisor_email'] = forms.ChoiceField(
+            choices=[ (o.name, str(o.name)) for o in DirectSupervisor.objects.all()])
     class Meta:
         model = UserProfile
-        fields =['first_name','last_name','username','groups', 'status', 'email','direct_supervisor_email', 'branch_chief_email', 'password1', 'password2']
+        fields =['first_name','last_name','username','groups', 'status', 'email',
+            'direct_supervisor_email', 'branch_chief_email', 'password1', 'password2']
 
     def make_all_readonly(self):
         for field_name in self.fields:
@@ -37,9 +45,17 @@ class CreateUserFormUser(UserCreationForm):
 
 
 class UserForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.fields['branch_chief_email'] = forms.ChoiceField(
+            choices=[ (o.name, str(o.name)) for o in BranchChief.objects.all()])
+        self.fields['direct_supervisor_email'] = forms.ChoiceField(
+            choices=[ (o.name, str(o.name)) for o in DirectSupervisor.objects.all()])
     class Meta:
         model = UserProfile
-        fields =['first_name','last_name','email','username','groups', 'status', 'last_modified_date','direct_supervisor_email', 'branch_chief_email']
+        fields =['first_name','last_name','email','username','groups',
+            'status', 'last_modified_date','direct_supervisor_email', 'branch_chief_email']
         
     def make_all_readonly(self):
         for field_name in self.fields:
