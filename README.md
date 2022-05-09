@@ -1,39 +1,24 @@
 # Hard Drive Tracker System
-LETS EAT
 
-## Contributions
+## Development
 
-Never push to the main. Always create pull requests. 
+### How to Run
 
-### Before Working
-
-* Make sure your repo is synced.
-* Make sure you create a new branch.
-* Run the commands:
+* We recommend developers use python 3.9 and above to run and add to the repo.
+* We used [Django](https://www.djangoproject.com/start/overview/) to build the HDTS. 
+* Once python is installed please create a [python environment](https://docs.python.org/3/library/venv.html).
+* The repo uses various dependecies, for the system to succesfully run please run the following command:
 ```
 pip install -r requirements.txt
 ```
-
-### During Work tips 
-* Commit often. If you mess something up you can revert to the previous commit using the command. <B>This can also work if you accidently work on the main rather than a seperate branch</b>.
+* You can also manually install each dependency using pip tools. 
+* Finally to run the program run the command:
 ```
-git reset --hard head
-```  
-
-
-* Keep your branch updated, if you are working in your branch and notice that the main is getting ahead to add the main additions to your branch
+python manage.py runserver
 ```
-git fetch
-git merge origin/main
-```  
 
-### After Work
+Below contains additonally information for the database. 
 
-* Once all your commits are in place, its best practice to go to the <B>main branch</b> and pull any new changes. Then merge these changes with your <b>working branch</b>. 
-* Once all merge conflicts are resolved, and you're completely synced with <b>main repo</b> you can run the command(make sure you are in the top level directory):
-```
-pip freeze > requirements.txt
-```
 
 ## Database
 
@@ -67,4 +52,40 @@ python manage.py updatemodels
 * Run this command to create an admin user in your database and have access to all the model data at once in your computer.
 ```
 python manage.py createsuperuser
+```
+
+These users are used for Django Admin purposes. 
+
+## Contributions
+
+Never push to the main. Always create pull requests. 
+
+### Before Working
+
+* Make sure your repo is synced.
+* Make sure you create a new branch.
+* Run the commands:
+```
+pip install -r requirements.txt
+```
+
+### During Work tips 
+* Commit often. If you mess something up you can revert to the previous commit using the command. <B>This can also work if you accidently work on the main rather than a seperate branch</b>.
+```
+git reset --hard head
+```  
+
+
+* Keep your branch updated, if you are working in your branch and notice that the main is getting ahead to add the main additions to your branch
+```
+git fetch
+git merge origin/main
+```  
+
+### After Work
+
+* Once all your commits are in place, its best practice to go to the <B>main branch</b> and pull any new changes. Then merge these changes with your <b>working branch</b>. 
+* Once all merge conflicts are resolved, and you're completely synced with <b>main repo</b> you can run the command(make sure you are in the top level directory):
+```
+pip freeze > requirements.txt
 ```
